@@ -11,20 +11,20 @@ import javax.persistence.*;
 @Data
 @Builder
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "t_user")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String username;
     private String nickname;
     private String password;
     @Column(name = "clz_id")
-    private int clzId;
+    private Integer clzId;
     @Column(name = "clz_name")
     private String clzName;
 

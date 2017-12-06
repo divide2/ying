@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class UserServiceTest {
     @Autowired
-    private UserService userService;
+    private IUserService userService;
     @Test
     public void somce() throws Exception {
         userService.somce();

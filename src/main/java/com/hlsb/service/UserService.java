@@ -1,23 +1,24 @@
 package com.hlsb.service;
 
-import com.hlsb.model.User;
 import com.hlsb.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
 
 /**
  * Created by bvvy on 2017/12/4.
  * com.hlsb.service
  */
-@Service
-public class UserService {
+@Service("userServiceImpl")
+public class UserService implements IUserService{
 
-
-    @Autowired
+    @Resource
     private UserRepository userRepository;
 
+
+    @Override
     public void somce() {
-        userRepository.someCustomMethod(new User());
+        userRepository.someCustomMethod("");
     }
 
 }

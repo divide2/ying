@@ -19,7 +19,8 @@ public class UserServiceTest {
     private IUserService userService;
     @Test
     public void somce() throws Exception {
-        userService.somce();
+        userService.somce().forEach(System.out::println);
+
     }
 
 }

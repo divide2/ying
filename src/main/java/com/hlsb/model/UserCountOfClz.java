@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCountOfClz {
-    private long userNum;
-    private int clzId;
+    private Long userNum;
+    private Integer clzId;
     private String clzName;
 }

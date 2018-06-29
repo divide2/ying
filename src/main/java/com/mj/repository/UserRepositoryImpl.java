@@ -4,6 +4,7 @@ package com.mj.repository;
 import com.mj.model.QUser;
 import com.mj.model.UserCountOfClz;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.slf4j.Logger;
@@ -16,12 +17,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by bvvy on 2017/12/4.
+ * @author bvvy
+ * @date 2017/12/4
+ *
+ * repo
  */
 @Repository
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserRepositoryImpl.class);
     @Autowired
     private EntityManager entityManager;
 

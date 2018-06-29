@@ -5,14 +5,15 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * Created by bvvy on 2017/12/3.
+ *
+ * @author bvvy
+ * @date 2017/12/3
  */
 @Entity
 @Table(name = "t_user")
 @Data
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
 
     @Id

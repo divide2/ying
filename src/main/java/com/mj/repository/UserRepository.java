@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 /**
- * Created by bvvy on 2017/12/4.
- * com.mj.repo
+ *
+ * @author bvvy
+ * @date 2017/12/4
  */
 public interface UserRepository extends
         UserRepositoryCustom,

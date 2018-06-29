@@ -8,11 +8,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Created by bvvy on 2017/12/4.
+ *
+ * @author bvvy
+ * @date 2017/12/4
  * com.mj.service
  */
 @Service("userServiceImpl")
-public class UserService implements IUserService{
+public class UserServiceImpl implements IUserService{
 
     @Resource
     private UserRepository userRepository;

@@ -1,7 +1,7 @@
-package com.hlsb.service;
+package com.mj.service;
 
-import com.hlsb.model.UserCountOfClz;
-import com.hlsb.repository.UserRepository;
+import com.mj.model.UserCountOfClz;
+import com.mj.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * Created by bvvy on 2017/12/4.
- * com.hlsb.service
+ * com.mj.service
  */
 @Service("userServiceImpl")
 public class UserService implements IUserService{

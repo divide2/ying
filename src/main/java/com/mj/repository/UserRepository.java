@@ -1,23 +1,17 @@
-package com.hlsb.repository;
+package com.mj.repository;
 
-import com.hlsb.model.QUser;
-import com.hlsb.model.User;
-import com.querydsl.core.types.dsl.StringExpression;
-import com.querydsl.core.types.dsl.StringPath;
+import com.mj.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
-import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
-import org.springframework.data.querydsl.binding.QuerydslBindings;
-import org.springframework.data.querydsl.binding.SingleValueBinding;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 /**
  * Created by bvvy on 2017/12/4.
- * com.hlsb.repo
+ * com.mj.repo
  */
 public interface UserRepository extends
         UserRepositoryCustom,
         JpaRepository<User, Integer>,
-        QueryDslPredicateExecutor<User>
+        QuerydslPredicateExecutor<User>
         {
 /*
     @Override

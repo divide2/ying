@@ -1,14 +1,13 @@
-package com.hlsb.model;
+package com.mj.model;
 
 import lombok.*;
 
 /**
  * Created by bvvy on 2017/12/3.
- * com.hlsb.model
+ * com.mj.model
  */
 @Data
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserCountOfClz {

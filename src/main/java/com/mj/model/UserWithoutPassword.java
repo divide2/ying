@@ -1,6 +1,5 @@
-package com.hlsb.model;
+package com.mj.model;
 
-import com.sun.tracing.dtrace.ArgsAttributes;
 import lombok.*;
 
 /**

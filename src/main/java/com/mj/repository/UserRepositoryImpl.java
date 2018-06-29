@@ -1,14 +1,10 @@
-package com.hlsb.repository;
+package com.mj.repository;
 
 
-import com.hlsb.model.QUser;
-import com.hlsb.model.UserCountOfClz;
+import com.mj.model.QUser;
+import com.mj.model.UserCountOfClz;
 import com.querydsl.core.Tuple;
-import com.querydsl.core.types.CollectionExpression;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.dsl.NumberExpression;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +29,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public List<UserCountOfClz> someCustomMethod() {
         QUser qUser = QUser.user;
         JPAQuery<UserCountOfClz> query = new JPAQuery<>(entityManager);
-        List<Tuple> users = query.select(NumberExpression.sz    .as("userNum"), qUser.clzId, qUser.clzName)
+        List<Tuple> users = query.select(qUser.count().as("userNum"), qUser.clzId, qUser.clzName)
                 .from(qUser)
                 .groupBy(qUser.clzId).fetch();
 

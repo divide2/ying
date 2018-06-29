@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- *
  * @author bvvy
  * @date 2017/12/3
  */

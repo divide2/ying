@@ -11,9 +11,25 @@
 #spring.jpa.database-platform=org.hibernate.dialect.MySQLDialect
 #
 #logging.level.com.mj = debug
+server:
+  port: 11111
 spring:
+  jpa:
+    database-platform: POSTGRESQL
+    database: postgresql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
   datasource:
-    url:
-    username:
-    password:
-    driver-class-name: com.mysql.jdbc.Driver
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: bvvyeh288
+    url: jdbc:postgresql://localhost:5432/grocery
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss

@@ -33,3 +33,13 @@ spring:
     url: jdbc:postgresql://localhost:5432/grocery
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:12222/user
+logging:
+  level:
+    org:
+      springframework:
+       web: debug
+       security: debug

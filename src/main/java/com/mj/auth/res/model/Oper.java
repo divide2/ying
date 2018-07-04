@@ -1,4 +1,4 @@
-package com.mj.auth.user.model;
+package com.mj.auth.res.model;
 
 import lombok.Data;
 
@@ -7,16 +7,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Data
 @Entity
-@Table(name = "sys_role")
-public class Role {
+@Table(name = "sys_oper")
+@Data
+public class Oper {
 
-    public static final String PRINCIPAL = "ROLE";
+    public static final String RES_TYPE = "OPER";
 
     @Id
     @GeneratedValue
     private Integer id;
-    private String code;
     private String name;
+    private String path;
+    private String method;
 }

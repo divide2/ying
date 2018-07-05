@@ -5,6 +5,9 @@ import com.mj.core.data.tree.TreeMerger;
 
 import java.util.List;
 
+/**
+ * @author bvvy
+ */
 public class MenuRepositoryImpl implements MenuRepositoryCustom {
 
     @Override

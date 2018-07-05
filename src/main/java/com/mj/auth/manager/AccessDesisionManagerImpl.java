@@ -8,6 +8,9 @@ import org.springframework.security.core.Authentication;
 
 import java.util.Collection;
 
+/**
+ * @author bvvy
+ */
 public class AccessDesisionManagerImpl implements AccessDecisionManager {
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {

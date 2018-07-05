@@ -2,8 +2,10 @@ package com.mj.biz.demo.controller;
 
 import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.service.StudentService;
-import com.mj.biz.demo.to.StudentTO;
+import com.mj.biz.demo.dto.StudentDTO;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
+import com.mj.core.data.resp.Messager;
+import com.mj.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +28,12 @@ public class StudentController {
 
     @PostMapping("/")
     @ApiOperation("添加学生")
-    public ResponseEntity<Conflict> add(@RequestBody StudentTO studentTO, BindingResult br) {
-        if (br.hasErrors()) {
-            return ResponseEntity.status(417).body(new Conflict(br.getAllErrors().toString()));
-        }
-        Student student = Student.builder().name(studentTO.getName())
-                .gender(studentTO.getGender())
-                .clazzId(studentTO.getClazzId()).build();
+    public ResponseEntity<Messager> add(@RequestBody StudentDTO studentDTO, BindingResult br) {
+        Student student = Student.builder().name(studentDTO.getName())
+                .gender(studentDTO.getGender())
+                .clazzId(studentDTO.getClazzId()).build();
         studentService.add(student);
-        return ResponseEntity.status(201).body(new Conflict("成功了"));
+        return Responser.created();
     }
 
     @ApiOperation("获取有班级的学生信息")

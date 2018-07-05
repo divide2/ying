@@ -44,7 +44,7 @@ public class Swagger2Config  {
                                 .parameterType("query")
                                 .required(true)
                                 .build()))
-                .tags(new Tag("Pet Service", "All apis relating to pets"))
+                .tags(new Tag("Pet Service", "All apis relating dto pets"))
 //                .additionalModels(typeResolver.resolve(AdditionalModel.class))
                 ;
     }

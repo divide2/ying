@@ -1,9 +1,12 @@
-package com.mj.auth.user.to;
+package com.mj.auth.user.dto;
 
 import lombok.Data;
 
+/**
+ * @author bvvy
+ */
 @Data
-public class JoinTO {
+public class JoinDTO {
     private String password;
     private String account;
 }

@@ -1,4 +1,4 @@
-package com.mj.biz.demo.to;
+package com.mj.biz.demo.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,7 @@ import javax.validation.constraints.Min;
  */
 @Data
 @ApiModel(value = "学生", description = "学生信息")
-public class StudentTO {
+public class StudentDTO {
     @ApiModelProperty("学生姓名")
     @Length(min = 2, max = 4)
     private String name;

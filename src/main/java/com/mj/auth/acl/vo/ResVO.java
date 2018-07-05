@@ -2,6 +2,9 @@ package com.mj.auth.acl.vo;
 
 import lombok.Data;
 
+/**
+ * @author bvvy
+ */
 @Data
 public class ResVO {
 

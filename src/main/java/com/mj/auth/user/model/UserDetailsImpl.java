@@ -7,6 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * @author bvvy
+ *
+ * spring seecurity userdetails
+ */
 @Data
 @Builder
 public class UserDetailsImpl implements UserDetails {

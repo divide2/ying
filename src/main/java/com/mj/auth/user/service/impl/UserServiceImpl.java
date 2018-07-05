@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author bvvy
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -28,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getByUsername(String phone) {
-        return userRepository.getByUsername(phone);
+    public User getByUsername(String username) {
+        return userRepository.getByUsername(username);
     }
 
 

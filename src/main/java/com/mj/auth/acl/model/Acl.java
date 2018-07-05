@@ -2,6 +2,13 @@ package com.mj.auth.acl.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
+/**
+ * @author bvvy
+ *
+ *
+ */
 @Entity
 @Table(name = "sys_acl")
 @Data

@@ -1,0 +1,27 @@
+[tree,filedir,png]
+----
+com
+|-- mj
+|   |-- module
+|   |   `-- function
+|   |        |-- model
+|   |        |-- repo
+|   |        |-- service
+|   |        |-- vo
+|   |        |-- to
+|   |        `-- controller
+|   |-- core
+|       |-- data
+|       |-- config
+----
+
+[tree,repo,png]
+----
+repo
+|-- DemoRepostory.java
+|-- custom
+|   |-- DemoRepostiroyCustom.java
+|-- impl
+|   |-- DemoRepostoryImpl.java
+----
+

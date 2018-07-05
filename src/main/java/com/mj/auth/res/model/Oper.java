@@ -7,6 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * @author bvvy
+ *
+ * 系统操作
+ */
 @Entity
 @Table(name = "sys_oper")
 @Data

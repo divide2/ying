@@ -1,0 +1,32 @@
+:toc:
+:sectnums:
+
+= 编码规范
+
+Doc Writer <bvvy@qq.com>
+v1.0, 2013-01-01
+
+
+== 规范
+
+=== 总体文件夹结构
+
+image::docs/images/filedir.png[]
+
+=== repo
+
+image::docs/images/repo.png[]
+
+1. 存放与数据库访问相关的类
+2. 存放连表相关的类
+3. 实现连表部分的类
+
+=== service相关
+
+1. service 中的错误处理统一抛出异常信息 不返回到controller中处理
+
+=== controller相关
+
+1.
+
+=== 其他

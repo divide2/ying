@@ -2,6 +2,9 @@ package com.mj.core.data.tree;
 
 import lombok.Data;
 
+/**
+ * @author bvvy
+ */
 @Data
 public class TreeMerger<ID, P> {
     private ID id;

@@ -5,6 +5,9 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 
 import java.util.Collection;
 
+/**
+ * @author bvvy
+ */
 public class InvocationSecurityMetadataSourceServiceImpl implements FilterInvocationSecurityMetadataSource {
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {

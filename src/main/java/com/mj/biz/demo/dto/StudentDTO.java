@@ -6,6 +6,8 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -22,6 +24,7 @@ public class StudentDTO {
     @ApiModelProperty("学生性别")
     private String gender;
 
+    @NotEmpty
     @ApiModelProperty("学生班级")
     @Min(0)
     private Integer clazzId;

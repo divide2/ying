@@ -1,12 +1,12 @@
 server:
-  port: 11111
+  port: 8090
 spring:
   jpa:
-    database-platform: POSTGRESQL
-    database: postgresql
+    database-platform: MYSQL
+    database: mysql
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.MySQL5Dialect
         jdbc:
           lob:
             non_contextual_creation: true
@@ -14,16 +14,16 @@ spring:
       ddl-auto: update
     show-sql: true
   datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: bvvyeh288
-    url: jdbc:postgresql://localhost:5432/grocery
+    driver-class-name: com.mysql.jdbc.Driver
+    username: test2018
+    password: mj2018!@#
+    url: jdbc:mysql://120.79.32.147:3306/columbu
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:12222/user
+      user-info-uri: http://localhost:8090/user
 logging:
   level:
     org:

@@ -2,6 +2,8 @@ package com.mj.auth.acl.model;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Entity
 @Table(name = "sys_acl")
 @Data

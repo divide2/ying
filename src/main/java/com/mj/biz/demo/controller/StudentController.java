@@ -43,6 +43,15 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getWithClazzName(stuId));
     }
 
+    @PatchMapping
+    public void update() {
 
+    }
+
+
+    @DeleteMapping
+    public void delete() {
+
+    }
 }
 

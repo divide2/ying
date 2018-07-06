@@ -17,6 +17,22 @@ image::docs/images/filedir.png[]
 
 image::docs/images/repo.png[]
 
+[plantuml,repo,png]
+--
+!pragma graphviz_dot jdot
+interface DemoRepositoryCustom {
+    void someCustomMethod()
+}
+interface DemoRepostory 
+class DemoRepositoryImpl {
+    EntityManager entityManager
+    void someCustomMethod()
+}
+
+DemoRepositoryCustom <|-- DemoRepostory
+DemoRepositoryCustom <|-- DemoRepositoryImpl
+--
+
 1. DemoRepository实现JpaRepository 和 RepositoryCustom存放与当前表的操作方法
 2. Costom里面主要连表部分的方法和需要多条件模糊查询的方法
 3. Impl实现Custom
@@ -26,6 +42,22 @@ image::docs/images/repo.png[]
 1. service 中的错误处理统一抛出异常信息 不返回到controller中处理
 
 === controller相关
+
+[source,java]
+--
+    @PostMapping
+    public ResponseEntity<Messager> add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
+        Menu menu = Menu.builder()
+                .enabled(menuAddDTO.getEnabled())
+                .name(menuAddDTO.getName())
+                .orderNum(menuAddDTO.getOrderNum())
+                .path(menuAddDTO.getPath())
+                .pid(menuAddDTO.getPid())
+                .build();
+        menuService.add(menu);
+        return Responser.created();
+    }
+--
 1. 在类上使用@RestController 不用使用@Controller
 2. 在方法上使用PostMapping GetMapping DeleteMapping PatchMapping
 不能使用@RequestMapping

@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author bvvy
  * 菜单contorller
@@ -27,7 +29,7 @@ public class MenuController {
     }
 
     @PostMapping
-    public ResponseEntity<Messager> add(@RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
+    public ResponseEntity<Messager> add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
         Menu menu = Menu.builder()
                 .enabled(menuAddDTO.getEnabled())
                 .name(menuAddDTO.getName())

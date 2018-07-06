@@ -4,50 +4,25 @@ import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.repo.StudentRepository;
 import com.mj.biz.demo.service.StudentService;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
+import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @author bvvy
  */
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl extends SimpleBasicServiceImpl<Student, Integer, StudentRepository> implements StudentService {
 
-    @Autowired
-    private  StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
-
-    @Override
-    public void add(Student student) {
-        studentRepository.save(student);
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    @Override
-    public void update(Student student) {
-        studentRepository.save(student);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        studentRepository.deleteById(id);
-    }
 
     @Override
     public StudentWithClazzNameVO getWithClazzName(Integer id) {
         return studentRepository.getWithClazzName(id);
     }
 
-    @Override
-    public List<Student> findAll() {
-        return studentRepository.findAll();
-    }
-
-
-    @Override
-    public Iterable<Student> page(Pageable pageable) {
-        return studentRepository.findAll(pageable);
-    }
 }

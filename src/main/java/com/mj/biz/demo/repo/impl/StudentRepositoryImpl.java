@@ -6,7 +6,6 @@ import com.mj.biz.demo.model.QStudent;
 import com.mj.biz.demo.repo.custom.StudentRepositoryCustom;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -21,8 +20,11 @@ import static com.querydsl.core.types.Projections.constructor;
 @Repository
 public class StudentRepositoryImpl implements StudentRepositoryCustom {
 
-    @Autowired
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    public StudentRepositoryImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public StudentWithClazzNameVO getWithClazzName(Integer id) {

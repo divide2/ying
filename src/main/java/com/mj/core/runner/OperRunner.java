@@ -43,7 +43,6 @@ public class OperRunner implements CommandLineRunner {
             Oper oper = new Oper();
             oper.setName(k.getName());
             Set<RequestMethod> methods = k.getMethodsCondition().getMethods();
-            System.out.println(k.getPatternsCondition().getPatterns());
             Set<String> patterns = k.getPatternsCondition().getPatterns();
             oper.setPath(patterns.stream().collect(joining(Punctuation.VERTICAL)));
             if (methods.size() > 0) {

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel(value = "学生", description = "学生信息")
-public class StudentDTO {
+public class StudentAddDTO {
     @ApiModelProperty("学生姓名")
     @Length(min = 2, max = 4)
     private String name;

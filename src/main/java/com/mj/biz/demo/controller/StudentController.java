@@ -1,17 +1,18 @@
 package com.mj.biz.demo.controller;
 
+import com.mj.biz.demo.dto.StudentAddDTO;
 import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.service.StudentService;
-import com.mj.biz.demo.dto.StudentDTO;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @author bvvy
@@ -22,16 +23,19 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "Student",tags = "学生操作")
 public class StudentController {
 
-    @Autowired
-    private  StudentService studentService;
+    private final StudentService studentService;
+
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
 
 
     @PostMapping("/")
     @ApiOperation("添加学生")
-    public ResponseEntity<Messager> add(@RequestBody StudentDTO studentDTO, BindingResult br) {
-        Student student = Student.builder().name(studentDTO.getName())
-                .gender(studentDTO.getGender())
-                .clazzId(studentDTO.getClazzId()).build();
+    public ResponseEntity<Messager> add(@Valid @RequestBody StudentAddDTO studentAddDTO, BindingResult br) {
+        Student student = Student.builder().name(studentAddDTO.getName())
+                .gender(studentAddDTO.getGender())
+                .clazzId(studentAddDTO.getClazzId()).build();
         studentService.add(student);
         return Responser.created();
     }

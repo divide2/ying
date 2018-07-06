@@ -7,6 +7,8 @@ v1.0, 2018-07
 
 == 表结构
 
+include::docs/tables.adoc[]
+
 == 编码规范
 
 === 总体文件夹结构
@@ -17,7 +19,7 @@ image::docs/images/filedir.png[]
 
 image::docs/images/repo.png[]
 
-[plantuml,repo,png]
+[plantuml,docs/images/repoclass,png]
 --
 !pragma graphviz_dot jdot
 interface DemoRepositoryCustom {

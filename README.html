@@ -5,7 +5,8 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5.dev">
-<title>编码规范</title>
+<meta name="author" content="Doc Writer">
+<title>蜜桔文档</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -420,38 +421,565 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>编码规范</h1>
+<h1>蜜桔文档</h1>
+<div class="details">
+<span id="author" class="author">Doc Writer</span><br>
+<span id="email" class="email"><a href="mailto:bvvy@qq.com">bvvy@qq.com</a></span><br>
+<span id="revnumber">version 1.0,</span>
+<span id="revdate">2018-07</span>
+</div>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#true-">1. 规范</a>
+<li><a href="#true-">1. 表结构</a>
 <ul class="sectlevel2">
-<li><a href="#true--2">1.1. 总体文件夹结构</a></li>
-<li><a href="#truerepo">1.2. repo</a></li>
-<li><a href="#trueservice">1.3. service相关</a></li>
-<li><a href="#truecontroller">1.4. controller相关</a></li>
-<li><a href="#truemodel">1.5. model相关</a></li>
-<li><a href="#truedto-vo">1.6. dto vo相关</a></li>
-<li><a href="#true--3">1.7. 其他</a></li>
+<li><a href="#true--2">1.1. 表结构</a></li>
+</ul>
+</li>
+<li><a href="#true--3">2. 编码规范</a>
+<ul class="sectlevel2">
+<li><a href="#true--4">2.1. 总体文件夹结构</a></li>
+<li><a href="#truerepo">2.2. repo</a></li>
+<li><a href="#trueservice">2.3. service相关</a></li>
+<li><a href="#truecontroller">2.4. controller相关</a></li>
+<li><a href="#truemodel">2.5. model相关</a></li>
+<li><a href="#truedto-vo">2.6. dto vo相关</a></li>
+<li><a href="#true--5">2.7. 其他</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div id="preamble">
+<div class="sect1">
+<h2 id="true-"><a class="anchor" href="#true-"></a>1. 表结构</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Doc Writer &lt;<a href="mailto:bvvy@qq.com">bvvy@qq.com</a>&gt;
-v1.0, 2013-01-01</p>
+<div class="sect2">
+<h3 id="true--2"><a class="anchor" href="#true--2"></a>1.1. 表结构</h3>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 1. 字典数据表（general _info）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">分组名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">分组code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">组内排序</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupOrder</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 2. 字典基础表（general_data）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否nul</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">分组名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">groupName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">中文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">chinaName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">英文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">englishName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 3. 国家地区（general _ country）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryTwoCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">varchare(2)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">二字代码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryCN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">中文名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">英文名</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 4. 世界港口表（general _port）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否删除</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未删除；1：删除</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">港口代码</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">varchare(20)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">唯一</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">港口中文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portCN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">港口英文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryCN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">中文名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">英文名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">国家（地区）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">countryTwoCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">varchare(2)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">代码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所属航线</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">禁用状态</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未禁用；1：禁用</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 5. 航线管理表（general _service）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否删除</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未删除；1：删除</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">船公司id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carrierId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航线代码</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(24)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航线全称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceFullName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航线描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceDesc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Text</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航线图</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceMapUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(255)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储文件路径</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">禁用状态</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 6. 航线港口关联表(general_service_port)</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否删除</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未删除；1：删除</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">港口id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">港口名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">portName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">截关时间</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">etc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">datetime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">开船时间</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">etd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">datetime</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航程</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">tt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">码头</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(128)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">排序</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">order</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">航线id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">serviceId</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 7. 船公司管理表（general_carrier）</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否删除</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未删除；1：删除</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">船公司简称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carrierCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(10)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">船公司中文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carrierCN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(20)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">船公司英文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">carrierEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">禁用状态</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未禁用；1：禁用</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all spread">
+<caption class="title">Table 8. 费用项目表（general_charge</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否null</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">注释</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int(11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">主键</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是否删除</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">deleted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未删除；1：删除</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">费用简称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">chargeItemCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">费用中文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">chargeItemCN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">费用英文名</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">chargeItemEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Varchar(64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">禁用状态</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tinyint(1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认0；0：未禁用；1：禁用</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="true-"><a class="anchor" href="#true-"></a>1. 规范</h2>
+<h2 id="true--3"><a class="anchor" href="#true--3"></a>2. 编码规范</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="true--2"><a class="anchor" href="#true--2"></a>1.1. 总体文件夹结构</h3>
+<h3 id="true--4"><a class="anchor" href="#true--4"></a>2.1. 总体文件夹结构</h3>
 <div class="imageblock">
 <div class="content">
 <img src="docs/images/filedir.png" alt="filedir.png">
@@ -459,10 +987,15 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truerepo"><a class="anchor" href="#truerepo"></a>1.2. repo</h3>
+<h3 id="truerepo"><a class="anchor" href="#truerepo"></a>2.2. repo</h3>
 <div class="imageblock">
 <div class="content">
 <img src="docs/images/repo.png" alt="repo.png">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="docs/images/repoclass.png" alt="repoclass.png">
 </div>
 </div>
 <div class="olist arabic">
@@ -480,7 +1013,7 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="trueservice"><a class="anchor" href="#trueservice"></a>1.3. service相关</h3>
+<h3 id="trueservice"><a class="anchor" href="#trueservice"></a>2.3. service相关</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -490,7 +1023,23 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truecontroller"><a class="anchor" href="#truecontroller"></a>1.4. controller相关</h3>
+<h3 id="truecontroller"><a class="anchor" href="#truecontroller"></a>2.4. controller相关</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java" data-lang="java">    @PostMapping
+    public ResponseEntity&lt;Messager&gt; add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
+        Menu menu = Menu.builder()
+                .enabled(menuAddDTO.getEnabled())
+                .name(menuAddDTO.getName())
+                .orderNum(menuAddDTO.getOrderNum())
+                .path(menuAddDTO.getPath())
+                .pid(menuAddDTO.getPid())
+                .build();
+        menuService.add(menu);
+        return Responser.created();
+    }</code></pre>
+</div>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -507,7 +1056,7 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truemodel"><a class="anchor" href="#truemodel"></a>1.5. model相关</h3>
+<h3 id="truemodel"><a class="anchor" href="#truemodel"></a>2.5. model相关</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -520,7 +1069,7 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="truedto-vo"><a class="anchor" href="#truedto-vo"></a>1.6. dto vo相关</h3>
+<h3 id="truedto-vo"><a class="anchor" href="#truedto-vo"></a>2.6. dto vo相关</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -539,7 +1088,7 @@ v1.0, 2013-01-01</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="true--3"><a class="anchor" href="#true--3"></a>1.7. 其他</h3>
+<h3 id="true--5"><a class="anchor" href="#true--5"></a>2.7. 其他</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -556,7 +1105,8 @@ v1.0, 2013-01-01</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-06 15:26:52
+Version 1.0<br>
+Last updated 2018-07-06 18:33:57
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

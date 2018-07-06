@@ -1,13 +1,13 @@
 :toc: left
 :sectnums:
 
-= 编码规范
-
+= 蜜桔文档
 Doc Writer <bvvy@qq.com>
 v1.0, 2018-07
 
+== 表结构
 
-== 规范
+== 编码规范
 
 === 总体文件夹结构
 

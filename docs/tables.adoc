@@ -1,0 +1,13 @@
+
+=== 表结构
+
+.字典数据表（general _info）
+|===
+|描述|字段|类型|是否null|注释
+|id|id|int(11)|否|主键
+|分组名|groupName|Varchar(64)|否|
+|分组code|groupCode|Varchar(64)|否|
+|名称|name|Varchar(64)|否|
+|code|code|Varchar(64)|否|
+|组内排序|groupOrder|int(11)|否|
+|===

@@ -1,24 +1,24 @@
 package com.mj.auth.user.controller;
 
+import com.mj.auth.user.dto.UserAddDTO;
+import com.mj.auth.user.dto.UserUpdateDTO;
 import com.mj.auth.user.model.User;
 import com.mj.auth.user.service.UserService;
-import com.mj.auth.user.dto.JoinDTO;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import com.mj.auth.user.vo.UserVO;
+import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.resp.Messager;
+import com.mj.core.er.Responser;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author bvvy
- *
- * 用户controller
- *
  */
 @RestController
+@RequestMapping("/v1/user")
 public class UserController {
+
 
     private final UserService userService;
 
@@ -26,18 +26,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public OAuth2Authentication user(OAuth2Authentication o) {
-        return o;
+    @PostMapping
+    public void add(@RequestBody UserAddDTO userAddDTO, BindingResult br) {
+        User user = new User();
+        userService.add(user);
     }
 
-    @PostMapping("/v1/join")
-    public void join(@RequestBody JoinDTO joinTO, BindingResult br) {
-        User user = new User();
-        user.setUsername(joinTO.getAccount());
-        user.setPassword(joinTO.getPassword());
-        userService.save(user);
+    @PatchMapping
+    public ResponseEntity<Messager> update(@RequestBody UserUpdateDTO userUpdateDTO, BindingResult br) {
+        User user = userService.get(userUpdateDTO.getId());
+        userService.update(user);
+        return Responser.updated();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+        userService.delete(del.getId());
+        return Responser.deleted();
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserVO> get(@PathVariable Integer id) {
+        User user = userService.get(id);
+        UserVO userVO = new UserVO();
+        return Responser.ok(userVO);
     }
 
 }
-

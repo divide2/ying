@@ -33,6 +33,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         return query.select(Projections.constructor(SimpleGrantedAuthority.class, role.code))
                 .from(user).leftJoin(ur).on(user.id.eq(ur.userId)).leftJoin(role).on(role.id.eq(ur.roleId))
                 .where(user.username.eq(username)).fetch();
+
     }
+
+
 
 }

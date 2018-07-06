@@ -13,7 +13,7 @@ public class Responser {
     private static final Integer DELETE_STATUS = 210;
 
 
-    public static <T> ResponseEntity ok(T body) {
+    public static <T> ResponseEntity<T> ok(T body) {
         return ResponseEntity.ok(body);
     }
 

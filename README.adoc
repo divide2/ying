@@ -1,4 +1,4 @@
-:toc:
+:toc: left
 :sectnums:
 
 = 编码规范
@@ -17,16 +17,33 @@ image::docs/images/filedir.png[]
 
 image::docs/images/repo.png[]
 
-1. 存放与数据库访问相关的类
-2. 存放连表相关的类
-3. 实现连表部分的类
+1. DemoRepository实现JpaRepository 和 RepositoryCustom存放与当前表的操作方法
+2. Costom里面主要连表部分的方法和需要多条件模糊查询的方法
+3. Impl实现Custom
 
 === service相关
 
 1. service 中的错误处理统一抛出异常信息 不返回到controller中处理
 
 === controller相关
+1. 在类上使用@RestController 不用使用@Controller
+2. 在方法上使用PostMapping GetMapping DeleteMapping PatchMapping
+不能使用@RequestMapping
+3. 不能直接返回model必须转成VO
 
-1.
+=== model相关
+
+1. 一律不能使用 Date类 使用LocalDate和LoacalDateTime替代
+2. 不要滥用继承，导致过多的无用字段
+
+=== dto vo相关
+1. dto 存放前端传递到后端的数据，必须做验证 规则是Hibernate Validation
+2. vo 存放后端返回给前端的数据
+3. dto vo 中不能相互继承导致前端无数个字段，全部重新写
+4. dto vo上面必须写ApiModelProperties
+
 
 === 其他
+1. 写注释
+2. 提交代码是请详细写出该次提交的内容
+

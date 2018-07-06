@@ -31,4 +31,6 @@ public class AclRepositoryImpl implements AclRepositoryCustom {
     public List<Acl> findByPrincipal(Integer principalId, Integer principalType) {
         return null;
     }
+
+
 }

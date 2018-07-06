@@ -1,5 +1,6 @@
 package com.mj.auth.res.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Entity;

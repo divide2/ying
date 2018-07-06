@@ -18,11 +18,10 @@ public interface BasicService<T, ID> {
     /**
      * 添加
      *
-     * @param s   添加的对象
-     * @param <S> 实体的类 Model
-     * @return s
+     * @param t 添加的对象
+     * @return t
      */
-    <S extends T> S add(S s);
+    T add(T t);
 
     /**
      * 删除
@@ -34,28 +33,28 @@ public interface BasicService<T, ID> {
     /**
      * 修改
      *
-     * @param s   修改的对象
-     * @param <S> 实体的类型 Model
+     * @param t   修改的对象
      * @return s
      */
-    <S extends T> S update(S s);
+    T update(T t);
 
 
     /**
      * 通过id获取一个
      *
-     * @param id  id
+     * @param id id
      * @return S
      */
     T get(ID id);
 
     /**
      * 获取分页后数据
+     * todo 如何设计
      *
      * @param pageable 分页
      * @return page
      */
-     Page<T> find(Pageable pageable);
+    Page<T> find(Pageable pageable);
 
     /**
      * 查询所有数据

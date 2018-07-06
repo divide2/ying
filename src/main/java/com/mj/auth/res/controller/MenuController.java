@@ -4,6 +4,8 @@ import com.mj.auth.res.dto.MenuAddDTO;
 import com.mj.auth.res.dto.MenuUpdateDTO;
 import com.mj.auth.res.model.Menu;
 import com.mj.auth.res.service.MenuService;
+import com.mj.auth.res.vo.MenuVO;
+import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import org.springframework.http.ResponseEntity;
@@ -49,5 +51,25 @@ public class MenuController {
         return Responser.updated();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
+        Menu menu = menuService.get(id);
+        MenuVO menuVO =
+                MenuVO.builder()
+                        .enabled(menu.getEnabled())
+                        .id(menu.getId())
+                        .name(menu.getName())
+                        .orderNum(menu.getOrderNum())
+                        .path(menu.getPath())
+                        .pid(menu.getPid())
+                        .build();
+        return Responser.ok(menuVO);
 
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+        menuService.delete(del.getId());
+        return Responser.deleted();
+    }
 }

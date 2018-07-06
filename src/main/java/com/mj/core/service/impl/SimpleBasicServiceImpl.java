@@ -18,8 +18,8 @@ public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> imp
     private DAO dao;
 
     @Override
-    public <S extends T> S add(S s) {
-        return dao.save(s);
+    public T add(T t) {
+        return dao.save(t);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> imp
     }
 
     @Override
-    public <S extends T> S update(S s) {
-        return dao.save(s);
+    public T update(T t) {
+        return dao.save(t);
     }
 
     @Override

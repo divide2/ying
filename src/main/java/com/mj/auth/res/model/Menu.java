@@ -40,6 +40,12 @@ public class Menu {
     private Boolean enabled;
 
     /**
+     * 菜单类型
+     * 字典中选取 MENU,OPER
+     */
+    @Column(name = "menu_type")
+    private String menuType;
+    /**
      * 排序号
      */
     @Column(name = "order_num")

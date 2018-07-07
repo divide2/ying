@@ -23,7 +23,7 @@ spring:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8090/user
+      user-info-uri: http://localhost:8090/principal
 logging:
   level:
     org:

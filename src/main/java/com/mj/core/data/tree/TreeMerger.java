@@ -1,14 +1,15 @@
 package com.mj.core.data.tree;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
  * @author bvvy
  */
 @Data
-public class TreeMerger<ID, P> {
-    private ID id;
+@AllArgsConstructor
+public class TreeMerger {
+    private Integer id;
     private String title;
-    private ID pid;
-    private P payload;
+    private Integer pid;
 }

@@ -7,12 +7,14 @@ import com.mj.auth.res.service.MenuService;
 import com.mj.auth.res.vo.MenuVO;
 import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
+import com.mj.core.data.tree.Tree;
 import com.mj.core.er.Responser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -73,5 +75,10 @@ public class MenuController {
     public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
         menuService.delete(del.getId());
         return Responser.deleted();
+    }
+
+    @GetMapping("/tree")
+    public ResponseEntity<List<Tree>> tree() {
+        return Responser.ok(menuService.findMenuTree());
     }
 }

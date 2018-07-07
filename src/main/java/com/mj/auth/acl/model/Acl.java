@@ -1,5 +1,6 @@
 package com.mj.auth.acl.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_acl")
 @Data
+@Builder
 public class Acl {
 
     @Id

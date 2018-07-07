@@ -10,7 +10,9 @@ import java.util.List;
 public interface MenuRepositoryCustom {
 
     /**
+     * 获取菜单树
      * @return
      */
-    List<TreeMerger<Integer, String>> findPerMenu();
+    List<TreeMerger> findMenuTree();
+
 }

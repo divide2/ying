@@ -21,6 +21,9 @@ public class OperServiceImpl extends SimpleBasicServiceImpl<Oper, Integer, OperR
     @Override
     public Oper add(Oper oper) {
         Oper tOper = operRepository.findByPathAndMethod(oper.getPath(),oper.getMethod());
+        if(tOper == null) {
+            tOper = new Oper();
+        }
         tOper.setPath(oper.getPath());
         tOper.setMethod(oper.getMethod());
         tOper.setName(oper.getName());

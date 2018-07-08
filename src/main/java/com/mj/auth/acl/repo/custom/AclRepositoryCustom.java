@@ -1,7 +1,5 @@
 package com.mj.auth.acl.repo.custom;
 
-import com.mj.auth.acl.model.Acl;
-
 import java.util.List;
 
 /**
@@ -9,18 +7,30 @@ import java.util.List;
  */
 public interface AclRepositoryCustom {
 
-    /**
-     *
-     * @param roleId
-     * @return
-     */
-    List<Acl> findByRole(Integer roleId);
 
     /**
-     *
-     * @param principalId
-     * @param principalType
+     * 获取角色能够访问的所有操作和菜单
+     * 用来显示已经设置过的权限
+     * @param roleId 角色
+     * @return resIds
+     */
+    List<Integer> findAllResAndOperByRole(Integer roleId);
+
+    /**
+     * 获取一个用户能够访问的所有权限
+     * @param userId userid
+     * @return resIDs
+     */
+    List<Integer> findAllResAndOperByUser(Integer userId);
+
+    /**
+     * 获取用户所有的操作的code
+     * 用户判断按钮权限
+     * @param userId
      * @return
      */
-    List<Acl> findByPrincipal(Integer principalId,Integer principalType);
+    List<String> findAllOperCodeByUser(Integer userId);
+
+
+
 }

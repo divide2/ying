@@ -1,7 +1,9 @@
 package com.mj.auth.res.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -14,6 +16,8 @@ import javax.persistence.*;
 @Table(name = "sys_menu")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Menu {
 
     public static final String RES_TYPE = "MENU";

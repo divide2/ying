@@ -44,7 +44,7 @@ public class MenuController {
     }
 
     @PatchMapping
-    public ResponseEntity<Messager> update(@RequestBody MenuUpdateDTO menuUpdateDTO, BindingResult br) {
+    public ResponseEntity<Messager> update(@Valid @RequestBody MenuUpdateDTO menuUpdateDTO, BindingResult br) {
         Menu menu = menuService.get(menuUpdateDTO.getId());
         menu.setEnabled(menuUpdateDTO.getEnabled());
         menu.setName(menuUpdateDTO.getName());

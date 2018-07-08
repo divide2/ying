@@ -22,10 +22,15 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
     public MenuServiceImpl(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
-
     @Override
     public List<Tree> findMenuTree() {
         List<TreeMerger> treeMerger = menuRepository.findMenuTree();
         return Treer.genTree(treeMerger);
     }
+
+    @Override
+    public List<Tree> findLeftMenuTree() {
+        return Treer.genTree(menuRepository.findLeftMenuTree());
+    }
+
 }

@@ -1,12 +1,8 @@
 package com.mj.auth.res.model;
 
-import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author bvvy
@@ -18,12 +14,12 @@ import javax.persistence.Table;
 @Data
 public class Oper {
 
-    public static final String RES_TYPE = "OPER";
-
     @Id
     @GeneratedValue
     private Integer id;
     private String name;
-    private String path;
-    private String method;
+    private Integer resId;
+    @Column(name = "index_pos")
+    private Integer indexPos;
+    private String code;
 }

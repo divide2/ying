@@ -24,7 +24,8 @@ public class Treer {
     private static  Tree genTree(TreeMerger parent, List<TreeMerger> treeMergers) {
         Tree root = new Tree();
         root.setId(parent.getId());
-        root.setTitle(parent.getTitle());
+        root.setLabel(parent.getLabel());
+        root.setPath(parent.getPath());
         List<Tree> children = new ArrayList<>();
         for (TreeMerger treeMerger : treeMergers) {
             if (treeMerger.getPid().equals(parent.getId())) {

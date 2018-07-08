@@ -23,10 +23,17 @@ spring:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8090/principal
+      user-info-uri: http://localhost:8090/user
 logging:
   level:
     org:
       springframework:
        web: debug
        security: debug
+dic:
+  gender:
+    male: M
+    female: F
+  menuType:
+    left: LEFT_NAV
+    oper: OPER

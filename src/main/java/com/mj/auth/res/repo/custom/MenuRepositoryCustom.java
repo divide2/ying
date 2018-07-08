@@ -10,9 +10,21 @@ import java.util.List;
 public interface MenuRepositoryCustom {
 
     /**
-     * 获取菜单树
-     * @return
+     * 获取一个用户的左边导航菜单
+     * @param userId 用户id
+     * @return 树
+     */
+    List<TreeMerger> findLeftMenuTreeByUser(Integer userId);
+
+    /**
+     * 获取整个菜单树
+     * @return tree
      */
     List<TreeMerger> findMenuTree();
 
+    /**
+     * 获取左边导航
+     * @return tree
+     */
+    List<TreeMerger> findLeftMenuTree();
 }

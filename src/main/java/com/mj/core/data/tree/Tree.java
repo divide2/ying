@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 public class Tree {
     private Integer id;
-    private String title;
+    private String label;
     private List<Tree> children;
+    private String path;
 }

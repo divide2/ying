@@ -34,7 +34,6 @@ public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> imp
 
     @Override
     public T get(ID id) {
-
         return dao.getOne(id);
     }
 

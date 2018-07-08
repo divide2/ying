@@ -1,7 +1,7 @@
 package com.mj.core.runner;
 
-import com.mj.auth.res.model.Oper;
-import com.mj.auth.res.service.OperService;
+import com.mj.auth.res.model.Api;
+import com.mj.auth.res.service.ApiService;
 import com.mj.core.val.Punctuation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,36 +23,36 @@ import static java.util.stream.Collectors.joining;
  */
 @Component
 @Slf4j
-public class OperRunner implements CommandLineRunner {
+public class ApiRunner implements CommandLineRunner {
 
     private final RequestMappingHandlerMapping requestMappingHandlerMapping;
-    private final OperService operService;
+    private final ApiService apiService;
 
     @Autowired
-    public OperRunner(RequestMappingHandlerMapping requestMappingHandlerMapping,
-                      OperService operService) {
+    public ApiRunner(RequestMappingHandlerMapping requestMappingHandlerMapping,
+                     ApiService apiService) {
         this.requestMappingHandlerMapping = requestMappingHandlerMapping;
-        this.operService = operService;
+        this.apiService = apiService;
     }
 
     @Override
     public void run(String... args) throws Exception {
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
-        log.info("start init oper to database....");
+        log.info("start init api to database....");
         handlerMethods.forEach((k, v) -> {
-            Oper oper = new Oper();
-            oper.setName(k.getName());
+            Api api = new Api();
+            api.setName(k.getName());
             Set<RequestMethod> methods = k.getMethodsCondition().getMethods();
             Set<String> patterns = k.getPatternsCondition().getPatterns();
-            oper.setPath(patterns.stream().collect(joining(Punctuation.VERTICAL)));
+            api.setPath(patterns.stream().collect(joining(Punctuation.VERTICAL)));
             if (methods.size() > 0) {
-                oper.setMethod(methods.stream().map(Enum::toString).collect(joining(Punctuation.VERTICAL)));
+                api.setMethod(methods.stream().map(Enum::toString).collect(joining(Punctuation.VERTICAL)));
             } else {
-                oper.setMethod("ALL");
+                api.setMethod("ALL");
             }
-            log.info("init oper path into database: {}", oper);
-            operService.add(oper);
+            log.info("init api path into database: {}", api);
+            apiService.add(api);
         });
-        log.info("init oper path to db is completed");
+        log.info("init api path to db is completed");
     }
 }

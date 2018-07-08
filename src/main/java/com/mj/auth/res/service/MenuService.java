@@ -12,4 +12,6 @@ import java.util.List;
 public interface MenuService extends BasicService<Menu,Integer> {
 
     List<Tree> findMenuTree();
+
+    List<Tree> findLeftMenuTree();
 }

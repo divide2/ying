@@ -10,6 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class TreeMerger {
     private Integer id;
-    private String title;
+    private String label;
     private Integer pid;
+    private String path;
 }

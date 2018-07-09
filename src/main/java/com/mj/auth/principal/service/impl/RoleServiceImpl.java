@@ -28,7 +28,7 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
     @Override
     public Page<Role> find(RoleQueryDTO query, Pageable pageable) {
         QRole role = QRole.role;
-        Predicate predicate = Expressions.TRUE;
+        Predicate predicate = Expressions.ONE.eq(Expressions.ONE);
         if (StringUtils.isNotEmpty(query.getRoleName())) {
             predicate = role.name.like("%" + query.getRoleName() + "%");
         }

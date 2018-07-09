@@ -39,11 +39,12 @@ public class RoleController {
 
     @PostMapping
     @ApiOperation("添加角色")
-    public void add(@Valid @RequestBody RoleAddDTO roleAddDTO, BindingResult br) {
+    public ResponseEntity<Messager>  add(@Valid @RequestBody RoleAddDTO roleAddDTO, BindingResult br) {
         Role role = Role.builder()
                 .code(roleAddDTO.getCode())
                 .name(roleAddDTO.getName()).build();
         roleService.add(role);
+        return Responser.created();
     }
 
     @PatchMapping
@@ -79,7 +80,7 @@ public class RoleController {
      * @param pageable pageable
      * @return result
      */
-    @RequestMapping("/find")
+    @GetMapping("/find")
     public ResponseEntity<Page<RoleVO>> find(RoleQueryDTO query, Pageable pageable) {
         Page<Role> roles = roleService.find(query, pageable);
         Page<RoleVO> page = roles.map(role -> RoleVO.builder()

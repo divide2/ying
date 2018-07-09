@@ -17,7 +17,7 @@ public class Acl {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "principal_id")
     private Integer principalId;

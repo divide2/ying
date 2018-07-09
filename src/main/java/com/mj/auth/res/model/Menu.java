@@ -22,7 +22,7 @@ public class Menu {
 
     public static final String RES_TYPE = "MENU";
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     /**
      * 名称

@@ -8,5 +8,9 @@ import com.mj.auth.principal.dto.RolePerAddDTO;
 public interface AclService {
 
 
+    /**
+     *
+     * @param rolePerAddDTO
+     */
     void addRolePerm(RolePerAddDTO rolePerAddDTO);
 }

@@ -6,8 +6,12 @@ import com.mj.biz.demo.service.StudentService;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +24,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/v1/student")
-@Api(value = "Student",tags = "学生操作")
+@Api(value = "Student", tags = "学生操作")
 public class StudentController {
 
     private final StudentService studentService;
@@ -44,6 +48,15 @@ public class StudentController {
     @GetMapping("/{stuId}/with/clz")
     public ResponseEntity<StudentWithClazzNameVO> getWithClazzName(@PathVariable Integer stuId) {
         return ResponseEntity.ok(studentService.getWithClazzName(stuId));
+    }
+
+    @GetMapping("/list")
+    /**
+     * 单表模糊查询 并返回数据
+     */
+    public ResponseEntity<Page<Student>> findStudent(@QuerydslPredicate(root = Student.class) Predicate predicate, Pageable pageable) {
+        Page<Student> students = studentService.find(predicate, pageable);
+        return ResponseEntity.ok(students);
     }
 
     @PatchMapping

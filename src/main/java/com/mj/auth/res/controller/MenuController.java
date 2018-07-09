@@ -72,7 +72,7 @@ public class MenuController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+    public ResponseEntity<Messager> delete(SingleDelete del) {
         menuService.delete(del.getId());
         return Responser.deleted();
     }

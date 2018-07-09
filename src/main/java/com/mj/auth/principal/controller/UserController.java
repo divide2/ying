@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+    public ResponseEntity<Messager> delete(SingleDelete del) {
         userService.delete(del.getId());
         return Responser.deleted();
     }

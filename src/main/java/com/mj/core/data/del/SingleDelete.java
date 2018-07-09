@@ -6,7 +6,7 @@ import lombok.Data;
  * @author bvvy
  */
 @Data
-public class SingleDelete<T> {
+public class SingleDelete{
 
-    private T id;
+    private Integer id;
 }

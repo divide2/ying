@@ -37,4 +37,6 @@ public class Student {
      * 班级id
      */
     private Integer clazzId;
+
+    private Integer deleted;
 }

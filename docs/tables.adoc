@@ -40,7 +40,7 @@
 |港口英文名|portEN|Varchar(64)|否|
 |国家（地区）|countryCN|Varchar(64)|否|中文名
 |国家（地区）|countryEN|Varchar(64)|否|英文名
-|国家（地区）|countryTwoCode|varchare(2)|否|代码
+|国家（地区）|countryCode|varchare(2)|否|代码
 |所属航线|serviceName|Varchar(64)|否|
 |禁用状态|status|Tinyint(1)	|否|默认0；0：未禁用；1：禁用
 |===

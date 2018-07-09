@@ -1,8 +1,15 @@
 package com.mj.auth.principal.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author bvvy
@@ -13,8 +20,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_role")
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Role {
 
     public static final String PRINCIPAL = "ROLE";
@@ -23,7 +28,7 @@ public class Role {
      * id
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
     /**
      * 角色编码

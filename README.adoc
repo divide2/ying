@@ -6,6 +6,7 @@ Doc Writer <bvvy@qq.com>
 v1.0, 2018-07
 
 == 表结构
+include::docs/tables.adoc[]
 
 include::docs/tables.adoc[]
 

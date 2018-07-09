@@ -4,6 +4,7 @@ package com.mj.auth.principal.controller;
 import com.mj.auth.acl.service.AclService;
 import com.mj.auth.principal.dto.RoleAddDTO;
 import com.mj.auth.principal.dto.RolePerAddDTO;
+import com.mj.auth.principal.dto.RoleQueryDTO;
 import com.mj.auth.principal.dto.RoleUpdateDTO;
 import com.mj.auth.principal.model.Role;
 import com.mj.auth.principal.service.RoleService;
@@ -13,6 +14,8 @@ import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +49,7 @@ public class RoleController {
     @PatchMapping
     @ApiOperation("修改角色")
     public ResponseEntity<Messager> update(@Valid @RequestBody RoleUpdateDTO roleUpdateDTO, BindingResult br) {
-        Role role= roleService.get(roleUpdateDTO.getId());
+        Role role = roleService.get(roleUpdateDTO.getId());
         role.setCode(roleUpdateDTO.getCode());
         role.setName(roleUpdateDTO.getName());
         roleService.update(role);
@@ -70,9 +73,26 @@ public class RoleController {
         return Responser.ok(roleVO);
     }
 
+    /**
+     * 单表模糊查询
+     * @param query 条件
+     * @param pageable pageable
+     * @return result
+     */
+    @RequestMapping("/find")
+    public ResponseEntity<Page<RoleVO>> find(RoleQueryDTO query, Pageable pageable) {
+        Page<Role> roles = roleService.find(query, pageable);
+        Page<RoleVO> page = roles.map(role -> RoleVO.builder()
+                .code(role.getCode())
+                .name(role.getName())
+                .id(role.getId())
+                .build());
+        return ResponseEntity.ok(page);
+    }
+
     @PostMapping("/authorize")
     @ApiOperation("给角色授权")
-    public ResponseEntity<Messager> authorize(RolePerAddDTO rolePerAddDTO) {
+    public ResponseEntity<Messager> authorize(@Valid @RequestBody RolePerAddDTO rolePerAddDTO, BindingResult br) {
         aclService.addRolePerm(rolePerAddDTO);
         return Responser.created();
     }

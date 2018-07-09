@@ -58,8 +58,7 @@ public class MenuController {
     @GetMapping("/{id}")
     public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
         Menu menu = menuService.get(id);
-        MenuVO menuVO =
-                MenuVO.builder()
+        MenuVO menuVO = MenuVO.builder()
                         .enabled(menu.getEnabled())
                         .id(menu.getId())
                         .name(menu.getName())
@@ -72,7 +71,7 @@ public class MenuController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         menuService.delete(del.getId());
         return Responser.deleted();
     }

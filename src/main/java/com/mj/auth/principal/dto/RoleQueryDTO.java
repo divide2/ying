@@ -8,6 +8,6 @@ import lombok.Data;
 @Data
 public class RoleQueryDTO {
 
-    private String roleName;
-    private String roleCode;
+    private String name;
+    private String code;
 }

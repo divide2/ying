@@ -29,11 +29,11 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
     public Page<Role> find(RoleQueryDTO query, Pageable pageable) {
         QRole role = QRole.role;
         Predicate predicate = Expressions.ONE.eq(Expressions.ONE);
-        if (StringUtils.isNotEmpty(query.getRoleName())) {
-            predicate = role.name.like("%" + query.getRoleName() + "%");
+        if (StringUtils.isNotEmpty(query.getName())) {
+            predicate = role.name.like("%" + query.getName() + "%");
         }
-        if (StringUtils.isNotEmpty(query.getRoleCode())) {
-            predicate = role.code.like("%" + query.getRoleCode() + "%");
+        if (StringUtils.isNotEmpty(query.getCode())) {
+            predicate = role.code.like("%" + query.getCode() + "%");
         }
         return roleRepository.findAll(predicate,pageable);
     }

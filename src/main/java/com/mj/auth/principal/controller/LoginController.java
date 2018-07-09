@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 /**
  * @author bvvy
@@ -32,7 +34,7 @@ public class LoginController {
     }
 
     @PostMapping("/v1/join")
-    public void join(@RequestBody JoinDTO joinTO, BindingResult br) {
+    public void join(@Valid  @RequestBody JoinDTO joinTO, BindingResult br) {
         User user = new User();
         user.setUsername(joinTO.getAccount());
         user.setPassword(joinTO.getPassword());

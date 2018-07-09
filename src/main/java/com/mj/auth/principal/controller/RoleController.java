@@ -59,7 +59,7 @@ public class RoleController {
 
     @DeleteMapping
     @ApiOperation("删除角色")
-    public ResponseEntity<Messager> delete(SingleDelete<Integer> del) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         roleService.delete(del.getId());
         return Responser.deleted();
     }

@@ -13,5 +13,5 @@ deploy_dev:
     - whoami
     - echo $HOME
     - echo $PATH
-    - type mvn
+    - cat /home/admin/restart.sh
     - mvn package

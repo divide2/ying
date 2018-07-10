@@ -1,37 +1,13 @@
 stages:
-  - test
   - deploy
-
-# 变量
-variables:
-  DEV_RSYNC_PATH: "/data/deploy/xunlei.com/misc.xl9.xunlei.com/d/"
-
-# 所有 stage 之前的操作
-before_script:
-  - npm set registry http://xnpm.sz.xunlei.cn
-  - npm install
-
-# 代码检查
-lint:
-  stage: test
-  script: npm run lint
-
-# 单元测试
-unit:
-  stage: test
-  script: npm run unit
 
 # 部署测试服务器
 deploy_dev:
   stage: deploy
   tags:
-    - 10.10.34.91-dev
+    - anther-tag
   only:
     - develop
   script:
-    - rsync -av --delete-after --exclude-from=/data/shell/home.xl9.xunlei_exclude.list . $DEV_RSYNC_PATH
-    - chmod -R 755 $DEV_RSYNC_PATH
-    - chown -R nobody:nobody $DEV_RSYNC_PATH
-    - find $DEV_RSYNC_PATH -type f -exec chmod 644 {} \;
-    - cd $DEV_RSYNC_PATH
-    - npm install
+    - echo 'mvn package'
+    - mvn package

@@ -13,6 +13,7 @@ deploy_dev:
     - mvn clean package
     - cp -f /home/gitlab-runner/builds/6f0bdf8b/0/3miky/columbu/target/3miky-columbu-0.0.1-SNAPSHOT.jar /home/www/columbu/3miky-columbu-0.0.1-SNAPSHOT.jar
     - java -jar /home/www/columbu/3miky-columbu-0.0.1-SNAPSHOT.jar
+    - echo 'start project success '
 
 
 

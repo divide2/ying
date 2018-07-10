@@ -10,4 +10,7 @@ deploy_dev:
     - master
   script:
     - echo 'mvn package'
+    - whoami
+    - echo $HOME
+    - echo $PATH
     - mvn package

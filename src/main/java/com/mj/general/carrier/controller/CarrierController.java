@@ -10,14 +10,12 @@ import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 
@@ -58,15 +56,17 @@ public class CarrierController {
         return Responser.updated();
     }
 
-    @DeleteMapping
+    @PatchMapping
     @ApiOperation("删除船公司")
-    public ResponseEntity<Messager> delete(SingleDelete del) {
-        carrierService.delete(del.getId());
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+        Carrier carrier = carrierService.get(del.getId());
+        carrier.setStatus("1");
+        carrierService.update(carrier);
         return Responser.deleted();
     }
 
     @GetMapping("/find")
-    @ApiModelProperty("船公司列表查询")
+    @ApiOperation("船公司分页查询")
     public ResponseEntity<Page<CarrierVO>> find(CarrierQueryDTO carrierQueryDTO, Pageable pageable) {
         Page<Carrier> carriers = carrierService.find(carrierQueryDTO,pageable);
         Page<CarrierVO> page = carriers.map(carrier -> CarrierVO.builder()
@@ -76,6 +76,5 @@ public class CarrierController {
                 .carrierEN(carrier.getCarrierEN())
                 .status(carrier.getStatus()).build());
         return ResponseEntity.ok(page);
-
     }
 }

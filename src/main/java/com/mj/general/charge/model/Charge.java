@@ -1,26 +1,28 @@
-package com.mj.general.carrier.model;
+package com.mj.general.charge.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 
 /**
- * @author zejun
- * @date
- * 船公司管理表
+ * @auther: zejun
+ * @date: 2018/7/10 09:05
+ * 费用项目表
  */
 @Data
 @Entity
-@Table(name = "general_carrier")
+@Table(name = "general_charge")
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Carrier {
+@NoArgsConstructor
+public class Charge {
+
     /**
-     * id
+     * 费用项目id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,25 +35,26 @@ public class Carrier {
     private Integer deleted = 0;
 
     /**
-     * 船公司简称
+     *费用简称
      */
-    @Column(name = "carrier_code")
-    private String carrierCode;
+    @Column(name = "charge_item_code")
+    private String chargeItemCode;
 
     /**
-     * 船公司中文名
+     * 费用中文名
      */
-    private String carrierCN;
+    @Column(name = "charge_item_CN")
+    private String chargeItemCN;
 
     /**
-     * 船公司英文名
+     * 费用英文名
      */
-    private String carrierEN;
+    @Column(name = "charge_item_EN")
+    private String chargeItemEN;
 
     /**
      * 禁用状态
      */
     @Builder.Default
     private String status = "0";
-
 }

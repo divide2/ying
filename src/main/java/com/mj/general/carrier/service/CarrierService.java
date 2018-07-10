@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 public interface CarrierService extends BasicService<Carrier,Integer>{
 
     /**
-     * 查询
+     * 分页查询
      * @param carrierQueryDTO
      * @param pageable
      * @return

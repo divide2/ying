@@ -46,21 +46,21 @@
 |===
 
 
-.航线管理表（general _service）
+.航线管理表（general_route）
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
 |是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
 |船公司id|carrierId|int(11)|否|
-|航线代码|serviceCode|Varchar(24)|否|
-|航线全称|serviceFullName|Varchar(64)|否|
-|航线描述|serviceDesc|Text|否|
-|航线图|serviceMapUrl|Varchar(255)|存储文件路径
+|航线代码|routeCode|Varchar(24)|否|
+|航线全称|routeFullName|Varchar(64)|否|
+|航线描述|routeDesc|Text|否|
+|航线图|routeMapUrl|Varchar(255)|存储文件路径
 |禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
 |===
 
 
-.航线港口关联表(general_service_port)
+.航线港口关联表(general_route_port)
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
@@ -72,7 +72,7 @@
 |航程|tt	|int(11)|否|
 |码头|pier|Varchar(128)|否|
 |排序|order|int(11)|否|
-|航线id|serviceId|int(11)|否|
+|航线id|routeId|int(11)|否|
 |===
 
 .船公司管理表（general_carrier）

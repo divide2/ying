@@ -2,8 +2,10 @@ package com.mj.auth.res.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Column;
@@ -16,6 +18,8 @@ import javax.validation.constraints.NotNull;
 @ApiModel(value = "Menu",description = "修改菜单")
 @Builder
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MenuUpdateDTO {
 
     @ApiModelProperty("id")

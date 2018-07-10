@@ -1,0 +1,17 @@
+stages:
+  - deploy
+
+# 部署测试服务器
+deploy_dev:
+  stage: deploy
+  tags:
+    - anther-tag
+  only:
+    - master
+  script:
+    - echo 'mvn package'
+    - whoami
+    - echo $HOME
+    - echo $PATH
+    - cat /home/admin/restart.sh
+    - mvn package

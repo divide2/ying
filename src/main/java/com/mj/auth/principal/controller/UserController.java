@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @author bvvy
  */
@@ -27,20 +29,20 @@ public class UserController {
     }
 
     @PostMapping
-    public void add(@RequestBody UserAddDTO userAddDTO, BindingResult br) {
+    public void add(@Valid @RequestBody UserAddDTO userAddDTO, BindingResult br) {
         User user = new User();
         userService.add(user);
     }
 
     @PatchMapping
-    public ResponseEntity<Messager> update(@RequestBody UserUpdateDTO userUpdateDTO, BindingResult br) {
+    public ResponseEntity<Messager> update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, BindingResult br) {
         User user = userService.get(userUpdateDTO.getId());
         userService.update(user);
         return Responser.updated();
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(SingleDelete del) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         userService.delete(del.getId());
         return Responser.deleted();
     }

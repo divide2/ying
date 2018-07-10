@@ -2,7 +2,10 @@ package com.mj.auth.res.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +17,9 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @ApiModel(value = "Menu", description = "Menu Add")
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MenuAddDTO {
     /**
      * 名称

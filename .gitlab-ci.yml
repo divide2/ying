@@ -7,7 +7,7 @@ deploy_dev:
   tags:
     - anther-tag
   only:
-    - develop
+    - master
   script:
     - echo 'mvn package'
     - mvn package

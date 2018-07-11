@@ -35,7 +35,7 @@ public class CarrierController {
         this.carrierService = carrierService;
     }
 
-    @PostMapping("/add")
+    @PostMapping
     @ApiOperation("新增船公司")
     public ResponseEntity<Messager> add(@Valid @RequestBody CarrierAddDTO carrierAddDTO, BindingResult br) {
         Carrier carrier = Carrier.builder().carrierCode(carrierAddDTO.getCarrierCode())
@@ -56,11 +56,11 @@ public class CarrierController {
         return Responser.updated();
     }
 
-    @PatchMapping
+    @DeleteMapping
     @ApiOperation("删除船公司")
     public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         Carrier carrier = carrierService.get(del.getId());
-        carrier.setStatus("1");
+        carrier.setDeleted(1);
         carrierService.update(carrier);
         return Responser.deleted();
     }

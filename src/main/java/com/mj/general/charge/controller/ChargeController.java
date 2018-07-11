@@ -56,11 +56,11 @@ public class ChargeController {
        return  Responser.updated();
     }
 
-    @PatchMapping
+    @DeleteMapping
     @ApiOperation("删除费用")
     public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br){
         Charge charge = chargeService.get(del.getId());
-        charge.setStatus("1");
+        charge.setDeleted(1);
         chargeService.update(charge);
         return Responser.deleted();
     }

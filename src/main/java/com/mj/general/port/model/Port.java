@@ -14,7 +14,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "general _port")
+@Table(name = "general_port")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

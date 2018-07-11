@@ -45,8 +45,7 @@ public class StudentRepositoryImpl implements StudentRepositoryCustom {
     }
 
     @Override
-    public StudentWithClazzNameVO
-    getWithClazzName(Integer id) {
+    public StudentWithClazzNameVO getWithClazzName(Integer id) {
         QStudent student = QStudent.student;
         QClazz clazz = QClazz.clazz;
         JPAQuery<StudentWithClazzNameVO> query = new JPAQuery<>(entityManager);

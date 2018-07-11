@@ -66,11 +66,11 @@ public class PortController {
         return Responser.updated();
     }
 
-    @PatchMapping
+    @DeleteMapping
     @ApiOperation("删除世界港口")
     public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         Port port = portService.get(del.getId());
-        port.setStatus("1");
+        port.setDeleted(1);
         portService.update(port);
         return Responser.deleted();
     }

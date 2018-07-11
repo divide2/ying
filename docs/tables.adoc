@@ -55,7 +55,7 @@
 |航线代码|routeCode|Varchar(24)|否|
 |航线全称|routeFullName|Varchar(64)|否|
 |航线描述|routeDesc|Text|否|
-|航线图|routeMapUrl|Varchar(255)|存储文件路径
+|航线图|routeMapUrl|Varchar(255)|存储文件路径|
 |禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
 |===
 
@@ -69,7 +69,7 @@
 |港口名称|portName|Varchar(64)|否|
 |截关时间|etc|datetime|否|
 |开船时间|etd|datetime|否|
-|航程|tt	|int(11)|否|
+|航程|tt	|decimal(9)|否|
 |码头|pier|Varchar(128)|否|
 |排序|order|int(11)|否|
 |航线id|routeId|int(11)|否|

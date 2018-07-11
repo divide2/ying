@@ -56,6 +56,9 @@ public class MenuUpdateDTO {
      * 排序号
      */
     @ApiModelProperty("排序")
-    @Column(name = "order_num")
     private Integer orderNum;
+
+    @ApiModelProperty("类型")
+    private String type;
+
 }

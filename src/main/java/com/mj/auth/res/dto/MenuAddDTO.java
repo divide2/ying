@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -53,6 +52,8 @@ public class MenuAddDTO {
      * 排序号
      */
     @ApiModelProperty("排序")
-    @Column(name = "order_num")
     private Integer orderNum;
+
+    @ApiModelProperty("类型")
+    private String type;
 }

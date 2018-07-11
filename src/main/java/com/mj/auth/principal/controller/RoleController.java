@@ -1,14 +1,15 @@
 package com.mj.auth.principal.controller;
 
 
+import com.mj.auth.acl.model.Acl;
 import com.mj.auth.acl.service.AclService;
-import com.mj.auth.principal.dto.RoleAddDTO;
-import com.mj.auth.principal.dto.RolePerAddDTO;
-import com.mj.auth.principal.dto.RoleQueryDTO;
-import com.mj.auth.principal.dto.RoleUpdateDTO;
+import com.mj.auth.principal.dto.*;
 import com.mj.auth.principal.model.Role;
+import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.service.RoleService;
+import com.mj.auth.principal.service.UserService;
 import com.mj.auth.principal.vo.RoleVO;
+import com.mj.auth.principal.vo.UserVO;
 import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
@@ -21,6 +22,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -31,10 +34,14 @@ import javax.validation.Valid;
 public class RoleController {
     private final RoleService roleService;
     private final AclService aclService;
+    private final UserService userService;
 
-    public RoleController(RoleService roleService, AclService aclService) {
+    public RoleController(RoleService roleService,
+                          AclService aclService,
+                          UserService userService) {
         this.roleService = roleService;
         this.aclService = aclService;
+        this.userService = userService;
     }
 
     @PostMapping
@@ -95,6 +102,29 @@ public class RoleController {
     @ApiOperation("给角色授权")
     public ResponseEntity<Messager> authorize(@Valid @RequestBody RolePerAddDTO rolePerAddDTO, BindingResult br) {
         aclService.addRolePerm(rolePerAddDTO);
+        return Responser.created();
+    }
+
+    @PostMapping("/users")
+    @ApiOperation("添加角色用户")
+    public ResponseEntity<Messager> addRoleUsers(@Valid @RequestBody RoleAddUsersDTO roleAddUsersDTO, BindingResult br) {
+        roleService.addUsers(roleAddUsersDTO);
+        return Responser.created();
+    }
+
+    @GetMapping("/{roleId}/users")
+    @ApiOperation("获取角色所有用户")
+    public ResponseEntity<List<UserVO>> findRoleUsers(@PathVariable Integer roleId) {
+        List<User> users = userService.findUsersByRole(roleId);
+        return Responser.ok(users.stream().map(UserVO::fromUser).collect(Collectors.toList()));
+
+    }
+
+    @PostMapping("/auth")
+    @ApiOperation("添加用户权限")
+    public ResponseEntity<Messager> addRoleAuth(@Valid @RequestBody RoleAddAuthDTO roleAddAuthDTO, BindingResult br) {
+
+        Acl acl = new Acl();
         return Responser.created();
     }
 }

@@ -45,4 +45,7 @@ public class MenuVO {
      */
     @ApiModelProperty("排序号")
     private Integer orderNum;
+
+    @ApiModelProperty("类型")
+    private String type;
 }

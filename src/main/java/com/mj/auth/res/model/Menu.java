@@ -45,15 +45,19 @@ public class Menu {
 
     /**
      * 菜单类型
-     * 字典中选取 MENU,OPER
+     * 字典中选取 NAV,OPER
      */
-    @Column(name = "menu_type")
-    private String menuType;
+    private String type;
     /**
      * 排序号
      */
     @Column(name = "order_num")
     private Integer orderNum;
+
+    /**
+     * 菜单的唯一编码
+     */
+    private String code;
 
 
 }

@@ -1,6 +1,9 @@
 package com.mj.auth.res.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,6 +15,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sys_oper")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Oper {
 
     @Id
@@ -22,4 +28,5 @@ public class Oper {
     @Column(name = "index_pos")
     private Integer indexPos;
     private String code;
+    private String apis;
 }

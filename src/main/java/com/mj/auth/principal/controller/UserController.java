@@ -8,6 +8,8 @@ import com.mj.auth.principal.vo.UserVO;
 import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,11 @@ public class UserController {
 
     @PostMapping
     public void add(@Valid @RequestBody UserAddDTO userAddDTO, BindingResult br) {
-        User user = new User();
+        User user = User.builder()
+                        .username(userAddDTO.getUsername())
+                        .password(userAddDTO.getPassword())
+                        .nickname(userAddDTO.getNickname())
+                        .build();
         userService.add(user);
     }
 
@@ -51,8 +57,27 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserVO> get(@PathVariable Integer id) {
         User user = userService.get(id);
-        UserVO userVO = new UserVO();
+        UserVO userVO = toUserVO(user);
         return Responser.ok(userVO);
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<Page<UserVO>> find(Pageable pageable) {
+        Page<User> users = userService.find(pageable);
+        return Responser.ok(users.map(this::toUserVO));
+    }
+
+    private UserVO toUserVO(User user) {
+        return UserVO.builder()
+                .id(user.getId())
+                .avatar(user.getAvatar())
+                .email(user.getEmail())
+                .enabled(user.isEnabled())
+                .nickname(user.getNickname())
+                .gender(user.getGender())
+                .phone(user.getPhone())
+                .username(user.getUsername())
+                .build();
     }
 
 }

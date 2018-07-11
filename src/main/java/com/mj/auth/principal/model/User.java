@@ -1,7 +1,10 @@
 package com.mj.auth.principal.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,6 +15,9 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "sys_user")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
         /**
          * id

@@ -31,7 +31,7 @@ public class Swagger2Config  {
                         Collections.singletonList(new ResponseMessageBuilder()
                                 .code(500)
                                 .message("500 message")
-                                .responseModel(new ModelRef("Error"))
+                                .responseModel(new ModelRef("ValidError"))
                                 .build()))
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()))

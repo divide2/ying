@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author bvvy
  */
 @Service
-public class UserServiceImpl extends SimpleBasicServiceImpl<User,Integer,UserRepository> implements UserService {
+public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserRepository> implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,10 +25,7 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User,Integer,UserRep
 
     @Override
     public User add(User user) {
-        User existsUser = getByUsername(user.getPhone());
-        if (existsUser != null) {
-            throw new AlreadyExistsException();
-        }
+        this.validUsername(user.getUsername());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -37,5 +36,16 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User,Integer,UserRep
         return userRepository.getByUsername(username);
     }
 
+    @Override
+    public void validUsername(String username) {
+        User existsUser = getByUsername(username);
+        if (existsUser != null) {
+            throw new AlreadyExistsException(username + "_exists");
+        }
+    }
 
+    @Override
+    public List<User> findUsersByRole(Integer roleId) {
+        return userRepository.findUsersByRole(roleId);
+    }
 }

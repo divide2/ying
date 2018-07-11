@@ -4,6 +4,7 @@ import com.mj.auth.res.dto.MenuAddDTO;
 import com.mj.auth.res.dto.MenuUpdateDTO;
 import com.mj.auth.res.model.Menu;
 import com.mj.auth.res.service.MenuService;
+import com.mj.auth.res.service.OperService;
 import com.mj.auth.res.vo.MenuVO;
 import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
@@ -25,21 +26,18 @@ import java.util.List;
 public class MenuController {
 
     private final MenuService menuService;
+    private final OperService operService;
 
-    public MenuController(MenuService menuService) {
+    public MenuController(MenuService menuService,
+                          OperService operService) {
         this.menuService = menuService;
+        this.operService = operService;
+
     }
 
     @PostMapping
     public ResponseEntity<Messager> add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
-        Menu menu = Menu.builder()
-                .enabled(menuAddDTO.getEnabled())
-                .name(menuAddDTO.getName())
-                .orderNum(menuAddDTO.getOrderNum())
-                .path(menuAddDTO.getPath())
-                .pid(menuAddDTO.getPid())
-                .build();
-        menuService.add(menu);
+        menuService.add(menuAddDTO);
         return Responser.created();
     }
 
@@ -51,6 +49,7 @@ public class MenuController {
         menu.setPath(menuUpdateDTO.getPath());
         menu.setOrderNum(menuUpdateDTO.getOrderNum());
         menu.setPid(menuUpdateDTO.getPid());
+        menu.setType(menuUpdateDTO.getType());
         menuService.update(menu);
         return Responser.updated();
     }
@@ -59,13 +58,14 @@ public class MenuController {
     public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
         Menu menu = menuService.get(id);
         MenuVO menuVO = MenuVO.builder()
-                        .enabled(menu.getEnabled())
-                        .id(menu.getId())
-                        .name(menu.getName())
-                        .orderNum(menu.getOrderNum())
-                        .path(menu.getPath())
-                        .pid(menu.getPid())
-                        .build();
+                .enabled(menu.getEnabled())
+                .id(menu.getId())
+                .name(menu.getName())
+                .orderNum(menu.getOrderNum())
+                .path(menu.getPath())
+                .pid(menu.getPid())
+                .type(menu.getType())
+                .build();
         return Responser.ok(menuVO);
 
     }

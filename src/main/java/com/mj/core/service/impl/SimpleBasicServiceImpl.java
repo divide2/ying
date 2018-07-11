@@ -12,7 +12,7 @@ import java.util.List;
  * @author bvvy
  * 简单的实现
  */
-public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> implements BasicService<T, ID> {
+public abstract class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> implements BasicService<T, ID> {
 
     @Autowired
     private DAO dao;
@@ -46,4 +46,6 @@ public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> imp
     public List<T> findAll() {
         return dao.findAll();
     }
+
+
 }

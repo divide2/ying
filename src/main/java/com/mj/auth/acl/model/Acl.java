@@ -1,8 +1,10 @@
 package com.mj.auth.acl.model;
 
 import com.mj.core.exception.SysException;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -13,6 +15,8 @@ import javax.persistence.*;
 @Table(name = "sys_acl")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Acl {
 
 
@@ -38,19 +42,22 @@ public class Acl {
     /**
      * 设置权限，在某个位置设置访问或者无法访问
      * 0-31之间
-     * @param index index
+     *
+     * @param index  index
      * @param permit permit
      */
     public void setPermission(int index, boolean permit) {
-        if (index < 0 || index > 31) throw new SysException("invaid_index");
+        if (index < 0 || index > 31) {
+            throw new SysException("invaid_index");
+        }
         this.aclStatus = this.setBit(this.aclStatus, index, permit);
     }
 
     /**
      * 具体进行设置
      *
-     * @param state state
-     * @param index index
+     * @param state  state
+     * @param index  index
      * @param permit permit
      */
     private int setBit(int state, int index, boolean permit) {
@@ -79,8 +86,7 @@ public class Acl {
     }
 
     /**
-     *
-     * @param index index
+     * @param index     index
      * @param aclStatus aclstate
      * @return 是否有权限
      */

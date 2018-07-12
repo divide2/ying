@@ -30,8 +30,8 @@ public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,C
     @Override
     public Page<Carrier> find(CarrierQueryDTO carrierQueryDTO, Pageable pageable) {
         QCarrier carrier = QCarrier.carrier;
-        BooleanExpression predicate = carrier.deleted.eq(0);
-        predicate.and(carrier.status.eq("0"));
+        BooleanExpression predicate = carrier.deleted.eq('N');
+        predicate.and(carrier.status.eq('Y'));
         if(StringUtils.isNotEmpty(carrierQueryDTO.getKeyName())){
             predicate = carrier.carrierCode.like("%" + carrierQueryDTO.getKeyName() + "%")
                     .or(carrier.carrierCN.like("%" + carrierQueryDTO.getKeyName() + "%"))

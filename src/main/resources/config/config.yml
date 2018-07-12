@@ -1,7 +1,6 @@
-dic:
-  deleted:
-    true: Y
-    false: N
-  status:
-    enable: Y
-    disable: N
+deleted:
+  true: Y
+  false: N
+status:
+  enable: Y
+  disable: N

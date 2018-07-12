@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ImportResource;
  * @author bvvy
  */
 @SpringBootApplication
-@ImportResource(locations= {"classpath:config.yml"})
+@ImportResource(locations= {"classpath*:config.yml"})
 public class ColumbuApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ColumbuApplication.class, args);

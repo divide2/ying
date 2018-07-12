@@ -8,6 +8,8 @@ import com.mj.auth.principal.vo.UserVO;
 import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +32,11 @@ public class UserController {
 
     @PostMapping
     public void add(@Valid @RequestBody UserAddDTO userAddDTO, BindingResult br) {
-        User user = new User();
+        User user = User.builder()
+                .username(userAddDTO.getUsername())
+                .password(userAddDTO.getPassword())
+                .nickname(userAddDTO.getNickname())
+                .build();
         userService.add(user);
     }
 
@@ -42,7 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del, BindingResult br) {
         userService.delete(del.getId());
         return Responser.deleted();
     }
@@ -51,8 +57,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserVO> get(@PathVariable Integer id) {
         User user = userService.get(id);
-        UserVO userVO = new UserVO();
+        UserVO userVO = UserVO.fromUser(user);
         return Responser.ok(userVO);
     }
+
+    @GetMapping("/find")
+    public ResponseEntity<Page<UserVO>> find(Pageable pageable) {
+        Page<User> users = userService.find(pageable);
+        return Responser.ok(users.map(UserVO::fromUser));
+    }
+
 
 }

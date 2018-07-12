@@ -5,6 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
  * @author bvvy
  */
@@ -45,4 +47,11 @@ public class MenuVO {
      */
     @ApiModelProperty("排序号")
     private Integer orderNum;
+
+    @ApiModelProperty("类型")
+    private String type;
+
+
+    @ApiModelProperty("编码")
+    private String code;
 }

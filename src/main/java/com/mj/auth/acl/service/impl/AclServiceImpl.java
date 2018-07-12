@@ -8,6 +8,8 @@ import com.mj.auth.principal.model.Role;
 import com.mj.auth.res.model.Menu;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author bvvy
  */
@@ -29,6 +31,11 @@ public class AclServiceImpl implements AclService {
                 .resType(Menu.RES_TYPE)
                 .build();
         aclRepository.save(acl);
+    }
+
+    @Override
+    public List<Integer> findMenuIdsByRole(Integer roleId) {
+        return aclRepository.findMenuIdsByRole(roleId) ;
     }
 
 

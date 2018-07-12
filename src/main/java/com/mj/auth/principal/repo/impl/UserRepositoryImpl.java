@@ -4,6 +4,7 @@ package com.mj.auth.principal.repo.impl;
 import com.mj.auth.principal.model.QRole;
 import com.mj.auth.principal.model.QUser;
 import com.mj.auth.principal.model.QUserRole;
+import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.repo.cutom.UserRepositoryCustom;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
 import com.querydsl.core.types.Projections;
@@ -37,5 +38,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
 
-
+    @Override
+    public List<User> findUsersByRole(Integer roleId) {
+        QUser user = QUser.user;
+        QUserRole ur = QUserRole.userRole;
+        JPAQuery<User> query = new JPAQuery<>(entityManager);
+        return query.select(user).from(ur).innerJoin(user).on(ur.userId.eq(user.id))
+                        .where(ur.roleId.eq(roleId)).fetch();
+    }
 }

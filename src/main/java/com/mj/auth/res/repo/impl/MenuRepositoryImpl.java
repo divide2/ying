@@ -50,7 +50,7 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom {
         query.select(Projections.constructor(TreeMerger.class, menu.id, menu.name, menu.pid,menu.path))
                 .from(menu);
         if (menuType != null && !"".equals(menuType)) {
-            query.where(menu.menuType.eq(menuType));
+            query.where(menu.type.eq(menuType));
         }
         return query.fetch();
     }
@@ -63,13 +63,12 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom {
         JPAQuery<AclBO> query = new JPAQuery<>(entityManager);
         List<AclBO> acls = query.select(Projections.constructor(AclBO.class,acl.aclStatus, menu.id, menu.name, menu.pid,menu.path))
                 .from(acl).innerJoin(menu).on(menu.id.eq(acl.resId)).innerJoin(userRole).on(userRole.roleId.eq(acl.principalId))
-                .where(acl.resType.eq(Menu.RES_TYPE).and(menu.menuType.eq(MenuType.LEFT_NAV))
+                .where(acl.resType.eq(Menu.RES_TYPE).and(menu.type.eq(MenuType.NAV))
                         .and(userRole.userId.eq(userId)).and(acl.principalType.eq(Role.PRINCIPAL))).fetch();
         return acls.stream().filter(vo-> Acl.checkPermission(0,vo.getAclState())).map(
-                vo-> new TreeMerger(vo.getResId(), vo.getResLabel(), vo.getResPid(),null)
+                vo-> new TreeMerger(vo.getResId(), vo.getResLabel(), vo.getResPid(),vo.getPath())
         ).collect(Collectors.toList());
     }
-
 
 
 }

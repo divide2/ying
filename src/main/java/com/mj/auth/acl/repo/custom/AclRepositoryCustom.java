@@ -18,7 +18,7 @@ public interface AclRepositoryCustom {
 
     /**
      * 获取一个用户能够访问的所有权限
-     * @param userId userid
+     * @param userId user id
      * @return resIDs
      */
     List<Integer> findAllResAndOperByUser(Integer userId);
@@ -26,11 +26,11 @@ public interface AclRepositoryCustom {
     /**
      * 获取用户所有的操作的code
      * 用户判断按钮权限
-     * @param userId
-     * @return
+     * @param userId userid
+     * @return oper code
      */
     List<String> findAllOperCodeByUser(Integer userId);
 
 
-
+    List<Integer> findMenuIdsByRole(Integer roleId);
 }

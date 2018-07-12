@@ -1,16 +1,19 @@
 package com.mj.core.aop;
 
-import com.mj.core.er.Responser;
+import com.mj.core.exception.ValidationException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+
 
 /**
  * @author bvvy
  */
 @Aspect
+@Component
 public class ValidationAspect {
 
     @Pointcut("execution(* com.mj.*.*.controller.*.*(..))")
@@ -21,8 +24,7 @@ public class ValidationAspect {
     @Around("validPointcut() && args(..,br)")
     public Object validArount(ProceedingJoinPoint jp, BindingResult br) throws Throwable {
         if (br.hasErrors()) {
-
-            return Responser.conflict(br.getAllErrors().toString());
+            throw new ValidationException(br.getAllErrors());
         }
         return jp.proceed();
     }

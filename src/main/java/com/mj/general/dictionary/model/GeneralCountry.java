@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author zejun
@@ -20,6 +18,13 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GeneralCountry {
+
+    /**
+     * id
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     /**
      * 国家（地区）代码

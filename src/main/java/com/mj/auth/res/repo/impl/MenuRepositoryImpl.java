@@ -66,10 +66,9 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom {
                 .where(acl.resType.eq(Menu.RES_TYPE).and(menu.type.eq(MenuType.NAV))
                         .and(userRole.userId.eq(userId)).and(acl.principalType.eq(Role.PRINCIPAL))).fetch();
         return acls.stream().filter(vo-> Acl.checkPermission(0,vo.getAclState())).map(
-                vo-> new TreeMerger(vo.getResId(), vo.getResLabel(), vo.getResPid(),null)
+                vo-> new TreeMerger(vo.getResId(), vo.getResLabel(), vo.getResPid(),vo.getPath())
         ).collect(Collectors.toList());
     }
-
 
 
 }

@@ -9,9 +9,8 @@ import com.mj.auth.res.service.OperService;
 import com.mj.auth.res.val.MenuType;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.core.val.Punctuation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-
-import static java.util.stream.Collectors.joining;
 
 /**
  * @author bvvy
@@ -34,7 +33,7 @@ public class OperServiceImpl extends SimpleBasicServiceImpl<Oper, Integer, OperR
                 .name(operDTO.getName())
                 .code(operDTO.getCode())
                 .resId(operDTO.getResId())
-                .apis(operDTO.getApis().stream().collect(joining(Punctuation.VERTICAL)))
+                .apis(StringUtils.join(operDTO.getApis(),Punctuation.VERTICAL))
                 .build();
         this.add(oper);
         Menu menu = new Menu();

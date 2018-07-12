@@ -50,6 +50,7 @@ public class MenuController {
         menu.setOrderNum(menuUpdateDTO.getOrderNum());
         menu.setPid(menuUpdateDTO.getPid());
         menu.setType(menuUpdateDTO.getType());
+        menu.setCode(menuUpdateDTO.getCode());
         menuService.update(menu);
         return Responser.updated();
     }
@@ -65,6 +66,7 @@ public class MenuController {
                 .path(menu.getPath())
                 .pid(menu.getPid())
                 .type(menu.getType())
+                .code(menu.getCode())
                 .build();
         return Responser.ok(menuVO);
 
@@ -79,5 +81,10 @@ public class MenuController {
     @GetMapping("/tree")
     public ResponseEntity<List<Tree>> tree() {
         return Responser.ok(menuService.findMenuTree());
+    }
+
+    @GetMapping("/user/tree")
+    public ResponseEntity<List<Tree>> userTrees() {
+        return Responser.ok(menuService.findLeftMenuTreeBySelf());
     }
 }

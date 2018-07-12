@@ -33,10 +33,10 @@ public class UserController {
     @PostMapping
     public void add(@Valid @RequestBody UserAddDTO userAddDTO, BindingResult br) {
         User user = User.builder()
-                        .username(userAddDTO.getUsername())
-                        .password(userAddDTO.getPassword())
-                        .nickname(userAddDTO.getNickname())
-                        .build();
+                .username(userAddDTO.getUsername())
+                .password(userAddDTO.getPassword())
+                .nickname(userAddDTO.getNickname())
+                .build();
         userService.add(user);
     }
 
@@ -48,7 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del, BindingResult br) {
         userService.delete(del.getId());
         return Responser.deleted();
     }
@@ -57,27 +57,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserVO> get(@PathVariable Integer id) {
         User user = userService.get(id);
-        UserVO userVO = toUserVO(user);
+        UserVO userVO = UserVO.fromUser(user);
         return Responser.ok(userVO);
     }
 
     @GetMapping("/find")
     public ResponseEntity<Page<UserVO>> find(Pageable pageable) {
         Page<User> users = userService.find(pageable);
-        return Responser.ok(users.map(this::toUserVO));
+        return Responser.ok(users.map(UserVO::fromUser));
     }
 
-    private UserVO toUserVO(User user) {
-        return UserVO.builder()
-                .id(user.getId())
-                .avatar(user.getAvatar())
-                .email(user.getEmail())
-                .enabled(user.isEnabled())
-                .nickname(user.getNickname())
-                .gender(user.getGender())
-                .phone(user.getPhone())
-                .username(user.getUsername())
-                .build();
-    }
 
 }

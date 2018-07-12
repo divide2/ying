@@ -5,12 +5,12 @@ import com.mj.auth.res.model.Menu;
 import com.mj.auth.res.repo.MenuRepository;
 import com.mj.auth.res.repo.OperRepository;
 import com.mj.auth.res.service.MenuService;
+import com.mj.auth.res.val.MenuType;
 import com.mj.core.data.tree.Tree;
 import com.mj.core.data.tree.TreeMerger;
 import com.mj.core.er.Treer;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -48,9 +48,17 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
                 .orderNum(menuAddDTO.getOrderNum())
                 .path(menuAddDTO.getPath())
                 .pid(menuAddDTO.getPid())
-                .type(menuAddDTO.getType())
+                .type(MenuType.NAV)
+                .code(menuAddDTO.getCode())
                 .build();
         this.add(menu);
 
+    }
+
+
+    @Override
+    public List<Tree> findLeftMenuTreeBySelf() {
+        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(8);
+        return Treer.genTree(tree);
     }
 }

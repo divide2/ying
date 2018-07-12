@@ -1,5 +1,8 @@
 package com.mj.auth.principal.service.impl;
 
+import com.mj.auth.acl.model.Acl;
+import com.mj.auth.acl.repo.AclRepository;
+import com.mj.auth.principal.dto.RoleAddAuthDTO;
 import com.mj.auth.principal.dto.RoleAddUsersDTO;
 import com.mj.auth.principal.dto.RoleQueryDTO;
 import com.mj.auth.principal.model.QRole;
@@ -8,7 +11,8 @@ import com.mj.auth.principal.model.UserRole;
 import com.mj.auth.principal.repo.RoleRepository;
 import com.mj.auth.principal.repo.UserRoleRepository;
 import com.mj.auth.principal.service.RoleService;
-import com.mj.auth.principal.vo.UserVO;
+import com.mj.auth.res.model.Menu;
+import com.mj.auth.res.service.MenuService;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.Expressions;
@@ -18,8 +22,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * @author bvvy
  */
@@ -28,11 +30,17 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
 
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
+    private final MenuService menuService;
+    private final AclRepository aclRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository,
-                           UserRoleRepository userRoleRepository) {
+                           UserRoleRepository userRoleRepository,
+                           MenuService menuService,
+                           AclRepository aclRepository) {
         this.roleRepository = roleRepository;
         this.userRoleRepository = userRoleRepository;
+        this.menuService = menuService;
+        this.aclRepository = aclRepository;
     }
 
     @Override
@@ -61,4 +69,22 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
                 });
     }
 
+    @Override
+    public void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO) {
+        roleAddAuthDTO.getResIds().
+                forEach(resId->{
+                        Acl acl = aclRepository.getByPrincipalIdAndPrincipalTypeAndResIdAndResType(
+                                roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, resId, Menu.RES_TYPE
+                        );
+                        if (acl == null) {
+                            acl = new Acl();
+                            acl.setPrincipalId(roleAddAuthDTO.getRoleId());
+                            acl.setResId(resId);
+                            acl.setPrincipalType(Role.PRINCIPAL);
+                            acl.setResType(Menu.RES_TYPE);
+                            acl.setPermission(0, true);
+                            aclRepository.save(acl);
+                    }
+                });
+    }
 }

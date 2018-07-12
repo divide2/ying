@@ -44,7 +44,6 @@ public class MenuAddDTO {
     /**
      * 是否启用
      */
-    @NotNull
     @ApiModelProperty("启用")
     private Boolean enabled;
 
@@ -56,4 +55,9 @@ public class MenuAddDTO {
 
     @ApiModelProperty("类型")
     private String type;
+
+
+    @ApiModelProperty("编码")
+    @NotEmpty
+    private String code;
 }

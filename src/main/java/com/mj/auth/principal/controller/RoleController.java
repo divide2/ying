@@ -1,7 +1,6 @@
 package com.mj.auth.principal.controller;
 
 
-import com.mj.auth.acl.model.Acl;
 import com.mj.auth.acl.service.AclService;
 import com.mj.auth.principal.dto.*;
 import com.mj.auth.principal.model.Role;
@@ -117,14 +116,19 @@ public class RoleController {
     public ResponseEntity<List<UserVO>> findRoleUsers(@PathVariable Integer roleId) {
         List<User> users = userService.findUsersByRole(roleId);
         return Responser.ok(users.stream().map(UserVO::fromUser).collect(Collectors.toList()));
-
     }
 
-    @PostMapping("/auth")
-    @ApiOperation("添加用户权限")
+    @PostMapping("/menus")
+    @ApiOperation("添加角色权限")
     public ResponseEntity<Messager> addRoleAuth(@Valid @RequestBody RoleAddAuthDTO roleAddAuthDTO, BindingResult br) {
-
-        Acl acl = new Acl();
+        roleService.addRoleAuth(roleAddAuthDTO);
         return Responser.created();
+    }
+
+    @GetMapping("/{roleId}/menus")
+    @ApiOperation("获取角色所有用户")
+    public ResponseEntity<List<Integer>> findRoleMenus(@PathVariable Integer roleId) {
+        List<Integer> menuIds = aclService.findMenuIdsByRole(roleId);
+        return Responser.ok(menuIds);
     }
 }

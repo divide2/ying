@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -48,7 +47,6 @@ public class MenuUpdateDTO {
     /**
      * 是否启用
      */
-    @NotNull
     @ApiModelProperty("启用")
     private Boolean enabled;
 
@@ -60,5 +58,9 @@ public class MenuUpdateDTO {
 
     @ApiModelProperty("类型")
     private String type;
+
+    @ApiModelProperty("编码")
+    @NotEmpty
+    private String code;
 
 }

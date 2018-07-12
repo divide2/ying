@@ -18,4 +18,9 @@ public interface MenuService extends BasicService<Menu,Integer> {
 
     void add(MenuAddDTO menuAddDTO);
 
+    /**
+     *
+     * @return
+     */
+    List<Tree> findLeftMenuTreeBySelf();
 }

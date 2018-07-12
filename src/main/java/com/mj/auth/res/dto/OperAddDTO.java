@@ -13,5 +13,6 @@ public class OperAddDTO {
     private String name;
     private Integer resId;
     private String code;
-    private List<String> apis;
+    private Integer indexPos;
+    private List<Integer> apis;
 }

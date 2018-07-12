@@ -21,6 +21,7 @@ import static com.querydsl.core.types.Projections.constructor;
  */
 @Repository
 public class AclRepositoryImpl implements AclRepositoryCustom {
+
     @Autowired
     private EntityManager entityManager;
 
@@ -47,4 +48,8 @@ public class AclRepositoryImpl implements AclRepositoryCustom {
         return null;
     }
 
+    @Override
+    public List<Integer> findMenuIdsByRole(Integer roleId) {
+        return null;
+    }
 }

@@ -12,5 +12,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PortRepository extends JpaRepository<Port,Integer>, QuerydslPredicateExecutor<Port> {
 
+    /**
+     * 根据港口代码查询数据
+     * @param portCode 港口代码
+     * @return Port
+     */
     Port getByPortCode(String portCode);
 }

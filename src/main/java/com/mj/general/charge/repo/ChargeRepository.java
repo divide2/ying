@@ -12,9 +12,24 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ChargeRepository extends JpaRepository<Charge,Integer>,QuerydslPredicateExecutor<Charge> {
 
+    /**
+     * 根据费用简称查询数据
+     * @param chargeItemCode 费用简称
+     * @return Charge
+     */
     Charge getByChargeItemCode(String chargeItemCode);
 
+    /**
+     * 根据费用中文名查询数据
+     * @param chargeItemCN 费用中文名
+     * @return Charge
+     */
     Charge getByChargeItemCN(String chargeItemCN);
 
+    /**
+     * 根据费用英文名查询数据
+     * @param chargeItemEN 费用英文名
+     * @return Charge
+     */
     Charge getByChargeItemEN(String chargeItemEN);
 }

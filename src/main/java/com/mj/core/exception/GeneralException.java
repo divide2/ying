@@ -1,9 +1,17 @@
 package com.mj.core.exception;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 15:28
+ * @author zejun
+ * @date 2018/7/10 15:28
  */
 public class GeneralException extends RuntimeException {
+
+    public GeneralException(){
+        super();
+    }
+
+    public GeneralException(String message){
+        super(message);
+    }
 
 }

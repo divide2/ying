@@ -1,6 +1,6 @@
 package com.mj.general.carrier.service.impl;
 
-import com.mj.core.exception.AlreadyExistsException;
+import com.mj.core.exception.GeneralException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
@@ -45,19 +45,19 @@ public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,C
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierCode())){
             Carrier exitCode =  carrierRepository.getByCarrierCode(carrierCheckDTO.getCarrierCode());
             if(exitCode != null) {
-                throw new AlreadyExistsException();
+                throw new GeneralException();
             }
         }
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierCN())){
             Carrier exitCN =  carrierRepository.getByCarrierCN(carrierCheckDTO.getCarrierCN());
             if(exitCN != null) {
-                throw new AlreadyExistsException();
+                throw new GeneralException();
             }
         }
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierEN())){
             Carrier exitEN =  carrierRepository.getByCarrierEN(carrierCheckDTO.getCarrierEN());
             if(exitEN != null) {
-                throw new AlreadyExistsException();
+                throw new GeneralException();
             }
         }
     }

@@ -14,6 +14,10 @@ import java.util.List;
 @Repository
 public interface RoutePortRepository extends JpaRepository<RoutePort,Integer>,QuerydslPredicateExecutor<RoutePort> {
 
-
+     /**
+      * 根据航线id查询数据集
+      * @param routeId 航线id
+      * @return List<RoutePort>
+      */
      List<RoutePort> findByRouteId(Integer routeId);
 }

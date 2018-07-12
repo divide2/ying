@@ -12,9 +12,24 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CarrierRepository extends JpaRepository<Carrier,Integer>, QuerydslPredicateExecutor<Carrier> {
 
+    /**
+     * 根据船公司简称查数据
+     * @param carrierCode 船公司简称
+     * @return Carrier
+     */
     Carrier getByCarrierCode(String carrierCode);
 
+    /**
+     * 根据船公司英文名查数据
+     * @param carrierEN 船公司英文名
+     * @return Carrier
+     */
     Carrier getByCarrierEN(String carrierEN);
 
+    /**
+     * 根据船公司中文名查数据
+     * @param carrierCN 船公司中文名
+     * @return Carrier
+     */
     Carrier getByCarrierCN(String carrierCN);
 }

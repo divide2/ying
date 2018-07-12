@@ -18,31 +18,35 @@ public interface RouteService extends BasicService<Route,Integer> {
 
     /**
      * 新增航线
-     * @param routeAddDTO
+     * @param routeAddDTO 新增航线dto
      */
     void addRouteAndPort(RouteAddDTO routeAddDTO);
 
     /**
      * 修改航线
-     * @param routeUpdateDTO
+     * @param routeUpdateDTO 修改航线dto
      */
     void updateRouteAndPort(RouteUpdateDTO routeUpdateDTO);
 
     /**
      * 查看单条信息
-     * @param id
-     * @return
+     * @param id 航线id
+     * @return RouteVO
      */
     RouteVO getDetail(Integer id);
 
     /**
      * 分页查询
-     * @param routeQueryDTO
-     * @param pageable
-     * @return
+     * @param routeQueryDTO 分页查询dto
+     * @param pageable 分页数据
+     * @return Page<Route>
      */
     Page<Route> find(RouteQueryDTO routeQueryDTO,Pageable pageable);
 
+    /**
+     * 检查字段是否重复
+     * @param routeCheckDTO  检查字段dto
+     */
     void check(RouteCheckDTO routeCheckDTO);
 
 

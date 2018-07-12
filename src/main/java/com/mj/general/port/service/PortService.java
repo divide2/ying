@@ -15,15 +15,15 @@ public interface PortService extends BasicService<Port,Integer> {
 
     /**
      * 分页查询
-     * @param portQueryDTO
-     * @param pageable
-     * @return
+     * @param portQueryDTO 分页查询dto
+     * @param pageable 分页数据
+     * @return Page<Port>
      */
     Page<Port> find(PortQueryDTO portQueryDTO, Pageable pageable);
 
     /**
-     * 检查字段是否存在
-     * @param portCheckDTO
+     * 检查字段是否重复
+     * @param portCheckDTO  检查字段dto
      */
     void check(PortCheckDTO portCheckDTO);
 }

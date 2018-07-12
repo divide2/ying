@@ -4,10 +4,7 @@ import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.core.utils.UploadAliOSSUtils;
-import com.mj.general.route.dto.RouteAddDTO;
-import com.mj.general.route.dto.RouteQueryDTO;
-import com.mj.general.route.dto.RouteStatusDTO;
-import com.mj.general.route.dto.RouteUpdateDTO;
+import com.mj.general.route.dto.*;
 import com.mj.general.route.model.Route;
 import com.mj.general.route.service.RouteService;
 import com.mj.general.route.vo.RouteImgVO;
@@ -25,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:33
+ * @author zejun
+ * @date 2018/7/10 11:33
  */
 @RestController
 @RequestMapping("/v1/route")
@@ -46,20 +43,20 @@ public class RouteController {
         return Responser.created();
     }
 
+    @PatchMapping("/stats")
+    @ApiOperation("禁用状态")
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody RouteEnabledDTO routeEnabledDTO, BindingResult br){
+        Route route = routeService.get(routeEnabledDTO.getId());
+        route.setStatus("1");
+        routeService.update(route);
+        return  Responser.updated();
+    }
+
     @PatchMapping
     @ApiOperation("修改航线")
     public ResponseEntity<Messager> update(@Valid @RequestBody RouteUpdateDTO routeUpdateDTO,BindingResult br){
         routeService.updateRouteAndPort(routeUpdateDTO);
         return Responser.updated();
-    }
-
-    @PatchMapping("/status")
-    @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enable(@Valid @RequestBody RouteStatusDTO routeStatusDTO, BindingResult br){
-        Route route = routeService.get(routeStatusDTO.getId());
-        route.setStatus("1");
-        routeService.update(route);
-        return  Responser.updated();
     }
 
     @GetMapping

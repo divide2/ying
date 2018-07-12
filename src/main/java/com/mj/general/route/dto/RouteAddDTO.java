@@ -8,8 +8,8 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:04
+ * @author zejun
+ * @date 2018/7/10 11:04
  */
 @Data
 @ApiModel("新增航线管理")

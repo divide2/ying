@@ -2,26 +2,21 @@ package com.mj.general.carrier.service.impl;
 
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
-import com.mj.general.carrier.dto.CarrierAddDTO;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.model.QCarrier;
 import com.mj.general.carrier.repo.CarrierRepository;
 import com.mj.general.carrier.service.CarrierService;
-import com.querydsl.core.types.Operation;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
-
 /**
- * @auther: zejun
- * @date: 2018/7/8 16:06
+ * @author zejun
+ * @date 2018/7/8 16:06
  */
 @Service
 public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,CarrierRepository> implements CarrierService {

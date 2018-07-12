@@ -6,8 +6,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 14:14
+ * @author zejun
+ * @date 2018/7/9 14:14
  */
 @Repository
 public interface CarrierRepository extends JpaRepository<Carrier,Integer>, QuerydslPredicateExecutor<Carrier> {

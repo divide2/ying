@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:27
+ * @author zejun
+ * @date 2018/7/10 11:27
  */
 @Service
 public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, RouteRepository> implements RouteService {

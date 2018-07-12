@@ -7,8 +7,8 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 10:19
+ * @author zejun
+ * @date 2018/7/9 10:19
  */
 @Data
 @ApiModel("船公司新增")

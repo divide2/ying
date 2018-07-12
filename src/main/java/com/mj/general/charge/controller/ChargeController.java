@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 09:03
+ * @author zejun
+ * @date 2018/7/10 09:03
  * 费用项目管理
  */
 @RestController

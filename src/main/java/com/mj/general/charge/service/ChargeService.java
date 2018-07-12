@@ -10,8 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 09:21
+ * @author zejun
+ * @date 2018/7/10 09:21
  */
 public interface ChargeService extends BasicService<Charge,Integer> {
 

@@ -8,8 +8,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 14:28
+ * @author zejun
+ * @date 2018/7/9 14:28
  */
 @Data
 @ApiModel("船公司修改")

@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 17:36
+ * @author zejun
+ * @date 2018/7/9 17:36
  * 世界港口表
  */
 @Data

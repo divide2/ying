@@ -9,8 +9,8 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 17:14
+ * @author zejun
+ * @date 2018/7/10 17:14
  */
 @Data
 @Builder

@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:39
+ * @author zejun
+ * @date 2018/7/10 11:39
  */
 @Data
 @ApiModel("新增航线管理中的港口")
@@ -49,7 +49,4 @@ public class RoutePortAddDTO {
     @NotNull
     private Integer orderNum;
 
-    @ApiModelProperty("航线id")
-    @NotNull
-    private Integer routeId;
 }

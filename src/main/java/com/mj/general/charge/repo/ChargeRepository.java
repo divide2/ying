@@ -6,8 +6,8 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 09:22
+ * @author zejun
+ * @date 2018/7/10 09:22
  */
 @Repository
 public interface ChargeRepository extends JpaRepository<Charge,Integer>,QuerydslPredicateExecutor<Charge> {

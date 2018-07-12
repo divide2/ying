@@ -4,6 +4,7 @@ import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.port.dto.PortAddDTO;
+import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
 import com.mj.general.port.dto.PortUpdateDTO;
 import com.mj.general.port.model.Port;
@@ -20,8 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 17:35
+ * @author zejun
+ * @date 2018/7/9 17:35
  * 世界港口管理
  */
 @RestController
@@ -94,7 +95,7 @@ public class PortController {
 
     @GetMapping("/check")
     @ApiOperation("检查字段是否重复")
-    public void check(){
-
+    public void check(PortCheckDTO portCheckDTO){
+        portService.check(portCheckDTO);
     }
 }

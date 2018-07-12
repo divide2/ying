@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 17:07
+ * @author zejun
+ * @date 2018/7/10 17:07
  */
 @Data
 @Builder

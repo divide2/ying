@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 09:05
+ * @author zejun
+ * @date 2018/7/10 09:05
  * 费用项目表
  */
 @Data

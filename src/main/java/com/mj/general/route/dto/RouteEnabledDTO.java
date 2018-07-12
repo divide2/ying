@@ -8,13 +8,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 16:41
+ * @author zejun
+ * @date 2018/7/12 11:19
  */
 @Data
 @ApiModel("禁/启用航线")
-public class RouteStatusDTO {
-
+public class RouteEnabledDTO {
     @ApiModelProperty("航线id")
     @NotNull
     private Integer id;

@@ -8,8 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 17:47
+ * @author zejun
+ * @date 2018/7/9 17:47
  */
 public interface PortService extends BasicService<Port,Integer> {
 

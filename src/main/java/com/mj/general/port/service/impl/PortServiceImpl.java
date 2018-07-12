@@ -15,8 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * @auther: zejun
- * @date: 2018/7/9 17:49
+ * @author zejun
+ * @date 2018/7/9 17:49
  */
 @Service
 public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRepository> implements PortService {

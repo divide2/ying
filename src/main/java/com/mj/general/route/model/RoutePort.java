@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:15
+ * @author zejun
+ * @date 2018/7/10 11:15
  */
 @Data
 @Entity

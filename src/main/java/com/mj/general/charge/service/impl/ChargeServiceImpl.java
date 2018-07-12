@@ -16,8 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 09:22
+ * @author zejun
+ * @date 2018/7/10 09:22
  */
 @Service
 public class ChargeServiceImpl extends SimpleBasicServiceImpl<Charge,Integer,ChargeRepository> implements ChargeService {

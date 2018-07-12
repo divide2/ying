@@ -1,7 +1,7 @@
 
 === 表结构
 
-.字典数据表（general _info）
+.字典数据表（general_info）
 |===
 |描述|字段|类型|是否null|注释
 |id|id|int(11)|否|主键
@@ -22,10 +22,10 @@
 |英文名|englishName|Varchar(64)|	否|
 |===
 
-.国家地区（general _ country）
+.国家地区（general_country）
 |===
 |描述|字段|类型|是否null|注释
-|国家（地区）|countryTwoCode|varchare(2)|否|二字代码
+|国家（地区）|countryCode|varchare(2)|否|二字代码
 |国家（地区）|countryCN|Varchar(64)|否|中文名
 |国家（地区）|countryEN|Varchar(64)|否|英文名
 |===
@@ -52,10 +52,17 @@
 |id	|id|int(11)|否|主键
 |是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
 |船公司id|carrierId|int(11)|否|
+|船公司简称|carrierCode|Varchar(255)|否|
+|船公司英文名|carrierEN|Varchar(255)|否|
 |航线代码|routeCode|Varchar(24)|否|
 |航线全称|routeFullName|Varchar(64)|否|
 |航线描述|routeDesc|Text|否|
-|航线图|routeMapUrl|Varchar(255)|存储文件路径|
+|航线图|routeMapUrl|Varchar(255)|否|存储文件路径
+|全程时间|allTime|BigDecimal|否|
+|首靠港|firstPort|Varchar(255)|否|
+|最后靠港|lastPort|Varchar(255)|否|
+|总的港口数|num|int(11)|否|
+|全部港口|allPort|Varchar(255)|否|
 |禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
 |===
 
@@ -66,7 +73,8 @@
 |id	|id|int(11)|否|主键
 |是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
 |港口id|portId|int(11)|否|
-|港口名称|portName|Varchar(64)|否|
+|港口英文名|portEN|Varchar(64)|否|
+|国家（地区）英文名|countryEN|Varchar(64)|否|
 |截关时间|etc|datetime|否|
 |开船时间|etd|datetime|否|
 |航程|tt	|decimal(9)|否|

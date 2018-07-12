@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 10:37
+ * @author zejun
+ * @date 2018/7/10 10:37
  */
 @Data
 @Entity

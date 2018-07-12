@@ -7,8 +7,8 @@ import com.mj.general.route.service.RoutePortService;
 import org.springframework.stereotype.Service;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 15:20
+ * @author zejun
+ * @date 2018/7/10 15:20
  */
 @Service
 public class RoutePortServiceImpl extends SimpleBasicServiceImpl<RoutePort,Integer,RoutePortRepository> implements RoutePortService {

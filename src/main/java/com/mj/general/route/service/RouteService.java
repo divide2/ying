@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 /**
- * @auther: zejun
- * @date: 2018/7/10 11:25
+ * @author zejun
+ * @date 2018/7/10 11:25
  */
 public interface RouteService extends BasicService<Route,Integer> {
 

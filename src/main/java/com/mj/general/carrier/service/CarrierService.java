@@ -10,8 +10,8 @@ import org.springframework.data.domain.Pageable;
 
 
 /**
- * @auther: zejun
- * @date: 2018/7/8 16:03
+ * @author zejun
+ * @date 2018/7/8 16:03
  */
 public interface CarrierService extends BasicService<Carrier,Integer>{
 

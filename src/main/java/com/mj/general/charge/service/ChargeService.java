@@ -2,6 +2,8 @@ package com.mj.general.charge.service;
 
 import com.mj.core.service.BasicService;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
+import com.mj.general.charge.dto.ChargeAddDTO;
+import com.mj.general.charge.dto.ChargeCheckDTO;
 import com.mj.general.charge.dto.ChargeQueryDTO;
 import com.mj.general.charge.model.Charge;
 import org.springframework.data.domain.Page;
@@ -20,4 +22,10 @@ public interface ChargeService extends BasicService<Charge,Integer> {
      * @return
      */
     Page<Charge> find(ChargeQueryDTO chargeQueryDTO, Pageable pageable);
+
+    /**
+     * 检查字段是否存在
+     * @param chargeCheckDTO
+     */
+    void check(ChargeCheckDTO chargeCheckDTO);
 }

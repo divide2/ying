@@ -4,6 +4,7 @@ import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.carrier.dto.CarrierAddDTO;
+import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
 import com.mj.general.carrier.dto.CarrierUpdateDTO;
 import com.mj.general.carrier.model.Carrier;
@@ -77,4 +78,11 @@ public class CarrierController {
                 .status(carrier.getStatus()).build());
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/check")
+    @ApiOperation("检查字段是否重复")
+    public void check(CarrierCheckDTO carrierCheckDTO){
+        carrierService.check(carrierCheckDTO);
+    }
+
 }

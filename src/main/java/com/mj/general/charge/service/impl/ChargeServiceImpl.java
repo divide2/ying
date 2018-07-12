@@ -1,6 +1,9 @@
 package com.mj.general.charge.service.impl;
 
+import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.general.charge.dto.ChargeAddDTO;
+import com.mj.general.charge.dto.ChargeCheckDTO;
 import com.mj.general.charge.dto.ChargeQueryDTO;
 import com.mj.general.charge.model.Charge;
 import com.mj.general.charge.model.QCharge;
@@ -35,5 +38,27 @@ public class ChargeServiceImpl extends SimpleBasicServiceImpl<Charge,Integer,Cha
                     .or(charge.chargeItemEN.like("%" + chargeQueryDTO.getKeyName() + "%"));
         }
         return chargeRepository.findAll(booleanExpression,pageable);
+    }
+
+    @Override
+    public void check(ChargeCheckDTO chargeCheckDTO) {
+        if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemCode())){
+            Charge exitCode = chargeRepository.getByChargeItemCode(chargeCheckDTO.getChargeItemCode());
+            if(exitCode != null) {
+                throw new AlreadyExistsException();
+            }
+        }
+        if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemCN())){
+            Charge exitCN = chargeRepository.getByChargeItemCN(chargeCheckDTO.getChargeItemCN());
+            if(exitCN != null) {
+                throw new AlreadyExistsException();
+            }
+        }
+        if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemEN())){
+            Charge exitEN = chargeRepository.getByChargeItemEN(chargeCheckDTO.getChargeItemEN());
+            if(exitEN != null) {
+                throw new AlreadyExistsException();
+            }
+        }
     }
 }

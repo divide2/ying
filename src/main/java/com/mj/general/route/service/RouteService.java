@@ -2,6 +2,7 @@ package com.mj.general.route.service;
 
 import com.mj.core.service.BasicService;
 import com.mj.general.route.dto.RouteAddDTO;
+import com.mj.general.route.dto.RouteCheckDTO;
 import com.mj.general.route.dto.RouteQueryDTO;
 import com.mj.general.route.dto.RouteUpdateDTO;
 import com.mj.general.route.model.Route;
@@ -41,4 +42,8 @@ public interface RouteService extends BasicService<Route,Integer> {
      * @return
      */
     Page<Route> find(RouteQueryDTO routeQueryDTO,Pageable pageable);
+
+    void check(RouteCheckDTO routeCheckDTO);
+
+
 }

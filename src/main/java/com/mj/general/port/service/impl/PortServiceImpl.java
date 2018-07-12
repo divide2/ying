@@ -1,6 +1,8 @@
 package com.mj.general.port.service.impl;
 
+import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
 import com.mj.general.port.model.Port;
 import com.mj.general.port.model.QPort;
@@ -39,5 +41,15 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
                     .or(port.serviceName.like("%" + portQueryDTO.getKeyName() + "%"));
         }
         return portRepository.findAll(predicate,pageable);
+    }
+
+    @Override
+    public void check(PortCheckDTO portCheckDTO) {
+        if (StringUtils.isNotEmpty(portCheckDTO.getPortCode())){
+            Port exitCode = portRepository.getByPortCode(portCheckDTO.getPortCode());
+            if (exitCode != null){
+                throw new AlreadyExistsException();
+            }
+        }
     }
 }

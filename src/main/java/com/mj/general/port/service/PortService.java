@@ -1,6 +1,7 @@
 package com.mj.general.port.service;
 
 import com.mj.core.service.BasicService;
+import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
 import com.mj.general.port.model.Port;
 import org.springframework.data.domain.Page;
@@ -19,4 +20,10 @@ public interface PortService extends BasicService<Port,Integer> {
      * @return
      */
     Page<Port> find(PortQueryDTO portQueryDTO, Pageable pageable);
+
+    /**
+     * 检查字段是否存在
+     * @param portCheckDTO
+     */
+    void check(PortCheckDTO portCheckDTO);
 }

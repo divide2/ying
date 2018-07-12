@@ -4,6 +4,7 @@ import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.charge.dto.ChargeAddDTO;
+import com.mj.general.charge.dto.ChargeCheckDTO;
 import com.mj.general.charge.dto.ChargeQueryDTO;
 import com.mj.general.charge.dto.ChargeUpdateDTO;
 import com.mj.general.charge.model.Charge;
@@ -77,4 +78,11 @@ public class ChargeController {
                 .status(charge.getStatus()).build());
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/check")
+    @ApiOperation("检查字段是否重复")
+    public void check(ChargeCheckDTO chargeCheckDTO){
+        chargeService.check(chargeCheckDTO);
+    }
+
 }

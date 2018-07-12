@@ -26,7 +26,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/v1/port")
-@Api("世界港口")
+@Api(tags = "世界港口")
 public class PortController {
 
     private final PortService portService;
@@ -92,4 +92,9 @@ public class PortController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/check")
+    @ApiOperation("检查字段是否重复")
+    public void check(){
+
+    }
 }

@@ -12,4 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CarrierRepository extends JpaRepository<Carrier,Integer>, QuerydslPredicateExecutor<Carrier> {
 
+    Carrier getByCarrierCode(String carrierCode);
+
+    Carrier getByCarrierEN(String carrierEN);
+
+    Carrier getByCarrierCN(String carrierCN);
 }

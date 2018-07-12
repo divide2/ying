@@ -1,11 +1,10 @@
 package com.mj.general.route.service.impl;
 
+import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.exception.GeneralException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
-import com.mj.general.route.dto.RouteAddDTO;
-import com.mj.general.route.dto.RoutePortAddDTO;
-import com.mj.general.route.dto.RouteQueryDTO;
-import com.mj.general.route.dto.RouteUpdateDTO;
+import com.mj.general.port.model.Port;
+import com.mj.general.route.dto.*;
 import com.mj.general.route.model.QRoute;
 import com.mj.general.route.model.Route;
 import com.mj.general.route.model.RoutePort;
@@ -42,7 +41,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
     }
 
     @Override
-    public void addRouteAndPort(RouteAddDTO routeAddDTO) throws GeneralException {
+    public void addRouteAndPort(RouteAddDTO routeAddDTO) {
         List<RoutePortAddDTO> routePortAddDTOS = routeAddDTO.getRoutePortAddDTOList();
         int num = routePortAddDTOS.size();
         String firstPort = routePortAddDTOS.get(0).getPortEN();
@@ -178,5 +177,15 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
             predicate = route.allPort.like("%" + routeQueryDTO.getAllPort() + "%");
         }
         return routeRepository.findAll(predicate,pageable);
+    }
+
+    @Override
+    public void check(RouteCheckDTO routeCheckDTO) {
+        if (StringUtils.isNotEmpty(routeCheckDTO.getRouteCode())){
+            Route exitCode = routeRepository.getByRouteCode(routeCheckDTO.getRouteCode());
+            if (exitCode != null){
+                throw new AlreadyExistsException();
+            }
+        }
     }
 }

@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface RouteRepository extends JpaRepository<Route,Integer>, QuerydslPredicateExecutor<Route> {
+
+    Route getByRouteCode(String routeCode);
 }

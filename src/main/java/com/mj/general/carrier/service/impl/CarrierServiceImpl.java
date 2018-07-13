@@ -1,5 +1,6 @@
 package com.mj.general.carrier.service.impl;
 
+import com.google.common.collect.Lists;
 import com.mj.core.exception.GeneralException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
@@ -13,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author zejun
@@ -60,5 +63,13 @@ public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,C
                 throw new GeneralException();
             }
         }
+    }
+
+    @Override
+    public List<Carrier> findAll() {
+        QCarrier carrier = QCarrier.carrier;
+        BooleanExpression predicate = carrier.deleted.eq('N');
+        predicate.and(carrier.status.eq('Y'));
+        return Lists.newArrayList(carrierRepository.findAll(predicate));
     }
 }

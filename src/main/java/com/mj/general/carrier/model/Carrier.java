@@ -30,7 +30,7 @@ public class Carrier {
      * 是否删除
      */
     @Builder.Default
-    private char deleted = 'N';
+    private Character deleted = 'N';
 
     /**
      * 船公司简称
@@ -52,6 +52,6 @@ public class Carrier {
      * 禁用状态
      */
     @Builder.Default
-    private char status = 'Y';
+    private Character status = 'Y';
 
 }

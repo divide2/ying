@@ -1,12 +1,13 @@
 package com.mj.general.carrier.service;
 
 import com.mj.core.service.BasicService;
-import com.mj.general.carrier.dto.CarrierAddDTO;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
 import com.mj.general.carrier.model.Carrier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 
 /**
@@ -28,4 +29,5 @@ public interface CarrierService extends BasicService<Carrier,Integer>{
      * @param carrierCheckDTO
      */
     void check(CarrierCheckDTO carrierCheckDTO);
+
 }

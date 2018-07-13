@@ -6,7 +6,7 @@ spring:
     database: mysql
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         jdbc:
           lob:
             non_contextual_creation: true
@@ -30,10 +30,10 @@ logging:
       springframework:
        web: debug
        security: debug
-dic:
-  gender:
-    male: M
-    female: F
-  menuType:
-    left: LEFT_NAV
-    oper: OPER
+
+deleted:
+  true: Y
+  false: N
+status:
+  enable: Y
+  disable: N

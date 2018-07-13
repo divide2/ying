@@ -13,11 +13,11 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "general_info")
+@Table(name = "general_dictionary")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GeneralInfo {
+public class Dictionary {
 
     /**
      * id
@@ -39,9 +39,16 @@ public class GeneralInfo {
     private String groupCode;
 
     /**
-     * 名称
+     * 中文
      */
-    private String name;
+    @Column(name = "name_cn")
+    private String nameCN;
+
+    /**
+     * 英文
+     */
+    @Column(name = "name_en")
+    private String nameEN;
 
     /**
      * code

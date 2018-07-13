@@ -51,6 +51,6 @@ public class GeneralInfo {
     /**
      * 组内排序
      */
-    @Column(name = "group_order")
-    private Integer groupOrder;
+    @Column(name = "order_num")
+    private Integer orderNum;
 }

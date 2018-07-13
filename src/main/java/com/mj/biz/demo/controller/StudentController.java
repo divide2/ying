@@ -4,6 +4,7 @@ import com.mj.biz.demo.dto.StudentAddDTO;
 import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.service.StudentService;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
+import com.mj.core.data.dictionary.StatusProperties;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.querydsl.core.types.Predicate;
@@ -28,9 +29,11 @@ import javax.validation.Valid;
 public class StudentController {
 
     private final StudentService studentService;
+    private final StatusProperties statusProperties;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StatusProperties statusProperties) {
         this.studentService = studentService;
+        this.statusProperties = statusProperties;
     }
 
 
@@ -50,10 +53,10 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getWithClazzName(stuId));
     }
 
-    @GetMapping("/list")
     /**
      * 单表模糊查询 并返回数据
      */
+    @GetMapping("/list")
     public ResponseEntity<Page<Student>> findStudent(@QuerydslPredicate(root = Student.class) Predicate predicate, Pageable pageable) {
         Page<Student> students = studentService.find(predicate, pageable);
         return ResponseEntity.ok(students);
@@ -69,5 +72,12 @@ public class StudentController {
     public void delete() {
 
     }
+
+    @GetMapping("/test")
+    public ResponseEntity<StatusProperties> get() {
+        System.out.println(statusProperties.getDisable());
+        return ResponseEntity.ok(statusProperties);
+    }
+
 }
 

@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author bvvy
  */
 @Service
-public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRepository> implements RoleService {
+public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleRepository> implements RoleService {
 
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;
@@ -53,7 +53,7 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
         if (StringUtils.isNotEmpty(query.getCode())) {
             predicate = role.code.like("%" + query.getCode() + "%");
         }
-        return roleRepository.findAll(predicate,pageable);
+        return roleRepository.findAll(predicate, pageable);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
     public void addUsers(RoleAddUsersDTO roleAddUsersDTO) {
         userRoleRepository.deleteByRoleId(roleAddUsersDTO.getRoleId());
         roleAddUsersDTO.getUserIds()
-                .forEach(userId-> {
+                .forEach(userId -> {
                     UserRole ur = new UserRole();
                     ur.setRoleId(roleAddUsersDTO.getRoleId());
                     ur.setUserId(userId);
@@ -72,18 +72,18 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role,Integer,RoleRep
     @Override
     public void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO) {
         roleAddAuthDTO.getResIds().
-                forEach(resId->{
-                        Acl acl = aclRepository.getByPrincipalIdAndPrincipalTypeAndResIdAndResType(
-                                roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, resId, Menu.RES_TYPE
-                        );
-                        if (acl == null) {
-                            acl = new Acl();
-                            acl.setPrincipalId(roleAddAuthDTO.getRoleId());
-                            acl.setResId(resId);
-                            acl.setPrincipalType(Role.PRINCIPAL);
-                            acl.setResType(Menu.RES_TYPE);
-                            acl.setPermission(0, true);
-                            aclRepository.save(acl);
+                forEach(resId -> {
+                    Acl acl = aclRepository.findResByPrincipal(
+                            roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, resId, Menu.RES_TYPE
+                    );
+                    if (acl == null) {
+                        acl = new Acl();
+                        acl.setPrincipalId(roleAddAuthDTO.getRoleId());
+                        acl.setResId(resId);
+                        acl.setPrincipalType(Role.PRINCIPAL);
+                        acl.setResType(Menu.RES_TYPE);
+                        acl.setAclStatus(1);
+                        aclRepository.save(acl);
                     }
                 });
     }

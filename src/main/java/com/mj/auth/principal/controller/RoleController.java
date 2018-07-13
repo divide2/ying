@@ -126,7 +126,7 @@ public class RoleController {
     }
 
     @GetMapping("/{roleId}/menus")
-    @ApiOperation("获取角色所有用户")
+    @ApiOperation("获取角色所有菜单id")
     public ResponseEntity<List<Integer>> findRoleMenus(@PathVariable Integer roleId) {
         List<Integer> menuIds = aclService.findMenuIdsByRole(roleId);
         return Responser.ok(menuIds);

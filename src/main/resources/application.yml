@@ -6,7 +6,7 @@ spring:
     database: mysql
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         jdbc:
           lob:
             non_contextual_creation: true
@@ -20,6 +20,10 @@ spring:
     url: jdbc:mysql://120.79.32.147:3306/columbu
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
+  profiles:
+    active: default
+  application:
+    name: columbu
 security:
   oauth2:
     resource:
@@ -31,9 +35,6 @@ logging:
        web: debug
        security: debug
 dic:
-  gender:
-    male: M
-    female: F
-  menuType:
-    left: LEFT_NAV
-    oper: OPER
+  status:
+    enable: Y
+    disable: N

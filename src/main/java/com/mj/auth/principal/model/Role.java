@@ -1,7 +1,9 @@
 package com.mj.auth.principal.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "sys_role")
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     public static final String PRINCIPAL = "ROLE";

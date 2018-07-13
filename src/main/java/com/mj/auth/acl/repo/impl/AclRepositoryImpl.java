@@ -27,7 +27,7 @@ public class AclRepositoryImpl implements AclRepositoryCustom {
 
     @Override
     public List<Integer> findAllResAndOperByRole(Integer roleId) {
-        JPAQuery<Integer> query = new JPAQuery<>(entityManager);
+        JPAQuery<AclOperBO> query = new JPAQuery<>(entityManager);
         QAcl acl = QAcl.acl;
         QOper oper = QOper.oper;
         List<AclOperBO> aclOpers = query.select(constructor(AclOperBO.class, acl.aclStatus, oper.id, oper.indexPos))
@@ -50,6 +50,20 @@ public class AclRepositoryImpl implements AclRepositoryCustom {
 
     @Override
     public List<Integer> findMenuIdsByRole(Integer roleId) {
-        return null;
+        QAcl acl = QAcl.acl;
+        JPAQuery<Acl> query = new JPAQuery<>(entityManager);
+        List<Acl> acls = query.select(acl).from(acl)
+                .where(acl.principalId.eq(roleId).and(acl.principalType.eq(Role.PRINCIPAL))).fetch();
+        return acls.stream().map(Acl::getResId).collect(Collectors.toList());
+    }
+
+    @Override
+    public Acl findResByPrincipal(Integer pid, String ptype, Integer rid, String rtype) {
+        QAcl acl = QAcl.acl;
+        JPAQuery<Acl> query = new JPAQuery<>(entityManager);
+        return query.select(acl).from(acl).where(
+                acl.principalId.eq(pid).and(acl.principalType.eq(ptype))
+                        .and(acl.resId.eq(rid)).and(acl.resType.eq(rtype))
+        ).fetchOne();
     }
 }

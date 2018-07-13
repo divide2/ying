@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface AclRepository extends JpaRepository<Acl, Integer>,AclRepositoryCustom {
 
-    Acl getByPrincipalIdAndPrincipalTypeAndResIdAndResType(Integer pid, String ptype, Integer resId, String resType);
 }

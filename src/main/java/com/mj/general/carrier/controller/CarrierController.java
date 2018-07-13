@@ -61,7 +61,7 @@ public class CarrierController {
     @ApiOperation("删除船公司")
     public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         Carrier carrier = carrierService.get(del.getId());
-        carrier.setDeleted(1);
+        carrier.setDeleted('Y');
         carrierService.update(carrier);
         return Responser.deleted();
     }

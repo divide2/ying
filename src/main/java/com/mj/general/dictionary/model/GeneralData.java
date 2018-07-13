@@ -29,14 +29,14 @@ public class GeneralData {
     /**
      * 分组名
      */
-    @Column(name = "group_name")
-    private String groupName;
+    @Column(name = "name_code")
+    private String nameCode;
 
     /**
      * 中文名
      */
-    @Column(name = "china_name")
-    private String chinaName;
+    @Column(name = "chinese_name")
+    private String chineseName;
 
     /**
      * 英文名

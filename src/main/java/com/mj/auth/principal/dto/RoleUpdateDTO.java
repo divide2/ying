@@ -7,6 +7,9 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * @author bvvy
+ */
 @Data
 @ApiModel("角色修改")
 public class RoleUpdateDTO {

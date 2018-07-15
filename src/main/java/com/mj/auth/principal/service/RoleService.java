@@ -8,6 +8,9 @@ import com.mj.core.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+/**
+ * @author bvvy
+ */
 public interface RoleService extends BasicService<Role, Integer> {
 
     /**
@@ -25,6 +28,10 @@ public interface RoleService extends BasicService<Role, Integer> {
      */
     void addUsers(RoleAddUsersDTO roleAddUsersDTO);
 
+    /**
+     * 添加角色的菜单权限
+     * @param roleAddAuthDTO 菜单
+     */
     void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO);
 
 }

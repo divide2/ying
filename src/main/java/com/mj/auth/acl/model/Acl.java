@@ -20,6 +20,7 @@ import javax.persistence.*;
 public class Acl {
 
 
+    private static final int MAX_INDEX = 31;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -47,7 +48,7 @@ public class Acl {
      * @param permit permit
      */
     public void setPermission(int index, boolean permit) {
-        if (index < 0 || index > 31) {
+        if (index < 0 || index > MAX_INDEX) {
             throw new SysException("invaid_index");
         }
         this.aclStatus = this.setBit(this.aclStatus, index, permit);

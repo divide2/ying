@@ -9,10 +9,12 @@ import java.util.stream.Collectors;
 
 /**
  * 生成树
+ *
+ * @author 123456
  */
 public class Treer {
 
-    public static  List<Tree> genTree(List<TreeMerger> treeMergers) {
+    public static List<Tree> genTree(List<TreeMerger> treeMergers) {
         List<TreeMerger> parents = getTreeParent(treeMergers);
         List<Tree> trees = new ArrayList<>();
         for (TreeMerger parent : parents) {
@@ -21,7 +23,7 @@ public class Treer {
         return trees;
     }
 
-    private static  Tree genTree(TreeMerger parent, List<TreeMerger> treeMergers) {
+    private static Tree genTree(TreeMerger parent, List<TreeMerger> treeMergers) {
         Tree root = new Tree();
         root.setId(parent.getId());
         root.setLabel(parent.getLabel());
@@ -37,7 +39,7 @@ public class Treer {
         return root;
     }
 
-    private static  List<TreeMerger> getTreeParent(List<TreeMerger> treeMerger) {
+    private static List<TreeMerger> getTreeParent(List<TreeMerger> treeMerger) {
         return treeMerger.stream().filter(tm -> tm.getPid().equals(0)).collect(Collectors.toList());
     }
 

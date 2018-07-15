@@ -4,6 +4,11 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * 存储所有的api信息
+ *
+ * @author bvvy
+ */
 @Entity
 @Table(name = "sys_api")
 @Data

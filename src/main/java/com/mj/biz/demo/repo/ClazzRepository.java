@@ -9,5 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ClazzRepository extends JpaRepository<Clazz, Integer> {
 
+    /**
+     * 通过名称获取
+     * @param name 名称
+     * @return clazz
+     */
     Clazz findByName(String name);
 }

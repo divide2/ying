@@ -3,6 +3,10 @@ package com.mj.auth.acl.vo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * @author bvvy
+ * @date 2018-07-25
+ */
 @Data
 @AllArgsConstructor
 public class AclOperBO {

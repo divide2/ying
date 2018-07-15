@@ -13,8 +13,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * @auther: zejun
- * @date: 2018/7/11 10:46
+ * @author zejun
+ * @date 2018/7/11 10:46
  */
 public class UploadAliOSSUtils {
     private static final Logger logger = LoggerFactory.getLogger(UploadAliOSSUtils.class);

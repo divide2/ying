@@ -6,6 +6,9 @@ import com.mj.auth.res.service.ApiService;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author bvvy
+ */
 @Service
 public class ApiServiceImpl extends SimpleBasicServiceImpl<Api,Integer,ApiRepository>implements ApiService {
 

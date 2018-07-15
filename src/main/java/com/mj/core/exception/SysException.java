@@ -1,5 +1,10 @@
 package com.mj.core.exception;
 
+/**
+ * 系统错误
+ *
+ * @author bvvy
+ */
 public class SysException extends RuntimeException {
     public SysException() {
         super();

@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * @auther: zejun
- * @date: 2018/7/11 15:19
+ * @author zejun
+ * @date 2018/7/11 15:19
  */
 public class AliOSSUtil {
     private static final Logger logger = LoggerFactory.getLogger(AliOSSUtil.class);

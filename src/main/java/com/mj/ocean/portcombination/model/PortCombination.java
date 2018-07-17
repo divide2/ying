@@ -26,11 +26,6 @@ public class PortCombination {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /**
-     * 船公司ids
-     */
-    @Column(name = "carrier_ids")
-    private String carrierIds;
 
     /**
      * 组合名称
@@ -38,11 +33,6 @@ public class PortCombination {
     @Column(name = "combination_name")
     private String combinationName;
 
-    /**
-     * 港口ids
-     */
-    @Column(name = "port_ids")
-    private String portIds;
 
     /**
      * 是否删除。 默认N；N：未删除；Y：删除

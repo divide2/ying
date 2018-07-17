@@ -1,5 +1,6 @@
 package com.mj.general.port.service.impl;
 
+import com.google.common.collect.Lists;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.port.dto.PortCheckDTO;
@@ -13,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author zejun
@@ -51,5 +54,13 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
                 throw new AlreadyExistsException();
             }
         }
+    }
+
+    @Override
+    public List<Port> findAll() {
+        QPort port = QPort.port;
+        BooleanExpression predicate = port.deleted.eq(0);
+        predicate.and(port.status.eq("0"));
+        return Lists.newArrayList(portRepository.findAll(predicate));
     }
 }

@@ -12,7 +12,6 @@ import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +28,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/v1/carrier")
 @Api(tags = "船公司管理")
-
 public class CarrierController {
 
     private final CarrierService carrierService;

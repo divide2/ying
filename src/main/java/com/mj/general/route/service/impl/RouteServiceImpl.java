@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, RouteRepository> implements RouteService {
     private final RouteRepository routeRepository;
     private final RoutePortService routePortService;
-    private RoutePortRepository routePortRepository;
+    private final RoutePortRepository routePortRepository;
 
     public RouteServiceImpl(RouteRepository routeRepository, RoutePortService routePortService, RoutePortRepository routePortRepository) {
         this.routeRepository = routeRepository;
@@ -167,6 +167,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
     public Page<Route> find(RouteQueryDTO routeQueryDTO, Pageable pageable) {
         QRoute route = QRoute.route;
         BooleanExpression predicate = route.deleted.eq(0);
+        predicate.and(route.status.eq("1"));
         if(StringUtils.isNotEmpty(routeQueryDTO.getCarrierEN())){
             predicate = route.carrierEN.like("%" + routeQueryDTO.getCarrierEN() + "%");
         }

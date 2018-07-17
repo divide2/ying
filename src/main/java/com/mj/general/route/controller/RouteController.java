@@ -47,7 +47,7 @@ public class RouteController {
     @ApiOperation("禁用状态")
     public ResponseEntity<Messager> enabled(@Valid @RequestBody RouteEnabledDTO routeEnabledDTO, BindingResult br){
         Route route = routeService.get(routeEnabledDTO.getId());
-        route.setStatus("1");
+        route.setStatus(routeEnabledDTO.getStatus());
         routeService.update(route);
         return  Responser.updated();
     }

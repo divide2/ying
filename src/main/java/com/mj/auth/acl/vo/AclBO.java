@@ -17,4 +17,5 @@ public class AclBO {
     private String resLabel;
     private Integer resPid;
     private String path;
+    private Integer orderNum;
 }

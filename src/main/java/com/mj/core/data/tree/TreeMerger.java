@@ -13,4 +13,5 @@ public class TreeMerger {
     private String label;
     private Integer pid;
     private String path;
+    private Integer orderNum;
 }

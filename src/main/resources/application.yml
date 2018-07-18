@@ -34,6 +34,13 @@ logging:
       springframework:
        web: debug
        security: debug
+alibaba:
+  oss:
+    end-point: http://oss-cn-shenzhen.aliyuncs.com
+    access-key-id: LTAIHxopb8AXx7iF
+    secret-access-key: b2PrRJQgxCeMqhGL1y9QkKVebBV0rJ
+    bucket-name: mj-columbu
+    file-host: http://mj-columbu.oss-cn-shenzhen.aliyuncs.com/
 dic:
   status:
     enable: Y

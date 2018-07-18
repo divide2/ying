@@ -3,6 +3,7 @@ package com.mj.auth.principal.controller;
 import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.service.UserService;
 import com.mj.auth.principal.dto.JoinDTO;
+import io.swagger.annotations.Api;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
  *
  */
 @RestController
+@Api(tags = "注册/获取用户信息")
 public class LoginController {
 
     private final UserService userService;

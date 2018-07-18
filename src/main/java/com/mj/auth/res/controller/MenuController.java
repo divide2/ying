@@ -10,6 +10,8 @@ import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.data.tree.Tree;
 import com.mj.core.er.Responser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1/menu")
+@Api(tags = "菜单")
 public class MenuController {
 
     private final MenuService menuService;
@@ -36,12 +39,14 @@ public class MenuController {
     }
 
     @PostMapping
+    @ApiOperation("添加")
     public ResponseEntity<Messager> add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
         menuService.add(menuAddDTO);
         return Responser.created();
     }
 
     @PatchMapping
+    @ApiOperation("修改")
     public ResponseEntity<Messager> update(@Valid @RequestBody MenuUpdateDTO menuUpdateDTO, BindingResult br) {
         Menu menu = menuService.get(menuUpdateDTO.getId());
         menu.setEnabled(menuUpdateDTO.getEnabled());
@@ -56,6 +61,7 @@ public class MenuController {
     }
 
     @GetMapping("/{id}")
+    @ApiOperation("获取单个")
     public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
         Menu menu = menuService.get(id);
         MenuVO menuVO = MenuVO.builder()
@@ -73,17 +79,20 @@ public class MenuController {
     }
 
     @DeleteMapping
+    @ApiOperation("删除")
     public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
         menuService.delete(del.getId());
         return Responser.deleted();
     }
 
     @GetMapping("/tree")
+    @ApiOperation("获取菜单树")
     public ResponseEntity<List<Tree>> tree() {
         return Responser.ok(menuService.findMenuTree());
     }
 
     @GetMapping("/user/tree")
+    @ApiOperation("获取用户能访问的菜单树")
     public ResponseEntity<List<Tree>> userTrees() {
         return Responser.ok(menuService.findLeftMenuTreeBySelf());
     }

@@ -45,5 +45,5 @@ public class RouteAddDTO {
 
     @ApiModelProperty("港口数据集")
     @NotEmpty
-    private List<RoutePortAddDTO> routePortAddDTOList;
+    private List<RoutePortAddDTO> routePorts;
 }

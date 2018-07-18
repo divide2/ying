@@ -18,7 +18,7 @@ import javax.validation.Valid;
  * @author bvvy
  */
 @RestController
-@Api("操作")
+@Api(tags = "操作",hidden = true)
 @RequestMapping("/v1/oper")
 public class OperController {
 

@@ -4,7 +4,7 @@ import com.mj.biz.demo.dto.StudentAddDTO;
 import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.service.StudentService;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
-import com.mj.core.data.dictionary.StatusProperties;
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.querydsl.core.types.Predicate;

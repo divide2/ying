@@ -21,5 +21,15 @@ public interface Punctuation {
      */
     String VERTICAL = "|";
 
+    /**
+     * 斜杠
+     */
+    String SLASH = "/";
+
+    /**
+     * 点
+     */
+    String DOT = ".";
+
 
 }

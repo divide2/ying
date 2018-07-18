@@ -4,6 +4,7 @@ import com.mj.core.data.tree.Tree;
 import com.mj.core.data.tree.TreeMerger;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,12 +15,18 @@ import java.util.stream.Collectors;
  */
 public class Treer {
 
+    /**
+     * 生成树
+     * @param treeMergers treeMergers
+     * @return list tree
+     */
     public static List<Tree> genTree(List<TreeMerger> treeMergers) {
         List<TreeMerger> parents = getTreeParent(treeMergers);
         List<Tree> trees = new ArrayList<>();
         for (TreeMerger parent : parents) {
             trees.add(genTree(parent, treeMergers));
         }
+        Collections.sort(trees);
         return trees;
     }
 
@@ -28,6 +35,7 @@ public class Treer {
         root.setId(parent.getId());
         root.setLabel(parent.getLabel());
         root.setPath(parent.getPath());
+        root.setOrderNum(parent.getOrderNum());
         List<Tree> children = new ArrayList<>();
         for (TreeMerger treeMerger : treeMergers) {
             if (treeMerger.getPid().equals(parent.getId())) {
@@ -35,6 +43,7 @@ public class Treer {
                 children.add(tree);
             }
         }
+        Collections.sort(children);
         root.setChildren(children);
         return root;
     }

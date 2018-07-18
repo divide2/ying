@@ -3,6 +3,8 @@ package com.mj.auth.res.controller;
 import com.mj.auth.res.service.ApiService;
 import com.mj.auth.res.vo.ApiVO;
 import com.mj.core.er.Responser;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/v1/api")
+@Api(tags = "Api")
 public class ApiController {
 
     private final ApiService apiService;
@@ -26,6 +29,7 @@ public class ApiController {
     }
 
     @GetMapping("/all")
+    @ApiOperation("全部的api")
     public ResponseEntity<List<ApiVO>> all() {
         return Responser.ok(apiService.findAll().stream().map(api ->
                         ApiVO.builder()

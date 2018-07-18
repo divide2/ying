@@ -1,9 +1,7 @@
 package com.mj.general.route.service.impl;
 
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.exception.GeneralException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
-import com.mj.general.port.model.Port;
 import com.mj.general.route.dto.*;
 import com.mj.general.route.model.QRoute;
 import com.mj.general.route.model.Route;
@@ -42,7 +40,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
 
     @Override
     public void addRouteAndPort(RouteAddDTO routeAddDTO) {
-        List<RoutePortAddDTO> routePortAddDTOS = routeAddDTO.getRoutePortAddDTOList();
+        List<RoutePortAddDTO> routePortAddDTOS = routeAddDTO.getRoutePorts();
         int num = routePortAddDTOS.size();
         String firstPort = routePortAddDTOS.get(0).getPortEN();
         String lastPort = routePortAddDTOS.get(num-1).getPortEN();

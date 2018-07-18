@@ -51,6 +51,7 @@ public class AliOssUploader {
                 throw new ValidationException("no_gif_image");
             }
             InputStream inputStream = file.getInputStream();
+            // 验证是不是图片文件
             BufferedImage bi = ImageIO.read(inputStream);
             if (bi == null) {
                 throw new ValidationException("not_image");
@@ -83,7 +84,7 @@ public class AliOssUploader {
         } catch (OSSException | ClientException e) {
             throw new SysException(e.getMessage());
         } finally {
-//            ossClient.shutdown();
+            ossClient.shutdown();
         }
     }
 

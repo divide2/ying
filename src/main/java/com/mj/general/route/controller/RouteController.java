@@ -1,13 +1,13 @@
 package com.mj.general.route.controller;
 
-import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.core.utils.UploadAliOSSUtils;
-import com.mj.general.route.dto.*;
+import com.mj.general.route.dto.RouteAddDTO;
+import com.mj.general.route.dto.RouteEnabledDTO;
+import com.mj.general.route.dto.RouteQueryDTO;
+import com.mj.general.route.dto.RouteUpdateDTO;
 import com.mj.general.route.model.Route;
 import com.mj.general.route.service.RouteService;
-import com.mj.general.route.vo.RouteImgVO;
 import com.mj.general.route.vo.RouteVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,9 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
@@ -59,10 +57,10 @@ public class RouteController {
         return Responser.updated();
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     @ApiOperation("查看单条信息")
-    public ResponseEntity<RouteVO> get(@Valid @RequestBody SingleDelete del,BindingResult br) {
-        RouteVO routeVO = routeService.getDetail(del.getId());
+    public ResponseEntity<RouteVO> get(@PathVariable Integer id) {
+        RouteVO routeVO = routeService.getDetail(id);
         return ResponseEntity.ok(routeVO);
     }
 
@@ -82,13 +80,5 @@ public class RouteController {
                 .allTime(route.getAllTime())
                 .status(route.getStatus()).build());
         return ResponseEntity.ok(page);
-    }
-
-    @PostMapping("/upload")
-    @ApiOperation("上传航线图")
-    public ResponseEntity<RouteImgVO> uploadRoute(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
-        String url = UploadAliOSSUtils.imageUpload(request,file);
-        RouteImgVO routeImgVO = RouteImgVO.builder().routeMapUrl(url).build();
-        return ResponseEntity.ok(routeImgVO);
     }
 }

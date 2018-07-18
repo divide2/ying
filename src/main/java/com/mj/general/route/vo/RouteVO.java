@@ -55,5 +55,5 @@ public class RouteVO {
     private BigDecimal allTime;
 
     @ApiModelProperty("港口数据集")
-    private List<RoutePortVO> routePortVOList;
+    private List<RoutePortVO> routePorts;
 }

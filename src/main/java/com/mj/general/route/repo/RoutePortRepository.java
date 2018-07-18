@@ -4,6 +4,7 @@ import com.mj.general.route.model.RoutePort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface RoutePortRepository extends JpaRepository<RoutePort,Integer>,Qu
       * @return List<RoutePort>
       */
      List<RoutePort> findByRouteId(Integer routeId);
+
+     /**
+      * 通过routeId 删除
+      * @param routeId routeId
+      */
+     @Transactional(rollbackFor = Exception.class)
+     void deleteByRouteId(Integer routeId);
 }

@@ -2,6 +2,11 @@ package com.mj.general.route.service.impl;
 
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.val.Punctuation;
+import com.mj.general.carrier.model.Carrier;
+import com.mj.general.carrier.repo.CarrierRepository;
+import com.mj.general.port.model.Port;
+import com.mj.general.port.repo.PortRepository;
 import com.mj.general.route.dto.*;
 import com.mj.general.route.model.QRoute;
 import com.mj.general.route.model.Route;
@@ -31,45 +36,58 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
     private final RouteRepository routeRepository;
     private final RoutePortService routePortService;
     private final RoutePortRepository routePortRepository;
+    private final CarrierRepository carrierRepository;
+    private final PortRepository portRepository;
 
-    public RouteServiceImpl(RouteRepository routeRepository, RoutePortService routePortService, RoutePortRepository routePortRepository) {
+    public RouteServiceImpl(RouteRepository routeRepository,
+                            RoutePortService routePortService,
+                            RoutePortRepository routePortRepository,
+                            CarrierRepository carrierRepository,
+                            PortRepository portRepository) {
         this.routeRepository = routeRepository;
         this.routePortService = routePortService;
         this.routePortRepository = routePortRepository;
+        this.carrierRepository = carrierRepository;
+        this.portRepository = portRepository;
+    }
+
+    private List<Integer> getPortsIds(List<RoutePortAddDTO> routePorts) {
+        return routePorts.stream().map(RoutePortAddDTO::getPortId).collect(Collectors.toList());
+    }
+
+    private Port getPort(Integer id) {
+        return portRepository.getOne(id);
     }
 
     @Override
     public void addRouteAndPort(RouteAddDTO routeAddDTO) {
         List<RoutePortAddDTO> routePortAddDTOS = routeAddDTO.getRoutePorts();
         int num = routePortAddDTOS.size();
-        String firstPort = routePortAddDTOS.get(0).getPortEN();
-        String lastPort = routePortAddDTOS.get(num-1).getPortEN();
-        BigDecimal allTime = new BigDecimal("0.0");
-        String allPort = "";
-        for (int i = 0; i < num; i++) {
-            allTime = allTime.add(routePortAddDTOS.get(i).getTt());
-            allPort += routePortAddDTOS.get(i).getPortEN()+",";
-        }
-
+        List<Port> allPorts = portRepository.findByIdIn(getPortsIds(routePortAddDTOS));
+        Port firstPort = allPorts.get(0);
+        Port lastPort = allPorts.get(num - 1);
+        BigDecimal allTime  = routePortAddDTOS.stream().map(RoutePortAddDTO::getTt).reduce(BigDecimal::add).get();
+        String allPortStr = allPorts.stream().map(Port::getPortEN).collect(Collectors.joining(Punctuation.COMMA));
+        Carrier carrier = carrierRepository.getOne(routeAddDTO.getCarrierId());
         Route route = Route.builder().carrierId(routeAddDTO.getCarrierId())
-                .carrierCode(routeAddDTO.getCarrierCode())
-                .carrierEN(routeAddDTO.getCarrierEN())
+                .carrierCode(carrier.getCarrierCode())
+                .carrierEN(carrier.getCarrierEN())
                 .routeCode(routeAddDTO.getRouteCode())
                 .routeFullName(routeAddDTO.getRouteFullName())
                 .routeDesc(routeAddDTO.getRouteDesc())
                 .routeMapUrl(routeAddDTO.getRouteMapUrl())
                 .num(num)
-                .firstPort(firstPort)
-                .lastPort(lastPort)
-                .allPort(allPort)
+                .firstPort(firstPort.getPortEN())
+                .lastPort(lastPort.getPortEN())
+                .allPort(allPortStr)
                 .allTime(allTime).build();
-        add(route);
-
+        this.add(route);
         int routeId = route.getId();
         for (RoutePortAddDTO routePortAddDTO : routePortAddDTOS) {
+            Port port = this.getPort(routePortAddDTO.getPortId());
             RoutePort routePort = RoutePort.builder().portId(routePortAddDTO.getPortId())
-                    .portEN(routePortAddDTO.getPortEN())
-                    .countryEN(routePortAddDTO.getCountryEN())
+                    .portEN(port.getPortEN())
+                    .countryEN(port.getCountryEN())
                     .etc(routePortAddDTO.getEtc())
                     .etd(routePortAddDTO.getEtd())
                     .tt(routePortAddDTO.getTt())
@@ -82,42 +100,37 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
 
     @Override
     public void updateRouteAndPort(RouteUpdateDTO routeUpdateDTO) {
-        List<RoutePortAddDTO> routePortAddDTOS = routeUpdateDTO.getRoutePortAddDTOList();
+        List<RoutePortAddDTO> routePortAddDTOS = routeUpdateDTO.getRoutePorts();
         int num = routePortAddDTOS.size();
-        String firstPort = routePortAddDTOS.get(0).getPortEN();
-        String lastPort = routePortAddDTOS.get(num-1).getPortEN();
-        BigDecimal allTime = new BigDecimal("0.0");
-        String allPort = "";
-        for (int i = 0; i < num; i++) {
-            allTime = allTime.add(routePortAddDTOS.get(i).getTt());
-            allPort += routePortAddDTOS.get(i).getPortEN()+",";
-        }
-
-        Route route = get(routeUpdateDTO.getId());
+        List<Port> allPorts = portRepository.findByIdIn(getPortsIds(routePortAddDTOS));
+        Port firstPort = allPorts.get(0);
+        Port lastPort = allPorts.get(num - 1);
+        BigDecimal allTime  = routePortAddDTOS.stream().map(RoutePortAddDTO::getTt).reduce(BigDecimal::add).get();
+        String allPortStr = allPorts.stream().map(Port::getPortEN).collect(Collectors.joining(Punctuation.COMMA));
+        Carrier carrier = carrierRepository.getOne(routeUpdateDTO.getCarrierId());
+        Route route = this.get(routeUpdateDTO.getId());
         route.setCarrierId(routeUpdateDTO.getCarrierId());
-        route.setCarrierCode(routeUpdateDTO.getCarrierCode());
-        route.setCarrierEN(routeUpdateDTO.getCarrierEN());
+        route.setCarrierCode(carrier.getCarrierCode());
+        route.setCarrierEN(carrier.getCarrierEN());
         route.setRouteCode(routeUpdateDTO.getRouteCode());
         route.setRouteFullName(routeUpdateDTO.getRouteFullName());
         route.setRouteDesc(routeUpdateDTO.getRouteDesc());
         route.setRouteMapUrl(routeUpdateDTO.getRouteMapUrl());
         route.setNum(num);
-        route.setAllPort(allPort);
-        route.setFirstPort(firstPort);
-        route.setLastPort(lastPort);
+        route.setAllPort(allPortStr);
+        route.setFirstPort(firstPort.getPortEN());
+        route.setLastPort(lastPort.getPortEN());
         route.setAllTime(allTime);
         update(route);
-
         //修改时，先删除航线下的之前的港口，再添加
-        RoutePort routePort = new RoutePort();
-        routePort.setPortId(route.getId());
-        routePortRepository.delete(routePort);
+        routePortRepository.deleteByRouteId(route.getId());
 
         int routeId = route.getId();
         for (RoutePortAddDTO routePortAddDTO : routePortAddDTOS) {
+            Port port = this.getPort(routePortAddDTO.getPortId());
             RoutePort routePort1 = RoutePort.builder().portId(routePortAddDTO.getPortId())
-                    .portEN(routePortAddDTO.getPortEN())
-                    .countryEN(routePortAddDTO.getCountryEN())
+                    .portEN(port.getPortEN())
+                    .countryEN(port.getCountryEN())
                     .etc(routePortAddDTO.getEtc())
                     .etd(routePortAddDTO.getEtd())
                     .tt(routePortAddDTO.getTt())
@@ -145,7 +158,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
                         .routeId(it.getRouteId()).build()
 
         ).collect(Collectors.toList());
-        RouteVO vo = RouteVO.builder().routePortVOList(vos)
+        RouteVO vo = RouteVO.builder().routePorts(vos)
                 .id(id)
                 .carrierId(route.getCarrierId())
                 .carrierEN(route.getCarrierEN())
@@ -166,23 +179,23 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         QRoute route = QRoute.route;
         BooleanExpression predicate = route.deleted.eq(0);
         predicate.and(route.status.eq("1"));
-        if(StringUtils.isNotEmpty(routeQueryDTO.getCarrierEN())){
+        if (StringUtils.isNotEmpty(routeQueryDTO.getCarrierEN())) {
             predicate = route.carrierEN.like("%" + routeQueryDTO.getCarrierEN() + "%");
         }
-        if(StringUtils.isNotEmpty(routeQueryDTO.getRouteCode())){
+        if (StringUtils.isNotEmpty(routeQueryDTO.getRouteCode())) {
             predicate = route.routeCode.like("%" + routeQueryDTO.getRouteCode() + "%");
         }
-        if(StringUtils.isNotEmpty(routeQueryDTO.getAllPort())){
+        if (StringUtils.isNotEmpty(routeQueryDTO.getAllPort())) {
             predicate = route.allPort.like("%" + routeQueryDTO.getAllPort() + "%");
         }
-        return routeRepository.findAll(predicate,pageable);
+        return routeRepository.findAll(predicate, pageable);
     }
 
     @Override
     public void check(RouteCheckDTO routeCheckDTO) {
-        if (StringUtils.isNotEmpty(routeCheckDTO.getRouteCode())){
+        if (StringUtils.isNotEmpty(routeCheckDTO.getRouteCode())) {
             Route exitCode = routeRepository.getByRouteCode(routeCheckDTO.getRouteCode());
-            if (exitCode != null){
+            if (exitCode != null) {
                 throw new AlreadyExistsException();
             }
         }

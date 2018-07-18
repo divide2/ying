@@ -19,6 +19,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author zejun
@@ -69,7 +72,7 @@ public class PortController {
 
     @DeleteMapping
     @ApiOperation("删除世界港口")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del, BindingResult br) {
         Port port = portService.get(del.getId());
         port.setDeleted(1);
         portService.update(port);
@@ -79,23 +82,22 @@ public class PortController {
     @GetMapping("/find")
     @ApiOperation("世界港口分页查询")
     public ResponseEntity<Page<PortVO>> find(PortQueryDTO portQueryDTO, Pageable pageable) {
-        Page<Port> ports = portService.find(portQueryDTO,pageable);
-        Page<PortVO> page = ports.map(port -> PortVO.builder()
-                .id(port.getId())
-                .portCode(port.getPortCode())
-                .portCN(port.getPortCN())
-                .portEN(port.getPortEN())
-                .countryCode(port.getCountryCode())
-                .countryCN(port.getCountryCN())
-                .countryEN(port.getCountryEN())
-                .serviceName(port.getServiceName())
-                .status(port.getStatus()).build());
+        Page<Port> ports = portService.find(portQueryDTO, pageable);
+        Page<PortVO> page = ports.map(PortVO::fromPort);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/all")
+    @ApiOperation("全部港口")
+    public ResponseEntity<List<PortVO>> all() {
+        List<Port> all = portService.findAll();
+        List<PortVO> vos = all.stream().map(PortVO::fromPort).collect(toList());
+        return Responser.ok(vos);
     }
 
     @GetMapping("/check")
     @ApiOperation("检查字段是否重复")
-    public void check(PortCheckDTO portCheckDTO){
+    public void check(PortCheckDTO portCheckDTO) {
         portService.check(portCheckDTO);
     }
 }

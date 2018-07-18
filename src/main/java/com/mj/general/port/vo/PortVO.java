@@ -1,5 +1,6 @@
 package com.mj.general.port.vo;
 
+import com.mj.general.port.model.Port;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
@@ -38,4 +39,16 @@ public class PortVO {
 
     @ApiModelProperty("禁用状态")
     private String status;
+
+    public static PortVO fromPort(Port port) {
+        return PortVO.builder()
+                .id(port.getId())
+                .portCode(port.getPortCode())
+                .portCN(port.getPortCN())
+                .portEN(port.getPortEN())
+                .countryCode(port.getCountryCode())
+                .serviceName(port.getServiceName())
+                .status(port.getStatus())
+                .build();
+    }
 }

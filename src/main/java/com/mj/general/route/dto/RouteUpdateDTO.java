@@ -24,14 +24,6 @@ public class RouteUpdateDTO {
     @NotNull
     private Integer carrierId;
 
-    @ApiModelProperty("船公司简称")
-    @NotEmpty
-    private String carrierCode;
-
-    @ApiModelProperty("船公司英文名")
-    @NotEmpty
-    private String carrierEN;
-
     @ApiModelProperty("航线代码")
     @NotEmpty
     private String routeCode;
@@ -50,5 +42,5 @@ public class RouteUpdateDTO {
 
     @ApiModelProperty("港口数据集")
     @NotEmpty
-    private List<RoutePortAddDTO> routePortAddDTOList;
+    private List<RoutePortAddDTO> routePorts;
 }

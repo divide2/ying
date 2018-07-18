@@ -21,14 +21,6 @@ public class RoutePortAddDTO {
     @NotNull
     private Integer portId;
 
-    @ApiModelProperty("港口英文名")
-    @NotEmpty
-    private String portEN;
-
-    @ApiModelProperty("国家（地区）英文名")
-    @NotEmpty
-    private String countryEN;
-
     @ApiModelProperty("截关时间")
     @NotEmpty
     private LocalDateTime etc;

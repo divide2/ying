@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zejun
@@ -79,6 +81,18 @@ public class CarrierController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/all")
+    @ApiOperation("船公司分页查询")
+    public ResponseEntity<List<CarrierVO>> all() {
+        List<Carrier> carriers = carrierService.findAll();
+        List<CarrierVO> vos = carriers.stream().map(carrier -> CarrierVO.builder()
+                .id(carrier.getId())
+                .carrierCode(carrier.getCarrierCode())
+                .carrierCN(carrier.getCarrierCN())
+                .carrierEN(carrier.getCarrierEN())
+                .status(carrier.getStatus()).build()).collect(Collectors.toList());
+        return ResponseEntity.ok(vos);
+    }
     @GetMapping("/check")
     @ApiOperation("检查字段是否重复")
     public void check(CarrierCheckDTO carrierCheckDTO){

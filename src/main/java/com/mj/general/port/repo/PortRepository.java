@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author zejun
  * @date 2018/7/9 17:51
@@ -18,4 +20,12 @@ public interface PortRepository extends JpaRepository<Port,Integer>, QuerydslPre
      * @return Port
      */
     Port getByPortCode(String portCode);
+
+    /**
+     * 通过ids获取ports
+     * @param ids ids
+     * @return ports
+     */
+    List<Port> findByIdIn(List<Integer> ids);
+
 }

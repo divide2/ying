@@ -12,7 +12,7 @@ import java.util.List;
  * @author bvvy
  * 简单的实现
  */
-public class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> implements BasicService<T, ID> {
+public  class SimpleBasicServiceImpl<T, ID, DAO extends JpaRepository<T, ID>> implements BasicService<T, ID> {
 
     @Autowired
     private DAO dao;

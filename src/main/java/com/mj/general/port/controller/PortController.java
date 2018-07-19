@@ -1,6 +1,6 @@
 package com.mj.general.port.controller;
 
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.port.dto.PortAddDTO;
@@ -72,7 +72,7 @@ public class PortController {
 
     @DeleteMapping
     @ApiOperation("删除世界港口")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
         Port port = portService.get(del.getId());
         port.setDeleted(1);
         portService.update(port);

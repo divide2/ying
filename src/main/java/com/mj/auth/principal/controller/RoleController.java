@@ -9,7 +9,7 @@ import com.mj.auth.principal.service.RoleService;
 import com.mj.auth.principal.service.UserService;
 import com.mj.auth.principal.vo.RoleVO;
 import com.mj.auth.principal.vo.UserVO;
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import io.swagger.annotations.Api;
@@ -65,7 +65,7 @@ public class RoleController {
 
     @DeleteMapping
     @ApiOperation("删除角色")
-    public ResponseEntity<Messager> delete(SingleDelete del) {
+    public ResponseEntity<Messager> delete(SingleId del) {
         roleService.delete(del.getId());
         return Responser.deleted();
     }

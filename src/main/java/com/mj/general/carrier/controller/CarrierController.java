@@ -1,6 +1,6 @@
 package com.mj.general.carrier.controller;
 
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.carrier.dto.CarrierAddDTO;
@@ -61,7 +61,7 @@ public class CarrierController {
 
     @DeleteMapping
     @ApiOperation("删除船公司")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
         Carrier carrier = carrierService.get(del.getId());
         carrier.setDeleted('Y');
         carrierService.update(carrier);

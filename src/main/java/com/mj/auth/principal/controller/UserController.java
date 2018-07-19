@@ -5,7 +5,7 @@ import com.mj.auth.principal.dto.UserUpdateDTO;
 import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.service.UserService;
 import com.mj.auth.principal.vo.UserVO;
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import io.swagger.annotations.Api;
@@ -54,7 +54,7 @@ public class UserController {
 
     @DeleteMapping
     @ApiOperation("删除")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
         userService.delete(del.getId());
         return Responser.deleted();
     }

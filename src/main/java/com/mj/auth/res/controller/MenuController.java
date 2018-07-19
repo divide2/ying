@@ -6,7 +6,7 @@ import com.mj.auth.res.model.Menu;
 import com.mj.auth.res.service.MenuService;
 import com.mj.auth.res.service.OperService;
 import com.mj.auth.res.vo.MenuVO;
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.data.tree.Tree;
 import com.mj.core.er.Responser;
@@ -80,7 +80,7 @@ public class MenuController {
 
     @DeleteMapping
     @ApiOperation("删除")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
         menuService.delete(del.getId());
         return Responser.deleted();
     }

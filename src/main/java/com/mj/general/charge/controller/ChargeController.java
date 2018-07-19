@@ -1,6 +1,6 @@
 package com.mj.general.charge.controller;
 
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.charge.dto.ChargeAddDTO;
@@ -59,7 +59,7 @@ public class ChargeController {
 
     @DeleteMapping
     @ApiOperation("删除费用")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleDelete del,BindingResult br){
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br){
         Charge charge = chargeService.get(del.getId());
         charge.setDeleted(1);
         chargeService.update(charge);

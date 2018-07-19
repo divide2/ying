@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * @author bvvy
  */
 @Data
-public class SingleDelete {
+public class SingleId {
 
     @NotNull
     private Integer id;

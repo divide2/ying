@@ -1,5 +1,6 @@
 package com.mj.ocean.portcombination.controller;
 
+import com.mj.core.data.del.SingleDelete;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
@@ -8,8 +9,10 @@ import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
 import com.mj.ocean.portcombination.service.CombinationService;
+import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,5 +65,12 @@ public class PortCombinationController {
     public ResponseEntity<Page<CombinationVO>> find(CombinationQueryDTO combinationQueryDTO, Pageable pageable){
         Page<CombinationVO> portCombinations = combinationService.find(combinationQueryDTO,pageable);
         return ResponseEntity.ok(portCombinations);
+    }
+
+    @GetMapping("/copy")
+    @ApiModelProperty("复制")
+    public ResponseEntity<CombinationAssociatedVO> copy(@Valid @RequestBody SingleDelete del, BindingResult br) {
+        CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(del.getId());
+        return Responser.ok(combinationAssociatedVO);
     }
 }

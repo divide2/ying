@@ -28,4 +28,6 @@ public interface RoutePortRepository extends JpaRepository<RoutePort,Integer>,Qu
       */
      @Transactional(rollbackFor = Exception.class)
      void deleteByRouteId(Integer routeId);
+
+     List<RoutePort> getByRouteIdOrderByOrderNum(Integer routeId);
 }

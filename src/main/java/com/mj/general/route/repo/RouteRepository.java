@@ -1,9 +1,13 @@
 package com.mj.general.route.repo;
 
 import com.mj.general.route.model.Route;
+import com.mj.general.route.model.RoutePort;
+import com.mj.general.route.vo.RouteCarrierVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author zejun
@@ -18,4 +22,8 @@ public interface RouteRepository extends JpaRepository<Route,Integer>, QuerydslP
      * @return Route
      */
     Route getByRouteCode(String routeCode);
+
+    Route getByCarrierId(Integer carrierId);
+
+
 }

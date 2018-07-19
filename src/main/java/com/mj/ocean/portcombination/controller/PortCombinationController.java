@@ -1,6 +1,6 @@
 package com.mj.ocean.portcombination.controller;
 
-import com.mj.core.data.del.SingleDelete;
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
@@ -69,7 +69,7 @@ public class PortCombinationController {
 
     @GetMapping("/copy")
     @ApiModelProperty("复制")
-    public ResponseEntity<CombinationAssociatedVO> copy(@Valid @RequestBody SingleDelete del, BindingResult br) {
+    public ResponseEntity<CombinationAssociatedVO> copy(@Valid @RequestBody SingleId del, BindingResult br) {
         CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(del.getId());
         return Responser.ok(combinationAssociatedVO);
     }

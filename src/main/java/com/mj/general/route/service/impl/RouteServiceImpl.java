@@ -15,6 +15,7 @@ import com.mj.general.route.repo.RoutePortRepository;
 import com.mj.general.route.repo.RouteRepository;
 import com.mj.general.route.service.RoutePortService;
 import com.mj.general.route.service.RouteService;
+import com.mj.general.route.vo.RouteCarrierVO;
 import com.mj.general.route.vo.RoutePortVO;
 import com.mj.general.route.vo.RouteVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -199,5 +200,30 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
                 throw new AlreadyExistsException();
             }
         }
+    }
+
+
+    @Override
+    public RouteCarrierVO getByCarrierId(Integer carrierId) {
+        Route route = routeRepository.getByCarrierId(carrierId);
+        RouteCarrierVO routeCarrierVO = RouteCarrierVO.builder()
+                .id(route.getId())
+                .carrierId(route.getCarrierId())
+                .routeCode(route.getRouteCode()).build();
+        return  routeCarrierVO;
+    }
+
+    @Override
+    public List<RoutePortVO> findByRouteId(Integer routeId) {
+        List<RoutePort> routePortList = routePortRepository.getByRouteIdOrderByOrderNum(routeId);
+        List<RoutePortVO> vos = routePortList.stream().map(routePort -> RoutePortVO.builder().id(routePort.getId())
+                .portId(routePort.getPortId())
+                .portEN(routePort.getPortEN())
+                .etc(routePort.getEtc())
+                .etd(routePort.getEtd())
+                .orderNum(routePort.getOrderNum())
+                .tt(routePort.getTt())
+                .routeId(routePort.getRouteId()).build()).collect(Collectors.toList());
+        return vos;
     }
 }

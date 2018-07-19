@@ -46,7 +46,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "ofpc.id, \n" +
                 "ofpc.combination_name as combinationName, \n" +
                 "ofpc.enabled as enabled, \n" +
-                "GROUP_CONCAT(DISTINCT gc.carrier_code) as carrierCodes,\n" +
+                "GROUP_CONCAT(DISTINCT gc.carrier_code) as carrierCode,\n" +
                 "GROUP_CONCAT(DISTINCT gp.port_code) as portCodes,\n" +
                 "GROUP_CONCAT(DISTINCT gp.porten) as portENs,\n" +
                 "GROUP_CONCAT(DISTINCT gp.countryen) as countryENs\n" +

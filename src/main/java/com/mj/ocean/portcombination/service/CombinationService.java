@@ -6,6 +6,7 @@ import com.mj.ocean.portcombination.dto.CombinationAddDTO;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
+import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface CombinationService extends BasicService<PortCombination,Integer
     void add(CombinationAddDTO combinationAddDTO);
 
     void update(CombinationUpdateDTO combinationUpdateDTO);
+
+    CombinationAssociatedVO getDetail(Integer id);
 }

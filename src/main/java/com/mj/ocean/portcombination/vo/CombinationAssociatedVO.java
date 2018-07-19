@@ -6,12 +6,11 @@ import lombok.Data;
 
 /**
  * @author zejun
- * @date 2018/7/13 17:55
+ * @date 2018/7/18 09:33
  */
 @Data
 @AllArgsConstructor
-public class CombinationVO {
-
+public class CombinationAssociatedVO {
     @ApiModelProperty("港口组id")
     private Integer id;
 
@@ -21,7 +20,11 @@ public class CombinationVO {
     @ApiModelProperty("是否启用")
     private Character enabled;
 
+    private Integer carrierId;
+
     private String carrierCode;
+
+    private String portIds;
 
     private String portCodes;
 

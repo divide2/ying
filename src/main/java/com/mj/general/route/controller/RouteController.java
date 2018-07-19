@@ -8,8 +8,11 @@ import com.mj.general.route.dto.RouteQueryDTO;
 import com.mj.general.route.dto.RouteUpdateDTO;
 import com.mj.general.route.model.Route;
 import com.mj.general.route.service.RouteService;
+import com.mj.general.route.vo.RouteCarrierVO;
+import com.mj.general.route.vo.RoutePortVO;
 import com.mj.general.route.vo.RouteVO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author zejun
@@ -80,5 +84,19 @@ public class RouteController {
                 .allTime(route.getAllTime())
                 .status(route.getStatus()).build());
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/get/{carrierId}")
+    @ApiOperation("根据船公司id查找航线")
+    public ResponseEntity<RouteCarrierVO> findByCarrierId(@PathVariable Integer carrierId) {
+        RouteCarrierVO routeCarrierVO = routeService.getByCarrierId(carrierId);
+        return ResponseEntity.ok(routeCarrierVO);
+    }
+
+    @GetMapping("/route/{routeId}")
+    @ApiOperation("根据航线id查找其下面的港口")
+    public ResponseEntity<List<RoutePortVO>> findByRouteId(@PathVariable Integer routeId) {
+        List<RoutePortVO> routePortVOList = routeService.findByRouteId(routeId);
+        return ResponseEntity.ok(routePortVOList);
     }
 }

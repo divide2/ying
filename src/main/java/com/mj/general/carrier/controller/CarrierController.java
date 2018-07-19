@@ -82,7 +82,7 @@ public class CarrierController {
     }
 
     @GetMapping("/all")
-    @ApiOperation("船公司分页查询")
+    @ApiOperation("船公司查询")
     public ResponseEntity<List<CarrierVO>> all() {
         List<Carrier> carriers = carrierService.findAll();
         List<CarrierVO> vos = carriers.stream().map(carrier -> CarrierVO.builder()

@@ -6,9 +6,13 @@ import com.mj.general.route.dto.RouteCheckDTO;
 import com.mj.general.route.dto.RouteQueryDTO;
 import com.mj.general.route.dto.RouteUpdateDTO;
 import com.mj.general.route.model.Route;
+import com.mj.general.route.vo.RouteCarrierVO;
+import com.mj.general.route.vo.RoutePortVO;
 import com.mj.general.route.vo.RouteVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @author zejun
@@ -49,5 +53,7 @@ public interface RouteService extends BasicService<Route,Integer> {
      */
     void check(RouteCheckDTO routeCheckDTO);
 
+    RouteCarrierVO getByCarrierId(Integer carrierId);
 
+    List<RoutePortVO> findByRouteId(Integer routeId);
 }

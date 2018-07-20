@@ -1,6 +1,9 @@
 package com.mj.general.charge.repo;
 
 import com.mj.general.charge.model.Charge;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -17,19 +20,27 @@ public interface ChargeRepository extends JpaRepository<Charge,Integer>,Querydsl
      * @param chargeItemCode 费用简称
      * @return Charge
      */
-    Charge getByChargeItemCode(String chargeItemCode);
+    Charge getByChargeItemCodeIgnoreCase(String chargeItemCode);
 
     /**
      * 根据费用中文名查询数据
      * @param chargeItemCN 费用中文名
      * @return Charge
      */
-    Charge getByChargeItemCN(String chargeItemCN);
+    Charge getByChargeItemCNIgnoreCase(String chargeItemCN);
 
     /**
      * 根据费用英文名查询数据
      * @param chargeItemEN 费用英文名
      * @return Charge
      */
-    Charge getByChargeItemEN(String chargeItemEN);
+    Charge getByChargeItemENIgnoreCase(String chargeItemEN);
+
+    /**
+     * 根据状态排序分页查询
+     * @param predicate  sql数据
+     * @param pageable 页面数据
+     * @return Page<Charge>
+     */
+    Page<Charge> findAllByOrderByEnabledDesc(BooleanExpression predicate, Pageable pageable);
 }

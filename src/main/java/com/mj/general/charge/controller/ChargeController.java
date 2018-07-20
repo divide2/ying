@@ -10,6 +10,7 @@ import com.mj.general.charge.dto.ChargeUpdateDTO;
 import com.mj.general.charge.model.Charge;
 import com.mj.general.charge.service.ChargeService;
 import com.mj.general.charge.vo.ChargeVO;
+import com.mj.general.dictionary.dto.EnabledDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -39,9 +40,12 @@ public class ChargeController {
     @PostMapping
     @ApiOperation("新增费用")
     public ResponseEntity<Messager> add(@Valid @RequestBody ChargeAddDTO chargeAddDTO, BindingResult br){
+        //todo 查询登陆人信息获取客户公司id
+        int companyId = 1111;
         Charge charge = Charge.builder().chargeItemCode(chargeAddDTO.getChargeItemCode())
                 .chargeItemCN(chargeAddDTO.getChargeItemCN())
-                .chargeItemEN(chargeAddDTO.getChargeItemEN()).build();
+                .chargeItemEN(chargeAddDTO.getChargeItemEN())
+                .companyId(companyId).build();
         chargeService.add(charge);
         return Responser.created();
     }
@@ -57,11 +61,11 @@ public class ChargeController {
        return  Responser.updated();
     }
 
-    @DeleteMapping
-    @ApiOperation("删除费用")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br){
-        Charge charge = chargeService.get(del.getId());
-        charge.setDeleted(1);
+    @PatchMapping("/enabled")
+    @ApiOperation("禁用/启用操作")
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody EnabledDTO enabledDTO, BindingResult br){
+        Charge charge = chargeService.get(enabledDTO.getId());
+        charge.setEnabled(enabledDTO.getEnabled());
         chargeService.update(charge);
         return Responser.deleted();
     }
@@ -75,7 +79,8 @@ public class ChargeController {
                 .chargeItemCode(charge.getChargeItemCode())
                 .chargeItemCN(charge.getChargeItemCN())
                 .chargeItemEN(charge.getChargeItemEN())
-                .status(charge.getStatus()).build());
+                .enabled(charge.getEnabled())
+                .isUsed(charge.getIsUsed()).build());
         return ResponseEntity.ok(page);
     }
 

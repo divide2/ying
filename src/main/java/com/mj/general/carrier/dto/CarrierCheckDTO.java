@@ -20,4 +20,6 @@ public class CarrierCheckDTO {
 
     @ApiModelProperty("船公司英文名")
     private String carrierEN;
+
+
 }

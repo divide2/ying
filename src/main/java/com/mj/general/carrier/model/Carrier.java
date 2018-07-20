@@ -1,10 +1,6 @@
 package com.mj.general.carrier.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import javax.persistence.*;
 
 /**
@@ -27,12 +23,6 @@ public class Carrier {
     private Integer id;
 
     /**
-     * 是否删除
-     */
-    @Builder.Default
-    private Character deleted = 'N';
-
-    /**
      * 船公司简称
      */
     @Column(name = "carrier_code")
@@ -41,17 +31,25 @@ public class Carrier {
     /**
      * 船公司中文名
      */
+    @Column(name = "carrier_cn")
     private String carrierCN;
 
     /**
      * 船公司英文名
      */
+    @Column(name = "carrier_en")
     private String carrierEN;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 
     /**
      * 禁用状态
      */
     @Builder.Default
-    private Character status = 'Y';
+    private Character enabled = 'Y';
 
 }

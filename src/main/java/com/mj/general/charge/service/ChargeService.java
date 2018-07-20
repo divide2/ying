@@ -17,15 +17,15 @@ public interface ChargeService extends BasicService<Charge,Integer> {
 
     /**
      * 分页查询
-     * @param chargeQueryDTO
-     * @param pageable
-     * @return
+     * @param chargeQueryDTO 查询dto
+     * @param pageable 分页数据
+     * @return Page<Charge>
      */
     Page<Charge> find(ChargeQueryDTO chargeQueryDTO, Pageable pageable);
 
     /**
      * 检查字段是否存在
-     * @param chargeCheckDTO
+     * @param chargeCheckDTO 检车dto
      */
     void check(ChargeCheckDTO chargeCheckDTO);
 }

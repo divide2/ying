@@ -53,7 +53,17 @@ public interface RouteService extends BasicService<Route,Integer> {
      */
     void check(RouteCheckDTO routeCheckDTO);
 
+    /**
+     * 根据船公司id查找数据
+     * @param carrierId 船公司id
+     * @return RouteCarrierVO
+     */
     RouteCarrierVO getByCarrierId(Integer carrierId);
 
+    /**
+     * 根据航线id查找其下面的港口
+     * @param routeId 航线id
+     * @return List<RoutePortVO>
+     */
     List<RoutePortVO> findByRouteId(Integer routeId);
 }

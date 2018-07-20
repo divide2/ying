@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel("新增航线管理中的港口")
-public class RoutePortAddDTO {
+public class RoutePortAddOrUpdateDTO {
 
     @ApiModelProperty("港口id")
     @NotNull

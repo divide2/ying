@@ -28,12 +28,6 @@ public class RoutePort {
     private Integer id;
 
     /**
-     * 是否删除
-     */
-    @Builder.Default
-    private Integer deleted = 0;
-
-    /**
      * 港口id
      */
     @Column(name = "port_id")
@@ -42,11 +36,13 @@ public class RoutePort {
     /**
      * 港口英文名
      */
+    @Column(name = "port_en")
     private String portEN;
 
     /**
      * 国家（地区）英文名
      */
+    @Column(name = "country_en")
     private String countryEN;
 
     /**

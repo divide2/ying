@@ -40,7 +40,7 @@ public class RouteVO {
     private String routeMapUrl;
 
     @ApiModelProperty("禁用状态")
-    private String status;
+    private Character enabled;
 
     @ApiModelProperty("总的港口数")
     private Integer num;

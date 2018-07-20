@@ -27,12 +27,6 @@ public class Route {
     private Integer id;
 
     /**
-     * 是否删除
-     */
-    @Builder.Default
-    private Integer deleted = 0;
-
-    /**
      * 船公司简称
      */
     @Column(name = "carrier_code")
@@ -41,6 +35,7 @@ public class Route {
     /**
      * 船公司英文名
      */
+    @Column(name = "carrier_en")
     private String carrierEN;
 
     /**
@@ -106,5 +101,5 @@ public class Route {
      * 禁用状态
      */
     @Builder.Default
-    private String status = "0";
+    private Character enabled = 'Y';
 }

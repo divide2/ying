@@ -2,8 +2,8 @@ package com.mj.general.route.controller;
 
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.mj.general.dictionary.dto.EnabledDTO;
 import com.mj.general.route.dto.RouteAddDTO;
-import com.mj.general.route.dto.RouteEnabledDTO;
 import com.mj.general.route.dto.RouteQueryDTO;
 import com.mj.general.route.dto.RouteUpdateDTO;
 import com.mj.general.route.model.Route;
@@ -12,7 +12,6 @@ import com.mj.general.route.vo.RouteCarrierVO;
 import com.mj.general.route.vo.RoutePortVO;
 import com.mj.general.route.vo.RouteVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -47,11 +46,11 @@ public class RouteController {
 
     @PatchMapping("/stats")
     @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody RouteEnabledDTO routeEnabledDTO, BindingResult br){
-        Route route = routeService.get(routeEnabledDTO.getId());
-        route.setStatus(routeEnabledDTO.getStatus());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody EnabledDTO enabledDTO, BindingResult br){
+        Route route = routeService.get(enabledDTO.getId());
+        route.setEnabled(enabledDTO.getEnabled());
         routeService.update(route);
-        return  Responser.updated();
+        return Responser.updated();
     }
 
     @PatchMapping
@@ -82,7 +81,7 @@ public class RouteController {
                 .firstPort(route.getFirstPort())
                 .lastPort(route.getLastPort())
                 .allTime(route.getAllTime())
-                .status(route.getStatus()).build());
+                .enabled(route.getEnabled()).build());
         return ResponseEntity.ok(page);
     }
 

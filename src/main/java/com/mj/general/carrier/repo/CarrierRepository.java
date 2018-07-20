@@ -36,5 +36,11 @@ public interface CarrierRepository extends JpaRepository<Carrier,Integer>, Query
      */
     Carrier getByCarrierCNIgnoreCase(String carrierCN);
 
+    /**
+     * 根据状态排序分页查询
+     * @param predicate  sql数据
+     * @param pageable 页面数据
+     * @return Page<Carrier>
+     */
     Page<Carrier> findAllByOrderByEnabledDesc(BooleanExpression predicate,Pageable pageable);
 }

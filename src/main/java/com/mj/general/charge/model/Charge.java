@@ -29,13 +29,6 @@ public class Charge {
     private Integer id;
 
     /**
-     * 是否使用
-     */
-    @Builder.Default
-    @Column(name = "is_used")
-    private Character isUsed = 'N';
-
-    /**
      *费用简称
      */
     @Column(name = "charge_item_code")

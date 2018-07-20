@@ -28,12 +28,6 @@ public class Port {
     private Integer id;
 
     /**
-     * 是否删除
-     */
-    @Builder.Default
-    private Integer deleted = 0;
-
-    /**
      * 港口代码
      */
     @Column(name = "port_code")
@@ -42,21 +36,25 @@ public class Port {
     /**
      * 港口中文名
      */
+    @Column(name = "port_cn")
     private String portCN;
 
     /**
      * 港口英文名
      */
+    @Column(name = "port_en")
     private String portEN;
 
     /**
      * 国家（地区）中文名
      */
+    @Column(name = "country_cn")
     private String countryCN;
 
     /**
      * 国家（地区）英文名
      */
+    @Column(name = "country_en")
     private String countryEN;
 
     /**
@@ -75,5 +73,5 @@ public class Port {
      * 禁用状态
      */
     @Builder.Default
-    private String status = "0";
+    private Character enabled = 'Y';
 }

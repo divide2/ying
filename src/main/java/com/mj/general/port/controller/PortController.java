@@ -3,6 +3,7 @@ package com.mj.general.port.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.mj.general.dictionary.dto.EnabledDTO;
 import com.mj.general.port.dto.PortAddDTO;
 import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
@@ -48,7 +49,7 @@ public class PortController {
                 .countryCode(portAddDTO.getCountryCode())
                 .countryCN(portAddDTO.getCountryCN())
                 .countryEN(portAddDTO.getCountryEN())
-                .status(portAddDTO.getStatus())
+                .enabled(portAddDTO.getEnabled())
                 .serviceName(portAddDTO.getServiceName()).build();
         portService.add(port);
         return Responser.created();
@@ -65,18 +66,18 @@ public class PortController {
         port.setCountryCN(portUpdateDTO.getCountryCN());
         port.setCountryEN(portUpdateDTO.getCountryEN());
         port.setServiceName(portUpdateDTO.getServiceName());
-        port.setStatus(portUpdateDTO.getStatus());
+        port.setEnabled(portUpdateDTO.getEnabled());
         portService.update(port);
         return Responser.updated();
     }
 
-    @DeleteMapping
-    @ApiOperation("删除世界港口")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
-        Port port = portService.get(del.getId());
-        port.setDeleted(1);
+    @PatchMapping("/enabled")
+    @ApiOperation("启用/禁用状态")
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody EnabledDTO enabledDTO, BindingResult br) {
+        Port port = portService.get(enabledDTO.getId());
+        port.setEnabled(enabledDTO.getEnabled());
         portService.update(port);
-        return Responser.deleted();
+        return Responser.updated();
     }
 
     @GetMapping("/find")

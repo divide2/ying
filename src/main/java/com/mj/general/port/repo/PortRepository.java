@@ -1,6 +1,9 @@
 package com.mj.general.port.repo;
 
 import com.mj.general.port.model.Port;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -19,7 +22,7 @@ public interface PortRepository extends JpaRepository<Port,Integer>, QuerydslPre
      * @param portCode 港口代码
      * @return Port
      */
-    Port getByPortCode(String portCode);
+    Port getByPortCodeIgnoreCase(String portCode);
 
     /**
      * 通过ids获取ports
@@ -28,4 +31,11 @@ public interface PortRepository extends JpaRepository<Port,Integer>, QuerydslPre
      */
     List<Port> findByIdIn(List<Integer> ids);
 
+    /**
+     * 根据状态排序分页查询
+     * @param predicate  sql数据
+     * @param pageable 页面数据
+     * @return Page<Port>
+     */
+    Page<Port> findAllByOrderByEnabledDesc(BooleanExpression predicate, Pageable pageable);
 }

@@ -67,7 +67,7 @@ public class ChargeController {
         Charge charge = chargeService.get(enabledDTO.getId());
         charge.setEnabled(enabledDTO.getEnabled());
         chargeService.update(charge);
-        return Responser.deleted();
+        return Responser.updated();
     }
 
     @GetMapping("/find")
@@ -79,8 +79,7 @@ public class ChargeController {
                 .chargeItemCode(charge.getChargeItemCode())
                 .chargeItemCN(charge.getChargeItemCN())
                 .chargeItemEN(charge.getChargeItemEN())
-                .enabled(charge.getEnabled())
-                .isUsed(charge.getIsUsed()).build());
+                .enabled(charge.getEnabled()).build());
         return ResponseEntity.ok(page);
     }
 

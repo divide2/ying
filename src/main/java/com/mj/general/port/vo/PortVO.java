@@ -38,7 +38,7 @@ public class PortVO {
     private String serviceName;
 
     @ApiModelProperty("禁用状态")
-    private String status;
+    private Character enabled;
 
     public static PortVO fromPort(Port port) {
         return PortVO.builder()
@@ -48,7 +48,7 @@ public class PortVO {
                 .portEN(port.getPortEN())
                 .countryCode(port.getCountryCode())
                 .serviceName(port.getServiceName())
-                .status(port.getStatus())
+                .enabled(port.getEnabled())
                 .build();
     }
 }

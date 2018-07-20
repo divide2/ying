@@ -10,6 +10,7 @@ import com.mj.general.port.model.QPort;
 import com.mj.general.port.repo.PortRepository;
 import com.mj.general.port.service.PortService;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +34,7 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
     @Override
     public Page<Port> find(PortQueryDTO portQueryDTO, Pageable pageable) {
         QPort port = QPort.port;
-        BooleanExpression predicate = port.deleted.eq(0);
-        predicate.and(port.status.eq("0"));
+        BooleanExpression predicate = Expressions.ONE.eq(Expressions.ONE);
         if (StringUtils.isNotEmpty(portQueryDTO.getKeyName())){
             predicate = port.portCode.like("%" + portQueryDTO.getKeyName() + "%")
                     .or(port.portCN.like("%" + portQueryDTO.getKeyName() + "%"))
@@ -43,13 +43,13 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
                     .or(port.countryEN.like("%" + portQueryDTO.getKeyName() + "%"))
                     .or(port.serviceName.like("%" + portQueryDTO.getKeyName() + "%"));
         }
-        return portRepository.findAll(predicate,pageable);
+        return portRepository.findAllByOrderByEnabledDesc(predicate,pageable);
     }
 
     @Override
     public void check(PortCheckDTO portCheckDTO) {
         if (StringUtils.isNotEmpty(portCheckDTO.getPortCode())){
-            Port exitCode = portRepository.getByPortCode(portCheckDTO.getPortCode());
+            Port exitCode = portRepository.getByPortCodeIgnoreCase(portCheckDTO.getPortCode());
             if (exitCode != null){
                 throw new AlreadyExistsException();
             }
@@ -59,8 +59,7 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
     @Override
     public List<Port> findAll() {
         QPort port = QPort.port;
-        BooleanExpression predicate = port.deleted.eq(0);
-        predicate.and(port.status.eq("0"));
+        BooleanExpression predicate = port.enabled.eq('Y');
         return Lists.newArrayList(portRepository.findAll(predicate));
     }
 }

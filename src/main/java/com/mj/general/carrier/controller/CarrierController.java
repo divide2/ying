@@ -66,7 +66,7 @@ public class CarrierController {
             Carrier carrier = carrierService.get(enabledDTO.getId());
             carrier.setEnabled(enabledDTO.getEnabled());
             carrierService.update(carrier);
-            return Responser.deleted();
+            return Responser.updated();
     }
 
     @GetMapping("/find")

@@ -44,5 +44,5 @@ public class PortAddDTO {
 
     @ApiModelProperty("禁用状态")
     @NotEmpty
-    private String status;
+    private Character enabled;
 }

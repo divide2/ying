@@ -29,10 +29,11 @@ public class Charge {
     private Integer id;
 
     /**
-     * 是否删除
+     * 是否使用
      */
     @Builder.Default
-    private Integer deleted = 0;
+    @Column(name = "is_used")
+    private Character isUsed = 'N';
 
     /**
      *费用简称
@@ -43,18 +44,24 @@ public class Charge {
     /**
      * 费用中文名
      */
-    @Column(name = "charge_item_CN")
+    @Column(name = "charge_item_cn")
     private String chargeItemCN;
 
     /**
      * 费用英文名
      */
-    @Column(name = "charge_item_EN")
+    @Column(name = "charge_item_en")
     private String chargeItemEN;
 
     /**
      * 禁用状态
      */
     @Builder.Default
-    private String status = "0";
+    private Character enabled = 'Y';
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

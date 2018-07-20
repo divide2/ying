@@ -1,4 +1,4 @@
-package com.mj.general.carrier.dto;
+package com.mj.general.dictionary.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author zejun
- * @date 2018/7/20 09:23
+ * @date 2018/7/20 11:31
  */
 @Data
-@ApiModel("启用/禁用船公司")
-public class CarrierEnabledDTO {
+@ApiModel("启用/禁用状态")
+public class EnabledDTO {
 
     @ApiModelProperty("id")
     @NotNull

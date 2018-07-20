@@ -25,5 +25,8 @@ public class ChargeVO {
     private String chargeItemEN;
 
     @ApiModelProperty("禁用状态")
-    private String status;
+    private Character enabled;
+
+    @ApiModelProperty("是否使用")
+    private Character isUsed;
 }

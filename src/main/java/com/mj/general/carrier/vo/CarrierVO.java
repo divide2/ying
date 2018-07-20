@@ -25,5 +25,5 @@ public class CarrierVO {
     private String carrierEN;
 
     @ApiModelProperty("状态")
-    private Character status;
+    private Character enabled;
 }

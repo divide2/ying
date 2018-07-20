@@ -1,6 +1,9 @@
 package com.mj.general.carrier.repo;
 
 import com.mj.general.carrier.model.Carrier;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -17,19 +20,21 @@ public interface CarrierRepository extends JpaRepository<Carrier,Integer>, Query
      * @param carrierCode 船公司简称
      * @return Carrier
      */
-    Carrier getByCarrierCode(String carrierCode);
+    Carrier getByCarrierCodeIgnoreCase(String carrierCode);
 
     /**
      * 根据船公司英文名查数据
      * @param carrierEN 船公司英文名
      * @return Carrier
      */
-    Carrier getByCarrierEN(String carrierEN);
+    Carrier getByCarrierENIgnoreCase(String carrierEN);
 
     /**
      * 根据船公司中文名查数据
      * @param carrierCN 船公司中文名
      * @return Carrier
      */
-    Carrier getByCarrierCN(String carrierCN);
+    Carrier getByCarrierCNIgnoreCase(String carrierCN);
+
+    Page<Carrier> findAllByOrderByEnabledDesc(BooleanExpression predicate,Pageable pageable);
 }

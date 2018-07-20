@@ -3,10 +3,7 @@ package com.mj.general.carrier.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.general.carrier.dto.CarrierAddDTO;
-import com.mj.general.carrier.dto.CarrierCheckDTO;
-import com.mj.general.carrier.dto.CarrierQueryDTO;
-import com.mj.general.carrier.dto.CarrierUpdateDTO;
+import com.mj.general.carrier.dto.*;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;
@@ -41,9 +38,12 @@ public class CarrierController {
     @PostMapping
     @ApiOperation("新增船公司")
     public ResponseEntity<Messager> add(@Valid @RequestBody CarrierAddDTO carrierAddDTO, BindingResult br) {
+        //todo 获取登陆用户的公司id
+        int companyId = 1111;
         Carrier carrier = Carrier.builder().carrierCode(carrierAddDTO.getCarrierCode())
                 .carrierCN(carrierAddDTO.getCarrierCN())
-                .carrierEN(carrierAddDTO.getCarrierEN()).build();
+                .carrierEN(carrierAddDTO.getCarrierEN())
+                .companyId(companyId).build();
         carrierService.add(carrier);
         return Responser.created();
     }
@@ -59,13 +59,13 @@ public class CarrierController {
         return Responser.updated();
     }
 
-    @DeleteMapping
-    @ApiOperation("删除船公司")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
-        Carrier carrier = carrierService.get(del.getId());
-        carrier.setDeleted('Y');
-        carrierService.update(carrier);
-        return Responser.deleted();
+    @PatchMapping("/enabled")
+    @ApiOperation("启用/禁用船公司")
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody CarrierEnabledDTO carrierEnabled, BindingResult br) {
+            Carrier carrier = carrierService.get(carrierEnabled.getId());
+            carrier.setEnabled(carrierEnabled.getEnabled());
+            carrierService.update(carrier);
+            return Responser.deleted();
     }
 
     @GetMapping("/find")
@@ -77,7 +77,7 @@ public class CarrierController {
                 .carrierCode(carrier.getCarrierCode())
                 .carrierCN(carrier.getCarrierCN())
                 .carrierEN(carrier.getCarrierEN())
-                .status(carrier.getStatus()).build());
+                .enabled(carrier.getEnabled()).build());
         return ResponseEntity.ok(page);
     }
 
@@ -90,7 +90,7 @@ public class CarrierController {
                 .carrierCode(carrier.getCarrierCode())
                 .carrierCN(carrier.getCarrierCN())
                 .carrierEN(carrier.getCarrierEN())
-                .status(carrier.getStatus()).build()).collect(Collectors.toList());
+                .enabled(carrier.getEnabled()).build()).collect(Collectors.toList());
         return ResponseEntity.ok(vos);
     }
     @GetMapping("/check")

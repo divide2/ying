@@ -90,6 +90,9 @@ public class Article {
      */
     private String deleted;
 
+    /**
+     * 发表状态 /发表为草稿 还是 文章
+     */
     @Column(name = "publish_status")
     private String publishStatus;
 

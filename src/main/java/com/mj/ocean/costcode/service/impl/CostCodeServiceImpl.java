@@ -52,7 +52,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         add(costCode);
 
         int costCodeId = costCode.getId();
-        List<CostCodeAssociatedAddDTO> costCodeAssociateds = costCodeAddDTO.getCostCodeAssociatedAddList();
+        List<CostCodeAssociatedAddDTO> costCodeAssociateds = costCodeAddDTO.getCostCodeAssociateds();
         for (CostCodeAssociatedAddDTO costCodeAssociatedAddDTO : costCodeAssociateds) {
             CostCodeAssociated costCodeAssociated = CostCodeAssociated.builder()
                     .costService(costCodeAssociatedAddDTO.getCostService())

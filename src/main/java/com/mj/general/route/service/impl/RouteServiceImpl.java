@@ -22,7 +22,9 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -78,8 +80,8 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         }
     }
 
-    private Integer addRoute(RouteAddDTO routeAddDTO,Carrier carrier,Port firstPort,
-                             Port lastPort,BigDecimal allTime,String allPortStr,int num) {
+    private Integer addRoute(RouteAddDTO routeAddDTO, Carrier carrier, Port firstPort,
+                             Port lastPort, BigDecimal allTime, String allPortStr, int num) {
         Route route = Route.builder().carrierId(routeAddDTO.getCarrierId())
                 .carrierCode(carrier.getCarrierCode())
                 .carrierEN(carrier.getCarrierEN())
@@ -104,15 +106,15 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         List<Port> allPorts = portRepository.findByIdIn(getPortsIds(routePortAddOrUpdateDTOS));
         Port firstPort = allPorts.get(0);
         Port lastPort = allPorts.get(num - 1);
-        BigDecimal allTime  = routePortAddOrUpdateDTOS.stream().map(RoutePortAddOrUpdateDTO::getTt).reduce(BigDecimal::add).get();
+        BigDecimal allTime = routePortAddOrUpdateDTOS.stream().map(RoutePortAddOrUpdateDTO::getTt).reduce(BigDecimal::add).get();
         String allPortStr = allPorts.stream().map(Port::getPortEN).collect(Collectors.joining(Punctuation.COMMA));
         Carrier carrier = carrierRepository.getOne(routeAddDTO.getCarrierId());
-        int routeId = addRoute(routeAddDTO,carrier,firstPort,lastPort,allTime,allPortStr,num);
+        int routeId = addRoute(routeAddDTO, carrier, firstPort, lastPort, allTime, allPortStr, num);
         addRoutePort(routeId, routePortAddOrUpdateDTOS);
     }
 
-    private void updateRoute(RouteUpdateDTO routeUpdateDTO,Carrier carrier,int num,
-                             Port firstPort,Port lastPort,BigDecimal allTime,String allPortStr) {
+    private void updateRoute(RouteUpdateDTO routeUpdateDTO, Carrier carrier, int num,
+                             Port firstPort, Port lastPort, BigDecimal allTime, String allPortStr) {
         Route route = this.get(routeUpdateDTO.getId());
         route.setCarrierId(routeUpdateDTO.getCarrierId());
         route.setCarrierCode(carrier.getCarrierCode());
@@ -141,14 +143,14 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         String allPortStr = allPorts.stream().map(Port::getPortEN).collect(Collectors.joining(Punctuation.COMMA));
         Carrier carrier = carrierRepository.getOne(routeUpdateDTO.getCarrierId());
 
-        updateRoute(routeUpdateDTO,carrier,num,firstPort,lastPort,allTime,allPortStr);
+        updateRoute(routeUpdateDTO, carrier, num, firstPort, lastPort, allTime, allPortStr);
         //修改时，先删除航线下的之前的港口，再添加
         routePortRepository.deleteByRouteId(routeUpdateDTO.getId());
         int routeId = routeUpdateDTO.getId();
         addRoutePort(routeId, routePortAddOrUpdateDTOS);
     }
 
-    private RouteVO routeToVO(Integer id,Route route,List<RoutePortVO> vos) {
+    private RouteVO routeToVO(Integer id, Route route, List<RoutePortVO> vos) {
         RouteVO vo = RouteVO.builder().routePorts(vos)
                 .id(id)
                 .carrierId(route.getCarrierId())
@@ -187,7 +189,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         Route route = get(id);
         List<RoutePort> routePortList = routePortRepository.findByRouteId(id);
         List<RoutePortVO> vos = routePortVOs(routePortList);
-        return routeToVO(id,route,vos);
+        return routeToVO(id, route, vos);
     }
 
     @Override
@@ -203,7 +205,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
         if (StringUtils.isNotEmpty(routeQueryDTO.getAllPort())) {
             predicate = route.allPort.like("%" + routeQueryDTO.getAllPort() + "%");
         }
-        return routeRepository.findAllByOrderByEnabledDesc(predicate, pageable);
+        return routeRepository.findAll(predicate, pageable);
     }
 
     @Override
@@ -224,7 +226,7 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
                 .id(route.getId())
                 .carrierId(route.getCarrierId())
                 .routeCode(route.getRouteCode()).build();
-        return  routeCarrierVO;
+        return routeCarrierVO;
     }
 
     @Override

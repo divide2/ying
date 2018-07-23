@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  * @date 2018/7/17 10:16
  */
 @RestController
-@RequestMapping
+@RequestMapping("/v1/costcode")
 @Api(tags = "成本代码")
 public class CostCodeController {
 
@@ -65,10 +65,10 @@ public class CostCodeController {
         return Responser.updated();
     }
 
-    @GetMapping
+    @GetMapping("{id}")
     @ApiOperation("查看单条信息")
-    public ResponseEntity<CostCodeVO> getDetail(@Valid @RequestBody SingleId del,BindingResult br){
-        CostCodeVO costCodeVO = costCodeService.getDetail(del.getId());
+    public ResponseEntity<CostCodeVO> getDetail(@PathVariable Integer id){
+        CostCodeVO costCodeVO = costCodeService.getDetail(id);
         return Responser.ok(costCodeVO);
     }
 

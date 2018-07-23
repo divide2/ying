@@ -1,17 +1,12 @@
 package com.mj.general.route.repo;
 
-import com.mj.general.port.model.Port;
 import com.mj.general.route.model.Route;
-import com.mj.general.route.model.RoutePort;
-import com.mj.general.route.vo.RouteCarrierVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @author zejun
@@ -40,5 +35,5 @@ public interface RouteRepository extends JpaRepository<Route,Integer>, QuerydslP
      * @param pageable 页面数据
      * @return Page<Route>
      */
-    Page<Route> findAllByOrderByEnabledDesc(BooleanExpression predicate, Pageable pageable);
+    Page<Route> findAllByOrderByIdDesc(BooleanExpression predicate, Pageable pageable);
 }

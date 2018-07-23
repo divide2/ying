@@ -13,7 +13,11 @@ public interface CombinationAssociatedRepository extends CombinationAssociatedRe
         JpaRepository<PortCombinationAssociated,Integer>,
         QuerydslPredicateExecutor<PortCombinationAssociated> {
 
-    void deleteByCombinationId(Integer combinationId);
 
+    /**
+     * 根据组合id删除数据
+     * @param combinationId 组合id
+     */
+    void deleteByCombinationId(Integer combinationId);
 
 }

@@ -20,15 +20,21 @@ public class CombinationAssociatedVO {
     @ApiModelProperty("是否启用")
     private Character enabled;
 
+    @ApiModelProperty("船公司id")
     private Integer carrierId;
 
+    @ApiModelProperty("船公司简称")
     private String carrierCode;
 
+    @ApiModelProperty("港口ids")
     private String portIds;
 
+    @ApiModelProperty("港口简称集合")
     private String portCodes;
 
+    @ApiModelProperty("港口英文集合")
     private String portENs;
 
+    @ApiModelProperty("国家因为集合")
     private String countryENs;
 }

@@ -1,6 +1,5 @@
 package com.mj.general.charge.controller;
 
-import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.charge.dto.ChargeAddDTO;
@@ -10,7 +9,7 @@ import com.mj.general.charge.dto.ChargeUpdateDTO;
 import com.mj.general.charge.model.Charge;
 import com.mj.general.charge.service.ChargeService;
 import com.mj.general.charge.vo.ChargeVO;
-import com.mj.general.dictionary.dto.EnabledDTO;
+import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -63,9 +62,9 @@ public class ChargeController {
 
     @PatchMapping("/enabled")
     @ApiOperation("禁用/启用操作")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody EnabledDTO enabledDTO, BindingResult br){
-        Charge charge = chargeService.get(enabledDTO.getId());
-        charge.setEnabled(enabledDTO.getEnabled());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br){
+        Charge charge = chargeService.get(generalEnabledDTO.getId());
+        charge.setEnabled(generalEnabledDTO.getEnabled());
         chargeService.update(charge);
         return Responser.updated();
     }

@@ -26,12 +26,21 @@ public class PortCombinationAssociated {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    /**
+     * 船公司id
+     */
     @Column(name = "carrier_id")
     private Integer carrierId;
 
+    /**
+     * 港口id
+     */
     @Column(name = "port_id")
     private Integer portId;
 
+    /**
+     * 组合id
+     */
     @Column(name = "combination_id")
     private Integer combinationId;
 }

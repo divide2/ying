@@ -1,13 +1,12 @@
 package com.mj.general.carrier.controller;
 
-import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.carrier.dto.*;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;
-import com.mj.general.dictionary.dto.EnabledDTO;
+import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -62,9 +61,9 @@ public class CarrierController {
 
     @PatchMapping("/enabled")
     @ApiOperation("启用/禁用船公司")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody EnabledDTO enabledDTO, BindingResult br) {
-            Carrier carrier = carrierService.get(enabledDTO.getId());
-            carrier.setEnabled(enabledDTO.getEnabled());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br) {
+            Carrier carrier = carrierService.get(generalEnabledDTO.getId());
+            carrier.setEnabled(generalEnabledDTO.getEnabled());
             carrierService.update(carrier);
             return Responser.updated();
     }

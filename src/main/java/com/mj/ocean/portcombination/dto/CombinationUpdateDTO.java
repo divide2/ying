@@ -19,9 +19,9 @@ public class CombinationUpdateDTO {
     @NotNull
     private Integer id;
 
-    @ApiModelProperty("船公司id")
+    @ApiModelProperty("船公司ids")
     @NotNull
-    private Integer carrierId;
+    private String carrierIds;
 
     @ApiModelProperty("组合名称")
     @NotEmpty

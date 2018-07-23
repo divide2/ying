@@ -21,11 +21,15 @@ public class CombinationVO {
     @ApiModelProperty("是否启用")
     private Character enabled;
 
+    @ApiModelProperty("船公司简称")
     private String carrierCode;
 
+    @ApiModelProperty("港口简称")
     private String portCodes;
 
+    @ApiModelProperty("港口英文名")
     private String portENs;
 
+    @ApiModelProperty("国家英文名")
     private String countryENs;
 }

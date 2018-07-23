@@ -1,4 +1,4 @@
-package com.mj.ocean.portcombination.dto;
+package com.mj.general.dictionary.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -9,16 +9,17 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author zejun
- * @date 2018/7/13 17:50
+ * @date 2018/7/20 11:31
  */
 @Data
-@ApiModel("禁/启用状态")
-public class CombinationEnableDTO {
-    @ApiModelProperty("港口组id")
+@ApiModel("启用/禁用状态")
+public class GeneralEnabledDTO {
+
+    @ApiModelProperty("id")
     @NotNull
     private Integer id;
 
-    @ApiModelProperty("禁/启用状态")
+    @ApiModelProperty("状态")
     @NotEmpty
     private Character enabled;
 }

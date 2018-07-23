@@ -11,5 +11,11 @@ import org.springframework.data.domain.Pageable;
  */
 public interface PortCombinationRepositoryCustom {
 
+    /**
+     * 分页查询港口组合数据
+     * @param combinationQueryDTO 查询dto
+     * @param pageable sql数据
+     * @return Page<CombinationVO>
+     */
     Page<CombinationVO> findAll(CombinationQueryDTO combinationQueryDTO, Pageable pageable);
 }

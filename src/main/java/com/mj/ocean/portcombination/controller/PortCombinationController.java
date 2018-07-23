@@ -1,10 +1,9 @@
 package com.mj.ocean.portcombination.controller;
 
-import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
-import com.mj.ocean.portcombination.dto.CombinationEnableDTO;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
@@ -12,7 +11,6 @@ import com.mj.ocean.portcombination.service.CombinationService;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -51,11 +49,11 @@ public class PortCombinationController {
         return Responser.updated();
     }
 
-    @PatchMapping("/stats")
+    @PatchMapping("/enabled")
     @ApiOperation("禁/启用状态")
-    public ResponseEntity<Messager> enable(@Valid @RequestBody CombinationEnableDTO combinationEnableDTO, BindingResult br){
-        PortCombination portCombination = combinationService.get(combinationEnableDTO.getId());
-        portCombination.setEnabled(combinationEnableDTO.getEnabled());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br){
+        PortCombination portCombination = combinationService.get(oceanEnabledDTO.getId());
+        portCombination.setEnabled(oceanEnabledDTO.getEnabled());
         combinationService.update(portCombination);
         return  Responser.updated();
     }
@@ -67,10 +65,10 @@ public class PortCombinationController {
         return ResponseEntity.ok(portCombinations);
     }
 
-    @GetMapping("/copy")
-    @ApiModelProperty("复制")
-    public ResponseEntity<CombinationAssociatedVO> copy(@Valid @RequestBody SingleId del, BindingResult br) {
-        CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(del.getId());
+    @GetMapping("/copy/{id}")
+    @ApiOperation("复制")
+    public ResponseEntity<CombinationAssociatedVO> copy(@PathVariable Integer id, BindingResult br) {
+        CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(id);
         return Responser.ok(combinationAssociatedVO);
     }
 }

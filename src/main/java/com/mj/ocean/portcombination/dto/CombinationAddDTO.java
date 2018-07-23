@@ -17,7 +17,7 @@ public class CombinationAddDTO {
 
     @ApiModelProperty("船公司id")
     @NotNull
-    private Integer carrierId;
+    private String carrierIds;
 
     @ApiModelProperty("组合名称")
     @NotEmpty

@@ -41,7 +41,6 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
         QPortCombinationAssociated portCombinationAssociated = QPortCombinationAssociated.portCombinationAssociated;
         SQLTemplates sqlTemplates = new MySQLTemplates();
         List<String> params = new ArrayList<>();
-//        JPASQLQuery<CombinationVO> query = new JPASQLQuery<>(entityManager,sqlTemplates);
         String sql = "SELECT\n" +
                 "ofpc.id, \n" +
                 "ofpc.combination_name as combinationName, \n" +
@@ -57,7 +56,6 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "left join \n" +
                 "general_port gp on gp.id = pczh.port_id";
         if (StringUtils.isNotEmpty(combinationQueryDTO.getCombinationName())) {
-//            sql += " where ofpc.combination_name = '" + combinationQueryDTO.getCombinationName()+"'";
             sql += " where ofpc.combination_name like ?";
             params.add("%"+combinationQueryDTO.getCombinationName()+"%");
         }
@@ -73,25 +71,6 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
         String countSql = "select count(*) from (" + sql + ")";
         Query countQuery = entityManager.createNativeQuery(countSql);
 
-//        query = query.select(constructor(CombinationVO.class,portCombination.id,portCombination.combinationName,portCombination.enabled,
-//                SQLExpressions.groupConcat(carrier.carrierCode),SQLExpressions.groupConcat(qPort.portCode),
-//                SQLExpressions.groupConcat(qPort.portEN),SQLExpressions.groupConcat(qPort.countryEN)))
-//                .from(portCombination)
-//                .leftJoin(portCombinationAssociated)
-//                .on(portCombination.id.eq(portCombinationAssociated.combinationId))
-//                .leftJoin(carrier)
-//                .on(carrier.id.eq(portCombinationAssociated.carrierId))
-//                .leftJoin(qPort)
-//                .on(qPort.id.eq(portCombinationAssociated.portId));
-//
-//        if (StringUtils.isNotEmpty(combinationQueryDTO.getCarrierCode())){
-//            query = query.where(carrier.carrierCode.eq(combinationQueryDTO.getCarrierCode()));
-//        }
-//        if (StringUtils.isNotEmpty(combinationQueryDTO.getCombinationName())){
-//            query = query.where(portCombination.combinationName.eq(combinationQueryDTO.getCombinationName()));
-//        }
-//        query = query.where(portCombination.deleted.eq('N').and(portCombination.enabled.eq('Y')))
-//                .groupBy(portCombination.id);
         List<Object[]> results = query.getResultList();
         List<CombinationVO> combinationVOS = results.stream()
                 .map(o -> new CombinationVO((Integer) o[0], (String) o[1], (Character)o[2], (String) o[3], (String) o[4], (String)o[5], (String)o[6])).collect(Collectors.toList());

@@ -8,5 +8,10 @@ import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
  */
 public interface CombinationAssociatedRepositoryCustom {
 
+    /**
+     * 根据组合id查询数据
+     * @param combinationId 组合id
+     * @return CombinationAssociatedVO
+     */
     CombinationAssociatedVO findByCombinationId(Integer combinationId);
 }

@@ -2,7 +2,10 @@ package com.mj.general.carrier.controller;
 
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.general.carrier.dto.*;
+import com.mj.general.carrier.dto.CarrierAddDTO;
+import com.mj.general.carrier.dto.CarrierCheckDTO;
+import com.mj.general.carrier.dto.CarrierQueryDTO;
+import com.mj.general.carrier.dto.CarrierUpdateDTO;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;

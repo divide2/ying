@@ -19,6 +19,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zejun
@@ -38,7 +40,7 @@ public class ChargeController {
 
     @PostMapping
     @ApiOperation("新增费用")
-    public ResponseEntity<Messager> add(@Valid @RequestBody ChargeAddDTO chargeAddDTO, BindingResult br){
+    public ResponseEntity<Messager> add(@Valid @RequestBody ChargeAddDTO chargeAddDTO, BindingResult br) {
         //todo 查询登陆人信息获取客户公司id
         int companyId = 1111;
         Charge charge = Charge.builder().chargeItemCode(chargeAddDTO.getChargeItemCode())
@@ -51,13 +53,13 @@ public class ChargeController {
 
     @PatchMapping
     @ApiOperation("修改费用")
-    public ResponseEntity<Messager> update(@Valid @RequestBody ChargeUpdateDTO chargeUpdateDTO,BindingResult br){
-       Charge charge = chargeService.get(chargeUpdateDTO.getId());
-       charge.setChargeItemCode(chargeUpdateDTO.getChargeItemCode());
-       charge.setChargeItemCN(chargeUpdateDTO.getChargeItemCN());
-       charge.setChargeItemEN(chargeUpdateDTO.getChargeItemEN());
-       chargeService.update(charge);
-       return  Responser.updated();
+    public ResponseEntity<Messager> update(@Valid @RequestBody ChargeUpdateDTO chargeUpdateDTO, BindingResult br) {
+        Charge charge = chargeService.get(chargeUpdateDTO.getId());
+        charge.setChargeItemCode(chargeUpdateDTO.getChargeItemCode());
+        charge.setChargeItemCN(chargeUpdateDTO.getChargeItemCN());
+        charge.setChargeItemEN(chargeUpdateDTO.getChargeItemEN());
+        chargeService.update(charge);
+        return Responser.updated();
     }
 
     @PatchMapping("/enabled")
@@ -71,8 +73,8 @@ public class ChargeController {
 
     @GetMapping("/find")
     @ApiOperation("费用分页查询")
-    public ResponseEntity<Page<ChargeVO>> find(ChargeQueryDTO chargeQueryDTO, Pageable pageable){
-        Page<Charge> charges = chargeService.find(chargeQueryDTO,pageable);
+    public ResponseEntity<Page<ChargeVO>> find(ChargeQueryDTO chargeQueryDTO, Pageable pageable) {
+        Page<Charge> charges = chargeService.find(chargeQueryDTO, pageable);
         Page<ChargeVO> page = charges.map(charge -> ChargeVO.builder()
                 .id(charge.getId())
                 .chargeItemCode(charge.getChargeItemCode())
@@ -82,9 +84,24 @@ public class ChargeController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/all")
+    @ApiOperation("费用分页查询")
+    public ResponseEntity<List<ChargeVO>> all() {
+
+        List<Charge> all = chargeService.findAll();
+        List<ChargeVO> vos = all.stream().map(charge -> ChargeVO.builder()
+                .id(charge.getId())
+                .chargeItemCode(charge.getChargeItemCode())
+                .chargeItemCN(charge.getChargeItemCN())
+                .chargeItemEN(charge.getChargeItemEN())
+                .enabled(charge.getEnabled())
+                .isUsed(charge.getIsUsed()).build()).collect(Collectors.toList());
+        return Responser.ok(vos);
+    }
+
     @GetMapping("/check")
     @ApiOperation("检查字段是否重复")
-    public void check(ChargeCheckDTO chargeCheckDTO){
+    public void check(ChargeCheckDTO chargeCheckDTO) {
         chargeService.check(chargeCheckDTO);
     }
 

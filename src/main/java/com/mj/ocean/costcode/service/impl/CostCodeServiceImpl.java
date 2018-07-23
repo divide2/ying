@@ -13,6 +13,7 @@ import com.mj.ocean.costcode.service.CostCodeService;
 import com.mj.ocean.costcode.vo.CostCodeAssociatedVO;
 import com.mj.ocean.costcode.vo.CostCodeVO;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -140,8 +141,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
     @Override
     public Page<CostCode> find(CostCodeQueryDTO costCodeQueryDTO, Pageable pageable) {
         QCostCode costCode = QCostCode.costCode;
-        BooleanExpression predicate = costCode.deleted.eq('N');
-        predicate.and(costCode.enabled.eq('Y'));
+        BooleanExpression predicate = Expressions.ONE.eq(Expressions.ONE);
         if (StringUtils.isNotEmpty(costCodeQueryDTO.getCode())){
             predicate = costCode.code.like("%" + costCodeQueryDTO.getCode() + "%");
         }

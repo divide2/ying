@@ -94,8 +94,7 @@ public class ChargeController {
                 .chargeItemCode(charge.getChargeItemCode())
                 .chargeItemCN(charge.getChargeItemCN())
                 .chargeItemEN(charge.getChargeItemEN())
-                .enabled(charge.getEnabled())
-                .isUsed(charge.getIsUsed()).build()).collect(Collectors.toList());
+                .enabled(charge.getEnabled()).build()).collect(Collectors.toList());
         return Responser.ok(vos);
     }
 

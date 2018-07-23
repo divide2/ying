@@ -31,11 +31,4 @@ public interface PortRepository extends JpaRepository<Port,Integer>, QuerydslPre
      */
     List<Port> findByIdIn(List<Integer> ids);
 
-    /**
-     * 根据状态排序分页查询
-     * @param predicate  sql数据
-     * @param pageable 页面数据
-     * @return Page<Port>
-     */
-    Page<Port> findAllByOrderByEnabledDesc(BooleanExpression predicate, Pageable pageable);
 }

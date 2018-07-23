@@ -36,7 +36,7 @@ public class ChargeServiceImpl extends SimpleBasicServiceImpl<Charge,Integer,Cha
                     .or(charge.chargeItemCN.like("%" + chargeQueryDTO.getKeyName() + "%"))
                     .or(charge.chargeItemEN.like("%" + chargeQueryDTO.getKeyName() + "%"));
         }
-        return chargeRepository.findAllByOrderByEnabledDesc(booleanExpression,pageable);
+        return chargeRepository.findAll(booleanExpression,pageable);
     }
 
     @Override

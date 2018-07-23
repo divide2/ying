@@ -36,11 +36,4 @@ public interface ChargeRepository extends JpaRepository<Charge,Integer>,Querydsl
      */
     Charge getByChargeItemENIgnoreCase(String chargeItemEN);
 
-    /**
-     * 根据状态排序分页查询
-     * @param predicate  sql数据
-     * @param pageable 页面数据
-     * @return Page<Charge>
-     */
-    Page<Charge> findAllByOrderByEnabledDesc(BooleanExpression predicate, Pageable pageable);
 }

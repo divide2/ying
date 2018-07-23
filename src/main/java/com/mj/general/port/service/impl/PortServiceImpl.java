@@ -43,7 +43,7 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
                     .or(port.countryEN.like("%" + portQueryDTO.getKeyName() + "%"))
                     .or(port.serviceName.like("%" + portQueryDTO.getKeyName() + "%"));
         }
-        return portRepository.findAllByOrderByEnabledDesc(predicate,pageable);
+        return portRepository.findAll(predicate,pageable);
     }
 
     @Override

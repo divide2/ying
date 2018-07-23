@@ -1,14 +1,8 @@
 package com.mj.ocean.portcombination.repo.impl;
 
-import com.mj.general.carrier.model.QCarrier;
-import com.mj.general.port.model.QPort;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
-import com.mj.ocean.portcombination.model.QPortCombination;
-import com.mj.ocean.portcombination.model.QPortCombinationAssociated;
 import com.mj.ocean.portcombination.repo.custom.PortCombinationRepositoryCustom;
 import com.mj.ocean.portcombination.vo.CombinationVO;
-import com.querydsl.sql.MySQLTemplates;
-import com.querydsl.sql.SQLTemplates;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -42,8 +36,8 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "ofpc.enabled as enabled, \n" +
                 "GROUP_CONCAT(DISTINCT gc.carrier_code) as carrierCode,\n" +
                 "GROUP_CONCAT(DISTINCT gp.port_code) as portCodes,\n" +
-                "GROUP_CONCAT(DISTINCT gp.porten) as portENs,\n" +
-                "GROUP_CONCAT(DISTINCT gp.countryen) as countryENs\n" +
+                "GROUP_CONCAT(DISTINCT gp.port_en) as portENs,\n" +
+                "GROUP_CONCAT(DISTINCT gp.country_en) as countryENs\n" +
                 "from \n" +
                 "ocean_fc_port_combination ofpc LEFT JOIN ocean_fc_port_combination_associated pczh on ofpc.id = pczh.combination_id \n" +
                 "left join \n" +

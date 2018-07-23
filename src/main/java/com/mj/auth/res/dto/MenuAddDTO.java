@@ -39,6 +39,7 @@ public class MenuAddDTO {
      * 地址
      */
     @ApiModelProperty("地址")
+    @NotEmpty
     private String path;
 
     /**
@@ -51,9 +52,11 @@ public class MenuAddDTO {
      * 排序号
      */
     @ApiModelProperty("排序")
+    @NotNull
     private Integer orderNum;
 
     @ApiModelProperty("类型")
+    @NotEmpty
     private String type;
 
 

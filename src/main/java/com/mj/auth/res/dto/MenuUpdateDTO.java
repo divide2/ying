@@ -36,12 +36,14 @@ public class MenuUpdateDTO {
      * 父级菜单
      */
     @ApiModelProperty("父级id")
+    @NotNull
     private Integer pid;
 
     /**
      * 地址
      */
     @ApiModelProperty("地址")
+    @NotEmpty
     private String path;
 
     /**
@@ -54,6 +56,7 @@ public class MenuUpdateDTO {
      * 排序号
      */
     @ApiModelProperty("排序")
+    @NotNull
     private Integer orderNum;
 
     @ApiModelProperty("类型")

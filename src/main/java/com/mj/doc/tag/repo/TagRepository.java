@@ -9,5 +9,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface TagRepository extends JpaRepository<Tag,Integer> {
 
-
+    /**
+     * 根据名称获取
+     * @param name 名称
+     * @return Tag
+     */
+    Tag findByName(String name);
 }

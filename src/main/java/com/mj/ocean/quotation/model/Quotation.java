@@ -176,12 +176,6 @@ public class Quotation {
     private LocalDateTime updateDate;
 
     /**
-     * 是否删除。 默认N；N：未删除；Y：删除
-     */
-    @Builder.Default
-    private Character deleted = 'N';
-
-    /**
      * 是否启用。 默认Y；Y：启用；N：不可用
      */
     @Builder.Default
@@ -191,4 +185,10 @@ public class Quotation {
      * 是否发布。 Y：发布；N：不发布
      */
     private Character publish;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

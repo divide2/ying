@@ -61,5 +61,5 @@ public class QuotationUpdateDTO {
     private Character publish;
 
     @ApiModelProperty("常规报价关联表数据集")
-    List<QuotationCostUpdateDTO> quotationCostUpdateDTOList;
+    List<QuotationCostUpdateDTO> quotationCostUpdates;
 }

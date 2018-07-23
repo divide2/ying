@@ -24,14 +24,6 @@ public class CostCodeUpdateDTO {
     @NotEmpty
     private String code;
 
-    @ApiModelProperty("修改人id")
-    @NotEmpty
-    private Integer updateUserid;
-
-    @ApiModelProperty("修改人名称")
-    @NotEmpty
-    private String updateUsername;
-
     @ApiModelProperty("成本关联数据集")
     @NotEmpty
     private List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdates;

@@ -2,6 +2,7 @@ package com.mj.ocean.quotation.controller;
 
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.quotation.dto.*;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.service.QuotationService;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/v1/quotation")
-@Api(tags = "常规运价")
+@Api(tags = "常规/特殊运价")
 public class QuotationController {
 
     private final QuotationService quotationService;
@@ -34,30 +35,30 @@ public class QuotationController {
     }
 
     @PostMapping
-    @ApiOperation("新增常规报价")
+    @ApiOperation("新增常规/特殊报价")
     public ResponseEntity<Messager> add(@Valid @RequestBody QuotationAddDTO quotationAddDTO, BindingResult br) {
         quotationService.add(quotationAddDTO);
         return Responser.created();
     }
 
-    @PatchMapping("/stats")
+    @PatchMapping("/enabled")
     @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody QuotationEnabledDTO quotationEnabledDTO,BindingResult br) {
-        Quotation quotation = quotationService.get(quotationEnabledDTO.getId());
-        quotation.setEnabled(quotationEnabledDTO.getEnabled());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br) {
+        Quotation quotation = quotationService.get(oceanEnabledDTO.getId());
+        quotation.setEnabled(oceanEnabledDTO.getEnabled());
         quotationService.update(quotation);
         return Responser.updated();
     }
 
     @GetMapping("/get/{id}")
-    @ApiModelProperty("获取单条信息")
+    @ApiOperation("获取单条信息")
     public ResponseEntity<QuotationVO> get(@PathVariable Integer id) {
         QuotationVO quotationVO = quotationService.getOne(id);
         return ResponseEntity.ok(quotationVO);
     }
 
     @PatchMapping
-    @ApiOperation("修改常规报价")
+    @ApiOperation("修改常规/特殊报价")
     public ResponseEntity<Messager> update(@Valid @RequestBody QuotationUpdateDTO quotationUpdateDTO, BindingResult br) {
         quotationService.update(quotationUpdateDTO);
         return Responser.updated();

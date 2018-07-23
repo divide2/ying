@@ -65,7 +65,7 @@ public class CostCodeController {
         return Responser.updated();
     }
 
-    @GetMapping("/getOne/{id}")
+    @GetMapping("{id}")
     @ApiOperation("查看单条信息")
     public ResponseEntity<CostCodeVO> getDetail(@PathVariable Integer id){
         CostCodeVO costCodeVO = costCodeService.getDetail(id);
@@ -102,7 +102,7 @@ public class CostCodeController {
         return ResponseEntity.ok(vos);
     }
 
-    @GetMapping("/get/{costCodeId}")
+    @GetMapping("/{costCodeId}/costCodeId")
     @ApiOperation("根据成本代码id查数据")
     public ResponseEntity<List<CostCodeAssociatedVO>> getAll(@PathVariable Integer costCodeId) {
         List<CostCodeAssociatedVO> vos = costCodeAssociatedService.findByCostCodeId(costCodeId);

@@ -37,7 +37,8 @@ public class CostCodeController {
     private final CostCodeService costCodeService;
     private final CostCodeAssociatedService costCodeAssociatedService;
 
-    public CostCodeController(CostCodeService costCodeService,CostCodeAssociatedService costCodeAssociatedService) {
+    public CostCodeController(CostCodeService costCodeService,
+                              CostCodeAssociatedService costCodeAssociatedService) {
         this.costCodeService = costCodeService;
         this.costCodeAssociatedService = costCodeAssociatedService;
     }

@@ -22,4 +22,9 @@ public interface CostCodeAssociatedRepository extends JpaRepository<CostCodeAsso
      */
     List<CostCodeAssociated> findByCostCodeId(Integer costCodeId);
 
+    /**
+     * 根据成本代码id删除数据
+     * @param costCodeId 成本代码id
+     */
+    void deleteByCostCodeId(Integer costCodeId);
 }

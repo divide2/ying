@@ -71,4 +71,10 @@ public class PortCombinationController {
         CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(id);
         return Responser.ok(combinationAssociatedVO);
     }
+
+    @GetMapping("/check/{combinationName}")
+    @ApiOperation("检查组合名称是否重复")
+    public void check(@PathVariable String combinationName) {
+        combinationService.check(combinationName);
+    }
 }

@@ -34,5 +34,5 @@ public class CostCodeUpdateDTO {
 
     @ApiModelProperty("成本关联数据集")
     @NotEmpty
-    private List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdateDTOList;
+    private List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdates;
 }

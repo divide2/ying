@@ -42,7 +42,7 @@ public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,C
                     .or(carrier.carrierCN.like("%" + carrierQueryDTO.getKeyName() + "%"))
                     .or(carrier.carrierEN.like("%" + carrierQueryDTO.getKeyName() + "%"));
         }
-        return carrierRepository.findAllByOrderByEnabledDesc(predicate, pageable);
+        return carrierRepository.findAll(predicate, pageable);
     }
 
     @Override

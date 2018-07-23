@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * @author zejun
@@ -19,15 +20,17 @@ public class CombinationUpdateDTO {
     @NotNull
     private Integer id;
 
-    @ApiModelProperty("船公司ids")
-    @NotNull
-    private String carrierIds;
-
     @ApiModelProperty("组合名称")
     @NotEmpty
     private String combinationName;
 
-    @ApiModelProperty("港口ids")
+    @ApiModelProperty("船公司港口")
     @NotEmpty
-    private String portIds;
+    private List<CarrierPort> carrierPorts;
+
+    @Data
+    public static class CarrierPort {
+        private Integer carrierId;
+        private List<Integer> portIds;
+    }
 }

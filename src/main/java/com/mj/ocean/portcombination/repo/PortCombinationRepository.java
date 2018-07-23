@@ -13,4 +13,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PortCombinationRepository extends PortCombinationRepositoryCustom,
         JpaRepository<PortCombination,Integer>,QuerydslPredicateExecutor<PortCombination> {
+
+    /**
+     * 检查组合名称是否重复
+     * @param combinationName 组合名称
+     * @return PortCombination
+     */
+    PortCombination getByCombinationName(String combinationName);
 }

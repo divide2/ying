@@ -43,4 +43,11 @@ public interface CombinationService extends BasicService<PortCombination,Integer
      * @return CombinationAssociatedVO
      */
     CombinationAssociatedVO getDetail(Integer id);
+
+    /**
+     * 检查组合名称是否重复
+     * @param combinationName 组合名称
+     */
+    void check(String combinationName);
 }
+

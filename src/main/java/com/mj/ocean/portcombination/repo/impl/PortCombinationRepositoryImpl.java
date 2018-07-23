@@ -35,11 +35,6 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
 
     @Override
     public Page<CombinationVO> findAll(CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
-        QPort qPort = QPort.port;
-        QPortCombination portCombination = QPortCombination.portCombination;
-        QCarrier carrier = QCarrier.carrier;
-        QPortCombinationAssociated portCombinationAssociated = QPortCombinationAssociated.portCombinationAssociated;
-        SQLTemplates sqlTemplates = new MySQLTemplates();
         List<String> params = new ArrayList<>();
         String sql = "SELECT\n" +
                 "ofpc.id, \n" +

@@ -12,5 +12,10 @@ import java.util.List;
  */
 public interface CostCodeAssociatedService extends BasicService<CostCodeAssociated,Integer> {
 
+    /**
+     * 根据成本代码id获取数据
+     * @param costCodeId  成本代码id
+     * @return List<CostCodeAssociatedVO>
+     */
     List<CostCodeAssociatedVO> findByCostCodeId(Integer costCodeId);
 }

@@ -1,5 +1,6 @@
 package com.mj.ocean.costcode.service.impl;
 
+import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.costcode.dto.*;
 import com.mj.ocean.costcode.model.CostCode;
@@ -45,6 +46,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
 
     @Override
     public void add(CostCodeAddDTO costCodeAddDTO) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
         CostCode costCode = CostCode.builder().code(costCodeAddDTO.getCode())
                 .createdUserid(11111)
                 .createdUsername("eqwffew")
@@ -66,6 +68,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
 
     @Override
     public void update(CostCodeUpdateDTO costCodeUpdateDTO) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
         CostCode costCode = get(costCodeUpdateDTO.getId());
         costCode.setCode(costCodeUpdateDTO.getCode());
         costCode.setUpdateUserid(222);
@@ -74,11 +77,9 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         update(costCode);
 
         //先删除关联表数据，再插入
-        CostCodeAssociated costCodeAssociated = new CostCodeAssociated();
-        costCodeAssociated.setCostCodeId(costCodeUpdateDTO.getId());
-        costCodeAssociatedRepository.delete(costCodeAssociated);
+        costCodeAssociatedRepository.deleteByCostCodeId(costCodeUpdateDTO.getId());
 
-        List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdateDTOS = costCodeUpdateDTO.getCostCodeAssociatedUpdateDTOList();
+        List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdateDTOS = costCodeUpdateDTO.getCostCodeAssociatedUpdates();
         for (CostCodeAssociatedUpdateDTO ccaud : costCodeAssociatedUpdateDTOS) {
             CostCodeAssociated costCodeAssociated1 = CostCodeAssociated.builder()
                     .costService(ccaud.getCostService())
@@ -103,7 +104,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         ).collect(Collectors.toList());
 
         CostCodeVO costCodeVO = CostCodeVO.builder()
-                .costCodeAssociatedVOList(costCodeAssociatedVOS)
+                .costCodeAssociatedVOs(costCodeAssociatedVOS)
                 .id(id)
                 .code(costCode.getCode())
                 .lastUpdateDate(StringUtils.isEmpty(costCode.getUpdateDate().toString()) ? costCode.getCreatedDate():costCode.getUpdateDate())
@@ -117,7 +118,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         CostCode costCode = get(id);
         List<CostCode> costCodeList = costCodeRepository.findByCodeLike("%"+costCode.getCode()+"%");
         int size = costCodeList.size();
-        String s[] = costCodeList.get(size-1).getCode().split("_");
+        String[] s = costCodeList.get(size-1).getCode().split("_");
         int num = Integer.parseInt(s[s.length-1])+1;
         CostCode costCode1 = CostCode.builder().code(costCodeList.get(size-1).getCode()+"_"+num)
                 .createdUserid(123)
@@ -145,5 +146,15 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
             predicate = costCode.code.like("%" + costCodeQueryDTO.getCode() + "%");
         }
         return costCodeRepository.findAll(predicate,pageable);
+    }
+
+    @Override
+    public void check(String code) {
+        if (StringUtils.isNotEmpty(code)){
+            CostCode costCode = costCodeRepository.getByCode(code);
+            if(costCode != null) {
+                throw new AlreadyExistsException();
+            }
+        }
     }
 }

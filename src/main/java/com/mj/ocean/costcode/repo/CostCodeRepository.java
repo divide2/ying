@@ -21,4 +21,11 @@ public interface CostCodeRepository extends JpaRepository<CostCode,Integer>,
      * @return
      */
     List<CostCode> findByCodeLike(String code);
+
+    /**
+     * 检查成本代码是否重复
+     * @param code 成本代码
+     * @return CostCode
+     */
+    CostCode getByCode(String code);
 }

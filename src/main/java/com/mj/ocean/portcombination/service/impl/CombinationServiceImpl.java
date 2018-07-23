@@ -50,6 +50,7 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(CombinationAddDTO combinationAddDTO) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
         PortCombination portCombination = PortCombination.builder().
                 combinationName(combinationAddDTO.getCombinationName()).build();
         add(portCombination);
@@ -72,6 +73,7 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(CombinationUpdateDTO combinationUpdateDTO) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
         PortCombination portCombination = get(combinationUpdateDTO.getId());
         portCombination.setCombinationName(combinationUpdateDTO.getCombinationName());
         update(portCombination);

@@ -3,8 +3,8 @@ package com.mj.ocean.costcode.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
+import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.costcode.dto.CostCodeAddDTO;
-import com.mj.ocean.costcode.dto.CostCodeEnabledDTO;
 import com.mj.ocean.costcode.dto.CostCodeQueryDTO;
 import com.mj.ocean.costcode.dto.CostCodeUpdateDTO;
 import com.mj.ocean.costcode.model.CostCode;
@@ -56,16 +56,16 @@ public class CostCodeController {
         return Responser.created();
     }
 
-    @PatchMapping("/stats")
+    @PatchMapping("/enabled")
     @ApiOperation("启用/禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody CostCodeEnabledDTO costCodeEnabledDTO,BindingResult br){
-        CostCode costCode = costCodeService.get(costCodeEnabledDTO.getId());
-        costCode.setEnabled(costCodeEnabledDTO.getEnabled());
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br){
+        CostCode costCode = costCodeService.get(oceanEnabledDTO.getId());
+        costCode.setEnabled(oceanEnabledDTO.getEnabled());
         costCodeService.update(costCode);
         return Responser.updated();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/getOne/{id}")
     @ApiOperation("查看单条信息")
     public ResponseEntity<CostCodeVO> getDetail(@PathVariable Integer id){
         CostCodeVO costCodeVO = costCodeService.getDetail(id);
@@ -109,4 +109,9 @@ public class CostCodeController {
         return ResponseEntity.ok(vos);
     }
 
+    @GetMapping("/check")
+    @ApiOperation("检查成本代码是否重复")
+    public void check(@PathVariable String code) {
+        costCodeService.check(code);
+    }
 }

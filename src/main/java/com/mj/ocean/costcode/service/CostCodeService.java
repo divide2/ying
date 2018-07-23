@@ -47,4 +47,10 @@ public interface CostCodeService extends BasicService<CostCode,Integer> {
      * @return
      */
     Page<CostCode> find(CostCodeQueryDTO costCodeQueryDTO, Pageable pageable);
+
+    /**
+     * 检查成本代码是否重复
+     * @param code 成本代码
+     */
+    void check(String code);
 }

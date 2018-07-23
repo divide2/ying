@@ -14,9 +14,6 @@ import javax.validation.constraints.NotNull;
 @Data
 @ApiModel("查询成本代码")
 public class CostCodeQueryDTO {
-    @ApiModelProperty("成本代码id")
-    @NotNull
-    private Integer id;
 
     @ApiModelProperty("成本代码")
     @NotEmpty

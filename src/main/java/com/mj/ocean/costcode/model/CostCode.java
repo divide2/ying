@@ -33,14 +33,15 @@ public class CostCode {
     private String code;
 
     /**
-     * 是否删除。 默认N；N：未删除；Y：删除
-     */
-    private Character deleted;
-
-    /**
      * 是否启用。 默认Y；Y：启用；N：不可用
      */
     private Character enabled;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 
     /**
      * 创建人id

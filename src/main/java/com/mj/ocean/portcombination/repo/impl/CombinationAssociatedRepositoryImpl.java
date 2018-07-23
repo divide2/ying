@@ -45,7 +45,7 @@ public class CombinationAssociatedRepositoryImpl implements CombinationAssociate
                 .on(carrier.id.eq(portCombinationAssociated.carrierId))
                 .leftJoin(port)
                 .on(port.id.eq(portCombinationAssociated.portId))
-                .where(portCombination.deleted.eq('N').and(portCombination.enabled.eq('Y')))
+                .where(portCombination.enabled.eq('Y'))
                 .groupBy(portCombination.id);
         return query.fetchOne();
     }

@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @ApiModel("新增港口组")
 public class CombinationAddDTO {
 
-    @ApiModelProperty("船公司id")
+    @ApiModelProperty("船公司ids")
     @NotNull
     private String carrierIds;
 

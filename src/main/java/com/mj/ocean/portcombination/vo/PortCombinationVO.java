@@ -6,34 +6,26 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+
 /**
  * @author zejun
- * @date 2018/7/13 17:55
+ * @date 2018/7/24 11:24
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CombinationVO {
-
+public class PortCombinationVO {
     @ApiModelProperty("港口组id")
     private Integer id;
 
     @ApiModelProperty("组合名称")
     private String combinationName;
 
-    @ApiModelProperty("是否启用")
-    private Character enabled;
+    @ApiModelProperty("关联表数据集")
+    private List<CombinationAssociatedVO> combinationAssociatedVOs;
 
-    @ApiModelProperty("船公司简称")
-    private String carrierCode;
 
-    @ApiModelProperty("港口简称")
-    private String portCodes;
-
-    @ApiModelProperty("港口英文名")
-    private String portENs;
-
-    @ApiModelProperty("国家英文名")
-    private String countryENs;
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @ApiModel("修改港口组")
 public class CombinationUpdateDTO {
 
-    @ApiModelProperty("港口组id")
+    @ApiModelProperty("港口组合id")
     @NotNull
     private Integer id;
 
@@ -24,13 +24,18 @@ public class CombinationUpdateDTO {
     @NotEmpty
     private String combinationName;
 
-    @ApiModelProperty("船公司港口")
+    @ApiModelProperty("船公司id")
+    @NotNull
+    private Integer carrierId;
+
+    @ApiModelProperty("港口/多个")
     @NotEmpty
-    private List<CarrierPort> carrierPorts;
+    private List<Port> ports;
 
     @Data
-    public static class CarrierPort {
-        private Integer carrierId;
+    public static class Port {
+        @ApiModelProperty("港口ids")
+        @NotNull
         private List<Integer> portIds;
     }
 }

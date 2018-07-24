@@ -17,5 +17,5 @@ public interface PortCombinationRepositoryCustom {
      * @param pageable sql数据
      * @return Page<CombinationVO>
      */
-    Page<CombinationVO> findAll(CombinationQueryDTO combinationQueryDTO, Pageable pageable);
+    Page<CombinationVO> findAll(Integer companyId,CombinationQueryDTO combinationQueryDTO, Pageable pageable);
 }

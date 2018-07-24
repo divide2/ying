@@ -19,5 +19,5 @@ public interface PortCombinationRepository extends PortCombinationRepositoryCust
      * @param combinationName 组合名称
      * @return PortCombination
      */
-    PortCombination getByCombinationName(String combinationName);
+    PortCombination getByCombinationNameAndCompanyId(String combinationName,Integer companyId);
 }

@@ -10,6 +10,7 @@ import com.mj.ocean.portcombination.model.PortCombination;
 import com.mj.ocean.portcombination.service.CombinationService;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
+import com.mj.ocean.portcombination.vo.PortCombinationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author zejun
@@ -58,6 +60,18 @@ public class PortCombinationController {
         return  Responser.updated();
     }
 
+    @GetMapping("{id}")
+    @ApiOperation("获取单个组合信息")
+    public ResponseEntity<PortCombinationVO> get(@PathVariable Integer id) {
+        List<CombinationAssociatedVO> combinationAssociatedVOs = combinationService.getDetail(id);
+        PortCombination portCombination = combinationService.get(id);
+        PortCombinationVO vo = PortCombinationVO.builder()
+                .id(portCombination.getId())
+                .combinationName(portCombination.getCombinationName())
+                .combinationAssociatedVOs(combinationAssociatedVOs).build();
+        return ResponseEntity.ok(vo);
+    }
+
     @GetMapping("/find")
     @ApiOperation("港口组合分页查询")
     public ResponseEntity<Page<CombinationVO>> find(CombinationQueryDTO combinationQueryDTO, Pageable pageable){
@@ -65,14 +79,14 @@ public class PortCombinationController {
         return ResponseEntity.ok(portCombinations);
     }
 
-    @GetMapping("/copy/{id}")
-    @ApiOperation("复制")
-    public ResponseEntity<CombinationAssociatedVO> copy(@PathVariable Integer id, BindingResult br) {
-        CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(id);
-        return Responser.ok(combinationAssociatedVO);
-    }
+//    @GetMapping("/copy/{id}")
+//    @ApiOperation("复制")
+//    public ResponseEntity<CombinationAssociatedVO> copy(@PathVariable Integer id, BindingResult br) {
+//        CombinationAssociatedVO combinationAssociatedVO = combinationService.getDetail(id);
+//        return Responser.ok(combinationAssociatedVO);
+//    }
 
-    @GetMapping("/check/{combinationName}")
+    @GetMapping("/check/{combinationName}/{}")
     @ApiOperation("检查组合名称是否重复")
     public void check(@PathVariable String combinationName) {
         combinationService.check(combinationName);

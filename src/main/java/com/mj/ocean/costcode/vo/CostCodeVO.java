@@ -31,5 +31,5 @@ public class CostCodeVO {
     private Character enabled;
 
     @ApiModelProperty("成本关联数据集")
-    private List<CostCodeAssociatedVO> costCodeAssociatedVOs;
+    private List<CostCodeAssociatedVO> costCodeAssociateds;
 }

@@ -14,7 +14,6 @@ import com.mj.ocean.costcode.vo.CostCodeAssociatedVO;
 import com.mj.ocean.costcode.vo.CostCodeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +65,7 @@ public class CostCodeController {
         return Responser.updated();
     }
 
-    @GetMapping("/getOne/{id}")
+    @GetMapping("/{id}")
     @ApiOperation("查看单条信息")
     public ResponseEntity<CostCodeVO> getDetail(@PathVariable Integer id){
         CostCodeVO costCodeVO = costCodeService.getDetail(id);
@@ -87,8 +86,8 @@ public class CostCodeController {
         Page<CostCodeVO> page = costCodes.map(costCode -> CostCodeVO.builder()
                 .id(costCode.getId())
                 .code(costCode.getCode())
-                .lastUpdateDate(StringUtils.isEmpty(costCode.getUpdateDate().toString()) ? costCode.getCreatedDate():costCode.getUpdateDate())
-                .lastUpdateName(StringUtils.isEmpty(costCode.getUpdateUsername()) ? costCode.getCreatedUsername() :costCode.getUpdateUsername())
+                .lastUpdateDate(costCode.getUpdateDate())
+                .lastUpdateName(costCode.getUpdateUsername())
                 .enabled(costCode.getEnabled()).build());
         return ResponseEntity.ok(page);
     }

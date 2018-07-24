@@ -35,10 +35,12 @@ public class GeneralCountry {
     /**
      * 国家（地区）中文名
      */
+    @Column(name = "country_cn")
     private String countryCN;
 
     /**
      * 国家（地区）英文名
      */
+    @Column(name = "country_en")
     private String countryEN;
 }

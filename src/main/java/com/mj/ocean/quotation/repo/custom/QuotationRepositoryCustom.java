@@ -14,7 +14,19 @@ import java.util.List;
  */
 public interface QuotationRepositoryCustom {
 
+    /**
+     * 分页查询报价数据
+     * @param costServiceCode 报价类型
+     * @param quotationQueryDTO 查询dto
+     * @param pageable sql数据
+     * @return Page<QuotationVO>
+     */
     Page<QuotationVO> findAll(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable);
 
+    /**
+     * 调用历史数据
+     * @param quotationCallHistory 调用历史数据时查询条件
+     * @return List<QuotationVO>
+     */
     List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory);
 }

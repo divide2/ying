@@ -2,6 +2,7 @@ package com.mj.ocean.basic.service;
 
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.port.model.Port;
+import com.mj.general.route.model.Route;
 
 /**
  * @author bvvy
@@ -21,4 +22,11 @@ public interface OceanGeneralService {
      * @return 公司
      */
     Carrier getCarrier(Integer carrierId);
+
+    /**
+     * 获取航线数据
+     * @param routeId 航线id
+     * @return Route
+     */
+    Route getRoute(Integer routeId);
 }

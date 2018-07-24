@@ -87,7 +87,7 @@ public class ArticleVO {
      * 启用
      */
     @ApiModelProperty("启用")
-    private String enabled;
+    private Character enabled;
 
 
     public static ArticleVO fromArticle(Article article) {

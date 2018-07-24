@@ -75,5 +75,5 @@ public class QuotationVO {
     private String costCode;
 
     @ApiModelProperty("数据集")
-    List<QuotationCostVO> quotationCostVOList;
+    List<QuotationCostVO> quotationCostVOs;
 }

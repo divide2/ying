@@ -58,8 +58,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         if (StringUtils.isNotEmpty(quotationQueryDTO.getYermValidity())) {
             query = query.where(quotation.yermValidity.eq(quotationQueryDTO.getYermValidity()));
         }
-        query = query.where(quotation.deleted.eq('N')
-                    .and(quotationCost.costService.eq("此处是成本服务，编码暂时未确定"))
+        query = query.where(quotationCost.costService.eq("此处是成本服务，编码暂时未确定")
                     .and(quotationCost.costServiceCode.eq("此处是标准报价或特殊报价，编码未定。costServiceCode"))
                 )
                 .groupBy(quotation.id).limit(pageable.getPageSize()).offset(pageable.getOffset());

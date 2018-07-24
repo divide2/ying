@@ -13,5 +13,10 @@ import java.util.List;
 public interface QuotationCostRepository extends JpaRepository<QuotationCost,Integer>,
         QuerydslPredicateExecutor<QuotationCost> {
 
+    /**
+     * 根据报价id查询数据
+     * @param quotationId 报价id
+     * @return List<QuotationCost>
+     */
     List<QuotationCost> findByQuotationId(int quotationId);
 }

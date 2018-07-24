@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,30 +19,37 @@ import java.util.List;
 public class QuotationAddDTO {
 
     @ApiModelProperty("船公司id")
+    @NotNull
     public Integer carrierId;
 
     @ApiModelProperty("航线id")
+    @NotNull
     public Integer routeId;
 
     @ApiModelProperty("起运港口id")
+    @NotNull
     public Integer portShipmentId;
 
     @ApiModelProperty("目的港口id")
+    @NotNull
     public Integer portDestinationId;
 
     @ApiModelProperty("截关时间")
     public LocalDateTime closingTime;
 
     @ApiModelProperty("开船时间")
+    @NotEmpty
     public LocalDateTime sailingTime;
 
     @ApiModelProperty("中转港口")
     public String transitPort;
 
     @ApiModelProperty("航程")
+    @NotEmpty
     public BigDecimal voyage;
 
     @ApiModelProperty("币种")
+    @NotEmpty
     public String currency;
 
     @ApiModelProperty("备注")
@@ -58,5 +66,5 @@ public class QuotationAddDTO {
     private Character publish;
 
     @ApiModelProperty("常规报价关联表数据集")
-    List<QuotationCostAddDTO> quotationCostAddDTOList;
+    List<QuotationCostAddDTO> quotationCostAdds;
 }

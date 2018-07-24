@@ -18,15 +18,44 @@ import java.util.List;
  */
 public interface QuotationService extends BasicService<Quotation,Integer> {
 
+    /**
+     * 新增报价数据
+     * @param quotationAddDTO 新增dto
+     */
     void add(QuotationAddDTO quotationAddDTO);
 
+    /**
+     * 根据id获取单条数据
+     * @param id 报价id
+     * @return QuotationVO
+     */
     QuotationVO getOne(Integer id);
 
+    /**
+     * 修改报价数据
+     * @param quotationUpdateDTO 修改dto
+     */
     void update(QuotationUpdateDTO quotationUpdateDTO);
 
+    /**
+     * 批量增加报价数据
+     * @param quotationAddDTOS 报价数据集
+     */
     void addBacth(List<QuotationAddDTO> quotationAddDTOS);
 
+    /**
+     * 分页查询报价数据
+     * @param costServiceCode 报价类型
+     * @param quotationQueryDTO 查询dto
+     * @param pageable sql数据
+     * @return Page<QuotationVO>
+     */
     Page<QuotationVO> find(String costServiceCode,QuotationQueryDTO quotationQueryDTO, Pageable pageable);
 
+    /**
+     * 调用历史数据
+     * @param quotationCallHistory 调用历史数据时查询条件
+     * @return List<QuotationVO>
+     */
     List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory);
 }

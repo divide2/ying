@@ -43,5 +43,5 @@ public class ArticleAddDTO {
      * 启用
      */
     @ApiModelProperty("启用")
-    private String enabled;
+    private Character enabled;
 }

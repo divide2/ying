@@ -28,7 +28,7 @@ public class CombinationAddDTO {
     public static class CombinationrPort {
         @ApiModelProperty("组合名字/多个")
         @NotEmpty
-        private List<String> combinationNames;
+        private String combinationName;
 
         @ApiModelProperty("港口ids")
         @NotEmpty

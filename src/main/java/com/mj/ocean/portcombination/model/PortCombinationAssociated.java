@@ -43,4 +43,10 @@ public class PortCombinationAssociated {
      */
     @Column(name = "combination_id")
     private Integer combinationId;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

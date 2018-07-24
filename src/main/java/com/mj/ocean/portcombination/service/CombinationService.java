@@ -11,6 +11,8 @@ import com.mj.ocean.portcombination.vo.CombinationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author zejun
  * @date 2018/7/13 15:42
@@ -42,12 +44,13 @@ public interface CombinationService extends BasicService<PortCombination,Integer
      * @param id 组合id
      * @return CombinationAssociatedVO
      */
-    CombinationAssociatedVO getDetail(Integer id);
+    List<CombinationAssociatedVO> getDetail(Integer id);
 
     /**
      * 检查组合名称是否重复
      * @param combinationName 组合名称
      */
     void check(String combinationName);
+
 }
 

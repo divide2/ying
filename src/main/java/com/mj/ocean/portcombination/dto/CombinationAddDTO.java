@@ -16,19 +16,19 @@ import java.util.List;
 @ApiModel("新增港口组")
 public class CombinationAddDTO {
 
-    @ApiModelProperty("组合名称")
-    @NotEmpty
-    private String combinationName;
+    @ApiModelProperty("船公司id")
+    @NotNull
+    private Integer carrierId;
 
-    @ApiModelProperty("船公司港口")
+    @ApiModelProperty("组合港口")
     @NotEmpty
-    private List<CarrierPort> carrierPorts;
+    private List<CombinationrPort> combinationrPorts;
 
     @Data
-    public static class CarrierPort {
-        @ApiModelProperty("船公司id")
-        @NotNull
-        private Integer carrierId;
+    public static class CombinationrPort {
+        @ApiModelProperty("组合名字/多个")
+        @NotEmpty
+        private List<String> combinationNames;
 
         @ApiModelProperty("港口ids")
         @NotEmpty

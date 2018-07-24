@@ -28,7 +28,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
     }
 
     @Override
-    public Page<CombinationVO> findAll(CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
+    public Page<CombinationVO> findAll(Integer companyId,CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
         List<String> params = new ArrayList<>();
         String sql = "SELECT\n" +
                 "ofpc.id, \n" +
@@ -37,7 +37,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "GROUP_CONCAT(DISTINCT gc.carrier_code) as carrierCode,\n" +
                 "GROUP_CONCAT(DISTINCT gp.port_code) as portCodes,\n" +
                 "GROUP_CONCAT(DISTINCT gp.port_en) as portENs,\n" +
-                "GROUP_CONCAT(DISTINCT gp.country_en) as countryENs\n" +
+                "GROUP_CONCAT(gp.country_en) as countryENs\n" +
                 "from \n" +
                 "ocean_fc_port_combination ofpc LEFT JOIN ocean_fc_port_combination_associated pczh on ofpc.id = pczh.combination_id \n" +
                 "left join \n" +
@@ -52,6 +52,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
             sql += " where gc.carrier_code = ?";
             params.add(combinationQueryDTO.getCarrierCode());
         }
+        sql += " where ofpc.company_id = " + companyId;
         sql += " group by ofpc.id ";
         Query query = entityManager.createNativeQuery(sql);
         for (int i = 1; i <= params.size(); i++) {

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static com.querydsl.core.types.Projections.constructor;
 
 /**
@@ -28,7 +30,7 @@ public class CombinationAssociatedRepositoryImpl implements CombinationAssociate
     }
 
     @Override
-    public CombinationAssociatedVO findByCombinationId(Integer combinationId) {
+    public List<CombinationAssociatedVO> findByCombinationId(Integer combinationId) {
         QPort port = QPort.port;
         QCarrier carrier = QCarrier.carrier;
         QPortCombination portCombination = QPortCombination.portCombination;
@@ -36,17 +38,16 @@ public class CombinationAssociatedRepositoryImpl implements CombinationAssociate
 
         JPAQuery<CombinationAssociatedVO> query = new JPAQuery<>(entityManager);
         query = query.select(constructor(CombinationAssociatedVO.class,portCombination.id,portCombination.combinationName,
-                portCombination.enabled,carrier.id,carrier.carrierCode,SQLExpressions.groupConcat(port.id.stringValue()),
-                SQLExpressions.groupConcat(port.portCode),SQLExpressions.groupConcat(port.portEN),
-                SQLExpressions.groupConcat(port.countryEN))).from(portCombination)
+                carrier.id,carrier.carrierCode,port.id,
+                port.portCode,port.portEN,
+                port.countryEN)).from(portCombination)
                 .leftJoin(portCombinationAssociated)
                 .on(portCombination.id.eq(portCombinationAssociated.combinationId))
                 .leftJoin(carrier)
                 .on(carrier.id.eq(portCombinationAssociated.carrierId))
                 .leftJoin(port)
                 .on(port.id.eq(portCombinationAssociated.portId))
-                .where(portCombination.enabled.eq('Y'))
-                .groupBy(portCombination.id);
-        return query.fetchOne();
+                .where(portCombination.enabled.eq('Y'));
+         return query.fetch();
     }
 }

@@ -80,7 +80,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         //先删除关联表数据，再插入
         costCodeAssociatedRepository.deleteByCostCodeId(costCodeUpdateDTO.getId());
 
-        List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdateDTOS = costCodeUpdateDTO.getCostCodeAssociatedUpdates();
+        List<CostCodeAssociatedUpdateDTO> costCodeAssociatedUpdateDTOS = costCodeUpdateDTO.getCostCodeAssociateds();
         for (CostCodeAssociatedUpdateDTO ccaud : costCodeAssociatedUpdateDTOS) {
             CostCodeAssociated costCodeAssociated1 = CostCodeAssociated.builder()
                     .costService(ccaud.getCostService())
@@ -105,7 +105,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         ).collect(Collectors.toList());
 
         CostCodeVO costCodeVO = CostCodeVO.builder()
-                .costCodeAssociatedVOs(costCodeAssociatedVOS)
+                .costCodeAssociateds(costCodeAssociatedVOS)
                 .id(id)
                 .code(costCode.getCode())
                 .lastUpdateDate(StringUtils.isEmpty(costCode.getUpdateDate().toString()) ? costCode.getCreatedDate():costCode.getUpdateDate())

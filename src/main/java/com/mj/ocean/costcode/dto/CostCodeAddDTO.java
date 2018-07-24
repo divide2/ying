@@ -19,14 +19,6 @@ public class CostCodeAddDTO {
     @NotEmpty
     private String code;
 
-    @ApiModelProperty("创建人id")
-    @NotEmpty
-    private Integer createdUserid;
-
-    @ApiModelProperty("创建人名称")
-    @NotEmpty
-    private String createdUsername;
-
     @ApiModelProperty("成本关联数据集")
     @NotEmpty
     private List<CostCodeAssociatedAddDTO> costCodeAssociateds;

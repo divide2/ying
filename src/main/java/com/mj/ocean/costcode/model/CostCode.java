@@ -35,7 +35,8 @@ public class CostCode {
     /**
      * 是否启用。 默认Y；Y：启用；N：不可用
      */
-    private Character enabled;
+    @Builder.Default
+    private Character enabled = 'Y';
 
     /**
      * 客户公司id

@@ -83,12 +83,12 @@ public class Article {
     /**
      * 启用
      */
-    private String enabled;
+    private Character enabled;
 
     /**
      * 删除
      */
-    private String deleted;
+    private Character deleted;
 
     /**
      * 发表状态 /发表为草稿 还是 文章

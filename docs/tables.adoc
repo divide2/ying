@@ -1,48 +1,40 @@
 
 === 表结构
 
-.字典数据表（general_info）
+.字典数据表（general_dictionary）
 |===
 |描述|字段|类型|是否null|注释
 |id|id|int(11)|否|主键
-|分组名|groupName|Varchar(64)|否|
-|分组code|groupCode|Varchar(64)|否|
-|名称|name|Varchar(64)|否|
+|分组名|group_name|Varchar(64)|否|
+|分组code|group_code|Varchar(64)|否|
+|名称|name_cn|Varchar(64)|否|
+|英文|name_en|Varchar(64)|否|
 |code|code|Varchar(64)|否|
-|组内排序|groupOrder|int(11)|否|
+|组内排序|order_num|int(11)|否|
 |===
 
-
-.字典基础表（general_data）
-|===
-|描述|字段|类型|是否nul|注释
-|id|id|int(11)|否|主键
-|分组名|	groupName|Varchar(64)|否|
-|中文名|	chinaName|Varchar(64)|否	|
-|英文名|englishName|Varchar(64)|	否|
-|===
 
 .国家地区（general_country）
 |===
 |描述|字段|类型|是否null|注释
-|国家（地区）|countryCode|varchare(2)|否|二字代码
-|国家（地区）|countryCN|Varchar(64)|否|中文名
-|国家（地区）|countryEN|Varchar(64)|否|英文名
+|id|id|int(11)|否|主键
+|国家（地区）|country_code|varchare(2)|否|二字代码
+|国家（地区）|country_cn|Varchar(64)|否|中文名
+|国家（地区）|country_en|Varchar(64)|否|英文名
 |===
 
 .世界港口表（general _port）
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
-|是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
-|港口代码|portCode|varchare(20)|否|唯一
-|港口中文名|portCN|Varchar(64)|否|
-|港口英文名|portEN|Varchar(64)|否|
-|国家（地区）|countryCN|Varchar(64)|否|中文名
-|国家（地区）|countryEN|Varchar(64)|否|英文名
-|国家（地区）|countryCode|varchare(2)|否|代码
-|所属航线|serviceName|Varchar(64)|否|
-|禁用状态|status|Tinyint(1)	|否|默认0；0：未禁用；1：禁用
+|港口代码|port_code|varchare(64)|否|唯一
+|港口中文名|port_cn|Varchar(64)|否|
+|港口英文名|port_en|Varchar(64)|否|
+|国家（地区）|country_cn|Varchar(64)|否|中文名
+|国家（地区）|country_en|Varchar(64)|否|英文名
+|国家（地区）|country_code|varchare(64)|否|代码
+|所属航线|service_name|Varchar(64)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
 |===
 
 
@@ -50,20 +42,19 @@
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
-|是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
-|船公司id|carrierId|int(11)|否|
-|船公司简称|carrierCode|Varchar(255)|否|
-|船公司英文名|carrierEN|Varchar(255)|否|
-|航线代码|routeCode|Varchar(24)|否|
-|航线全称|routeFullName|Varchar(64)|否|
-|航线描述|routeDesc|Text|否|
-|航线图|routeMapUrl|Varchar(255)|否|存储文件路径
-|全程时间|allTime|BigDecimal|否|
-|首靠港|firstPort|Varchar(255)|否|
-|最后靠港|lastPort|Varchar(255)|否|
+|船公司简称|carrier_code|Varchar(255)|否|
+|船公司英文名|carrier_en|Varchar(255)|否|
+|船公司id|carrier_id|int(11)|否|
+|航线代码|route_code|Varchar(64)|否|
+|航线全称|route_full_name|Varchar(64)|否|
+|航线描述|route_desc|Text|否|
+|航线图|route_map_url|Varchar(255)|否|存储文件路径
+|全程时间|all_time|BigDecimal|否|
+|首靠港|first_port|Varchar(255)|否|
+|最后靠港|last_port|Varchar(255)|否|
 |总的港口数|num|int(11)|否|
-|全部港口|allPort|Varchar(255)|否|
-|禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
+|全部港口|all_port|Varchar(255)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
 |===
 
 
@@ -71,39 +62,141 @@
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
-|是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
-|港口id|portId|int(11)|否|
-|港口英文名|portEN|Varchar(64)|否|
-|国家（地区）英文名|countryEN|Varchar(64)|否|
+|港口id|port_id|int(11)|否|
+|港口英文名|port_en|Varchar(64)|否|
+|国家（地区）英文名|country_en|Varchar(64)|否|
 |截关时间|etc|datetime|否|
 |开船时间|etd|datetime|否|
 |航程|tt	|decimal(9)|否|
 |码头|pier|Varchar(128)|否|
-|排序|order|int(11)|否|
-|航线id|routeId|int(11)|否|
+|排序|order_num|int(11)|否|
+|航线id|route_id|int(11)|否|
 |===
 
 .船公司管理表（general_carrier）
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
-|是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
-|船公司简称|carrierCode|Varchar(10)|否|
-|船公司中文名|carrierCN|Varchar(20)|否|
-|船公司英文名|carrierEN|Varchar(64)|否|
-|禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
+|船公司简称|carrier_code|Varchar(64)|否|
+|船公司中文名|carrier_cn|Varchar(64)|否|
+|船公司英文名|carrier_en|Varchar(64)|否|
+|客户公司id|company_id|int(11)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
 |===
 
-.费用项目表（general_charge
+.费用项目表（general_charge)
 |===
 |描述|字段|类型|是否null|注释
 |id	|id|int(11)|否|主键
-|是否删除|deleted|Tinyint(1)|否|默认0；0：未删除；1：删除
-|费用简称|chargeItemCode|Varchar(64)|否|
-|费用中文名|chargeItemCN|Varchar(64)|否|
-|费用英文名|chargeItemEN|Varchar(64)|否|
-|禁用状态|status|Tinyint(1)|否|默认0；0：未禁用；1：禁用
+|费用简称|charge_item_code|Varchar(64)|否|
+|费用中文名|charge_item_cn|Varchar(64)|否|
+|费用英文名|charge_item_en|Varchar(64)|否|
+|客户公司id|company_id|int(11)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
 |===
+
+.成本代码表(ocean_fc_cost_code)
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|成本代码code|code|Varchar(64)|否|
+|客户公司id|company_id|int(11)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
+|创建人id|created_userid|int(11)|是|
+|创建人名称|created_username|Varchar(64)|是|
+|创建时间|created_date|datatime|是|
+|修改人id|created_userid|int(11)|是|
+|修改人名称|created_username|Varchar(64)|是|
+|修改时间|created_date|datatime|是|
+|===
+
+.成本代码关联表
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|成本服务|cost_service|Varchar(64)|否|成本类别,比如商务成本，业务成本，客户成本
+|柜型|cabinet_type|Varchar(64)|否|20GP,40GP,40HC,45HC
+|浮动金额|floating_amount|Decimal|否|
+|成本代码id|cost_code_id|int(11)|否|
+|===
+
+
+.港口组合表
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|组合名称|combination_name|Varchar(64)|否|
+|客户公司id|company_id|int(11)|否|
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
+|===
+
+.港口组合中间表
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|船公司id|carrier_id|int(11)|否|
+|港口id|port_id|int(11)|否|
+|组合id|combination_id|int(11)|否|
+|===
+
+.报价表
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|船公司id|carrier_id|int(11)|否|
+|船公司code|carrier_code|Varchar(64)|否|
+|航线id|route_id|int(11)|否|
+|航线代码|route_code|Varchar(64)|否|
+|起运港口id|port_shipment_id|int(11)|否|
+|起运港口|port_shipment|Varchar(64)|否|
+|起运港组合id|port_shipment_combination_id|int(11)|否|
+|目的港口id|port_destination_id|int(11)|否|
+|目的港口|port_destination|Varchar(64)|否|
+|目的港组合id|port_destination_combination_id|int(11)|否|
+|截关时间|closing_time|datatime|否|
+|开船时间|sailing_time|datatime|否|
+|中转港口|transit_port|Varchar(64)|否|
+|航程|voyage|Decimal(9)|否|
+|币种|currency|Varchar(64)|否|
+|备注|remarks|text|否|
+|有效期|yerm_validity|Varchar(64)|否|
+|成本代码id|cost_id|int(11)|否|
+|成本代码code|cost_code|Varchar(64)|否|
+|客户公司id|company_id|int(11)|否|
+|是否发布|publish|char(1)|否|Y：发布；N：不发布
+|禁用状态|enabled|char(1)|否|默认Y；Y：未禁用；N：禁用
+|创建人id|created_userid|int(11)|是|
+|创建人名称|created_username|Varchar(64)|是|
+|创建时间|created_date|datatime|是|
+|修改人id|created_userid|int(11)|是|
+|修改人名称|created_username|Varchar(64)|是|
+|修改时间|created_date|datatime|是|
+|===
+
+.附加费用表
+|===
+|描述|字段|类型|是否null|注释
+|id	|id|int(11)|否|主键
+|船公司id|carrier_id|int(11)|否|
+|船公司名称|carrier_code|Varchar(64)|否|
+|起运港口/组合id|pom_id|int(11)|否|
+|启运港/组合名称|pom_name|Varchar(64)|否|
+|目的港口/组合|pod_id|int(11)|否|
+|目的港/组合名称|pod_name|Varchar(64)|否|
+|简称/编码|code|Varchar(64)|否|
+|中文|name_cn|Varchar(64)|否|
+|英文|name_en|Varchar(64)|否|
+|计费单位|billing_unit|Varchar(64)|否|
+|币种|currency|Varchar(64)|否|
+|金额|amt|Decima(9)|否|
+|支付方式|pay_way|Varchar(64)|否|
+|备注|remarks|text|否|
+|禁用状态|enabled|char(1)|否|
+|===
+
+
+
+
 
 
 

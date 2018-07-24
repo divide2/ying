@@ -27,29 +27,35 @@ public class Surcharge {
     /**
      * 船公司id
      */
+    @Column(name = "carrier_id")
     private Integer carrierId;
     /**
      * 船公司名称
      */
+    @Column(name = "carrier_code")
     private String carrierName;
     /**
      * 起运港口/组合 id
      */
+    @Column(name = "pom_id")
     private Integer pomId;
     /**
      * 启运港/组合名称
      */
+    @Column(name = "pom_name")
     private String pomName;
 
 
     /**
      * 目的港口/组合
      */
+    @Column(name = "pod_id")
     private Integer podId;
 
     /**
      * 目的港/组合名称
      */
+    @Column(name = "pod_name")
     private String podName;
 
     /**
@@ -59,14 +65,17 @@ public class Surcharge {
     /**
      * 中文
      */
+    @Column(name = "name_cn")
     private String nameCn;
     /**
      * 英文
      */
+    @Column(name = "name_en")
     private String nameEn;
     /**
      * 计费单位
      */
+    @Column(name = "billing_unit")
     private String billingUnit;
     /**
      * 币种
@@ -79,6 +88,7 @@ public class Surcharge {
     /**
      * 支付方式
      */
+    @Column(name = "pay_way")
     private String payWay;
     /**
      * 备注
@@ -87,6 +97,6 @@ public class Surcharge {
     /**
      * 启用
      */
-    private String enabled;
+    private Character enabled;
 
 }

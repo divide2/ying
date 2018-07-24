@@ -10,22 +10,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class StatusProperties {
 
-    private String enable;
-    private String disable;
+    private Character enable;
+    private Character disable;
 
-    public String getEnable() {
+    public Character getEnable() {
         return enable;
     }
 
-    public String getDisable() {
+    public Character getDisable() {
         return disable;
     }
 
-    public void setDisable(String disable) {
+    public void setDisable(Character disable) {
         this.disable = disable;
     }
 
-    public void setEnable(String enable) {
+    public void setEnable(Character enable) {
         this.enable = enable;
     }
 }

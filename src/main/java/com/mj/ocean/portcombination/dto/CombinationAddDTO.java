@@ -26,7 +26,12 @@ public class CombinationAddDTO {
 
     @Data
     public static class CarrierPort {
+        @ApiModelProperty("船公司id")
+        @NotNull
         private Integer carrierId;
+
+        @ApiModelProperty("港口ids")
+        @NotEmpty
         private List<Integer> portIds;
     }
 }

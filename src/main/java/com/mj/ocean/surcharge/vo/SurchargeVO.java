@@ -93,7 +93,7 @@ public class SurchargeVO {
      * 启用
      */
     @ApiModelProperty("启用")
-    private String enabled;
+    private Character enabled;
 
     /**
      * @param surcharge surcharge

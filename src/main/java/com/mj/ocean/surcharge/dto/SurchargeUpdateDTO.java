@@ -95,7 +95,7 @@ public class SurchargeUpdateDTO {
          */
         @ApiModelProperty("启用")
         @NotEmpty
-        private String enabled;
+        private Character enabled;
     }
 
 }

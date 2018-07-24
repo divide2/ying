@@ -25,7 +25,7 @@ public class SurchargeAddDTO {
     /**
      * 起运港口/组合 id
      */
-    @ApiModelProperty("起运港口/组合 id")
+        @ApiModelProperty("起运港口/组合 id")
     @NotNull
     private Integer pomId;
     /**
@@ -94,7 +94,7 @@ public class SurchargeAddDTO {
          */
         @ApiModelProperty("启用")
         @NotEmpty
-        private String enabled;
+        private Character enabled;
     }
 
 }

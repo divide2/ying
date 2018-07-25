@@ -2,6 +2,7 @@ package com.mj.ocean.quotation.repo.custom;
 
 import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
+import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,5 +29,5 @@ public interface QuotationRepositoryCustom {
      * @param quotationCallHistory 调用历史数据时查询条件
      * @return List<QuotationVO>
      */
-    List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory);
+    List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory,Quotation quotation);
 }

@@ -29,6 +29,12 @@ public class Quotation {
     private Integer id;
 
     /**
+     * 报价类别，标准报价，和特殊报价
+     */
+    @Column(name = "cost_service_code")
+    private String costServiceCode;
+
+    /**
      * 船公司id
      */
     @Column(name = "carrier_id")

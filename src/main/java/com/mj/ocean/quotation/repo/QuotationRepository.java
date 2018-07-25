@@ -2,6 +2,7 @@ package com.mj.ocean.quotation.repo;
 
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.repo.custom.QuotationRepositoryCustom;
+import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
@@ -11,4 +12,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
  */
 public interface QuotationRepository extends QuotationRepositoryCustom,
         JpaRepository<Quotation,Integer>,QuerydslPredicateExecutor<Integer> {
+
+    Quotation findDistinctByCostServiceCodeOrderByCreatedDate(String costServiceCode);
 }

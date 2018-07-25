@@ -85,17 +85,14 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
 
         combinationAssociatedRepository.deleteByCombinationId(combinationUpdateDTO.getId());
 
-        List<CombinationUpdateDTO.Port> ports = combinationUpdateDTO.getPorts();
-        for (CombinationUpdateDTO.Port port : ports) {
-            List<Integer> portIds = port.getPortIds();
-            for (Integer portId : portIds) {
-                PortCombinationAssociated portCombinationAssociated = PortCombinationAssociated.builder()
-                        .carrierId(combinationUpdateDTO.getCarrierId())
-                        .portId(portId)
-                        .combinationId(combinationUpdateDTO.getId())
-                        .companyId(portCombination.getCompanyId()).build();
-                CombinationAssociatedService.add(portCombinationAssociated);
-            }
+        List<Integer> portIds = combinationUpdateDTO.getPortIds();
+        for (Integer portId : portIds) {
+            PortCombinationAssociated portCombinationAssociated = PortCombinationAssociated.builder()
+                    .carrierId(combinationUpdateDTO.getCarrierId())
+                    .portId(portId)
+                    .combinationId(combinationUpdateDTO.getId())
+                    .companyId(portCombination.getCompanyId()).build();
+            CombinationAssociatedService.add(portCombinationAssociated);
         }
     }
 

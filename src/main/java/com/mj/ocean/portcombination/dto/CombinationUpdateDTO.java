@@ -28,14 +28,8 @@ public class CombinationUpdateDTO {
     @NotNull
     private Integer carrierId;
 
-    @ApiModelProperty("港口/多个")
-    @NotEmpty
-    private List<Port> ports;
+    @ApiModelProperty("港口ids")
+    @NotNull
+    private List<Integer> portIds;
 
-    @Data
-    public static class Port {
-        @ApiModelProperty("港口ids")
-        @NotNull
-        private List<Integer> portIds;
-    }
 }

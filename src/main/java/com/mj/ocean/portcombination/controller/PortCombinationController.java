@@ -1,5 +1,6 @@
 package com.mj.ocean.portcombination.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.ocean.basic.dto.OceanEnabledDTO;
@@ -53,10 +54,8 @@ public class PortCombinationController {
 
     @PatchMapping("/enabled")
     @ApiOperation("禁/启用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br){
-        PortCombination portCombination = combinationService.get(oceanEnabledDTO.getId());
-        portCombination.setEnabled(oceanEnabledDTO.getEnabled());
-        combinationService.update(portCombination);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
+        combinationService.toggleEnable(del.getId());
         return  Responser.updated();
     }
 

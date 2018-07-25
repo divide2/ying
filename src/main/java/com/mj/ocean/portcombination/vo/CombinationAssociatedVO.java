@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CombinationAssociatedVO {
-    @ApiModelProperty("港口组id")
+    @ApiModelProperty("id")
     private Integer id;
 
-    @ApiModelProperty("组合名称")
-    private String combinationName;
+    @ApiModelProperty("组合id")
+    private Integer combinationId;
 
     @ApiModelProperty("船公司id")
     private Integer carrierId;

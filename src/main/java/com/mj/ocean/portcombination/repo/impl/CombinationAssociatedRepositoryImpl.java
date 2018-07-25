@@ -33,21 +33,20 @@ public class CombinationAssociatedRepositoryImpl implements CombinationAssociate
     public List<CombinationAssociatedVO> findByCombinationId(Integer combinationId) {
         QPort port = QPort.port;
         QCarrier carrier = QCarrier.carrier;
-        QPortCombination portCombination = QPortCombination.portCombination;
         QPortCombinationAssociated portCombinationAssociated = QPortCombinationAssociated.portCombinationAssociated;
 
         JPAQuery<CombinationAssociatedVO> query = new JPAQuery<>(entityManager);
-        query = query.select(constructor(CombinationAssociatedVO.class,portCombination.id,portCombination.combinationName,
+        query = query.select(constructor(CombinationAssociatedVO.class,
+                portCombinationAssociated.id,
+                portCombinationAssociated.combinationId,
                 carrier.id,carrier.carrierCode,port.id,
                 port.portCode,port.portEN,
-                port.countryEN)).from(portCombination)
-                .leftJoin(portCombinationAssociated)
-                .on(portCombination.id.eq(portCombinationAssociated.combinationId))
+                port.countryEN)).from(portCombinationAssociated)
                 .leftJoin(carrier)
                 .on(carrier.id.eq(portCombinationAssociated.carrierId))
                 .leftJoin(port)
                 .on(port.id.eq(portCombinationAssociated.portId))
-                .where(portCombination.enabled.eq('Y'));
+                .where(portCombinationAssociated.combinationId.eq(combinationId));
          return query.fetch();
     }
 }

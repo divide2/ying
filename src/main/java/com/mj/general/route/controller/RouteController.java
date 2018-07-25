@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author zejun
  * @date 2018/7/10 11:33
@@ -46,7 +48,7 @@ public class RouteController {
 
     @PatchMapping("/stats")
     @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br){
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br) {
         Route route = routeService.get(generalEnabledDTO.getId());
         route.setEnabled(generalEnabledDTO.getEnabled());
         routeService.update(route);
@@ -55,9 +57,29 @@ public class RouteController {
 
     @PatchMapping
     @ApiOperation("修改航线")
-    public ResponseEntity<Messager> update(@Valid @RequestBody RouteUpdateDTO routeUpdateDTO,BindingResult br){
+    public ResponseEntity<Messager> update(@Valid @RequestBody RouteUpdateDTO routeUpdateDTO, BindingResult br) {
         routeService.updateRouteAndPort(routeUpdateDTO);
         return Responser.updated();
+    }
+
+    @GetMapping("/all")
+    @ApiOperation("所有的航线")
+    public ResponseEntity<List<RouteVO>> all() {
+        List<Route> routes = routeService.findAll();
+        List<RouteVO> vos = routes.stream().map(route ->
+                RouteVO.builder()
+                        .id(route.getId())
+                        .carrierId(route.getCarrierId())
+                        .carrierEN(route.getCarrierEN())
+                        .carrierCode(route.getCarrierCode())
+                        .routeCode(route.getRouteCode())
+                        .num(route.getNum())
+                        .firstPort(route.getFirstPort())
+                        .lastPort(route.getLastPort())
+                        .allTime(route.getAllTime())
+                        .enabled(route.getEnabled()).build()
+        ).collect(toList());
+        return Responser.ok(vos);
     }
 
     @GetMapping("/{id}")
@@ -70,7 +92,7 @@ public class RouteController {
     @GetMapping("/find")
     @ApiOperation("航线管理分页查询")
     public ResponseEntity<Page<RouteVO>> find(RouteQueryDTO routeQueryDTO, Pageable pageable) {
-        Page<Route> routes = routeService.find(routeQueryDTO,pageable);
+        Page<Route> routes = routeService.find(routeQueryDTO, pageable);
         Page<RouteVO> page = routes.map(route -> RouteVO.builder()
                 .id(route.getId())
                 .carrierId(route.getCarrierId())

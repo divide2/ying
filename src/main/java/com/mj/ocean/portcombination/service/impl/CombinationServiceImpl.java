@@ -12,7 +12,6 @@ import com.mj.ocean.portcombination.repo.PortCombinationRepository;
 import com.mj.ocean.portcombination.service.CombinationService;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
-import com.mj.ocean.portcombination.vo.PortCombinationVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,10 +54,10 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
         //todo 根据登陆人信息获取客户公司id，存入数据
         Integer companyId = 1;
         Integer carrierId = combinationAddDTO.getCarrierId();
-        List<CombinationAddDTO.CombinationrPort> combinationrPorts = combinationAddDTO.getCombinationrPorts();
-        for (CombinationAddDTO.CombinationrPort combinationrPort : combinationrPorts) {
-            String combinationName = combinationrPort.getCombinationName();
-            List<Integer> portIds = combinationrPort.getPortIds();
+        List<CombinationAddDTO.CombinationPort> combinationPorts = combinationAddDTO.getCombinationPorts();
+        for (CombinationAddDTO.CombinationPort combinationPort : combinationPorts) {
+            String combinationName = combinationPort.getCombinationName();
+            List<Integer> portIds = combinationPort.getPortIds();
             PortCombination portCombination = PortCombination.builder()
                     .combinationName(combinationName)
                     .companyId(companyId).build();

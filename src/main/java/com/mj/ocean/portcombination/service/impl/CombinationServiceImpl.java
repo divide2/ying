@@ -1,5 +1,6 @@
 package com.mj.ocean.portcombination.service.impl;
 
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
@@ -33,14 +34,16 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
     private final PortCombinationRepository portCombinationRepository;
     private final CombinationAssociatedServiceImpl CombinationAssociatedService;
     private final CombinationAssociatedRepository combinationAssociatedRepository;
-
+    private final StatusProperties status;
 
     public CombinationServiceImpl(PortCombinationRepository portCombinationRepository,
                                   CombinationAssociatedServiceImpl combinationAssociatedService,
-                                  CombinationAssociatedRepository combinationAssociatedRepository) {
+                                  CombinationAssociatedRepository combinationAssociatedRepository,
+                                  StatusProperties status) {
         this.portCombinationRepository = portCombinationRepository;
         CombinationAssociatedService = combinationAssociatedService;
         this.combinationAssociatedRepository = combinationAssociatedRepository;
+        this.status = status;
     }
 
     @Override
@@ -111,5 +114,16 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
                 throw new AlreadyExistsException();
             }
         }
+    }
+
+    @Override
+    public void toggleEnable(Integer id) {
+        PortCombination portCombination = this.get(id);
+        if (status.getEnable().equals(portCombination.getEnabled())) {
+            portCombination.setEnabled(status.getDisable());
+        } else {
+            portCombination.setEnabled(status.getEnable());
+        }
+        this.update(portCombination);
     }
 }

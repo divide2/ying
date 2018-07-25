@@ -52,5 +52,11 @@ public interface CombinationService extends BasicService<PortCombination,Integer
      */
     void check(String combinationName);
 
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
+
 }
 

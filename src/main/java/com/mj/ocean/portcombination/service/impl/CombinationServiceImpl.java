@@ -12,6 +12,7 @@ import com.mj.ocean.portcombination.repo.CombinationAssociatedRepository;
 import com.mj.ocean.portcombination.repo.PortCombinationRepository;
 import com.mj.ocean.portcombination.service.CombinationService;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
+import com.mj.ocean.portcombination.vo.CombinationUpdateVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -124,5 +126,19 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
             portCombination.setEnabled(status.getEnable());
         }
         this.update(portCombination);
+    }
+
+    @Override
+    public CombinationUpdateVO getUpdateInfo(Integer id) {
+        // 首先获取组合信息
+        PortCombination combination = portCombinationRepository.getOne(id);
+        // 然后获取组合的公司和港口 组合的公司只有一个 港口有多个
+        List<CombinationAssociatedVO> carrierAndPorts = combinationAssociatedRepository.findByCombinationId(id);
+        CombinationUpdateVO vo = new CombinationUpdateVO();
+        vo.setCarrierId(carrierAndPorts.get(0).getCarrierId());
+        vo.setCombinationId(combination.getId());
+        vo.setCombinationName(combination.getCombinationName());
+        vo.setPortIds(carrierAndPorts.stream().map(CombinationAssociatedVO::getPortId).collect(Collectors.toList()));
+        return vo;
     }
 }

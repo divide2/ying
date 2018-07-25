@@ -3,13 +3,13 @@ package com.mj.ocean.portcombination.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
 import com.mj.ocean.portcombination.service.CombinationService;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
+import com.mj.ocean.portcombination.vo.CombinationUpdateVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import com.mj.ocean.portcombination.vo.PortCombinationVO;
 import io.swagger.annotations.Api;
@@ -40,28 +40,34 @@ public class PortCombinationController {
 
     @PostMapping
     @ApiOperation("新增港口组")
-    public ResponseEntity<Messager> add(@Valid @RequestBody CombinationAddDTO combinationAddDTO, BindingResult br){
+    public ResponseEntity<Messager> add(@Valid @RequestBody CombinationAddDTO combinationAddDTO, BindingResult br) {
         combinationService.add(combinationAddDTO);
         return Responser.created();
     }
 
     @PatchMapping
     @ApiOperation("修改港口组")
-    public ResponseEntity<Messager> update(@Valid @RequestBody CombinationUpdateDTO combinationUpdateDTO,BindingResult br) {
+    public ResponseEntity<Messager> update(@Valid @RequestBody CombinationUpdateDTO combinationUpdateDTO, BindingResult br) {
         combinationService.update(combinationUpdateDTO);
         return Responser.updated();
     }
 
     @PatchMapping("/enabled")
     @ApiOperation("禁/启用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br) {
         combinationService.toggleEnable(del.getId());
-        return  Responser.updated();
+        return Responser.updated();
+    }
+
+    @GetMapping("{id}/update")
+    @ApiOperation("获取更新时需要的信息")
+    public ResponseEntity<CombinationUpdateVO> get(@PathVariable Integer id) {
+        return ResponseEntity.ok(combinationService.getUpdateInfo(id));
     }
 
     @GetMapping("{id}")
     @ApiOperation("获取单个组合信息")
-    public ResponseEntity<PortCombinationVO> get(@PathVariable Integer id) {
+    public ResponseEntity<PortCombinationVO> getUpdateInfo(@PathVariable Integer id) {
         List<CombinationAssociatedVO> combinationAssociatedVOs = combinationService.getDetail(id);
         PortCombination portCombination = combinationService.get(id);
         PortCombinationVO vo = PortCombinationVO.builder()
@@ -71,10 +77,11 @@ public class PortCombinationController {
         return ResponseEntity.ok(vo);
     }
 
+
     @GetMapping("/find")
     @ApiOperation("港口组合分页查询")
-    public ResponseEntity<Page<CombinationVO>> find(CombinationQueryDTO combinationQueryDTO, Pageable pageable){
-        Page<CombinationVO> portCombinations = combinationService.find(combinationQueryDTO,pageable);
+    public ResponseEntity<Page<CombinationVO>> find(CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
+        Page<CombinationVO> portCombinations = combinationService.find(combinationQueryDTO, pageable);
         return ResponseEntity.ok(portCombinations);
     }
 

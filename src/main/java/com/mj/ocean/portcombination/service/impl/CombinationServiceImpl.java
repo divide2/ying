@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * @date 2018/7/13 15:44
  */
 @Service
-public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombination,Integer,PortCombinationRepository>
+public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombination, Integer, PortCombinationRepository>
         implements CombinationService {
 
     private final PortCombinationRepository portCombinationRepository;
@@ -50,7 +50,7 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
     @Override
     public Page<CombinationVO> find(CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
         Integer companyId = 1;
-        return portCombinationRepository.findAll(companyId,combinationQueryDTO,pageable);
+        return portCombinationRepository.findAll(companyId, combinationQueryDTO, pageable);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
         //todo 获取用户信息
         Integer companyId = 1;
         if (StringUtils.isNotEmpty(combinationName)) {
-            PortCombination portCombination = portCombinationRepository.getByCombinationNameAndCompanyId(combinationName,companyId);
+            PortCombination portCombination = portCombinationRepository.getByCombinationNameAndCompanyId(combinationName, companyId);
             if (portCombination != null) {
                 throw new AlreadyExistsException();
             }
@@ -135,9 +135,9 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
         // 然后获取组合的公司和港口 组合的公司只有一个 港口有多个
         List<CombinationAssociatedVO> carrierAndPorts = combinationAssociatedRepository.findByCombinationId(id);
         CombinationUpdateVO vo = new CombinationUpdateVO();
-        vo.setCarrierId(carrierAndPorts.get(0).getCarrierId());
         vo.setCombinationId(combination.getId());
         vo.setCombinationName(combination.getCombinationName());
+        vo.setCarrierId(carrierAndPorts.get(0).getCarrierId());
         vo.setPortIds(carrierAndPorts.stream().map(CombinationAssociatedVO::getPortId).collect(Collectors.toList()));
         return vo;
     }

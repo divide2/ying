@@ -35,6 +35,11 @@ public class SurchargeUpdateDTO {
     @ApiModelProperty(" 目的港口/组合")
     @NotNull
     private Integer podId;
+
+    @ApiModelProperty("费用类型")
+    @NotEmpty
+    private String costType;
+
     /**
      * 费用信息
      */

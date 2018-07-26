@@ -22,7 +22,7 @@ public interface SurchargeService extends BasicService<Surcharge, Integer> {
      * @param pageable          page
      * @return page
      */
-    Page<Surcharge> find(SurchargeQueryDTO surchargeQueryDTO, Pageable pageable);
+    Page<Surcharge> find(String costType,SurchargeQueryDTO surchargeQueryDTO, Pageable pageable);
 
     /**
      * 切换状态
@@ -52,5 +52,5 @@ public interface SurchargeService extends BasicService<Surcharge, Integer> {
      * @param podId 目的港
      * @return 附加费
      */
-    List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId);
+    List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId,String costType);
 }

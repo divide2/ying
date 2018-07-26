@@ -95,6 +95,9 @@ public class SurchargeVO {
     @ApiModelProperty("启用")
     private Character enabled;
 
+    @ApiModelProperty("费用类型")
+    private String costType;
+
     /**
      * @param surcharge surcharge
      * @return vo
@@ -116,6 +119,7 @@ public class SurchargeVO {
         vo.setPayWay(surcharge.getPayWay());
         vo.setAmt(surcharge.getAmt());
         vo.setBillingUnit(surcharge.getBillingUnit());
+        vo.setCostType(surcharge.getCostType());
         return vo;
     }
 }

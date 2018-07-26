@@ -39,9 +39,10 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     }
 
     @Override
-    public Page<Surcharge> find(SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
+    public Page<Surcharge> find(String costType,SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
         QSurcharge surcharge = QSurcharge.surcharge;
         BooleanExpression expression = Expressions.ONE.eq(1);
+        expression = expression.and(surcharge.costType.eq(costType));
         if (surchargeQueryDTO.getCarrierId() != null) {
             expression = expression.and(surcharge.carrierId.eq(surchargeQueryDTO.getCarrierId()));
         }
@@ -68,13 +69,15 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     @Override
     public void update(SurchargeUpdateDTO surchargeUpdateDTO) {
         //修改时 1.先删除之前的
-        surchargeRepository.deleteByCarrierIdAndPodIdAndPomId(surchargeUpdateDTO.getCarrierId(), surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getPomId());
+        surchargeRepository.deleteByCarrierIdAndPodIdAndPomIdAndCostType(surchargeUpdateDTO.getCarrierId(),
+                surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getPomId(),surchargeUpdateDTO.getCostType());
         //  再添加修改后的
         Port pod = oceanGeneralService.getPort(surchargeUpdateDTO.getPodId());
         Port pom = oceanGeneralService.getPort(surchargeUpdateDTO.getPomId());
         Carrier carrier = oceanGeneralService.getCarrier(surchargeUpdateDTO.getCarrierId());
         surchargeUpdateDTO.getSurcharges().forEach(keeper -> {
             Surcharge surcharge = new Surcharge();
+            surcharge.setCostType(surchargeUpdateDTO.getCostType());
             surcharge.setCarrierId(surchargeUpdateDTO.getCarrierId());
             surcharge.setCarrierName(carrier.getCarrierEN());
             surcharge.setPodId(surchargeUpdateDTO.getPodId());
@@ -101,6 +104,7 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
         Carrier carrier = oceanGeneralService.getCarrier(surchargeAddDTO.getCarrierId());
         surchargeAddDTO.getSurcharges().forEach(keeper -> {
             Surcharge surcharge = new Surcharge();
+            surcharge.setCostType(surchargeAddDTO.getCostType());
             surcharge.setCarrierId(surchargeAddDTO.getCarrierId());
             surcharge.setCarrierName(carrier.getCarrierEN());
             surcharge.setPodId(surchargeAddDTO.getPodId());
@@ -121,7 +125,7 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     }
 
     @Override
-    public List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId) {
-        return surchargeRepository.findByCarrierIdAndPomIdAndPodId(carrierId, pomId, podId);
+    public List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId,String costType) {
+        return surchargeRepository.findByCarrierIdAndPomIdAndPodIdAndCostType(carrierId, pomId, podId,costType);
     }
 }

@@ -35,7 +35,8 @@ public class OceanGeneralServiceImpl implements OceanGeneralService {
 
     @Override
     public Carrier getCarrier(Integer carrierId) {
-        return carrierService.get(carrierId);
+        Carrier carrier = carrierService.get(carrierId);
+        return carrier;
     }
 
     @Override

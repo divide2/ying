@@ -32,7 +32,7 @@ public class Surcharge {
     /**
      * 船公司名称
      */
-    @Column(name = "carrier_code")
+    @Column(name = "carrier_name")
     private String carrierName;
     /**
      * 起运港口/组合 id
@@ -99,4 +99,9 @@ public class Surcharge {
      */
     private Character enabled;
 
+    /**
+     * 费用类型
+     */
+    @Column(name = "cost_type")
+    private String costType;
 }

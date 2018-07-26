@@ -65,21 +65,40 @@ public class SurchargeController {
         return Responser.updated();
     }
 
-    @GetMapping("/find")
+    @GetMapping("/find/{costType}")
     @ApiOperation("附加费查询")
-    public ResponseEntity<Page<SurchargeVO>> find(SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
-        Page<Surcharge> surcharges = surchargeService.find(surchargeQueryDTO, pageable);
+    public ResponseEntity<Page<SurchargeVO>> find(@PathVariable String costType, SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
+        Page<Surcharge> surcharges = surchargeService.find(costType,surchargeQueryDTO, pageable);
         Page<SurchargeVO> vos = surcharges.map(SurchargeVO::fromSurcharge);
         return Responser.ok(vos);
     }
 
-    @GetMapping("/{carrierId}/{pomId}/{podId}/group")
+    @GetMapping("/{carrierId}/{pomId}/{podId}/{costType}/group")
     public ResponseEntity<List<SurchargeVO>> findSameGroup(@PathVariable Integer carrierId,
                                                            @PathVariable Integer pomId,
-                                                           @PathVariable Integer podId) {
-        List<Surcharge> surcharges =  surchargeService.findSameGroup(carrierId, pomId, podId);
+                                                           @PathVariable Integer podId,
+                                                           @PathVariable String costType) {
+        List<Surcharge> surcharges =  surchargeService.findSameGroup(carrierId, pomId, podId,costType);
         List<SurchargeVO> vos = surcharges.stream().map(SurchargeVO::fromSurcharge).collect(Collectors.toList());
         return Responser.ok(vos);
+    }
+
+    @GetMapping("/{carrierId}/{pomId}/{podId}/show")
+    @ApiOperation("报价管理中显示附加费")
+    public ResponseEntity<List<SurchargeVO>> showSurcharge(@PathVariable Integer carrierId,
+                                                           @PathVariable Integer pomId,
+                                                           @PathVariable Integer podId) {
+        //先查特殊的
+        List<Surcharge> surcharges =  surchargeService.findSameGroup(carrierId, pomId, podId,"special");
+        if (surcharges.size() > 0) {
+            List<SurchargeVO> vos = surcharges.stream().map(SurchargeVO::fromSurcharge).collect(Collectors.toList());
+            return Responser.ok(vos);
+        }else {
+            //查普通的
+            List<Surcharge> charges =  surchargeService.findSameGroup(carrierId, pomId, podId,"general");
+            List<SurchargeVO> vos = charges.stream().map(SurchargeVO::fromSurcharge).collect(Collectors.toList());
+            return Responser.ok(vos);
+        }
     }
 
 }

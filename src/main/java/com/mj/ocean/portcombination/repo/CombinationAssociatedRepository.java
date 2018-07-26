@@ -20,4 +20,14 @@ public interface CombinationAssociatedRepository extends CombinationAssociatedRe
      */
     void deleteByCombinationId(Integer combinationId);
 
+
+    /**
+     * 根据客户公司id，港口id，船公司id查询数据
+     * @param companyId 客户公司id
+     * @param portId 港口id
+     * @param carrierId 船公司id
+     * @return PortCombinationAssociated
+     */
+    PortCombinationAssociated findByCompanyIdAndPortIdAndCarrierId(Integer companyId,
+                                                                   Integer portId,Integer carrierId);
 }

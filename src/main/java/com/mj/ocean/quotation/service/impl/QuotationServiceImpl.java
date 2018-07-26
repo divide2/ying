@@ -1,32 +1,34 @@
 package com.mj.ocean.quotation.service.impl;
 
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.model.Carrier;
-import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.port.model.Port;
-import com.mj.general.port.service.PortService;
 import com.mj.general.route.model.Route;
-import com.mj.general.route.service.RouteService;
 import com.mj.ocean.basic.service.OceanGeneralService;
 import com.mj.ocean.costcode.model.CostCode;
 import com.mj.ocean.costcode.service.CostCodeService;
 import com.mj.ocean.portcombination.model.PortCombinationAssociated;
+import com.mj.ocean.portcombination.repo.CombinationAssociatedRepository;
 import com.mj.ocean.portcombination.service.CombinationAssociatedService;
 import com.mj.ocean.quotation.dto.*;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.model.QuotationCost;
 import com.mj.ocean.quotation.repo.QuotationCostRepository;
 import com.mj.ocean.quotation.repo.QuotationRepository;
-import com.mj.ocean.quotation.repo.custom.QuotationRepositoryCustom;
 import com.mj.ocean.quotation.service.QuotationCostService;
 import com.mj.ocean.quotation.service.QuotationService;
 import com.mj.ocean.quotation.vo.QuotationCostVO;
+import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,20 +42,26 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     private final QuotationRepository quotationRepository;
     private final QuotationCostRepository quotationCostRepository;
     private final QuotationCostService quotationCostService;
-    private final CombinationAssociatedService combinationAssociatedService;
     private final CostCodeService costCodeService;
     private final OceanGeneralService oceanGeneralService;
+    private final CombinationAssociatedRepository combinationAssociatedRepository;
+    private final StatusProperties status;
 
 
-    public QuotationServiceImpl(QuotationRepository quotationRepository,CombinationAssociatedService combinationAssociatedService,
-                                CostCodeService costCodeService,QuotationCostService quotationCostService,
-                                QuotationCostRepository quotationCostRepository,OceanGeneralService oceanGeneralService) {
+    public QuotationServiceImpl(QuotationRepository quotationRepository,
+                                CostCodeService costCodeService,
+                                QuotationCostService quotationCostService,
+                                QuotationCostRepository quotationCostRepository,
+                                OceanGeneralService oceanGeneralService,
+                                CombinationAssociatedRepository combinationAssociatedRepository,
+                                StatusProperties status) {
         this.quotationRepository = quotationRepository;
-        this.combinationAssociatedService = combinationAssociatedService;
         this.costCodeService = costCodeService;
         this.quotationCostService = quotationCostService;
         this.quotationCostRepository = quotationCostRepository;
         this.oceanGeneralService = oceanGeneralService;
+        this.combinationAssociatedRepository = combinationAssociatedRepository;
+        this.status = status;
     }
 
     @Override
@@ -61,6 +69,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     public void add(QuotationAddDTO quotationAddDTO) {
         // todo 验证船公司  航线代码  起运港 目的港 以及 有效期 都存在两条或者以上是，提示不允许重复
         //todo 获取用户的公司id以及用户数据
+        int companyId = 1;
         //查船公司
         Carrier carrier = oceanGeneralService.getCarrier(quotationAddDTO.getCarrierId());
         //查找航线
@@ -69,10 +78,16 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         Port portFirst = oceanGeneralService.getPort(quotationAddDTO.getPortShipmentId());
         Port portLast = oceanGeneralService.getPort(quotationAddDTO.getPortDestinationId());
         //查起运港组合和目的港组合
-        PortCombinationAssociated pcaFirst = combinationAssociatedService.get(quotationAddDTO.getPortShipmentId());
-        PortCombinationAssociated pcaLast = combinationAssociatedService.get(quotationAddDTO.getPortDestinationId());
+        PortCombinationAssociated pcaFirst = combinationAssociatedRepository.findByCompanyIdAndPortIdAndCarrierId(
+                companyId,quotationAddDTO.getPortShipmentId(),quotationAddDTO.getCarrierId());
+        PortCombinationAssociated pcaLast = combinationAssociatedRepository.findByCompanyIdAndPortIdAndCarrierId(
+                companyId,quotationAddDTO.getPortDestinationId(),quotationAddDTO.getCarrierId());
+
         //查找成本代码
-        CostCode costCode = costCodeService.get(quotationAddDTO.getCostId());
+        CostCode costCode = new CostCode();
+        if(StringUtils.isNotEmpty(quotationAddDTO.getCostId().toString())){
+            costCode = costCodeService.get(quotationAddDTO.getCostId());
+        }
 
         //插入数据到报价主表
         int quotationId = addQuotation(quotationAddDTO,carrier,route,portFirst,pcaFirst,portLast,pcaLast,costCode);
@@ -84,9 +99,11 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         List<QuotationCostAddDTO> quotationCostAdds = quotationAddDTO.getQuotationCostAdds();
         for (QuotationCostAddDTO quotationCostAddDTO : quotationCostAdds) {
             QuotationCost quotationCost = QuotationCost.builder().quotationId(quotationId)
-                    .costService(quotationCostAddDTO.getCostService())
-                    .costServiceCode(quotationCostAddDTO.getCostServiceCode())
-                    .cabinetType(quotationCostAddDTO.getCabinetType()).build();
+                    .type(quotationCostAddDTO.getType())
+                    .originalPrice(quotationCostAddDTO.getOriginalPrice())
+                    .commercePrice(quotationCostAddDTO.getCommercePrice())
+                    .businessPrice(quotationCostAddDTO.getBusinessPrice())
+                    .openPrice(quotationCostAddDTO.getOpenPrice()).build();
             quotationCostService.add(quotationCost);
         }
     }
@@ -113,26 +130,33 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .yermValidity(quotationAddDTO.getYermValidity())
                 .costId(quotationAddDTO.getCostId())
                 .costCode(costCode.getCode())
-                .publish(quotationAddDTO.getPublish()).build();
+                .publish(quotationAddDTO.getPublish())
+                .costServiceCode(quotationAddDTO.getCostServiceCode()).build();
         this.add(quotation);
         return quotation.getId();
     }
 
     @Override
-    public QuotationVO getOne(Integer id) {
+    public QuotationInfoVO getOne(Integer id) {
         List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(id);
         List<QuotationCostVO> vos = quotationCosts.stream().map(
                 it -> QuotationCostVO.builder()
                         .id(it.getId())
                         .quotationId(it.getQuotationId())
-                        .costService(it.getCostService())
-                        .costServiceCode(it.getCostServiceCode())
-                        .cabinetType(it.getCabinetType()).build()
+                        .originalPrice(it.getOriginalPrice())
+                        .businessPrice(it.getBusinessPrice())
+                        .commercePrice(it.getCommercePrice())
+                        .openPrice(it.getOpenPrice())
+                        .type(it.getType()).build()
         ).collect(Collectors.toList());
-        return vo(id,vos);
+        QuotationVO vo =  getVo(id);
+        QuotationInfoVO qvo = QuotationInfoVO.builder()
+                .quotationCostVOs(vos)
+                .quotationVO(vo).build();
+        return qvo;
     }
 
-    private QuotationVO vo(Integer id,List<QuotationCostVO> vos) {
+    private QuotationVO getVo(Integer id) {
         Quotation quotation = this.get(id);
         QuotationVO quotationVO = QuotationVO.builder()
                 .id(id)
@@ -153,7 +177,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .yermValidity(quotation.getYermValidity())
                 .costId(quotation.getCostId())
                 .costCode(quotation.getCostCode())
-                .quotationCostVOs(vos).build();
+                .costServiceCode(quotation.getCostServiceCode()).build();
         return quotationVO;
     }
 
@@ -162,6 +186,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     public void update(QuotationUpdateDTO quotationUpdateDTO) {
         // todo 验证船公司  航线代码  起运港 目的港 以及 有效期 都存在两条或者以上是，提示不允许重复
         //todo 获取用户的公司id以及用户数据
+        int companyId = 1;
         //查船公司
         Carrier carrier = oceanGeneralService.getCarrier(quotationUpdateDTO.getCarrierId());
         //查找航线
@@ -170,17 +195,28 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         Port portFirst = oceanGeneralService.getPort(quotationUpdateDTO.getPortShipmentId());
         Port portLast = oceanGeneralService.getPort(quotationUpdateDTO.getPortDestinationId());
         //查起运港组合和目的港组合
-        PortCombinationAssociated pcaFirst = combinationAssociatedService.get(quotationUpdateDTO.getPortShipmentId());
-        PortCombinationAssociated pcaLast = combinationAssociatedService.get(quotationUpdateDTO.getPortDestinationId());
+        PortCombinationAssociated pcaFirst = combinationAssociatedRepository.findByCompanyIdAndPortIdAndCarrierId(
+                companyId,quotationUpdateDTO.getPortShipmentId(),quotationUpdateDTO.getCarrierId());
+        PortCombinationAssociated pcaLast = combinationAssociatedRepository.findByCompanyIdAndPortIdAndCarrierId(
+                companyId,quotationUpdateDTO.getPortDestinationId(),quotationUpdateDTO.getCarrierId());
+
         //查找成本代码
-        CostCode costCode = costCodeService.get(quotationUpdateDTO.getCostId());
+        CostCode costCode = new CostCode();
+        if(StringUtils.isNotEmpty(quotationUpdateDTO.getCostId().toString())){
+            costCode = costCodeService.get(quotationUpdateDTO.getCostId());
+        }
+
         //插入数据到报价主表
         updateQuotation(quotationUpdateDTO,carrier,route,portFirst,pcaFirst,portLast,pcaLast,costCode);
 
         List<QuotationCostUpdateDTO> quotationCostUpdates = quotationUpdateDTO.getQuotationCostUpdates();
         for (QuotationCostUpdateDTO qcud : quotationCostUpdates) {
             QuotationCost quotationCost = quotationCostService.get(qcud.getId());
-            quotationCost.setCabinetType(qcud.getCabinetType());
+            quotationCost.setType(qcud.getType());
+            quotationCost.setOriginalPrice(qcud.getOriginalPrice());
+            quotationCost.setCommercePrice(qcud.getCommercePrice());
+            quotationCost.setBusinessPrice(qcud.getBusinessPrice());
+            quotationCost.setOpenPrice(qcud.getOpenPrice());
             quotationCostService.update(quotationCost);
         }
     }
@@ -209,6 +245,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         quotation.setCostId(quotationUpdateDTO.getCostId());
         quotation.setCostCode(costCode.getCode());
         quotation.setPublish(quotationUpdateDTO.getPublish());
+        quotation.setCostServiceCode(quotationUpdateDTO.getCostServiceCode());
         this.update(quotation);
     }
 
@@ -222,12 +259,69 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
 
 
     @Override
-    public Page<QuotationVO> find(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
-        return quotationRepository.findAll(costServiceCode,quotationQueryDTO,pageable);
+    public Page<QuotationInfoVO> find(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
+        Page<QuotationVO> vos = quotationRepository.findAll(costServiceCode,quotationQueryDTO,pageable);
+        List<QuotationInfoVO> lists = new ArrayList<>();
+        for (QuotationVO vo : vos) {
+            QuotationInfoVO quotationInfoVO = new QuotationInfoVO();
+            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(vo.getId());
+            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(
+                    it -> QuotationCostVO.builder()
+                            .id(it.getId())
+                            .quotationId(it.getQuotationId())
+                            .originalPrice(it.getOriginalPrice())
+                            .businessPrice(it.getBusinessPrice())
+                            .commercePrice(it.getCommercePrice())
+                            .openPrice(it.getOpenPrice())
+                            .type(it.getType()).build()
+            ).collect(Collectors.toList());
+            quotationInfoVO.setQuotationVO(vo);
+            quotationInfoVO.setQuotationCostVOs(quotationCostVOS);
+            lists.add(quotationInfoVO);
+        }
+        Page<QuotationInfoVO> page = new PageImpl<>(lists, vos.getPageable(), vos.getTotalElements());
+        return page;
+    }
+
+    private List<QuotationInfoVO> toList(List<QuotationVO> quotationVOS) {
+        List<QuotationInfoVO> lists = new ArrayList<>();
+        for (QuotationVO vo : quotationVOS) {
+            QuotationInfoVO quotationInfoVO = new QuotationInfoVO();
+            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(vo.getId());
+            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(
+                    it -> QuotationCostVO.builder()
+                            .id(it.getId())
+                            .type(it.getType())
+                            .originalPrice(it.getOriginalPrice())
+                            .businessPrice(it.getBusinessPrice())
+                            .commercePrice(it.getCommercePrice())
+                            .openPrice(it.getOpenPrice())
+                            .quotationId(it.getQuotationId()).build()
+            ).collect(Collectors.toList());
+            quotationInfoVO.setQuotationVO(vo);
+            quotationInfoVO.setQuotationCostVOs(quotationCostVOS);
+            lists.add(quotationInfoVO);
+        }
+        return lists;
     }
 
     @Override
-    public List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory) {
-        return quotationRepository.callHistory(quotationCallHistory);
+    public List<QuotationInfoVO> callHistory(QuotationCallHistory quotationCallHistory) {
+        //todo 标准报价
+        String costServiceCode = "general";
+        Quotation quotation = quotationRepository.findDistinctByCostServiceCodeOrderByCreatedDate(costServiceCode);
+        List<QuotationVO> quotationVOS = quotationRepository.callHistory(quotationCallHistory,quotation);
+        return toList(quotationVOS);
+    }
+
+    @Override
+    public void toggleEnable(Integer id) {
+        Quotation quotation = this.get(id);
+        if (status.getEnable().equals(quotation.getEnabled())){
+            quotation.setEnabled(status.getDisable());
+        } else {
+            quotation.setEnabled(status.getEnable());
+        }
+        this.update(quotation);
     }
 }

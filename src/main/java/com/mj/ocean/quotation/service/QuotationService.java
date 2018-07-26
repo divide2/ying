@@ -6,6 +6,7 @@ import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
 import com.mj.ocean.quotation.model.Quotation;
+import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +30,7 @@ public interface QuotationService extends BasicService<Quotation,Integer> {
      * @param id 报价id
      * @return QuotationVO
      */
-    QuotationVO getOne(Integer id);
+    QuotationInfoVO getOne(Integer id);
 
     /**
      * 修改报价数据
@@ -48,14 +49,20 @@ public interface QuotationService extends BasicService<Quotation,Integer> {
      * @param costServiceCode 报价类型
      * @param quotationQueryDTO 查询dto
      * @param pageable sql数据
-     * @return Page<QuotationVO>
+     * @return Page<QuotationInfoVO>
      */
-    Page<QuotationVO> find(String costServiceCode,QuotationQueryDTO quotationQueryDTO, Pageable pageable);
+    Page<QuotationInfoVO> find(String costServiceCode,QuotationQueryDTO quotationQueryDTO, Pageable pageable);
 
     /**
      * 调用历史数据
      * @param quotationCallHistory 调用历史数据时查询条件
-     * @return List<QuotationVO>
+     * @return List<QuotationInfoVO>
      */
-    List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory);
+    List<QuotationInfoVO> callHistory(QuotationCallHistory quotationCallHistory);
+
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
 }

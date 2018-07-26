@@ -60,6 +60,9 @@ public class QuotationUpdateDTO {
     @ApiModelProperty("是否发布")
     private Character publish;
 
+    @ApiModelProperty("报价类别")
+    public String costServiceCode;
+
     @ApiModelProperty("常规报价关联表数据集")
     List<QuotationCostUpdateDTO> quotationCostUpdates;
 }

@@ -34,21 +34,32 @@ public class QuotationCost {
     private Integer quotationId;
 
     /**
-     * 成本服务，成本类别,比如商务成本，业务成本，客户成本
+     * 船东成本价
      */
-    @Column(name = "cost_service")
-    private String costService;
+    @Column(name = "original_price")
+    private String originalPrice;
 
     /**
-     * 报价类别，标准报价，和特殊报价
+     * 商务成本价
      */
-    @Column(name = "cost_service_code")
-    private String costServiceCode;
+    @Column(name = "commerce_price")
+    private String commercePrice;
 
     /**
-     * 柜型，存json值  20GP，40GP，40HC，45HC
+     * 业务成本价
      */
-    @Column(name = "cabinet_type")
-    private String cabinetType;
+    @Column(name = "business_price")
+    private String businessPrice;
+
+    /**
+     * 公开展示价
+     */
+    @Column(name = "open_price")
+    private String openPrice;
+
+    /**
+     * 柜型: 20GP，40GP，40HC，45HC
+     */
+    private String type;
 
 }

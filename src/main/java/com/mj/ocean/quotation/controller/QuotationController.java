@@ -1,11 +1,13 @@
 package com.mj.ocean.quotation.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.quotation.dto.*;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.service.QuotationService;
+import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -43,18 +45,16 @@ public class QuotationController {
 
     @PatchMapping("/enabled")
     @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br) {
-        Quotation quotation = quotationService.get(oceanEnabledDTO.getId());
-        quotation.setEnabled(oceanEnabledDTO.getEnabled());
-        quotationService.update(quotation);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br) {
+        quotationService.toggleEnable(del.getId());
         return Responser.updated();
     }
 
     @GetMapping("/get/{id}")
     @ApiOperation("获取单条信息")
-    public ResponseEntity<QuotationVO> get(@PathVariable Integer id) {
-        QuotationVO quotationVO = quotationService.getOne(id);
-        return ResponseEntity.ok(quotationVO);
+    public ResponseEntity<QuotationInfoVO> get(@PathVariable Integer id) {
+        QuotationInfoVO quotationInfoVO = quotationService.getOne(id);
+        return ResponseEntity.ok(quotationInfoVO);
     }
 
     @PatchMapping
@@ -73,15 +73,15 @@ public class QuotationController {
 
     @GetMapping("/find/{costServiceCode}")
     @ApiOperation("分页查询")
-    public ResponseEntity<Page<QuotationVO>> find(@PathVariable String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable){
-        Page<QuotationVO> quotations = quotationService.find(costServiceCode,quotationQueryDTO,pageable);
+    public ResponseEntity<Page<QuotationInfoVO>> find(@PathVariable String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable){
+        Page<QuotationInfoVO> quotations = quotationService.find(costServiceCode,quotationQueryDTO,pageable);
         return ResponseEntity.ok(quotations);
     }
 
     @GetMapping("/history")
     @ApiOperation("调用历史记录")
-    public ResponseEntity<List<QuotationVO>> callHistory(QuotationCallHistory quotationCallHistory,BindingResult br) {
-        List<QuotationVO> vos = quotationService.callHistory(quotationCallHistory);
+    public ResponseEntity<List<QuotationInfoVO>> callHistory(QuotationCallHistory quotationCallHistory,BindingResult br) {
+        List<QuotationInfoVO> vos = quotationService.callHistory(quotationCallHistory);
         return ResponseEntity.ok(vos);
     }
 }

@@ -12,12 +12,18 @@ import lombok.Data;
 @ApiModel("新增常规报价关联表")
 public class QuotationCostAddDTO {
 
-    @ApiModelProperty("成本服务")
-    public String costService;
+    @ApiModelProperty("船东成本价")
+    public String originalPrice;
 
-    @ApiModelProperty("报价类别")
-    public String costServiceCode;
+    @ApiModelProperty("商务成本价")
+    public String commercePrice;
+
+    @ApiModelProperty("业务成本价")
+    public String businessPrice;
+
+    @ApiModelProperty("公开展示价")
+    public String openPrice;
 
     @ApiModelProperty("柜型")
-    public String cabinetType;
+    public String type;
 }

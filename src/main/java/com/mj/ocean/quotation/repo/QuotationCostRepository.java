@@ -1,5 +1,6 @@
 package com.mj.ocean.quotation.repo;
 
+import com.mj.ocean.portcombination.model.PortCombinationAssociated;
 import com.mj.ocean.quotation.model.QuotationCost;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -19,4 +20,5 @@ public interface QuotationCostRepository extends JpaRepository<QuotationCost,Int
      * @return List<QuotationCost>
      */
     List<QuotationCost> findByQuotationId(int quotationId);
+
 }

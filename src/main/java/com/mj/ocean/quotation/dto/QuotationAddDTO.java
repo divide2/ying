@@ -38,14 +38,14 @@ public class QuotationAddDTO {
     public LocalDateTime closingTime;
 
     @ApiModelProperty("开船时间")
-    @NotEmpty
+    @NotNull
     public LocalDateTime sailingTime;
 
     @ApiModelProperty("中转港口")
     public String transitPort;
 
     @ApiModelProperty("航程")
-    @NotEmpty
+    @NotNull
     public BigDecimal voyage;
 
     @ApiModelProperty("币种")
@@ -64,6 +64,9 @@ public class QuotationAddDTO {
 
     @ApiModelProperty("是否发布")
     private Character publish;
+
+    @ApiModelProperty("报价类别")
+    public String costServiceCode;
 
     @ApiModelProperty("常规报价关联表数据集")
     List<QuotationCostAddDTO> quotationCostAdds;

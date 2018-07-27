@@ -17,6 +17,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,9 +41,12 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
 
     @Override
     public Page<Surcharge> find(String costType,SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
+        //todo 获取登陆用户的客户公司id
+        int companyId = 1;
         QSurcharge surcharge = QSurcharge.surcharge;
         BooleanExpression expression = Expressions.ONE.eq(1);
         expression = expression.and(surcharge.costType.eq(costType));
+        expression = expression.and(surcharge.companyId.eq(companyId));
         if (surchargeQueryDTO.getCarrierId() != null) {
             expression = expression.and(surcharge.carrierId.eq(surchargeQueryDTO.getCarrierId()));
         }
@@ -67,7 +71,10 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void update(SurchargeUpdateDTO surchargeUpdateDTO) {
+        //todo 获取登陆用户的客户公司id
+        int companyId = 1;
         //修改时 1.先删除之前的
         surchargeRepository.deleteByCarrierIdAndPodIdAndPomIdAndCostType(surchargeUpdateDTO.getCarrierId(),
                 surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getPomId(),surchargeUpdateDTO.getCostType());
@@ -93,17 +100,22 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
             surcharge.setPayWay(keeper.getPayWay());
             surcharge.setAmt(keeper.getAmt());
             surcharge.setBillingUnit(keeper.getBillingUnit());
+            surcharge.setCompanyId(companyId);
             this.add(surcharge);
         });
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(SurchargeAddDTO surchargeAddDTO) {
+        //todo 获取登陆用户的客户公司id
+        int companyId = 1;
         Port pod = oceanGeneralService.getPort(surchargeAddDTO.getPodId());
         Port pom = oceanGeneralService.getPort(surchargeAddDTO.getPomId());
         Carrier carrier = oceanGeneralService.getCarrier(surchargeAddDTO.getCarrierId());
         surchargeAddDTO.getSurcharges().forEach(keeper -> {
             Surcharge surcharge = new Surcharge();
+            surcharge.setCompanyId(companyId);
             surcharge.setCostType(surchargeAddDTO.getCostType());
             surcharge.setCarrierId(surchargeAddDTO.getCarrierId());
             surcharge.setCarrierName(carrier.getCarrierEN());
@@ -126,6 +138,9 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
 
     @Override
     public List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId,String costType) {
-        return surchargeRepository.findByCarrierIdAndPomIdAndPodIdAndCostType(carrierId, pomId, podId,costType);
+        //todo 获取登陆用户的客户公司id
+        int companyId = 1;
+        return surchargeRepository.findByCarrierIdAndPomIdAndPodIdAndCostTypeAndCompanyId(
+                carrierId, pomId, podId, costType, companyId);
     }
 }

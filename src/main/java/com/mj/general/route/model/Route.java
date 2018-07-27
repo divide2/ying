@@ -102,4 +102,10 @@ public class Route {
      */
     @Builder.Default
     private Character enabled = 'Y';
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

@@ -25,7 +25,7 @@ public class PortCombinationVO {
     private String combinationName;
 
     @ApiModelProperty("关联表数据集")
-    private List<CombinationAssociatedVO> combinationAssociatedVOs;
+    private List<CombinationAssociatedVO> combinationAssociateds;
 
 
 }

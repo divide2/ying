@@ -1,6 +1,7 @@
 package com.mj.general.port.service.impl;
 
 import com.google.common.collect.Lists;
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.port.dto.PortCheckDTO;
@@ -25,10 +26,12 @@ import java.util.List;
 @Service
 public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRepository> implements PortService {
 
-    private PortRepository portRepository;
+    private final PortRepository portRepository;
+    private final StatusProperties status;
 
-    public PortServiceImpl(PortRepository portRepository) {
+    public PortServiceImpl(PortRepository portRepository,StatusProperties status) {
         this.portRepository = portRepository;
+        this.status = status;
     }
 
     @Override
@@ -61,5 +64,17 @@ public class PortServiceImpl extends SimpleBasicServiceImpl<Port,Integer,PortRep
         QPort port = QPort.port;
         BooleanExpression predicate = port.enabled.eq('Y');
         return Lists.newArrayList(portRepository.findAll(predicate));
+    }
+
+
+    @Override
+    public void toggleEnable(Integer id) {
+        Port port = this.get(id);
+        if (status.getEnable().equals(port.getEnabled())) {
+            port.setEnabled(status.getDisable());
+        } else {
+            port.setEnabled(status.getEnable());
+        }
+        this.update(port);
     }
 }

@@ -20,20 +20,20 @@ public interface CarrierRepository extends JpaRepository<Carrier,Integer>, Query
      * @param carrierCode 船公司简称
      * @return Carrier
      */
-    Carrier getByCarrierCodeIgnoreCase(String carrierCode);
+    Carrier getByCompanyIdAndCarrierCodeIgnoreCase(int companyId,String carrierCode);
 
     /**
      * 根据船公司英文名查数据
      * @param carrierEN 船公司英文名
      * @return Carrier
      */
-    Carrier getByCarrierENIgnoreCase(String carrierEN);
+    Carrier getByCompanyIdAndCarrierENIgnoreCase(int companyId,String carrierEN);
 
     /**
      * 根据船公司中文名查数据
      * @param carrierCN 船公司中文名
      * @return Carrier
      */
-    Carrier getByCarrierCNIgnoreCase(String carrierCN);
+    Carrier getByCompanyIdAndCarrierCNIgnoreCase(int companyId,String carrierCN);
 
 }

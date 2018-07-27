@@ -26,6 +26,11 @@ public interface CarrierService extends BasicService<Carrier,Integer>{
      * 检查字段是否存在
      * @param carrierCheckDTO
      */
-    void check(CarrierCheckDTO carrierCheckDTO);
+    void check(int companyId,CarrierCheckDTO carrierCheckDTO);
 
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
 }

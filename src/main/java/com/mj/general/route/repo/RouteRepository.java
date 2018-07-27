@@ -24,6 +24,6 @@ public interface RouteRepository extends JpaRepository<Route,Integer>, QuerydslP
      * @param carrierId 船id
      * @return Route
      */
-    Route getByCarrierId(Integer carrierId);
+    Route getByCarrierIdAndCompanyId(Integer carrierId, Integer companyId);
 
 }

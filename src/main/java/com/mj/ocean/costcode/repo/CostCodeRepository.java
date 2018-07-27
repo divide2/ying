@@ -27,5 +27,12 @@ public interface CostCodeRepository extends JpaRepository<CostCode,Integer>,
      * @param code 成本代码
      * @return CostCode
      */
-    CostCode getByCode(String code);
+    CostCode getByCodeAndCompanyId(String code, Integer companyId);
+
+    /**
+     *  查找全部成本代码
+     * @param companyId 客户公司id
+     * @return List<CostCode>
+     */
+    List<CostCode> findAllByCompanyId(Integer companyId);
 }

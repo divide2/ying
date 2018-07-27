@@ -3,7 +3,6 @@ package com.mj.ocean.portcombination.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.portcombination.dto.CombinationAddDTO;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
@@ -67,7 +66,7 @@ public class PortCombinationController {
         PortCombinationVO vo = PortCombinationVO.builder()
                 .id(portCombination.getId())
                 .combinationName(portCombination.getCombinationName())
-                .combinationAssociatedVOs(combinationAssociatedVOs).build();
+                .combinationAssociateds(combinationAssociatedVOs).build();
         return ResponseEntity.ok(vo);
     }
 

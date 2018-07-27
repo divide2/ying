@@ -20,6 +20,7 @@ import com.mj.ocean.quotation.service.QuotationCostService;
 import com.mj.ocean.quotation.service.QuotationService;
 import com.mj.ocean.quotation.vo.QuotationCostVO;
 import com.mj.ocean.quotation.vo.QuotationInfoVO;
+import com.mj.ocean.quotation.vo.QuotationOneVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -137,7 +138,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     }
 
     @Override
-    public QuotationInfoVO getOne(Integer id) {
+    public QuotationOneVO getOne(Integer id) {
         List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(id);
         List<QuotationCostVO> vos = quotationCosts.stream().map(
                 it -> QuotationCostVO.builder()
@@ -149,16 +150,13 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                         .openPrice(it.getOpenPrice())
                         .type(it.getType()).build()
         ).collect(Collectors.toList());
-        QuotationVO vo =  getVo(id);
-        QuotationInfoVO qvo = QuotationInfoVO.builder()
-                .quotationCostVOs(vos)
-                .quotationVO(vo).build();
-        return qvo;
+        QuotationOneVO vo =  getVo(id,vos);
+        return vo;
     }
 
-    private QuotationVO getVo(Integer id) {
+    private QuotationOneVO getVo(Integer id, List<QuotationCostVO> vos) {
         Quotation quotation = this.get(id);
-        QuotationVO quotationVO = QuotationVO.builder()
+        QuotationOneVO quotationOne = QuotationOneVO.builder()
                 .id(id)
                 .carrierId(quotation.getCarrierId())
                 .carrierCode(quotation.getCarrierCode())
@@ -177,8 +175,9 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .yermValidity(quotation.getYermValidity())
                 .costId(quotation.getCostId())
                 .costCode(quotation.getCostCode())
-                .costServiceCode(quotation.getCostServiceCode()).build();
-        return quotationVO;
+                .costServiceCode(quotation.getCostServiceCode())
+                .quotationCosts(vos).build();
+        return quotationOne;
     }
 
     @Override
@@ -276,7 +275,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                             .type(it.getType()).build()
             ).collect(Collectors.toList());
             quotationInfoVO.setQuotationVO(vo);
-            quotationInfoVO.setQuotationCostVOs(quotationCostVOS);
+            quotationInfoVO.setQuotationCosts(quotationCostVOS);
             lists.add(quotationInfoVO);
         }
         Page<QuotationInfoVO> page = new PageImpl<>(lists, vos.getPageable(), vos.getTotalElements());
@@ -299,7 +298,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                             .quotationId(it.getQuotationId()).build()
             ).collect(Collectors.toList());
             quotationInfoVO.setQuotationVO(vo);
-            quotationInfoVO.setQuotationCostVOs(quotationCostVOS);
+            quotationInfoVO.setQuotationCosts(quotationCostVOS);
             lists.add(quotationInfoVO);
         }
         return lists;
@@ -308,8 +307,9 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     @Override
     public List<QuotationInfoVO> callHistory(QuotationCallHistory quotationCallHistory) {
         //todo 标准报价
+        int companyId = 1;
         String costServiceCode = "general";
-        Quotation quotation = quotationRepository.findDistinctByCostServiceCodeOrderByCreatedDate(costServiceCode);
+        Quotation quotation = quotationRepository.findDistinctByCompanyIdAndCostServiceCodeOrderByCreatedDate(companyId,costServiceCode);
         List<QuotationVO> quotationVOS = quotationRepository.callHistory(quotationCallHistory,quotation);
         return toList(quotationVOS);
     }

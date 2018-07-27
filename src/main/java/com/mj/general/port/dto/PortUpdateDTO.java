@@ -48,6 +48,6 @@ public class PortUpdateDTO {
     private String serviceName;
 
     @ApiModelProperty("禁用状态")
-    @NotEmpty
+    @NotNull
     private Character enabled;
 }

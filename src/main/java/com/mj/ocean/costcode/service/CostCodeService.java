@@ -9,6 +9,8 @@ import com.mj.ocean.costcode.vo.CostCodeVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author zejun
  * @date 2018/7/17 10:11
@@ -34,11 +36,11 @@ public interface CostCodeService extends BasicService<CostCode,Integer> {
      */
     CostCodeVO getDetail(Integer id);
 
-    /**
-     * 复制
-     * @param id
-     */
-    void copy(Integer id);
+//    /**
+//     * 复制
+//     * @param id
+//     */
+//    void copy(Integer id);
 
     /**
      * 分页查询
@@ -53,4 +55,16 @@ public interface CostCodeService extends BasicService<CostCode,Integer> {
      * @param code 成本代码
      */
     void check(String code);
+
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
+
+    /**
+     * 成本代码查询
+     * @return List<CostCode>
+     */
+    List<CostCode> getAll();
 }

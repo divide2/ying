@@ -1,8 +1,8 @@
 package com.mj.general.route.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import com.mj.general.route.dto.RouteAddDTO;
 import com.mj.general.route.dto.RouteQueryDTO;
 import com.mj.general.route.dto.RouteUpdateDTO;
@@ -46,10 +46,8 @@ public class RouteController {
 
     @PatchMapping("/stats")
     @ApiOperation("禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br){
-        Route route = routeService.get(generalEnabledDTO.getId());
-        route.setEnabled(generalEnabledDTO.getEnabled());
-        routeService.update(route);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
+        routeService.toggleEnable(del.getId());
         return Responser.updated();
     }
 

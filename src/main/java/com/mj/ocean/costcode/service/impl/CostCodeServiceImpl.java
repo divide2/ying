@@ -1,5 +1,6 @@
 package com.mj.ocean.costcode.service.impl;
 
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.costcode.dto.*;
@@ -12,12 +13,14 @@ import com.mj.ocean.costcode.service.CostCodeAssociatedService;
 import com.mj.ocean.costcode.service.CostCodeService;
 import com.mj.ocean.costcode.vo.CostCodeAssociatedVO;
 import com.mj.ocean.costcode.vo.CostCodeVO;
+import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -35,23 +38,33 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
     private final CostCodeRepository costCodeRepository;
     private final CostCodeAssociatedService costCodeAssociatedService;
     private final CostCodeAssociatedRepository costCodeAssociatedRepository;
+    private final StatusProperties status;
 
 
     public CostCodeServiceImpl(CostCodeRepository costCodeRepository,
                                CostCodeAssociatedService costCodeAssociatedService,
-                               CostCodeAssociatedRepository costCodeAssociatedRepository) {
+                               CostCodeAssociatedRepository costCodeAssociatedRepository,
+                               StatusProperties status) {
         this.costCodeRepository = costCodeRepository;
         this.costCodeAssociatedService = costCodeAssociatedService;
         this.costCodeAssociatedRepository = costCodeAssociatedRepository;
+        this.status = status;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(CostCodeAddDTO costCodeAddDTO) {
         //todo 根据登陆人信息获取客户公司id，存入数据
-        CostCode costCode = CostCode.builder().code(costCodeAddDTO.getCode())
-                .createdUserid(11111)
-                .createdUsername("eqwffew")
-                .createdDate(LocalDateTime.now()).build();
+        int companyId = 1;
+        CostCode costCode = CostCode.builder()
+                .code(costCodeAddDTO.getCode())
+                .createdUserid(1)
+                .createdUsername("admin1")
+                .createdDate(LocalDateTime.now())
+                .updateUserid(1)
+                .updateUsername("admin1")
+                .updateDate(LocalDateTime.now())
+                .companyId(companyId).build();
         add(costCode);
 
         int costCodeId = costCode.getId();
@@ -61,19 +74,22 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
                     .costService(costCodeAssociatedAddDTO.getCostService())
                     .cabinetType(costCodeAssociatedAddDTO.getCabinetType())
                     .floatingAmount(costCodeAssociatedAddDTO.getFloatingAmount())
-                    .costCodeId(costCodeId).build();
+                    .costCodeId(costCodeId)
+                    .companyId(companyId).build();
             costCodeAssociatedService.add(costCodeAssociated);
         }
     }
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void update(CostCodeUpdateDTO costCodeUpdateDTO) {
         //todo 根据登陆人信息获取客户公司id，存入数据
+        int companyId = 1;
         CostCode costCode = get(costCodeUpdateDTO.getId());
         costCode.setCode(costCodeUpdateDTO.getCode());
-        costCode.setUpdateUserid(222);
-        costCode.setUpdateUsername("fffgfg");
+        costCode.setUpdateUserid(2);
+        costCode.setUpdateUsername("admin2");
         costCode.setUpdateDate(LocalDateTime.now());
         update(costCode);
 
@@ -86,7 +102,8 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
                     .costService(ccaud.getCostService())
                     .cabinetType(ccaud.getCabinetType())
                     .floatingAmount(ccaud.getFloatingAmount())
-                    .costCodeId(costCodeUpdateDTO.getId()).build();
+                    .costCodeId(costCodeUpdateDTO.getId())
+                    .companyId(companyId).build();
             costCodeAssociatedService.add(costCodeAssociated1);
         }
     }
@@ -105,7 +122,7 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         ).collect(Collectors.toList());
 
         CostCodeVO costCodeVO = CostCodeVO.builder()
-                .costCodeAssociatedVOs(costCodeAssociatedVOS)
+                .costCodeAssociateds(costCodeAssociatedVOS)
                 .id(id)
                 .code(costCode.getCode())
                 .lastUpdateDate(StringUtils.isEmpty(costCode.getUpdateDate().toString()) ? costCode.getCreatedDate():costCode.getUpdateDate())
@@ -114,34 +131,37 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
         return costCodeVO;
     }
 
-    @Override
-    public void copy(Integer id) {
-        CostCode costCode = get(id);
-        List<CostCode> costCodeList = costCodeRepository.findByCodeLike("%"+costCode.getCode()+"%");
-        int size = costCodeList.size();
-        String[] s = costCodeList.get(size-1).getCode().split("_");
-        int num = Integer.parseInt(s[s.length-1])+1;
-        CostCode costCode1 = CostCode.builder().code(costCodeList.get(size-1).getCode()+"_"+num)
-                .createdUserid(123)
-                .createdUsername("344")
-                .createdDate(LocalDateTime.now()).build();
-        add(costCode1);
-
-        List<CostCodeAssociated> costCodeAssociatedList = costCodeAssociatedRepository.findByCostCodeId(id);
-        for (CostCodeAssociated ccad : costCodeAssociatedList) {
-            CostCodeAssociated costCodeAssociated = new CostCodeAssociated();
-            costCodeAssociated.setCostCodeId(costCode1.getId());
-            costCodeAssociated.setCostService(ccad.getCostService());
-            costCodeAssociated.setCabinetType(ccad.getCabinetType());
-            costCodeAssociated.setFloatingAmount(ccad.getFloatingAmount());
-            costCodeAssociatedService.add(costCodeAssociated);
-        }
-    }
+//    @Override
+//    public void copy(Integer id) {
+//        CostCode costCode = this.get(id);
+//        List<CostCode> costCodeList = costCodeRepository.findByCodeLike("%"+costCode.getCode()+"%");
+//        int size = costCodeList.size();
+//        String[] s = costCodeList.get(size-1).getCode().split("_");
+//        int num = Integer.parseInt(s[s.length-1])+1;
+//        CostCode costCode1 = CostCode.builder().code(costCodeList.get(size-1).getCode()+"_"+num)
+//                .createdUserid(1)
+//                .createdUsername("admin1")
+//                .createdDate(LocalDateTime.now()).build();
+//        add(costCode1);
+//
+//        List<CostCodeAssociated> costCodeAssociatedList = costCodeAssociatedRepository.findByCostCodeId(id);
+//        for (CostCodeAssociated ccad : costCodeAssociatedList) {
+//            CostCodeAssociated costCodeAssociated = new CostCodeAssociated();
+//            costCodeAssociated.setCostCodeId(costCode1.getId());
+//            costCodeAssociated.setCostService(ccad.getCostService());
+//            costCodeAssociated.setCabinetType(ccad.getCabinetType());
+//            costCodeAssociated.setFloatingAmount(ccad.getFloatingAmount());
+//            costCodeAssociatedService.add(costCodeAssociated);
+//        }
+//    }
 
     @Override
     public Page<CostCode> find(CostCodeQueryDTO costCodeQueryDTO, Pageable pageable) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
+        int companyId = 1;
         QCostCode costCode = QCostCode.costCode;
         BooleanExpression predicate = Expressions.ONE.eq(Expressions.ONE);
+        predicate = predicate.and(costCode.companyId.eq(companyId));
         if (StringUtils.isNotEmpty(costCodeQueryDTO.getCode())){
             predicate = costCode.code.like("%" + costCodeQueryDTO.getCode() + "%");
         }
@@ -150,11 +170,33 @@ public class CostCodeServiceImpl extends SimpleBasicServiceImpl<CostCode,Integer
 
     @Override
     public void check(String code) {
+        //todo 根据登陆人信息获取客户公司id，存入数据
+        int companyId = 1;
         if (StringUtils.isNotEmpty(code)){
-            CostCode costCode = costCodeRepository.getByCode(code);
+            CostCode costCode = costCodeRepository.getByCodeAndCompanyId(code,companyId);
             if(costCode != null) {
                 throw new AlreadyExistsException();
             }
         }
     }
+
+    @Override
+    public List<CostCode> getAll() {
+        //todo 根据登陆人信息获取客户公司id，存入数据
+        int companyId = 1;
+        return costCodeRepository.findAllByCompanyId(companyId);
+    }
+
+    @Override
+    public void toggleEnable(Integer id) {
+        CostCode costCode = this.get(id);
+        if (status.getEnable().equals(costCode.getEnabled())) {
+            costCode.setEnabled(status.getDisable());
+        } else {
+            costCode.setEnabled(status.getEnable());
+        }
+        this.update(costCode);
+    }
+
+
 }

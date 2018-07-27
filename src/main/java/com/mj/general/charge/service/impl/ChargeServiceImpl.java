@@ -1,5 +1,6 @@
 package com.mj.general.charge.service.impl;
 
+import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.charge.dto.ChargeCheckDTO;
@@ -22,15 +23,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class ChargeServiceImpl extends SimpleBasicServiceImpl<Charge,Integer,ChargeRepository> implements ChargeService {
     private final ChargeRepository chargeRepository;
+    private final StatusProperties status;
 
-    public ChargeServiceImpl(ChargeRepository chargeRepository) {
+    public ChargeServiceImpl(ChargeRepository chargeRepository,StatusProperties status) {
         this.chargeRepository = chargeRepository;
+        this.status = status;
     }
 
     @Override
     public Page<Charge> find(ChargeQueryDTO chargeQueryDTO, Pageable pageable) {
+        //todo 获取客户公司id
+        int cmpanyId = 1;
         QCharge charge = QCharge.charge;
         BooleanExpression booleanExpression = Expressions.ONE.eq(Expressions.ONE);
+        booleanExpression = booleanExpression.and(charge.companyId.eq(cmpanyId));
         if (StringUtils.isNotEmpty(chargeQueryDTO.getKeyName())){
             booleanExpression = charge.chargeItemCode.like("%" + chargeQueryDTO.getKeyName() + "%")
                     .or(charge.chargeItemCN.like("%" + chargeQueryDTO.getKeyName() + "%"))
@@ -41,23 +47,36 @@ public class ChargeServiceImpl extends SimpleBasicServiceImpl<Charge,Integer,Cha
 
     @Override
     public void check(ChargeCheckDTO chargeCheckDTO) {
+        //todo 获取客户公司id
+        int companyId = 1;
         if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemCode())){
-            Charge exitCode = chargeRepository.getByChargeItemCodeIgnoreCase(chargeCheckDTO.getChargeItemCode());
+            Charge exitCode = chargeRepository.getByCompanyIdAndChargeItemCodeIgnoreCase(companyId,chargeCheckDTO.getChargeItemCode());
             if(exitCode != null) {
                 throw new AlreadyExistsException();
             }
         }
         if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemCN())){
-            Charge exitCN = chargeRepository.getByChargeItemCNIgnoreCase(chargeCheckDTO.getChargeItemCN());
+            Charge exitCN = chargeRepository.getByCompanyIdAndChargeItemCNIgnoreCase(companyId,chargeCheckDTO.getChargeItemCN());
             if(exitCN != null) {
                 throw new AlreadyExistsException();
             }
         }
         if (StringUtils.isNotEmpty(chargeCheckDTO.getChargeItemEN())){
-            Charge exitEN = chargeRepository.getByChargeItemENIgnoreCase(chargeCheckDTO.getChargeItemEN());
+            Charge exitEN = chargeRepository.getByCompanyIdAndChargeItemENIgnoreCase(companyId,chargeCheckDTO.getChargeItemEN());
             if(exitEN != null) {
                 throw new AlreadyExistsException();
             }
         }
+    }
+
+    @Override
+    public void toggleEnable(Integer id) {
+        Charge charge = this.get(id);
+        if (status.getEnable().equals(charge.getEnabled())) {
+            charge.setEnabled(status.getDisable());
+        } else {
+            charge.setEnabled(status.getEnable());
+        }
+        this.update(charge);
     }
 }

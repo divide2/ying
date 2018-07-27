@@ -36,6 +36,8 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
 
     @Override
     public Page<QuotationVO> findAll(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
+        //todo 根据登陆用户获取客户公司id
+        int companyId = 1;
         QQuotation quotation = QQuotation.quotation;
         JPAQuery<QuotationVO> query = new JPAQuery<>(entityManager);
         query = query.select(constructor(QuotationVO.class, quotation.id, quotation.carrierId, quotation.carrierCode,
@@ -63,6 +65,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
             query = query.where(quotation.yermValidity.eq(quotationQueryDTO.getYermValidity()));
         }
         query = query.where(quotation.costServiceCode.eq("general")
+                    .and(quotation.companyId.eq(companyId))
                 )
                 .limit(pageable.getPageSize()).offset(pageable.getOffset());
         return new PageImpl<>(query.fetch(), pageable, query.fetchCount());
@@ -70,6 +73,8 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
 
     @Override
     public List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory,Quotation qt) {
+        //todo 根据登陆用户获取客户公司id
+        int companyId = 1;
         QQuotation quotation = QQuotation.quotation;
         JPAQuery<QuotationVO> query = new JPAQuery<>(entityManager);
         query = query.select(constructor(QuotationVO.class, quotation.id, quotation.carrierId, quotation.carrierCode,
@@ -82,6 +87,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                         .and(quotation.portShipmentCombinationId.eq(quotationCallHistory.getPortShipmentCombinationId()))
                         .and(quotation.portDestinationCombinationId.eq(quotationCallHistory.getPortDestinationCombinationId()))
                         .and(quotation.costServiceCode.eq("general"))
+                        .and(quotation.companyId.eq(companyId))
                 );
         if (qt != null) {
             query = query.where(quotation.createdDate.eq(qt.getCreatedDate()));

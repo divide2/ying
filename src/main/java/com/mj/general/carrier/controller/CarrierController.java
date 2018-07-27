@@ -1,12 +1,12 @@
 package com.mj.general.carrier.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.carrier.dto.*;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.service.CarrierService;
 import com.mj.general.carrier.vo.CarrierVO;
-import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -39,7 +39,7 @@ public class CarrierController {
     @ApiOperation("新增船公司")
     public ResponseEntity<Messager> add(@Valid @RequestBody CarrierAddDTO carrierAddDTO, BindingResult br) {
         //todo 获取登陆用户的公司id
-        int companyId = 1111;
+        int companyId = 1;
         Carrier carrier = Carrier.builder().carrierCode(carrierAddDTO.getCarrierCode())
                 .carrierCN(carrierAddDTO.getCarrierCN())
                 .carrierEN(carrierAddDTO.getCarrierEN())
@@ -61,11 +61,9 @@ public class CarrierController {
 
     @PatchMapping("/enabled")
     @ApiOperation("启用/禁用船公司")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br) {
-            Carrier carrier = carrierService.get(generalEnabledDTO.getId());
-            carrier.setEnabled(generalEnabledDTO.getEnabled());
-            carrierService.update(carrier);
-            return Responser.updated();
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br) {
+        carrierService.toggleEnable(del.getId());
+        return Responser.updated();
     }
 
     @GetMapping("/find")
@@ -93,10 +91,13 @@ public class CarrierController {
                 .enabled(carrier.getEnabled()).build()).collect(Collectors.toList());
         return ResponseEntity.ok(vos);
     }
+
     @GetMapping("/check")
     @ApiOperation("检查字段是否重复")
     public void check(CarrierCheckDTO carrierCheckDTO){
-        carrierService.check(carrierCheckDTO);
+        //todo 获取登陆用户的公司id
+        int companyId = 1;
+        carrierService.check(companyId,carrierCheckDTO);
     }
 
 }

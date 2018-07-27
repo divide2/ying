@@ -1,8 +1,8 @@
 package com.mj.general.port.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import com.mj.general.port.dto.PortAddDTO;
 import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
@@ -72,10 +72,8 @@ public class PortController {
 
     @PatchMapping("/enabled")
     @ApiOperation("启用/禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br) {
-        Port port = portService.get(generalEnabledDTO.getId());
-        port.setEnabled(generalEnabledDTO.getEnabled());
-        portService.update(port);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br) {
+        portService.toggleEnable(del.getId());
         return Responser.updated();
     }
 

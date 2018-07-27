@@ -3,7 +3,6 @@ package com.mj.ocean.costcode.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.ocean.basic.dto.OceanEnabledDTO;
 import com.mj.ocean.costcode.dto.CostCodeAddDTO;
 import com.mj.ocean.costcode.dto.CostCodeQueryDTO;
 import com.mj.ocean.costcode.dto.CostCodeUpdateDTO;
@@ -58,10 +57,8 @@ public class CostCodeController {
 
     @PatchMapping("/enabled")
     @ApiOperation("启用/禁用状态")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody OceanEnabledDTO oceanEnabledDTO, BindingResult br){
-        CostCode costCode = costCodeService.get(oceanEnabledDTO.getId());
-        costCode.setEnabled(oceanEnabledDTO.getEnabled());
-        costCodeService.update(costCode);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
+        costCodeService.toggleEnable(del.getId());
         return Responser.updated();
     }
 
@@ -74,9 +71,9 @@ public class CostCodeController {
 
     @PostMapping("/copy")
     @ApiOperation("复制")
-    public ResponseEntity<Messager> copy(@Valid @RequestBody SingleId del, BindingResult br) {
-        costCodeService.copy(del.getId());
-        return Responser.created();
+    public ResponseEntity<CostCodeVO> copy(@Valid @RequestBody SingleId del, BindingResult br) {
+        CostCodeVO costCodeVO = costCodeService.getDetail(del.getId());
+        return Responser.ok(costCodeVO);
     }
 
     @GetMapping("/find")
@@ -95,7 +92,7 @@ public class CostCodeController {
     @GetMapping("/all")
     @ApiOperation("成本代码查询")
     public ResponseEntity<List<CostCodeVO>> all() {
-        List<CostCode> costCodes = costCodeService.findAll();
+        List<CostCode> costCodes = costCodeService.getAll();
         List<CostCodeVO> vos = costCodes.stream().map(costCode -> CostCodeVO.builder()
                 .id(costCode.getId())
                 .code(costCode.getCode()).build()).collect(Collectors.toList());

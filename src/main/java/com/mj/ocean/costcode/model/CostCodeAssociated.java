@@ -50,4 +50,10 @@ public class CostCodeAssociated {
      */
     @Column(name = "cost_code_id")
     private Integer costCodeId;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

@@ -45,7 +45,6 @@ public class Surcharge {
     @Column(name = "pom_name")
     private String pomName;
 
-
     /**
      * 目的港口/组合
      */
@@ -104,4 +103,10 @@ public class Surcharge {
      */
     @Column(name = "cost_type")
     private String costType;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

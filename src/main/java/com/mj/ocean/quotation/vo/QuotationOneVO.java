@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,7 +18,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuotationVO {
+public class QuotationOneVO {
 
     @ApiModelProperty("常规报价id")
     private Integer id;
@@ -78,4 +77,5 @@ public class QuotationVO {
     @ApiModelProperty("报价类别")
     private String costServiceCode;
 
+    private List<QuotationCostVO> quotationCosts;
 }

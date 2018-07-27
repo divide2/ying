@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * @author zejun
@@ -48,12 +47,12 @@ public class RoutePort {
     /**
      * 截关时间
      */
-    private LocalDateTime etc;
+    private String etc;
 
     /**
      * 开船时间
      */
-    private LocalDateTime etd;
+    private String etd;
 
     /**
      * 航程

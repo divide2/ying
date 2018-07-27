@@ -7,7 +7,6 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * @author zejun
@@ -23,11 +22,11 @@ public class RoutePortAddOrUpdateDTO {
 
     @ApiModelProperty("截关时间")
     @NotEmpty
-    private LocalDateTime etc;
+    private String etc;
 
     @ApiModelProperty("开船时间")
     @NotEmpty
-    private LocalDateTime etd;
+    private String etd;
 
     @ApiModelProperty("航程")
     @NotNull

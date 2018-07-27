@@ -1,8 +1,11 @@
 package com.mj.auth.principal.service;
 
 
+import com.mj.auth.principal.dto.UserQueryDTO;
 import com.mj.auth.principal.model.User;
 import com.mj.core.service.BasicService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -32,4 +35,12 @@ public interface UserService extends BasicService<User,Integer> {
      * @return users
      */
     List<User> findUsersByRole(Integer roleId);
+
+    /**
+     * 用户分页查询
+     * @param query queyr
+     * @param pageable page
+     * @return users
+     */
+    Page<User> find(UserQueryDTO query, Pageable pageable);
 }

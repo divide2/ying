@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author zejun
  * @date 2018/7/10 11:28
@@ -24,6 +26,6 @@ public interface RouteRepository extends JpaRepository<Route,Integer>, QuerydslP
      * @param carrierId 船id
      * @return Route
      */
-    Route getByCarrierId(Integer carrierId);
+    List<Route> findByCarrierId(Integer carrierId);
 
 }

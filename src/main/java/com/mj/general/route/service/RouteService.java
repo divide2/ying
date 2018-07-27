@@ -58,7 +58,7 @@ public interface RouteService extends BasicService<Route,Integer> {
      * @param carrierId 船公司id
      * @return RouteCarrierVO
      */
-    RouteCarrierVO getByCarrierId(Integer carrierId);
+    List<RouteCarrierVO> getByCarrierId(Integer carrierId);
 
     /**
      * 根据航线id查找其下面的港口

@@ -75,4 +75,7 @@ public class QuotationVO {
 
     @ApiModelProperty("报价类别")
     private String costServiceCode;
+
+    @ApiModelProperty("启用")
+    private Character enabled;
 }

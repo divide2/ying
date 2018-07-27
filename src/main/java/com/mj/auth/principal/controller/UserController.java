@@ -1,6 +1,7 @@
 package com.mj.auth.principal.controller;
 
 import com.mj.auth.principal.dto.UserAddDTO;
+import com.mj.auth.principal.dto.UserQueryDTO;
 import com.mj.auth.principal.dto.UserUpdateDTO;
 import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.service.UserService;
@@ -70,8 +71,8 @@ public class UserController {
 
     @GetMapping("/find")
     @ApiOperation("获取分页")
-    public ResponseEntity<Page<UserVO>> find(Pageable pageable) {
-        Page<User> users = userService.find(pageable);
+    public ResponseEntity<Page<UserVO>> find(UserQueryDTO query,Pageable pageable) {
+        Page<User> users = userService.find(query, pageable);
         return Responser.ok(users.map(UserVO::fromUser));
     }
 

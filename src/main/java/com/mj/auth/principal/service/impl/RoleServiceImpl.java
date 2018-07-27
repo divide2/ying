@@ -71,20 +71,17 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleR
 
     @Override
     public void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO) {
+        // 先删除 再添加  todo // 以后统一处理这种批量修改的情况
+        aclRepository.deleteByPrincipalIdAndPrincipalTypeAndResType(roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, Menu.RES_TYPE);
         roleAddAuthDTO.getResIds().
                 forEach(resId -> {
-                    Acl acl = aclRepository.findResByPrincipal(
-                            roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, resId, Menu.RES_TYPE
-                    );
-                    if (acl == null) {
-                        acl = new Acl();
-                        acl.setPrincipalId(roleAddAuthDTO.getRoleId());
-                        acl.setResId(resId);
-                        acl.setPrincipalType(Role.PRINCIPAL);
-                        acl.setResType(Menu.RES_TYPE);
-                        acl.setAclStatus(1);
-                        aclRepository.save(acl);
-                    }
+                    Acl acl = new Acl();
+                    acl.setPrincipalId(roleAddAuthDTO.getRoleId());
+                    acl.setResId(resId);
+                    acl.setPrincipalType(Role.PRINCIPAL);
+                    acl.setResType(Menu.RES_TYPE);
+                    acl.setAclStatus(1);
+                    aclRepository.save(acl);
                 });
     }
 }

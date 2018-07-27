@@ -37,7 +37,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.portDestinationId, quotation.portDestination, quotation.closingTime,
                 quotation.sailingTime, quotation.transitPort, quotation.voyage, quotation.currency,
                 quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
-                quotation.costServiceCode)).from(quotation);
+                quotation.costServiceCode,quotation.enabled)).from(quotation);
         if (StringUtils.isNotEmpty(quotationQueryDTO.getCarrierCode())) {
             query = query.where(quotation.carrierCode.like("%" + quotationQueryDTO.getCarrierCode() + "%"));
         }
@@ -71,7 +71,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.portDestinationId, quotation.portDestination, quotation.closingTime,
                 quotation.sailingTime, quotation.transitPort, quotation.voyage, quotation.currency,
                 quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
-                quotation.costServiceCode)).from(quotation)
+                quotation.costServiceCode,quotation.enabled)).from(quotation)
                 .where(quotation.carrierId.eq(quotationCallHistory.getCarrierId())
                         .and(quotation.portShipmentCombinationId.eq(quotationCallHistory.getPortShipmentCombinationId()))
                         .and(quotation.portDestinationCombinationId.eq(quotationCallHistory.getPortDestinationCombinationId()))

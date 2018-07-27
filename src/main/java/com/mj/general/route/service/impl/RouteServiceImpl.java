@@ -22,9 +22,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -220,13 +218,13 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
 
 
     @Override
-    public RouteCarrierVO getByCarrierId(Integer carrierId) {
-        Route route = routeRepository.getByCarrierId(carrierId);
-        RouteCarrierVO routeCarrierVO = RouteCarrierVO.builder()
+    public List<RouteCarrierVO> getByCarrierId(Integer carrierId) {
+        List<Route> routes = routeRepository.findByCarrierId(carrierId);
+        List<RouteCarrierVO> vos = routes.stream().map(route -> RouteCarrierVO.builder()
                 .id(route.getId())
                 .carrierId(route.getCarrierId())
-                .routeCode(route.getRouteCode()).build();
-        return routeCarrierVO;
+                .routeCode(route.getRouteCode()).build()).collect(Collectors.toList());
+        return vos;
     }
 
     @Override

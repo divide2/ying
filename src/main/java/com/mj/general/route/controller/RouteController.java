@@ -107,14 +107,13 @@ public class RouteController {
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/get/{carrierId}")
+    @GetMapping("/{carrierId}/carrier")
     @ApiOperation("根据船公司id查找航线")
-    public ResponseEntity<RouteCarrierVO> findByCarrierId(@PathVariable Integer carrierId) {
-        RouteCarrierVO routeCarrierVO = routeService.getByCarrierId(carrierId);
-        return ResponseEntity.ok(routeCarrierVO);
+    public ResponseEntity<List<RouteCarrierVO>> findByCarrierId(@PathVariable Integer carrierId) {
+        return ResponseEntity.ok(routeService.getByCarrierId(carrierId));
     }
 
-    @GetMapping("/route/{routeId}")
+    @GetMapping("/{routeId}/ports")
     @ApiOperation("根据航线id查找其下面的港口")
     public ResponseEntity<List<RoutePortVO>> findByRouteId(@PathVariable Integer routeId) {
         List<RoutePortVO> routePortVOList = routeService.findByRouteId(routeId);

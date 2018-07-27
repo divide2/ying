@@ -49,7 +49,7 @@ public class QuotationController {
         return Responser.updated();
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     @ApiOperation("获取单条信息")
     public ResponseEntity<QuotationInfoVO> get(@PathVariable Integer id) {
         QuotationInfoVO quotationInfoVO = quotationService.getOne(id);

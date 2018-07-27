@@ -55,4 +55,6 @@ public interface AclRepositoryCustom {
      * @return acl
      */
     Acl findResByPrincipal(Integer pid, String ptype, Integer rid, String rtype);
+
+
 }

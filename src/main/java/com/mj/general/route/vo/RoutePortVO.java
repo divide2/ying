@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 
 /**
  * @author zejun
@@ -29,10 +27,10 @@ public class RoutePortVO {
     private String countryEN;
 
     @ApiModelProperty("截关时间")
-    private LocalDateTime etc;
+    private String etc;
 
     @ApiModelProperty("开船时间")
-    private LocalDateTime etd;
+    private String etd;
 
     @ApiModelProperty("航程")
     private BigDecimal tt;

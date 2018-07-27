@@ -1,6 +1,8 @@
 package com.mj.ocean.portcombination.repo.impl;
 
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
+import com.mj.ocean.portcombination.model.QPortCombination;
+import com.mj.ocean.portcombination.model.QPortCombinationAssociated;
 import com.mj.ocean.portcombination.repo.custom.PortCombinationRepositoryCustom;
 import com.mj.ocean.portcombination.vo.CombinationAllVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;

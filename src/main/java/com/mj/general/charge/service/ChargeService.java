@@ -28,4 +28,10 @@ public interface ChargeService extends BasicService<Charge,Integer> {
      * @param chargeCheckDTO 检车dto
      */
     void check(ChargeCheckDTO chargeCheckDTO);
+
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
 }

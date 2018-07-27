@@ -21,7 +21,8 @@ public interface SurchargeRepository extends SurchargeRepositoryCustom, JpaRepos
      * @param pomId 目的港/组合
      */
     @Transactional(rollbackFor = Exception.class)
-    void deleteByCarrierIdAndPodIdAndPomIdAndCostType(Integer carrierId, Integer podId, Integer pomId, String costType);
+    void deleteByCarrierIdAndPodIdAndPomIdAndCostType(
+            Integer carrierId, Integer podId, Integer pomId, String costType);
 
     /**
      * 获取具有相同船公司 启运港，目的港的附加费信息
@@ -30,5 +31,6 @@ public interface SurchargeRepository extends SurchargeRepositoryCustom, JpaRepos
      * @param podId 目的港
      * @return 附加费
      */
-    List<Surcharge> findByCarrierIdAndPomIdAndPodIdAndCostType(Integer carrierId, Integer pomId, Integer podId,String costType);
+    List<Surcharge> findByCarrierIdAndPomIdAndPodIdAndCostTypeAndCompanyId(
+            Integer carrierId, Integer pomId, Integer podId,String costType,Integer companyId);
 }

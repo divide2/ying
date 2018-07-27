@@ -73,7 +73,7 @@ public class PortCombinationController {
         PortCombinationVO vo = PortCombinationVO.builder()
                 .id(portCombination.getId())
                 .combinationName(portCombination.getCombinationName())
-                .combinationAssociatedVOs(combinationAssociatedVOs).build();
+                .combinationAssociateds(combinationAssociatedVOs).build();
         return ResponseEntity.ok(vo);
     }
 

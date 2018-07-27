@@ -34,5 +34,5 @@ public interface RoutePortRepository extends JpaRepository<RoutePort,Integer>,Qu
       * @param routeId 航线id
       * @return List<RoutePort>
       */
-     List<RoutePort> getByRouteIdOrderByOrderNum(Integer routeId);
+     List<RoutePort> getByCompanyIdAndRouteIdOrderByOrderNum(Integer companyId, Integer routeId);
 }

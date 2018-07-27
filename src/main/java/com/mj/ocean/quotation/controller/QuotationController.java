@@ -3,12 +3,11 @@ package com.mj.ocean.quotation.controller;
 import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
-import com.mj.ocean.quotation.dto.QuotationAddDTO;
-import com.mj.ocean.quotation.dto.QuotationCallHistory;
-import com.mj.ocean.quotation.dto.QuotationQueryDTO;
-import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
+import com.mj.ocean.quotation.dto.*;
 import com.mj.ocean.quotation.service.QuotationService;
 import com.mj.ocean.quotation.vo.QuotationInfoVO;
+import com.mj.ocean.quotation.vo.QuotationOneVO;
+import com.mj.ocean.quotation.vo.QuotationVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -51,9 +50,9 @@ public class QuotationController {
 
     @GetMapping("/{id}")
     @ApiOperation("获取单条信息")
-    public ResponseEntity<QuotationInfoVO> get(@PathVariable Integer id) {
-        QuotationInfoVO quotationInfoVO = quotationService.getOne(id);
-        return ResponseEntity.ok(quotationInfoVO);
+    public ResponseEntity<QuotationOneVO> get(@PathVariable Integer id) {
+        QuotationOneVO quotationOne = quotationService.getOne(id);
+        return ResponseEntity.ok(quotationOne);
     }
 
     @PatchMapping

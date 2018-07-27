@@ -1,5 +1,6 @@
 package com.mj.general.charge.controller;
 
+import com.mj.core.data.del.SingleId;
 import com.mj.core.data.resp.Messager;
 import com.mj.core.er.Responser;
 import com.mj.general.charge.dto.ChargeAddDTO;
@@ -9,7 +10,6 @@ import com.mj.general.charge.dto.ChargeUpdateDTO;
 import com.mj.general.charge.model.Charge;
 import com.mj.general.charge.service.ChargeService;
 import com.mj.general.charge.vo.ChargeVO;
-import com.mj.general.dictionary.dto.GeneralEnabledDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -42,7 +42,7 @@ public class ChargeController {
     @ApiOperation("新增费用")
     public ResponseEntity<Messager> add(@Valid @RequestBody ChargeAddDTO chargeAddDTO, BindingResult br) {
         //todo 查询登陆人信息获取客户公司id
-        int companyId = 1111;
+        int companyId = 1;
         Charge charge = Charge.builder().chargeItemCode(chargeAddDTO.getChargeItemCode())
                 .chargeItemCN(chargeAddDTO.getChargeItemCN())
                 .chargeItemEN(chargeAddDTO.getChargeItemEN())
@@ -64,10 +64,8 @@ public class ChargeController {
 
     @PatchMapping("/enabled")
     @ApiOperation("禁用/启用操作")
-    public ResponseEntity<Messager> enabled(@Valid @RequestBody GeneralEnabledDTO generalEnabledDTO, BindingResult br){
-        Charge charge = chargeService.get(generalEnabledDTO.getId());
-        charge.setEnabled(generalEnabledDTO.getEnabled());
-        chargeService.update(charge);
+    public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
+        chargeService.toggleEnable(del.getId());
         return Responser.updated();
     }
 

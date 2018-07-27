@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author zejun
@@ -17,7 +18,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class QuotationVO {
+public class QuotationOneVO {
 
     @ApiModelProperty("常规报价id")
     private Integer id;
@@ -76,7 +77,5 @@ public class QuotationVO {
     @ApiModelProperty("报价类别")
     private String costServiceCode;
 
-
-    @ApiModelProperty("启用")
-    private Character enabled;
+    private List<QuotationCostVO> quotationCosts;
 }

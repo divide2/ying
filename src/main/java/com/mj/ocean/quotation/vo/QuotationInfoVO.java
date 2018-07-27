@@ -19,7 +19,7 @@ import java.util.List;
 public class QuotationInfoVO {
 
     @ApiModelProperty("数据集")
-    List<QuotationCostVO> quotationCostVOs;
+    List<QuotationCostVO> quotationCosts;
 
     @ApiModelProperty("数据集")
     QuotationVO quotationVO;

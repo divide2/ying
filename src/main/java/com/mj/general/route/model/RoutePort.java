@@ -75,4 +75,10 @@ public class RoutePort {
      */
     @Column(name = "route_id")
     private Integer routeId;
+
+    /**
+     * 客户公司id
+     */
+    @Column(name = "company_id")
+    private Integer companyId;
 }

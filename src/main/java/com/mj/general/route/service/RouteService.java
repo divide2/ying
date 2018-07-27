@@ -66,4 +66,11 @@ public interface RouteService extends BasicService<Route,Integer> {
      * @return List<RoutePortVO>
      */
     List<RoutePortVO> findByRouteId(Integer routeId);
+
+
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
 }

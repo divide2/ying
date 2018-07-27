@@ -7,6 +7,7 @@ import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.vo.QuotationInfoVO;
+import com.mj.ocean.quotation.vo.QuotationOneVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +31,7 @@ public interface QuotationService extends BasicService<Quotation,Integer> {
      * @param id 报价id
      * @return QuotationVO
      */
-    QuotationInfoVO getOne(Integer id);
+    QuotationOneVO getOne(Integer id);
 
     /**
      * 修改报价数据

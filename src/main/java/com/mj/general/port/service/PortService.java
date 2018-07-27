@@ -26,4 +26,10 @@ public interface PortService extends BasicService<Port,Integer> {
      * @param portCheckDTO  检查字段dto
      */
     void check(PortCheckDTO portCheckDTO);
+
+    /**
+     * 切换状态
+     * @param id id
+     */
+    void toggleEnable(Integer id);
 }

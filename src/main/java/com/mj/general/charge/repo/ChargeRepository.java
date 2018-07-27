@@ -20,20 +20,20 @@ public interface ChargeRepository extends JpaRepository<Charge,Integer>,Querydsl
      * @param chargeItemCode 费用简称
      * @return Charge
      */
-    Charge getByChargeItemCodeIgnoreCase(String chargeItemCode);
+    Charge getByCompanyIdAndChargeItemCodeIgnoreCase(int companyId,String chargeItemCode);
 
     /**
      * 根据费用中文名查询数据
      * @param chargeItemCN 费用中文名
      * @return Charge
      */
-    Charge getByChargeItemCNIgnoreCase(String chargeItemCN);
+    Charge getByCompanyIdAndChargeItemCNIgnoreCase(int companyId,String chargeItemCN);
 
     /**
      * 根据费用英文名查询数据
      * @param chargeItemEN 费用英文名
      * @return Charge
      */
-    Charge getByChargeItemENIgnoreCase(String chargeItemEN);
+    Charge getByCompanyIdAndChargeItemENIgnoreCase(int companyId,String chargeItemEN);
 
 }

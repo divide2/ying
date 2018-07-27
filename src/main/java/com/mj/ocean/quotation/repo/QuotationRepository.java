@@ -13,5 +13,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 public interface QuotationRepository extends QuotationRepositoryCustom,
         JpaRepository<Quotation,Integer>,QuerydslPredicateExecutor<Integer> {
 
-    Quotation findDistinctByCostServiceCodeOrderByCreatedDate(String costServiceCode);
+    Quotation findDistinctByCompanyIdAndCostServiceCodeOrderByCreatedDate(Integer companyId, String costServiceCode);
 }

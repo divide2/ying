@@ -8,6 +8,7 @@ import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
 import com.mj.ocean.portcombination.service.CombinationService;
+import com.mj.ocean.portcombination.vo.CombinationAllVO;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationUpdateVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author zejun
@@ -97,4 +99,26 @@ public class PortCombinationController {
     public void check(@PathVariable String combinationName) {
         combinationService.check(combinationName);
     }
+
+
+    @GetMapping("/getAll")
+    @ApiOperation("获取所有港口组合")
+    public ResponseEntity<List<CombinationAllVO>> getAll() {
+        List<PortCombination> combinations = combinationService.findAll();
+        List<CombinationAllVO> combinationAlls = combinations.stream().map(
+                pc -> CombinationAllVO.builder()
+                        .id(pc.getId())
+                        .combinationName(pc.getCombinationName())
+                        .build()).collect(Collectors.toList());
+        return ResponseEntity.ok(combinationAlls);
+    }
+
+    @GetMapping("/getAll/{carrierId}")
+    @ApiOperation("根据船公司id获取所有港口组合")
+    public ResponseEntity<List<CombinationAllVO>> getAllByCarrierId(@PathVariable Integer carrierId) {
+        List<CombinationAllVO> vos = combinationService.findAllByCarrierId(carrierId);
+        return ResponseEntity.ok(vos);
+    }
+
+
 }

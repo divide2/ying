@@ -1,5 +1,6 @@
 package com.mj.ocean.portcombination.service.impl;
 
+import com.google.common.collect.Lists;
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
@@ -8,12 +9,15 @@ import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
 import com.mj.ocean.portcombination.model.PortCombinationAssociated;
+import com.mj.ocean.portcombination.model.QPortCombination;
 import com.mj.ocean.portcombination.repo.CombinationAssociatedRepository;
 import com.mj.ocean.portcombination.repo.PortCombinationRepository;
 import com.mj.ocean.portcombination.service.CombinationService;
+import com.mj.ocean.portcombination.vo.CombinationAllVO;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import com.mj.ocean.portcombination.vo.PortCombinationVO;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -125,5 +129,20 @@ public class CombinationServiceImpl extends SimpleBasicServiceImpl<PortCombinati
             portCombination.setEnabled(status.getEnable());
         }
         this.update(portCombination);
+    }
+
+    @Override
+    public List<PortCombination> findAll() {
+        //todo 客户公司id
+        int companyId = 1;
+        QPortCombination portCombination = QPortCombination.portCombination;
+        BooleanExpression predicate = portCombination.enabled.eq('Y');
+        predicate = predicate.and(portCombination.companyId.eq(companyId));
+        return Lists.newArrayList(portCombinationRepository.findAll(predicate));
+    }
+
+    @Override
+    public List<CombinationAllVO> findAllByCarrierId(Integer carrierId) {
+        return portCombinationRepository.findAllByCarrierId(carrierId);
     }
 }

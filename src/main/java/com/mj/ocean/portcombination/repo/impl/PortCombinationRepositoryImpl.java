@@ -1,14 +1,12 @@
 package com.mj.ocean.portcombination.repo.impl;
 
-import com.mj.general.carrier.model.QCarrier;
-import com.mj.general.port.model.QPort;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.model.QPortCombination;
 import com.mj.ocean.portcombination.model.QPortCombinationAssociated;
 import com.mj.ocean.portcombination.repo.custom.PortCombinationRepositoryCustom;
+import com.mj.ocean.portcombination.vo.CombinationAllVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
-import com.querydsl.sql.MySQLTemplates;
-import com.querydsl.sql.SQLTemplates;
+import com.querydsl.jpa.impl.JPAQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +17,8 @@ import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.querydsl.core.types.Projections.constructor;
 
 
 /**
@@ -72,5 +72,22 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 .map(o -> new CombinationVO((Integer) o[0], (String) o[1], (Character)o[2], (String) o[3], (String) o[4], (String)o[5], (String)o[6])).collect(Collectors.toList());
         long count = countQuery.getFirstResult();
         return new PageImpl<>(combinationVOS, pageable, count);
+    }
+
+    @Override
+    public List<CombinationAllVO> findAllByCarrierId(Integer carrierId) {
+        //todo 根据登陆用户获取客户公司id
+        int companyId = 1;
+        QPortCombination portCombination = QPortCombination.portCombination;
+        QPortCombinationAssociated portCombinationAssociated = QPortCombinationAssociated.portCombinationAssociated;
+        JPAQuery<CombinationAllVO> query = new JPAQuery<>(entityManager);
+        query = query.select(constructor(CombinationAllVO.class,portCombination.id,portCombination.combinationName))
+                .from(portCombination)
+                .leftJoin(portCombinationAssociated)
+                .on(portCombination.id.eq(portCombinationAssociated.combinationId))
+                .where(portCombination.companyId.eq(companyId)
+                        .and(portCombinationAssociated.carrierId.eq(carrierId))
+                );
+        return query.fetch();
     }
 }

@@ -6,6 +6,7 @@ import com.mj.ocean.portcombination.dto.CombinationAddDTO;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.dto.CombinationUpdateDTO;
 import com.mj.ocean.portcombination.model.PortCombination;
+import com.mj.ocean.portcombination.vo.CombinationAllVO;
 import com.mj.ocean.portcombination.vo.CombinationAssociatedVO;
 import com.mj.ocean.portcombination.vo.CombinationVO;
 import org.springframework.data.domain.Page;
@@ -58,5 +59,11 @@ public interface CombinationService extends BasicService<PortCombination,Integer
      */
     void toggleEnable(Integer id);
 
+    /**
+     * 根据船公司id获取所有港口组合
+     * @param carrierId 船公司id
+     * @return List<PortCombination>
+     */
+    List<CombinationAllVO> findAllByCarrierId(Integer carrierId);
 }
 

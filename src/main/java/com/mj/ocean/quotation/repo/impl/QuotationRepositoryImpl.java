@@ -3,22 +3,16 @@ package com.mj.ocean.quotation.repo.impl;
 import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.model.QQuotation;
-import com.mj.ocean.quotation.model.QQuotationCost;
 import com.mj.ocean.quotation.model.Quotation;
-import com.mj.ocean.quotation.model.QuotationCost;
 import com.mj.ocean.quotation.repo.custom.QuotationRepositoryCustom;
-import com.mj.ocean.quotation.vo.QuotationCostVO;
-import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.apache.commons.lang3.StringUtils;
-import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.querydsl.core.types.Projections.constructor;

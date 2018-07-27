@@ -35,18 +35,18 @@ public class QuotationAddDTO {
     public Integer portDestinationId;
 
     @ApiModelProperty("截关时间")
-    public LocalDateTime closingTime;
+    public LocalDateTime etc;
 
     @ApiModelProperty("开船时间")
     @NotNull
-    public LocalDateTime sailingTime;
+    public LocalDateTime etd;
 
     @ApiModelProperty("中转港口")
     public String transitPort;
 
     @ApiModelProperty("航程")
     @NotNull
-    public BigDecimal voyage;
+    public BigDecimal tt;
 
     @ApiModelProperty("币种")
     @NotEmpty

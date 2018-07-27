@@ -47,16 +47,16 @@ public class QuotationVO {
     private String portDestination;
 
     @ApiModelProperty("截关时间")
-    private LocalDateTime closingTime;
+    private LocalDateTime etc;
 
     @ApiModelProperty("开船时间")
-    private LocalDateTime sailingTime;
+    private LocalDateTime etd;
 
     @ApiModelProperty("中转港口")
     private String transitPort;
 
     @ApiModelProperty("航程")
-    private BigDecimal voyage;
+    private BigDecimal tt;
 
     @ApiModelProperty("币种")
     private String currency;

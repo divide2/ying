@@ -97,14 +97,12 @@ public class Quotation {
     /**
      * 截关时间
      */
-    @Column(name = "closing_time")
-    private LocalDateTime closingTime;
+    private LocalDateTime etc;
 
     /**
      * 开船时间
      */
-    @Column(name = "sailing_time")
-    private LocalDateTime sailingTime;
+    private LocalDateTime etd;
 
     /**
      * 中转港口
@@ -115,7 +113,7 @@ public class Quotation {
     /**
      * 航程
      */
-    private BigDecimal voyage;
+    private BigDecimal tt;
 
     /**
      * 币种

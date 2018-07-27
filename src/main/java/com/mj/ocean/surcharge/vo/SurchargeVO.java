@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @ApiModel("附加费查询")
 @Data
 public class SurchargeVO {
+    private Integer id;
     /**
      * 船公司id
      */
@@ -104,6 +105,7 @@ public class SurchargeVO {
      */
     public static SurchargeVO fromSurcharge(Surcharge surcharge) {
         SurchargeVO vo = new SurchargeVO();
+        vo.setId(surcharge.getId());
         vo.setCarrierId(surcharge.getCarrierId());
         vo.setCarrierName(surcharge.getCarrierName());
         vo.setPodId(surcharge.getPodId());

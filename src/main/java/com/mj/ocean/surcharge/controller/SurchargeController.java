@@ -60,7 +60,7 @@ public class SurchargeController {
 
     @PatchMapping("/enable/toggle")
     @ApiOperation("切换启用状态")
-    public ResponseEntity<Messager> toggleEnable(SingleId id) {
+    public ResponseEntity<Messager> toggleEnable(@RequestBody @Valid SingleId id,BindingResult br) {
         surchargeService.toggleEnable(id.getId());
         return Responser.updated();
     }

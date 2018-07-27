@@ -47,6 +47,8 @@ public class PortVO {
                 .portCN(port.getPortCN())
                 .portEN(port.getPortEN())
                 .countryCode(port.getCountryCode())
+                .countryEN(port.getCountryEN())
+                .countryCN(port.getCountryCN())
                 .serviceName(port.getServiceName())
                 .enabled(port.getEnabled())
                 .build();

@@ -176,7 +176,8 @@ public class RouteServiceImpl extends SimpleBasicServiceImpl<Route, Integer, Rou
                 .num(route.getNum())
                 .firstPort(route.getFirstPort())
                 .lastPort(route.getLastPort())
-                .allTime(route.getAllTime()).build();
+                .allTime(route.getAllTime())
+                .enabled(route.getEnabled()).build();
         return vo;
     }
 

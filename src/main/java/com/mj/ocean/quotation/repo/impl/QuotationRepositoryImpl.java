@@ -42,8 +42,8 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         JPAQuery<QuotationVO> query = new JPAQuery<>(entityManager);
         query = query.select(constructor(QuotationVO.class, quotation.id, quotation.carrierId, quotation.carrierCode,
                 quotation.routeId, quotation.routeCode, quotation.portShipmentId, quotation.portShipment,
-                quotation.portDestinationId, quotation.portDestination, quotation.closingTime,
-                quotation.sailingTime, quotation.transitPort, quotation.voyage, quotation.currency,
+                quotation.portDestinationId, quotation.portDestination, quotation.etc,
+                quotation.etd, quotation.transitPort, quotation.tt, quotation.currency,
                 quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
                 quotation.costServiceCode)).from(quotation);
         if (StringUtils.isNotEmpty(quotationQueryDTO.getCarrierCode())) {
@@ -79,8 +79,8 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         JPAQuery<QuotationVO> query = new JPAQuery<>(entityManager);
         query = query.select(constructor(QuotationVO.class, quotation.id, quotation.carrierId, quotation.carrierCode,
                 quotation.routeId, quotation.routeCode, quotation.portShipmentId, quotation.portShipment,
-                quotation.portDestinationId, quotation.portDestination, quotation.closingTime,
-                quotation.sailingTime, quotation.transitPort, quotation.voyage, quotation.currency,
+                quotation.portDestinationId, quotation.portDestination, quotation.etc,
+                quotation.etd, quotation.transitPort, quotation.tt, quotation.currency,
                 quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
                 quotation.costServiceCode)).from(quotation)
                 .where(quotation.carrierId.eq(quotationCallHistory.getCarrierId())

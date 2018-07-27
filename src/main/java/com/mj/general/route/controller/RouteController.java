@@ -46,7 +46,7 @@ public class RouteController {
         return Responser.created();
     }
 
-    @PatchMapping("/stats")
+    @PatchMapping("/status")
     @ApiOperation("禁用状态")
     public ResponseEntity<Messager> enabled(@Valid @RequestBody SingleId del, BindingResult br){
         routeService.toggleEnable(del.getId());

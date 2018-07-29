@@ -87,7 +87,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 .on(portCombination.id.eq(portCombinationAssociated.combinationId))
                 .where(portCombination.companyId.eq(companyId)
                         .and(portCombinationAssociated.carrierId.eq(carrierId))
-                );
+                ).distinct();
         return query.fetch();
     }
 }

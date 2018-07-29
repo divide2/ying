@@ -58,7 +58,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         if (StringUtils.isNotEmpty(quotationQueryDTO.getYermValidity())) {
             query = query.where(quotation.yermValidity.eq(quotationQueryDTO.getYermValidity()));
         }
-        query = query.where(quotation.costServiceCode.eq("general")
+        query = query.where(quotation.costServiceCode.eq(costServiceCode)
                     .and(quotation.companyId.eq(companyId))
                 )
                 .limit(pageable.getPageSize()).offset(pageable.getOffset());

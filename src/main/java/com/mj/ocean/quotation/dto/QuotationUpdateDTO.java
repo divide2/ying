@@ -6,7 +6,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -33,10 +32,10 @@ public class QuotationUpdateDTO {
     public Integer portDestinationId;
 
     @ApiModelProperty("截关时间")
-    public LocalDateTime etc;
+    public String etc;
 
     @ApiModelProperty("开船时间")
-    public LocalDateTime etd;
+    public String etd;
 
     @ApiModelProperty("中转港口")
     public String transitPort;
@@ -64,5 +63,5 @@ public class QuotationUpdateDTO {
     public String costServiceCode;
 
     @ApiModelProperty("常规报价关联表数据集")
-    List<QuotationCostUpdateDTO> quotationCostUpdates;
+    List<QuotationCostUpdateDTO> quotationCosts;
 }

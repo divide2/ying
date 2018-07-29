@@ -83,7 +83,7 @@ public class ChargeController {
     }
 
     @GetMapping("/all")
-    @ApiOperation("费用分页查询")
+    @ApiOperation("费用全部查询")
     public ResponseEntity<List<ChargeVO>> all() {
 
         List<Charge> all = chargeService.findAll();

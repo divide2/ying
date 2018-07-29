@@ -10,7 +10,6 @@ import com.mj.ocean.costcode.model.CostCode;
 import com.mj.ocean.costcode.service.CostCodeService;
 import com.mj.ocean.portcombination.model.PortCombinationAssociated;
 import com.mj.ocean.portcombination.repo.CombinationAssociatedRepository;
-import com.mj.ocean.portcombination.service.CombinationAssociatedService;
 import com.mj.ocean.quotation.dto.*;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.model.QuotationCost;
@@ -87,7 +86,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
 
         //查找成本代码
         CostCode costCode = new CostCode();
-        if(StringUtils.isNotEmpty(quotationAddDTO.getCostId().toString())){
+        if(quotationAddDTO.getCostId() != null){
             costCode = costCodeService.get(quotationAddDTO.getCostId());
         }
 
@@ -98,7 +97,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
     }
 
     private void addQuotationCost(QuotationAddDTO quotationAddDTO,int quotationId) {
-        List<QuotationCostAddDTO> quotationCostAdds = quotationAddDTO.getQuotationCostAdds();
+        List<QuotationCostAddDTO> quotationCostAdds = quotationAddDTO.getQuotationCosts();
         for (QuotationCostAddDTO quotationCostAddDTO : quotationCostAdds) {
             QuotationCost quotationCost = QuotationCost.builder().quotationId(quotationId)
                     .type(quotationCostAddDTO.getType())
@@ -120,10 +119,10 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .routeCode(route.getRouteCode())
                 .portShipmentId(quotationAddDTO.getPortShipmentId())
                 .portShipment(portFirst.getPortEN())
-                .portShipmentCombinationId(pcaFirst.getCombinationId())
+//                .portShipmentCombinationId(pcaFirst.getCombinationId())
                 .portDestinationId(quotationAddDTO.getPortDestinationId())
                 .portDestination(portLast.getPortEN())
-                .portDestinationCombinationId(pcaLast.getCombinationId())
+//                .portDestinationCombinationId(pcaLast.getCombinationId())
                 .etc(quotationAddDTO.getEtc())
                 .etd(quotationAddDTO.getEtd())
                 .transitPort(quotationAddDTO.getTransitPort())
@@ -214,7 +213,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         //插入数据到报价主表
         updateQuotation(quotationUpdateDTO,carrier,route,portFirst,pcaFirst,portLast,pcaLast,costCode);
 
-        List<QuotationCostUpdateDTO> quotationCostUpdates = quotationUpdateDTO.getQuotationCostUpdates();
+        List<QuotationCostUpdateDTO> quotationCostUpdates = quotationUpdateDTO.getQuotationCosts();
         for (QuotationCostUpdateDTO qcud : quotationCostUpdates) {
             QuotationCost quotationCost = quotationCostService.get(qcud.getId());
             quotationCost.setType(qcud.getType());
@@ -236,10 +235,10 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         quotation.setRouteCode(route.getRouteCode());
         quotation.setPortShipmentId(quotationUpdateDTO.getPortShipmentId());
         quotation.setPortShipment(portFirst.getPortEN());
-        quotation.setPortDestinationCombinationId(pcaFirst.getCombinationId());
+//        quotation.setPortDestinationCombinationId(pcaFirst.getCombinationId());
         quotation.setPortDestinationId(quotationUpdateDTO.getPortDestinationId());
         quotation.setPortDestination(portLast.getPortEN());
-        quotation.setPortDestinationCombinationId(pcaLast.getCombinationId());
+//        quotation.setPortDestinationCombinationId(pcaLast.getCombinationId());
         quotation.setEtc(quotationUpdateDTO.getEtc());
         quotation.setEtd(quotationUpdateDTO.getEtd());
         quotation.setTransitPort(quotationUpdateDTO.getTransitPort());

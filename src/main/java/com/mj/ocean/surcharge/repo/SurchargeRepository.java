@@ -19,6 +19,7 @@ public interface SurchargeRepository extends SurchargeRepositoryCustom, JpaRepos
      * @param carrierId 公司
      * @param podId 启运港/组合
      * @param pomId 目的港/组合
+     * @param costType 类型
      */
     @Transactional(rollbackFor = Exception.class)
     void deleteByCarrierIdAndPodIdAndPomIdAndCostType(
@@ -29,6 +30,8 @@ public interface SurchargeRepository extends SurchargeRepositoryCustom, JpaRepos
      * @param carrierId 船公司
      * @param pomId 启运港
      * @param podId 目的港
+     * @param costType  类型
+     * @param companyId 公司
      * @return 附加费
      */
     List<Surcharge> findByCarrierIdAndPomIdAndPodIdAndCostTypeAndCompanyId(

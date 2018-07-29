@@ -94,14 +94,14 @@ public class PortCombinationController {
 //        return Responser.ok(combinationAssociatedVO);
 //    }
 
-    @GetMapping("/check/{combinationName}/{}")
+    @GetMapping("/check/{combinationName}")
     @ApiOperation("检查组合名称是否重复")
     public void check(@PathVariable String combinationName) {
         combinationService.check(combinationName);
     }
 
 
-    @GetMapping("/getAll")
+    @GetMapping("/all")
     @ApiOperation("获取所有港口组合")
     public ResponseEntity<List<CombinationAllVO>> getAll() {
         List<PortCombination> combinations = combinationService.findAll();
@@ -113,8 +113,8 @@ public class PortCombinationController {
         return ResponseEntity.ok(combinationAlls);
     }
 
-    @GetMapping("/getAll/{carrierId}")
-    @ApiOperation("根据船公司id获取所有港口组合")
+    @GetMapping("/by/{carrierId}")
+        @ApiOperation("根据船公司id获取所有港口组合")
     public ResponseEntity<List<CombinationAllVO>> getAllByCarrierId(@PathVariable Integer carrierId) {
         List<CombinationAllVO> vos = combinationService.findAllByCarrierId(carrierId);
         return ResponseEntity.ok(vos);

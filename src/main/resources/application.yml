@@ -45,3 +45,9 @@ dic:
   status:
     enable: Y
     disable: N
+  cost-type:  # 报价类型
+    general: general # 常规
+    special: special # 特殊
+  surcharge-type: # 附加费类型
+    general: general # 组合
+    special: special # 单个

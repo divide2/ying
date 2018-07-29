@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * @author zejun
@@ -47,10 +46,10 @@ public class QuotationVO {
     private String portDestination;
 
     @ApiModelProperty("截关时间")
-    private LocalDateTime etc;
+    private String etc;
 
     @ApiModelProperty("开船时间")
-    private LocalDateTime etd;
+    private String etd;
 
     @ApiModelProperty("中转港口")
     private String transitPort;

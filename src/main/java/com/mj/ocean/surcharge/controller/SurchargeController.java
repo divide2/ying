@@ -6,8 +6,10 @@ import com.mj.core.er.Responser;
 import com.mj.ocean.surcharge.dto.SurchargeAddDTO;
 import com.mj.ocean.surcharge.dto.SurchargeQueryDTO;
 import com.mj.ocean.surcharge.dto.SurchargeUpdateDTO;
+import com.mj.ocean.surcharge.keeper.SurchargeKeeper;
 import com.mj.ocean.surcharge.model.Surcharge;
 import com.mj.ocean.surcharge.service.SurchargeService;
+import com.mj.ocean.surcharge.vo.SurchargeGroupGetVO;
 import com.mj.ocean.surcharge.vo.SurchargeVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,14 +75,17 @@ public class SurchargeController {
         return Responser.ok(vos);
     }
 
-    @GetMapping("/{carrierId}/{pomId}/{podId}/{costType}/group")
-    public ResponseEntity<List<SurchargeVO>> findSameGroup(@PathVariable Integer carrierId,
-                                                           @PathVariable Integer pomId,
-                                                           @PathVariable Integer podId,
-                                                           @PathVariable String costType) {
+    @GetMapping("/{carrierId}/{pomId}/{podId}/{costType}")
+    public ResponseEntity<SurchargeGroupGetVO> findSameGroup(@PathVariable Integer carrierId,
+                                                                   @PathVariable Integer pomId,
+                                                                   @PathVariable Integer podId,
+                                                                   @PathVariable String costType) {
         List<Surcharge> surcharges =  surchargeService.findSameGroup(carrierId, pomId, podId,costType);
-        List<SurchargeVO> vos = surcharges.stream().map(SurchargeVO::fromSurcharge).collect(Collectors.toList());
-        return Responser.ok(vos);
+        Surcharge surcharge = surcharges.get(0);
+        SurchargeGroupGetVO group = SurchargeGroupGetVO.ofSurcharge(surcharge);
+        List<SurchargeKeeper> keepers = surcharges.stream().map(SurchargeKeeper::ofSurcharge).collect(Collectors.toList());
+        group.setSurcharges(keepers);
+        return Responser.ok(group);
     }
 
     @GetMapping("/{carrierId}/{pomId}/{podId}/show")

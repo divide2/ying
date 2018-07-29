@@ -49,16 +49,16 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "left join \n" +
                 "general_carrier gc on gc.id = pczh.carrier_id\n" +
                 "left join \n" +
-                "general_port gp on gp.id = pczh.port_id";
+                "general_port gp on gp.id = pczh.port_id where 1=1";
         if (StringUtils.isNotEmpty(combinationQueryDTO.getCombinationName())) {
-            sql += " where ofpc.combination_name like ?";
+            sql += " and ofpc.combination_name like ?";
             params.add("%"+combinationQueryDTO.getCombinationName()+"%");
         }
         if (StringUtils.isNotEmpty(combinationQueryDTO.getCarrierCode())) {
-            sql += " where gc.carrier_code = ?";
+            sql += " and gc.id = ?";
             params.add(combinationQueryDTO.getCarrierCode());
         }
-        sql += " where ofpc.company_id = " + companyId;
+        sql += " and ofpc.company_id = " + companyId;
         sql += " group by ofpc.id ";
         Query query = entityManager.createNativeQuery(sql);
         for (int i = 1; i <= params.size(); i++) {

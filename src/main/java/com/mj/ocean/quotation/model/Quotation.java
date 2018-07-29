@@ -97,12 +97,12 @@ public class Quotation {
     /**
      * 截关时间
      */
-    private LocalDateTime etc;
+    private String etc;
 
     /**
      * 开船时间
      */
-    private LocalDateTime etd;
+    private String etd;
 
     /**
      * 中转港口

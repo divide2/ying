@@ -1,10 +1,13 @@
 package com.mj.ocean.surcharge.service.impl;
 
+import com.mj.core.data.properties.CostTypeProperties;
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.port.model.Port;
 import com.mj.ocean.basic.service.OceanGeneralService;
+import com.mj.ocean.portcombination.model.PortCombination;
+import com.mj.ocean.portcombination.repo.PortCombinationRepository;
 import com.mj.ocean.surcharge.dto.SurchargeAddDTO;
 import com.mj.ocean.surcharge.dto.SurchargeQueryDTO;
 import com.mj.ocean.surcharge.dto.SurchargeUpdateDTO;
@@ -30,17 +33,23 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     private final SurchargeRepository surchargeRepository;
     private final OceanGeneralService oceanGeneralService;
     private final StatusProperties status;
+    private final CostTypeProperties costTypeProperties;
+    private final PortCombinationRepository portCombinationRepository;
 
     public SurchargeServiceImpl(SurchargeRepository surchargeRepository,
                                 OceanGeneralService oceanGeneralService,
-                                StatusProperties status) {
+                                StatusProperties status,
+                                CostTypeProperties costTypeProperties,
+                                PortCombinationRepository portCombinationRepository) {
         this.surchargeRepository = surchargeRepository;
         this.oceanGeneralService = oceanGeneralService;
         this.status = status;
+        this.costTypeProperties = costTypeProperties;
+        this.portCombinationRepository = portCombinationRepository;
     }
 
     @Override
-    public Page<Surcharge> find(String costType,SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
+    public Page<Surcharge> find(String costType, SurchargeQueryDTO surchargeQueryDTO, Pageable pageable) {
         //todo 获取登陆用户的客户公司id
         int companyId = 1;
         QSurcharge surcharge = QSurcharge.surcharge;
@@ -77,20 +86,20 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
         int companyId = 1;
         //修改时 1.先删除之前的
         surchargeRepository.deleteByCarrierIdAndPodIdAndPomIdAndCostType(surchargeUpdateDTO.getCarrierId(),
-                surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getPomId(),surchargeUpdateDTO.getCostType());
+                surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getPomId(), surchargeUpdateDTO.getCostType());
         //  再添加修改后的
-        Port pod = oceanGeneralService.getPort(surchargeUpdateDTO.getPodId());
-        Port pom = oceanGeneralService.getPort(surchargeUpdateDTO.getPomId());
+        SingleOrCombinationPort podSoc = this.getSingleOrCombinationPort(surchargeUpdateDTO.getPodId(), surchargeUpdateDTO.getCostType());
+        SingleOrCombinationPort pomSoc = this.getSingleOrCombinationPort(surchargeUpdateDTO.getPomId(), surchargeUpdateDTO.getCostType());
         Carrier carrier = oceanGeneralService.getCarrier(surchargeUpdateDTO.getCarrierId());
         surchargeUpdateDTO.getSurcharges().forEach(keeper -> {
             Surcharge surcharge = new Surcharge();
             surcharge.setCostType(surchargeUpdateDTO.getCostType());
             surcharge.setCarrierId(surchargeUpdateDTO.getCarrierId());
             surcharge.setCarrierName(carrier.getCarrierEN());
-            surcharge.setPodId(surchargeUpdateDTO.getPodId());
-            surcharge.setPodName(pod.getPortEN());
-            surcharge.setPomId(surchargeUpdateDTO.getPomId());
-            surcharge.setPomName(pom.getPortEN());
+            surcharge.setPodId(podSoc.getPortId());
+            surcharge.setPodName(podSoc.getPortEN());
+            surcharge.setPomId(pomSoc.getPortId());
+            surcharge.setPomName(pomSoc.getPortEN());
             surcharge.setCode(keeper.getCode());
             surcharge.setCurrency(keeper.getCurrency());
             surcharge.setEnabled(keeper.getEnabled());
@@ -110,8 +119,8 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
     public void add(SurchargeAddDTO surchargeAddDTO) {
         //todo 获取登陆用户的客户公司id
         int companyId = 1;
-        Port pod = oceanGeneralService.getPort(surchargeAddDTO.getPodId());
-        Port pom = oceanGeneralService.getPort(surchargeAddDTO.getPomId());
+        SingleOrCombinationPort podSoc = this.getSingleOrCombinationPort(surchargeAddDTO.getPodId(), surchargeAddDTO.getCostType());
+        SingleOrCombinationPort pomSoc = this.getSingleOrCombinationPort(surchargeAddDTO.getPomId(), surchargeAddDTO.getCostType());
         Carrier carrier = oceanGeneralService.getCarrier(surchargeAddDTO.getCarrierId());
         surchargeAddDTO.getSurcharges().forEach(keeper -> {
             Surcharge surcharge = new Surcharge();
@@ -119,10 +128,10 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
             surcharge.setCostType(surchargeAddDTO.getCostType());
             surcharge.setCarrierId(surchargeAddDTO.getCarrierId());
             surcharge.setCarrierName(carrier.getCarrierEN());
-            surcharge.setPodId(surchargeAddDTO.getPodId());
-            surcharge.setPodName(pod.getPortEN());
-            surcharge.setPomId(surchargeAddDTO.getPomId());
-            surcharge.setPomName(pom.getPortEN());
+            surcharge.setPodId(podSoc.getPortId());
+            surcharge.setPodName(podSoc.getPortEN());
+            surcharge.setPomId(podSoc.getPortId());
+            surcharge.setPomName(pomSoc.getPortEN());
             surcharge.setCode(keeper.getCode());
             surcharge.setCurrency(keeper.getCurrency());
             surcharge.setEnabled(keeper.getEnabled());
@@ -136,11 +145,36 @@ public class SurchargeServiceImpl extends SimpleBasicServiceImpl<Surcharge, Inte
         });
     }
 
+
     @Override
-    public List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId,String costType) {
+    public List<Surcharge> findSameGroup(Integer carrierId, Integer pomId, Integer podId, String costType) {
         //todo 获取登陆用户的客户公司id
         int companyId = 1;
         return surchargeRepository.findByCarrierIdAndPomIdAndPodIdAndCostTypeAndCompanyId(
                 carrierId, pomId, podId, costType, companyId);
+    }
+
+    /**
+     * 获取组合或者是单个港口
+     *
+     * @param portId   港口/组合id
+     * @param costType 类型 G or S
+     * @return 单个/组合港口信息
+     */
+    private SingleOrCombinationPort getSingleOrCombinationPort(Integer portId, String costType) {
+        // 常规组合费用
+        SingleOrCombinationPort soc = new SingleOrCombinationPort();
+        if (costTypeProperties.getSpecial().equals(costType)) {
+            Port port = oceanGeneralService.getPort(portId);
+            soc.setPortId(port.getId());
+            soc.setPortEN(port.getPortEN());
+        }
+        // 特殊单个费用
+        else {
+            PortCombination pc = portCombinationRepository.getOne(portId);
+            soc.setPortId(pc.getId());
+            soc.setPortEN(pc.getCombinationName());
+        }
+        return soc;
     }
 }

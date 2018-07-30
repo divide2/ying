@@ -119,17 +119,18 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .routeCode(route.getRouteCode())
                 .portShipmentId(quotationAddDTO.getPortShipmentId())
                 .portShipment(portFirst.getPortEN())
-//                .portShipmentCombinationId(pcaFirst.getCombinationId())
+                .portShipmentCombinationId(pcaFirst != null ? pcaFirst.getCombinationId() : null)
                 .portDestinationId(quotationAddDTO.getPortDestinationId())
                 .portDestination(portLast.getPortEN())
-//                .portDestinationCombinationId(pcaLast.getCombinationId())
+                .portDestinationCombinationId(pcaLast != null ? pcaLast.getCombinationId() : null)
                 .etc(quotationAddDTO.getEtc())
                 .etd(quotationAddDTO.getEtd())
                 .transitPort(quotationAddDTO.getTransitPort())
                 .tt(quotationAddDTO.getTt())
                 .currency(quotationAddDTO.getCurrency())
                 .remarks(quotationAddDTO.getRemarks())
-                .yermValidity(quotationAddDTO.getYermValidity())
+                .effectiveStartTime(quotationAddDTO.getEffectiveStartTime())
+                .effectiveEndTime(quotationAddDTO.getEffectiveEndTime())
                 .costId(quotationAddDTO.getCostId())
                 .costCode(costCode.getCode())
                 .publish(quotationAddDTO.getPublish())
@@ -177,7 +178,8 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
                 .tt(quotation.getTt())
                 .currency(quotation.getCurrency())
                 .remarks(quotation.getRemarks())
-                .yermValidity(quotation.getYermValidity())
+                .effectiveStartTime(quotation.getEffectiveStartTime())
+                .effectiveEndTime(quotation.getEffectiveEndTime())
                 .costId(quotation.getCostId())
                 .costCode(quotation.getCostCode())
                 .costServiceCode(quotation.getCostServiceCode())
@@ -213,6 +215,9 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         //插入数据到报价主表
         updateQuotation(quotationUpdateDTO,carrier,route,portFirst,pcaFirst,portLast,pcaLast,costCode);
 
+        //根据报价id删除报价关联表数据
+        quotationCostRepository.deleteByQuotationId(quotationUpdateDTO.getId());
+        //插入数据到报价关联表
         List<QuotationCostUpdateDTO> quotationCostUpdates = quotationUpdateDTO.getQuotationCosts();
         for (QuotationCostUpdateDTO qcud : quotationCostUpdates) {
             QuotationCost quotationCost = quotationCostService.get(qcud.getId());
@@ -221,7 +226,7 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
             quotationCost.setCommercePrice(qcud.getCommercePrice());
             quotationCost.setBusinessPrice(qcud.getBusinessPrice());
             quotationCost.setOpenPrice(qcud.getOpenPrice());
-            quotationCostService.update(quotationCost);
+            quotationCostService.add(quotationCost);
         }
     }
 
@@ -235,17 +240,18 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         quotation.setRouteCode(route.getRouteCode());
         quotation.setPortShipmentId(quotationUpdateDTO.getPortShipmentId());
         quotation.setPortShipment(portFirst.getPortEN());
-//        quotation.setPortDestinationCombinationId(pcaFirst.getCombinationId());
+        quotation.setPortDestinationCombinationId(pcaFirst != null ? pcaFirst.getCombinationId() : null);
         quotation.setPortDestinationId(quotationUpdateDTO.getPortDestinationId());
         quotation.setPortDestination(portLast.getPortEN());
-//        quotation.setPortDestinationCombinationId(pcaLast.getCombinationId());
+        quotation.setPortDestinationCombinationId(pcaLast != null ? pcaLast.getCombinationId() : null);
         quotation.setEtc(quotationUpdateDTO.getEtc());
         quotation.setEtd(quotationUpdateDTO.getEtd());
         quotation.setTransitPort(quotationUpdateDTO.getTransitPort());
         quotation.setTt(quotationUpdateDTO.getTt());
         quotation.setCurrency(quotationUpdateDTO.getCurrency());
         quotation.setRemarks(quotationUpdateDTO.getRemarks());
-        quotation.setYermValidity(quotationUpdateDTO.getYermValidity());
+        quotation.setEffectiveStartTime(quotationUpdateDTO.getEffectiveStartTime());
+        quotation.setEffectiveEndTime(quotationUpdateDTO.getEffectiveEndTime());
         quotation.setCostId(quotationUpdateDTO.getCostId());
         quotation.setCostCode(costCode.getCode());
         quotation.setPublish(quotationUpdateDTO.getPublish());

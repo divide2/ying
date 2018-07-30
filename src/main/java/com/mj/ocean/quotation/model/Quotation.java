@@ -126,10 +126,16 @@ public class Quotation {
     private String remarks;
 
     /**
-     * 有效期
+     * 有效开始时间
      */
-    @Column(name = "yerm_validity")
-    private String yermValidity;
+    @Column(name = "effective_start_time")
+    private LocalDateTime effectiveStartTime;
+
+    /**
+     * 有效结束时间
+     */
+    @Column(name = "effective_end_time")
+    private LocalDateTime effectiveEndTime;
 
     /**
      * 成本代码id

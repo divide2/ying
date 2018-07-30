@@ -38,8 +38,9 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.routeId, quotation.routeCode, quotation.portShipmentId, quotation.portShipment,
                 quotation.portDestinationId, quotation.portDestination, quotation.etc,
                 quotation.etd, quotation.transitPort, quotation.tt, quotation.currency,
-                quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
-                quotation.costServiceCode,quotation.enabled)).from(quotation);
+                quotation.remarks, quotation.effectiveStartTime, quotation.effectiveEndTime,
+                quotation.costId, quotation.costCode, quotation.costServiceCode,
+                quotation.enabled)).from(quotation);
         if (StringUtils.isNotEmpty(quotationQueryDTO.getCarrierCode())) {
             query = query.where(quotation.carrierCode.like("%" + quotationQueryDTO.getCarrierCode() + "%"));
         }
@@ -55,8 +56,9 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         if (quotationQueryDTO.getEnabled() != null) {
             query = query.where(quotation.enabled.eq(quotationQueryDTO.getEnabled()));
         }
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getYermValidity())) {
-            query = query.where(quotation.yermValidity.eq(quotationQueryDTO.getYermValidity()));
+        if (StringUtils.isNotEmpty(quotationQueryDTO.getEffectiveStartTime().toString())
+                && StringUtils.isNotEmpty(quotationQueryDTO.getEffectiveEndTime().toString())) {
+            query = query.where(quotation.effectiveStartTime.between(quotationQueryDTO.getEffectiveStartTime(),quotationQueryDTO.getEffectiveEndTime()));
         }
         query = query.where(quotation.costServiceCode.eq(costServiceCode)
                     .and(quotation.companyId.eq(companyId))
@@ -75,8 +77,9 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.routeId, quotation.routeCode, quotation.portShipmentId, quotation.portShipment,
                 quotation.portDestinationId, quotation.portDestination, quotation.etc,
                 quotation.etd, quotation.transitPort, quotation.tt, quotation.currency,
-                quotation.remarks, quotation.yermValidity, quotation.costId, quotation.costCode,
-                quotation.costServiceCode,quotation.enabled)).from(quotation)
+                quotation.remarks, quotation.effectiveStartTime, quotation.effectiveEndTime,
+                quotation.costId, quotation.costCode, quotation.costServiceCode,
+                quotation.enabled)).from(quotation)
                 .where(quotation.carrierId.eq(quotationCallHistory.getCarrierId())
                         .and(quotation.portShipmentCombinationId.eq(quotationCallHistory.getPortShipmentCombinationId()))
                         .and(quotation.portDestinationCombinationId.eq(quotationCallHistory.getPortDestinationCombinationId()))

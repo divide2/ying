@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -64,8 +66,11 @@ public class QuotationOneVO {
     @ApiModelProperty("备注")
     private String remarks;
 
-    @ApiModelProperty("有效期")
-    private String yermValidity;
+    @ApiModelProperty("有效开始时间")
+    private LocalDateTime effectiveStartTime;
+
+    @ApiModelProperty("有效结束时间")
+    private LocalDateTime effectiveEndTime;
 
     @ApiModelProperty("成本代码id")
     private Integer costId;

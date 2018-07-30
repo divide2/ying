@@ -7,6 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -54,9 +55,13 @@ public class QuotationAddDTO {
     @ApiModelProperty("备注")
     public String remarks;
 
-    @ApiModelProperty("有效期")
+    @ApiModelProperty("有效开始时间")
     @NotEmpty
-    public String yermValidity;
+    private LocalDateTime effectiveStartTime;
+
+    @ApiModelProperty("有效结束时间")
+    @NotEmpty
+    private LocalDateTime effectiveEndTime;
 
     @ApiModelProperty("成本代码id")
     public Integer costId;

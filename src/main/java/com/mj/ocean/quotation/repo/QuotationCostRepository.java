@@ -21,4 +21,10 @@ public interface QuotationCostRepository extends JpaRepository<QuotationCost,Int
      */
     List<QuotationCost> findByQuotationId(int quotationId);
 
+    /**
+     * 根据报价id删除数据
+     * @param quotationId 报价id
+     */
+    void deleteByQuotationId(int quotationId);
+
 }

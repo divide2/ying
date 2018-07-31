@@ -7,13 +7,14 @@ import org.springframework.stereotype.Component;
 /**
  * @author bvvy
  */
-@ConfigurationProperties(prefix = "dic.status")
+@ConfigurationProperties(prefix = "dic.publish-status")
 @Component
 @Data
-public class StatusProperties {
+public class PublishStatusProperties {
 
-    private Character enable;
-    private Character disable;
+    private String publish;
+    private String draft;
+
 
 }
 

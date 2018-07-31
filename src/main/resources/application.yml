@@ -18,8 +18,6 @@ spring:
     username: test2018
     password: mj2018!@#
     url: jdbc:mysql://120.79.32.147:3306/columbu
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
   profiles:
     active: default
   application:
@@ -48,6 +46,6 @@ dic:
   cost-type:  # 报价类型
     general: general # 常规
     special: special # 特殊
-  surcharge-type: # 附加费类型
-    general: general # 组合
-    special: special # 单个
+  publish-status: # 文章的发布状态
+    publish: publish
+    draft: draft

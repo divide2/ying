@@ -92,6 +92,7 @@ public class Article {
 
     /**
      * 发表状态 /发表为草稿 还是 文章
+     * draft publish
      */
     @Column(name = "publish_status")
     private String publishStatus;

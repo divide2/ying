@@ -7,11 +7,15 @@ package com.mj.core.er;
  */
 public class Loginer {
 
-    public static Integer getUserId() {
+    public static Integer userId() {
         return 8;
     }
 
-    public static Integer getCompanyId() {
+    public static String username() {
+        return "bvvy";
+    }
+
+    public static Integer companyId() {
         return 1;
     }
 }

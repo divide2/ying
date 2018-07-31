@@ -1,5 +1,6 @@
 package com.mj.core.data.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -8,25 +9,11 @@ import org.springframework.stereotype.Component;
  */
 @ConfigurationProperties(prefix = "dic.cost-type")
 @Component
+@Data
 public class CostTypeProperties {
 
     private String general;
     private String special;
 
-    public String getGeneral() {
-        return general;
-    }
-
-    public void setGeneral(String general) {
-        this.general = general;
-    }
-
-    public String getSpecial() {
-        return special;
-    }
-
-    public void setSpecial(String special) {
-        this.special = special;
-    }
 }
 

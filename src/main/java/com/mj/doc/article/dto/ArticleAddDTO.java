@@ -1,5 +1,6 @@
 package com.mj.doc.article.dto;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @date 2018/7/19
  */
 @Data
+@ApiModel("文章添加")
 public class ArticleAddDTO {
 
     /**

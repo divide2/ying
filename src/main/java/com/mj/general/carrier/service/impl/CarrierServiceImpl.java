@@ -2,7 +2,7 @@ package com.mj.general.carrier.service.impl;
 
 import com.google.common.collect.Lists;
 import com.mj.core.data.properties.StatusProperties;
-import com.mj.core.exception.GeneralException;
+import com.mj.core.exception.AlreadyExistsException;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
@@ -54,19 +54,19 @@ public class CarrierServiceImpl extends SimpleBasicServiceImpl<Carrier,Integer,C
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierCode())){
             Carrier exitCode =  carrierRepository.getByCompanyIdAndCarrierCodeIgnoreCase(companyId,carrierCheckDTO.getCarrierCode());
             if(exitCode != null) {
-                throw new GeneralException();
+                throw new AlreadyExistsException();
             }
         }
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierCN())){
             Carrier exitCN =  carrierRepository.getByCompanyIdAndCarrierCNIgnoreCase(companyId,carrierCheckDTO.getCarrierCN());
             if(exitCN != null) {
-                throw new GeneralException();
+                throw new AlreadyExistsException();
             }
         }
         if(StringUtils.isNotEmpty(carrierCheckDTO.getCarrierEN())){
             Carrier exitEN =  carrierRepository.getByCompanyIdAndCarrierENIgnoreCase(companyId,carrierCheckDTO.getCarrierEN());
             if(exitEN != null) {
-                throw new GeneralException();
+                throw new AlreadyExistsException();
             }
         }
     }

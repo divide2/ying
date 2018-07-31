@@ -27,7 +27,7 @@ public class ValidationExceptionHandler {
 
     @ExceptionHandler(AlreadyExistsException.class)
     public ResponseEntity<Messager> valid(AlreadyExistsException exception) {
-        return Responser.ok(Messager.of("exist"));
+        return Responser.conflict("exist");
     }
 
 }

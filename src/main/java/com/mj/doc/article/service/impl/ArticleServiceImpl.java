@@ -37,23 +37,21 @@ public class ArticleServiceImpl extends SimpleBasicServiceImpl<Article, Integer,
     private final ArticleRepository articleRepository;
     private final TagService tagService;
     private final PublishStatusProperties publishStatusProperties;
-    private final Loginer loginer;
 
     public ArticleServiceImpl(StatusProperties statusProperties,
                               ArticleRepository articleRepository,
                               TagService tagService,
-                              PublishStatusProperties publishStatusProperties, Loginer loginer) {
+                              PublishStatusProperties publishStatusProperties) {
         this.statusProperties = statusProperties;
         this.articleRepository = articleRepository;
         this.tagService = tagService;
         this.publishStatusProperties = publishStatusProperties;
-        this.loginer = loginer;
     }
 
     @Override
     public Page<Article> findOwn(String publishStatus, ArticleQueryDTO articleQueryDTO, Pageable pageable) {
         QArticle article = QArticle.article;
-        BooleanExpression predicate = article.createdUserId.eq(loginer.userId());
+        BooleanExpression predicate = article.createdUserId.eq(Loginer.userId());
         predicate = predicate.and(queryPredicate(publishStatus, articleQueryDTO, predicate));
         return articleRepository.findAll(predicate, pageable);
     }
@@ -96,17 +94,17 @@ public class ArticleServiceImpl extends SimpleBasicServiceImpl<Article, Integer,
                 .content(articleAddDTO.getContent())
                 .expiry(articleAddDTO.getExpiry())
                 .createdDate(LocalDateTime.now())
-                .createdUserId(loginer.userId())
-                .createdUsername(loginer.username())
+                .createdUserId(Loginer.userId())
+                .createdUsername(Loginer.username())
                 .deleted(statusProperties.getDisable())
                 .enabled(statusProperties.getEnable())
                 .publishStatus(publishStatusProperties.getPublish())
                 .tags(StringUtils.join(articleAddDTO.getTags(), Punctuation.COMMA))
                 .title(articleAddDTO.getTitle())
                 .updatedDate(LocalDateTime.now())
-                .updatedUserId(loginer.userId())
+                .updatedUserId(Loginer.userId())
                 .updatedDate(LocalDateTime.now())
-                .updatedUsername(loginer.username())
+                .updatedUsername(Loginer.username())
                 .build();
         tagService.add(articleAddDTO.getTags());
         this.add(article);
@@ -123,9 +121,9 @@ public class ArticleServiceImpl extends SimpleBasicServiceImpl<Article, Integer,
         article.setTags(StringUtils.join(articleUpdateDTO.getTags(), Punctuation.COMMA));
         article.setTitle(articleUpdateDTO.getTitle());
         article.setUpdatedDate(LocalDateTime.now());
-        article.setUpdatedUserId(loginer.userId());
+        article.setUpdatedUserId(Loginer.userId());
         article.setUpdatedDate(LocalDateTime.now());
-        article.setUpdatedUsername(loginer.username());
+        article.setUpdatedUsername(Loginer.username());
         tagService.add(articleUpdateDTO.getTags());
         articleRepository.save(article);
     }

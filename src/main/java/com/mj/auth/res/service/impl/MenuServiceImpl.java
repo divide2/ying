@@ -23,13 +23,11 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
 
     private final MenuRepository menuRepository;
     private final OperRepository operRepository;
-    private final Loginer loginer;
 
     public MenuServiceImpl(MenuRepository menuRepository,
-                           OperRepository operRepository, Loginer loginer) {
+                           OperRepository operRepository) {
         this.menuRepository = menuRepository;
         this.operRepository = operRepository;
-        this.loginer = loginer;
     }
     @Override
     public List<Tree> findMenuTree() {
@@ -61,7 +59,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
 
     @Override
     public List<Tree> findLeftMenuTreeBySelf() {
-        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(loginer.userId());
+        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(Loginer.userId());
 
         return Treer.genTree(tree);
     }

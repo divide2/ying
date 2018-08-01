@@ -56,19 +56,19 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
         if (quotationQueryDTO.getEnabled() != null) {
             query = query.where(quotation.enabled.eq(quotationQueryDTO.getEnabled()));
         }
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getEffectiveStartTime().toString())
-                && StringUtils.isNotEmpty(quotationQueryDTO.getEffectiveEndTime().toString())) {
-            query = query.where(quotation.effectiveStartTime.between(quotationQueryDTO.getEffectiveStartTime(),quotationQueryDTO.getEffectiveEndTime()));
+        if (quotationQueryDTO.getEffectiveStartTime() != null
+                && quotationQueryDTO.getEffectiveEndTime() != null) {
+            query = query.where(quotation.effectiveStartTime.between(quotationQueryDTO.getEffectiveStartTime(), quotationQueryDTO.getEffectiveEndTime()));
         }
         query = query.where(quotation.costServiceCode.eq(costServiceCode)
-                    .and(quotation.companyId.eq(companyId))
-                )
+                .and(quotation.companyId.eq(companyId))
+        )
                 .limit(pageable.getPageSize()).offset(pageable.getOffset());
         return new PageImpl<>(query.fetch(), pageable, query.fetchCount());
     }
 
     @Override
-    public List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory,Quotation qt) {
+    public List<QuotationVO> callHistory(QuotationCallHistory quotationCallHistory, Quotation qt) {
         //todo 根据登陆用户获取客户公司id
         int companyId = 1;
         QQuotation quotation = QQuotation.quotation;

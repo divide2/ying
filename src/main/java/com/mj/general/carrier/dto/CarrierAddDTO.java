@@ -19,10 +19,8 @@ public class CarrierAddDTO {
     private String carrierCode;
 
     @ApiModelProperty("船公司中文名")
-    @NotEmpty
     private String carrierCN;
 
     @ApiModelProperty("船公司英文名")
-    @NotEmpty
     private String carrierEN;
 }

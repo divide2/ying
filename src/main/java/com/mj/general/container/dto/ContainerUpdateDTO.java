@@ -30,13 +30,11 @@ public class ContainerUpdateDTO {
      *柜型中文名
      */
     @ApiModelProperty("柜型中文名")
-    @NotEmpty
     private String containerCN;
 
     /**
      *柜型英文名
      */
     @ApiModelProperty("柜型英文名")
-    @NotEmpty
     private String containerEN;
 }

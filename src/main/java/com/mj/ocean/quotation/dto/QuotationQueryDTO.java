@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
+
 /**
  * @author zejun
  * @date 2018/7/19 10:38
@@ -27,6 +30,9 @@ public class QuotationQueryDTO {
     @ApiModelProperty("有效")
     public Character enabled;
 
-    @ApiModelProperty("有效期")
-    public String yermValidity;
+    @ApiModelProperty("有效开始时间")
+    private LocalDateTime effectiveStartTime;
+
+    @ApiModelProperty("有效结束时间")
+    private LocalDateTime effectiveEndTime;
 }

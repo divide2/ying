@@ -15,6 +15,7 @@ import java.util.Collection;
 @Data
 @Builder
 public class UserDetailsImpl implements UserDetails {
+    private Integer id;
     private String username;
     private String password;
     private String nickname;

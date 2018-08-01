@@ -8,6 +8,7 @@ import com.mj.auth.res.service.MenuService;
 import com.mj.auth.res.val.MenuType;
 import com.mj.core.data.tree.Tree;
 import com.mj.core.data.tree.TreeMerger;
+import com.mj.core.er.Loginer;
 import com.mj.core.er.Treer;
 import com.mj.core.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
 
     @Override
     public List<Tree> findLeftMenuTreeBySelf() {
-        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(8);
+        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(Loginer.userId());
+
         return Treer.genTree(tree);
     }
 }

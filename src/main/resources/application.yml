@@ -22,6 +22,8 @@ spring:
     active: default
   application:
     name: columbu
+  jackson:
+    default-property-inclusion: non_null
 security:
   oauth2:
     resource:

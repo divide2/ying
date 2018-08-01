@@ -15,7 +15,6 @@ import java.util.List;
 @Service
 class UserDetailServiceImpl implements UserDetailsService {
 
-
     @Autowired
     private UserRepository userRepository;
 
@@ -23,8 +22,12 @@ class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         User user = userRepository.getByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("not found");
+        }
         List<SimpleGrantedAuthority> authorities = userRepository.findUserRolesByUsername(username);
         return UserDetailsImpl.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .authorities(authorities)

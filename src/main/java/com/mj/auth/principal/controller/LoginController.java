@@ -1,6 +1,7 @@
 package com.mj.auth.principal.controller;
 
 import com.mj.auth.principal.model.User;
+import com.mj.auth.principal.model.UserDetailsImpl;
 import com.mj.auth.principal.service.UserService;
 import com.mj.auth.principal.dto.JoinDTO;
 import io.swagger.annotations.Api;
@@ -31,8 +32,10 @@ public class LoginController {
     }
 
     @GetMapping("/user")
-    public OAuth2Authentication user(OAuth2Authentication o) {
-        return o;
+    public Object user(OAuth2Authentication o) {
+        UserDetailsImpl principal = (UserDetailsImpl) o.getPrincipal();
+        principal.setPassword(null);
+        return principal;
     }
 
     @PostMapping("/v1/join")

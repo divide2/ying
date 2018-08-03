@@ -220,12 +220,13 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation,Integ
         //插入数据到报价关联表
         List<QuotationCostUpdateDTO> quotationCostUpdates = quotationUpdateDTO.getQuotationCosts();
         for (QuotationCostUpdateDTO qcud : quotationCostUpdates) {
-            QuotationCost quotationCost = quotationCostService.get(qcud.getId());
+            QuotationCost quotationCost = new QuotationCost();
             quotationCost.setType(qcud.getType());
             quotationCost.setOriginalPrice(qcud.getOriginalPrice());
             quotationCost.setCommercePrice(qcud.getCommercePrice());
             quotationCost.setBusinessPrice(qcud.getBusinessPrice());
             quotationCost.setOpenPrice(qcud.getOpenPrice());
+            quotationCost.setQuotationId(quotationUpdateDTO.getId());
             quotationCostService.add(quotationCost);
         }
     }

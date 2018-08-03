@@ -60,13 +60,16 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
         }
         sql += " and ofpc.company_id = " + companyId;
         sql += " group by ofpc.id ";
-        Query query = entityManager.createNativeQuery(sql);
+        Query query = entityManager.createNativeQuery(sql).setFirstResult(pageable.getPageNumber()).setMaxResults(Long.valueOf(pageable.getOffset()).intValue());
+
         for (int i = 1; i <= params.size(); i++) {
             query.setParameter(i, params.get(i-1));
         }
         String countSql = "select count(*) from (" + sql + ")";
         Query countQuery = entityManager.createNativeQuery(countSql);
-
+        for (int i = 1; i <= params.size(); i++) {
+            countQuery.setParameter(i, params.get(i-1));
+        }
         List<Object[]> results = query.getResultList();
         List<CombinationVO> combinationVOS = results.stream()
                 .map(o -> new CombinationVO((Integer) o[0], (String) o[1], (Character)o[2], (String) o[3], (String) o[4], (String)o[5], (String)o[6])).collect(Collectors.toList());

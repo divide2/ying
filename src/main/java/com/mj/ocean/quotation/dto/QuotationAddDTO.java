@@ -56,11 +56,11 @@ public class QuotationAddDTO {
     public String remarks;
 
     @ApiModelProperty("有效开始时间")
-    @NotEmpty
+    @NotNull
     private LocalDateTime effectiveStartTime;
 
     @ApiModelProperty("有效结束时间")
-    @NotEmpty
+    @NotNull
     private LocalDateTime effectiveEndTime;
 
     @ApiModelProperty("成本代码id")

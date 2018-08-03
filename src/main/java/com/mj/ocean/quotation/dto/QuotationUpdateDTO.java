@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,11 +51,11 @@ public class QuotationUpdateDTO {
     public String remarks;
 
     @ApiModelProperty("有效开始时间")
-    @NotEmpty
+    @NotNull
     private LocalDateTime effectiveStartTime;
 
     @ApiModelProperty("有效结束时间")
-    @NotEmpty
+    @NotNull
     private LocalDateTime effectiveEndTime;
 
     @ApiModelProperty("成本代码id")

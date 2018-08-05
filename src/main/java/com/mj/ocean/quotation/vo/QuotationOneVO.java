@@ -82,4 +82,34 @@ public class QuotationOneVO {
 
     @ApiModelProperty("柜型的价格")
     private List<QuotationCostVO> quotationCosts;
+
+    /**
+     * 不包含quotationCosts
+     * @param quotationVO vo
+     * @return quotationOne
+     */
+    public static QuotationOneVO fromQuotationVO(QuotationVO quotationVO) {
+        return QuotationOneVO.builder()
+                .carrierCode(quotationVO.getCarrierCode())
+                .carrierId(quotationVO.getCarrierId())
+                .costCode(quotationVO.getCostCode())
+                .costId(quotationVO.getCostId())
+                .costServiceCode(quotationVO.getCostServiceCode())
+                .currency(quotationVO.getCurrency())
+                .effectiveEndTime(quotationVO.getEffectiveEndTime())
+                .effectiveStartTime(quotationVO.getEffectiveStartTime())
+                .etc(quotationVO.getEtc())
+                .etd(quotationVO.getEtd())
+                .id(quotationVO.getId())
+                .portDestination(quotationVO.getPortDestination())
+                .portShipment(quotationVO.getPortShipment())
+                .portShipmentId(quotationVO.getPortShipmentId())
+                .portDestinationId(quotationVO.getPortDestinationId())
+                .tt(quotationVO.getTt())
+                .remarks(quotationVO.getRemarks())
+                .routeCode(quotationVO.getRouteCode())
+                .transitPort(quotationVO.getTransitPort())
+                .routeId(quotationVO.getRouteId())
+                .build();
+    }
 }

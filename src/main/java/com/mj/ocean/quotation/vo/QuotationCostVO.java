@@ -1,5 +1,6 @@
 package com.mj.ocean.quotation.vo;
 
+import com.mj.ocean.quotation.model.QuotationCost;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,4 +37,15 @@ public class QuotationCostVO {
 
     @ApiModelProperty("柜型，20GP，40GP，40HC，45HC")
     private String type;
+
+    public static QuotationCostVO of(QuotationCost quotationCost) {
+        return QuotationCostVO.builder()
+                .id(quotationCost.getId())
+                .quotationId(quotationCost.getQuotationId())
+                .originalPrice(quotationCost.getOriginalPrice())
+                .businessPrice(quotationCost.getBusinessPrice())
+                .commercePrice(quotationCost.getCommercePrice())
+                .openPrice(quotationCost.getOpenPrice())
+                .type(quotationCost.getType()).build();
+    }
 }

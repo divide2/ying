@@ -8,7 +8,6 @@ import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
 import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationOneVO;
-import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -52,7 +51,7 @@ public interface QuotationService extends BasicService<Quotation,Integer> {
      * @param pageable sql数据
      * @return Page<QuotationInfoVO>
      */
-    Page<QuotationInfoVO> find(String costServiceCode,QuotationQueryDTO quotationQueryDTO, Pageable pageable);
+    Page<QuotationOneVO> find(String costServiceCode,QuotationQueryDTO quotationQueryDTO, Pageable pageable);
 
     /**
      * 调用历史数据

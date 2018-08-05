@@ -23,7 +23,6 @@ import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationOneVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -272,28 +271,15 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation, Inte
 
 
     @Override
-    public Page<QuotationInfoVO> find(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
-        Page<QuotationVO> vos = quotationRepository.findAll(costServiceCode, quotationQueryDTO, pageable);
-        List<QuotationInfoVO> lists = new ArrayList<>();
-        for (QuotationVO vo : vos) {
-            QuotationInfoVO quotationInfoVO = new QuotationInfoVO();
-            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(vo.getId());
-            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(
-                    it -> QuotationCostVO.builder()
-                            .id(it.getId())
-                            .quotationId(it.getQuotationId())
-                            .originalPrice(it.getOriginalPrice())
-                            .businessPrice(it.getBusinessPrice())
-                            .commercePrice(it.getCommercePrice())
-                            .openPrice(it.getOpenPrice())
-                            .type(it.getType()).build()
-            ).collect(Collectors.toList());
-            quotationInfoVO.setQuotationVO(vo);
-            quotationInfoVO.setQuotationCosts(quotationCostVOS);
-            lists.add(quotationInfoVO);
-        }
-        Page<QuotationInfoVO> page = new PageImpl<>(lists, vos.getPageable(), vos.getTotalElements());
-        return page;
+    public Page<QuotationOneVO> find(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
+        Page<QuotationVO> quotations = quotationRepository.findAll(costServiceCode, quotationQueryDTO, pageable);
+        return quotations.map(it -> {
+            QuotationOneVO quotationOneVO = QuotationOneVO.fromQuotationVO(it);
+            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(it.getId());
+            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(QuotationCostVO::of).collect(Collectors.toList());
+            quotationOneVO.setQuotationCosts(quotationCostVOS);
+            return quotationOneVO;
+        });
     }
 
     private List<QuotationInfoVO> toList(List<QuotationVO> quotationVOS) {

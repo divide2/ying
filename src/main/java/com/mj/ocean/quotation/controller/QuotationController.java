@@ -73,8 +73,8 @@ public class QuotationController {
 
     @GetMapping("/find/{costServiceCode}")
     @ApiOperation("分页查询")
-    public ResponseEntity<Page<QuotationInfoVO>> find(@PathVariable String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable){
-        Page<QuotationInfoVO> quotations = quotationService.find(costServiceCode,quotationQueryDTO,pageable);
+    public ResponseEntity<Page<QuotationOneVO>> find(@PathVariable String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable){
+        Page<QuotationOneVO> quotations = quotationService.find(costServiceCode,quotationQueryDTO,pageable);
         return ResponseEntity.ok(quotations);
     }
 

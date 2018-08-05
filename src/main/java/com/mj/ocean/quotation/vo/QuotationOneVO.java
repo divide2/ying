@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -81,5 +80,6 @@ public class QuotationOneVO {
     @ApiModelProperty("报价类别")
     private String costServiceCode;
 
+    @ApiModelProperty("柜型的价格")
     private List<QuotationCostVO> quotationCosts;
 }

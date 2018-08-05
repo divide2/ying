@@ -7,7 +7,6 @@ import com.mj.ocean.quotation.model.Quotation;
 import com.mj.ocean.quotation.repo.custom.QuotationRepositoryCustom;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -41,17 +40,17 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.remarks, quotation.effectiveStartTime, quotation.effectiveEndTime,
                 quotation.costId, quotation.costCode, quotation.costServiceCode,
                 quotation.enabled)).from(quotation);
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getCarrierCode())) {
-            query = query.where(quotation.carrierCode.like("%" + quotationQueryDTO.getCarrierCode() + "%"));
+        if (quotationQueryDTO.getCarrierId() != null) {
+            query = query.where(quotation.carrierId.eq(quotationQueryDTO.getCarrierId()));
         }
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getPortShipment())) {
-            query = query.where(quotation.portShipment.like("%" + quotationQueryDTO.getPortShipment() + "%"));
+        if (quotationQueryDTO.getPomId() != null) {
+            query = query.where(quotation.portShipmentId.eq(quotationQueryDTO.getPomId()));
         }
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getPortDestination())) {
-            query = query.where(quotation.portDestination.like("%" + quotationQueryDTO.getPortDestination() + "%"));
+        if (quotationQueryDTO.getPodId() != null) {
+            query = query.where(quotation.portDestinationId.eq(quotationQueryDTO.getPodId()));
         }
-        if (StringUtils.isNotEmpty(quotationQueryDTO.getRouteCode())) {
-            query = query.where(quotation.routeCode.like("%" + quotationQueryDTO.getRouteCode() + "%"));
+        if (quotationQueryDTO.getRouteId() != null) {
+            query = query.where(quotation.routeId.eq(quotationQueryDTO.getRouteId()));
         }
         if (quotationQueryDTO.getEnabled() != null) {
             query = query.where(quotation.enabled.eq(quotationQueryDTO.getEnabled()));

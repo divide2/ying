@@ -32,7 +32,6 @@ public class RouteAddDTO {
     private String routeDesc;
 
     @ApiModelProperty("航线图")
-    @NotEmpty
     private String routeMapUrl;
 
     @ApiModelProperty("港口数据集")

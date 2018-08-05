@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 
 /**
@@ -16,16 +15,16 @@ import java.time.LocalDateTime;
 public class QuotationQueryDTO {
 
     @ApiModelProperty("船公司")
-    public String carrierCode;
+    public Integer carrierId;
 
     @ApiModelProperty("起运港口")
-    public String portShipment;
+    public Integer pomId;
 
     @ApiModelProperty("目的港口")
-    public String portDestination;
+    public Integer podId;
 
     @ApiModelProperty("航线代码")
-    public String routeCode;
+    public Integer routeId;
 
     @ApiModelProperty("有效")
     public Character enabled;

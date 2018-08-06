@@ -1,6 +1,6 @@
 package com.mj.doc.article.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.doc.article.dto.ArticleAddDTO;
 import com.mj.doc.article.dto.ArticleQueryDTO;
 import com.mj.doc.article.dto.ArticleUpdateDTO;

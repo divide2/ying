@@ -2,7 +2,7 @@ package com.mj.biz.demo.service;
 
 import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

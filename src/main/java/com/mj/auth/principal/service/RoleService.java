@@ -4,7 +4,7 @@ import com.mj.auth.principal.dto.RoleAddAuthDTO;
 import com.mj.auth.principal.dto.RoleAddUsersDTO;
 import com.mj.auth.principal.dto.RoleQueryDTO;
 import com.mj.auth.principal.model.Role;
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

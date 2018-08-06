@@ -1,6 +1,6 @@
 package com.mj.general.carrier.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
 import com.mj.general.carrier.model.Carrier;

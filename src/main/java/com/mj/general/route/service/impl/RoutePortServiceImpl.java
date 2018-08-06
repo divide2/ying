@@ -1,6 +1,6 @@
 package com.mj.general.route.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.route.model.RoutePort;
 import com.mj.general.route.repo.RoutePortRepository;
 import com.mj.general.route.service.RoutePortService;

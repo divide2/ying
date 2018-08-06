@@ -1,6 +1,6 @@
 package com.mj.general.container.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.general.container.dto.ContainerCheckDTO;
 import com.mj.general.container.dto.ContainerQueryDTO;
 import com.mj.general.container.model.Container;

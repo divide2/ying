@@ -13,7 +13,7 @@ import com.mj.auth.principal.repo.UserRoleRepository;
 import com.mj.auth.principal.service.RoleService;
 import com.mj.auth.res.model.Menu;
 import com.mj.auth.res.service.MenuService;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;

@@ -7,10 +7,9 @@ import com.mj.auth.acl.vo.AclOperBO;
 import com.mj.auth.principal.model.Role;
 import com.mj.auth.res.model.QOper;
 import com.querydsl.jpa.impl.JPAQuery;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,10 +18,9 @@ import static com.querydsl.core.types.Projections.constructor;
 /**
  * @author bvvy
  */
-@Repository
 public class AclRepositoryImpl implements AclRepositoryCustom {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

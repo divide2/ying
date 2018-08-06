@@ -1,6 +1,6 @@
 package com.mj.ocean.costcode.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.costcode.model.CostCodeAssociated;
 import com.mj.ocean.costcode.repo.CostCodeAssociatedRepository;
 import com.mj.ocean.costcode.service.CostCodeAssociatedService;

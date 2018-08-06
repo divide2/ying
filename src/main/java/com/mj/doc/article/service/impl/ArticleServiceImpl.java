@@ -3,7 +3,7 @@ package com.mj.doc.article.service.impl;
 import com.mj.core.data.properties.PublishStatusProperties;
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.er.Loginer;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.core.val.Punctuation;
 import com.mj.doc.article.dto.ArticleAddDTO;
 import com.mj.doc.article.dto.ArticleQueryDTO;

@@ -2,7 +2,7 @@ package com.mj.ocean.surcharge.service.impl;
 
 import com.mj.core.data.properties.CostTypeProperties;
 import com.mj.core.data.properties.StatusProperties;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.port.model.Port;
 import com.mj.ocean.basic.service.OceanGeneralService;

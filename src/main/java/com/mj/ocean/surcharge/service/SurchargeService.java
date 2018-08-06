@@ -1,6 +1,6 @@
 package com.mj.ocean.surcharge.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.ocean.surcharge.dto.SurchargeAddDTO;
 import com.mj.ocean.surcharge.dto.SurchargeQueryDTO;
 import com.mj.ocean.surcharge.dto.SurchargeUpdateDTO;

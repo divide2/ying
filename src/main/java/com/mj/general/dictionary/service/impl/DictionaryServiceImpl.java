@@ -1,6 +1,6 @@
 package com.mj.general.dictionary.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.dictionary.model.Dictionary;
 import com.mj.general.dictionary.repo.DictionaryRepository;
 import com.mj.general.dictionary.service.DictionaryService;

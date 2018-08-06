@@ -11,6 +11,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import sun.reflect.generics.tree.Tree;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -82,7 +83,8 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 quotation.etd, quotation.transitPort, quotation.tt, quotation.currency,
                 quotation.remarks, quotation.effectiveStartTime, quotation.effectiveEndTime,
                 quotation.costId, quotation.costCode, quotation.costServiceCode,
-                quotation.enabled)).from(quotation)
+                quotation.enabled))
+                .from(quotation)
                 .where(quotation.carrierId.eq(quotationCallHistory.getCarrierId())
                         .and(quotation.portShipmentCombinationId.eq(quotationCallHistory.getPortShipmentCombinationId()))
                         .and(quotation.portDestinationCombinationId.eq(quotationCallHistory.getPortDestinationCombinationId()))

@@ -1,6 +1,6 @@
 package com.mj.ocean.quotation.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.quotation.model.QuotationCost;
 import com.mj.ocean.quotation.repo.QuotationCostRepository;
 import com.mj.ocean.quotation.service.QuotationCostService;

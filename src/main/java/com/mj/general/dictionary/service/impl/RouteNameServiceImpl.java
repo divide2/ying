@@ -1,6 +1,6 @@
 package com.mj.general.dictionary.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.dictionary.model.GeneralRouteJointName;
 import com.mj.general.dictionary.repo.RouteNameRepository;
 import com.mj.general.dictionary.service.RouteNameService;

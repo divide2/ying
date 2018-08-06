@@ -2,7 +2,7 @@ package com.mj.general.route.service.impl;
 
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.core.val.Punctuation;
 import com.mj.general.carrier.model.Carrier;
 import com.mj.general.carrier.repo.CarrierRepository;

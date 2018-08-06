@@ -3,7 +3,7 @@ package com.mj.auth.res.service.impl;
 import com.mj.auth.res.model.Api;
 import com.mj.auth.res.repo.ApiRepository;
 import com.mj.auth.res.service.ApiService;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**

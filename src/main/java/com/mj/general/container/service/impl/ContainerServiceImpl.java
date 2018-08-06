@@ -2,7 +2,7 @@ package com.mj.general.container.service.impl;
 
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.container.dto.ContainerCheckDTO;
 import com.mj.general.container.dto.ContainerQueryDTO;
 import com.mj.general.container.model.Container;

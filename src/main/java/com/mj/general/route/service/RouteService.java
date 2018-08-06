@@ -1,6 +1,6 @@
 package com.mj.general.route.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.general.route.dto.RouteAddDTO;
 import com.mj.general.route.dto.RouteCheckDTO;
 import com.mj.general.route.dto.RouteQueryDTO;

@@ -4,7 +4,7 @@ import com.mj.biz.demo.model.Student;
 import com.mj.biz.demo.repo.StudentRepository;
 import com.mj.biz.demo.service.StudentService;
 import com.mj.biz.demo.vo.StudentWithClazzNameVO;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -3,7 +3,7 @@ package com.mj.auth.principal.service;
 
 import com.mj.auth.principal.dto.UserQueryDTO;
 import com.mj.auth.principal.model.User;
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

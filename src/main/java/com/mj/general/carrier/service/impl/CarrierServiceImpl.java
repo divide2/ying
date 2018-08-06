@@ -3,7 +3,7 @@ package com.mj.general.carrier.service.impl;
 import com.google.common.collect.Lists;
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.carrier.dto.CarrierCheckDTO;
 import com.mj.general.carrier.dto.CarrierQueryDTO;
 import com.mj.general.carrier.model.Carrier;

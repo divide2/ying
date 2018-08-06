@@ -1,4 +1,4 @@
-package com.mj.core.service;
+package com.mj.core.basic.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

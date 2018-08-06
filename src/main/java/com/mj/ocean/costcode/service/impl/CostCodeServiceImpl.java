@@ -2,7 +2,7 @@ package com.mj.ocean.costcode.service.impl;
 
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.costcode.dto.*;
 import com.mj.ocean.costcode.model.CostCode;
 import com.mj.ocean.costcode.model.CostCodeAssociated;
@@ -13,7 +13,6 @@ import com.mj.ocean.costcode.service.CostCodeAssociatedService;
 import com.mj.ocean.costcode.service.CostCodeService;
 import com.mj.ocean.costcode.vo.CostCodeAssociatedVO;
 import com.mj.ocean.costcode.vo.CostCodeVO;
-import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;

@@ -1,7 +1,7 @@
 package com.mj.auth.res.service;
 
 import com.mj.auth.res.model.Api;
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 
 /**
  * @author bvvy

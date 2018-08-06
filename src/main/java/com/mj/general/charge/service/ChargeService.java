@@ -1,8 +1,6 @@
 package com.mj.general.charge.service;
 
-import com.mj.core.service.BasicService;
-import com.mj.general.carrier.dto.CarrierQueryDTO;
-import com.mj.general.charge.dto.ChargeAddDTO;
+import com.mj.core.basic.service.BasicService;
 import com.mj.general.charge.dto.ChargeCheckDTO;
 import com.mj.general.charge.dto.ChargeQueryDTO;
 import com.mj.general.charge.model.Charge;

@@ -1,5 +1,7 @@
 package com.mj.ocean.portcombination.repo.impl;
 
+import com.mj.core.basic.custom.BasicCustomRepository;
+import com.mj.core.basic.custom.impl.SimpleBasicCustomRepositoryImpl;
 import com.mj.ocean.portcombination.dto.CombinationQueryDTO;
 import com.mj.ocean.portcombination.model.QPortCombination;
 import com.mj.ocean.portcombination.model.QPortCombinationAssociated;
@@ -9,14 +11,12 @@ import com.mj.ocean.portcombination.vo.CombinationVO;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.querydsl.core.types.Projections.constructor;
 
@@ -25,16 +25,21 @@ import static com.querydsl.core.types.Projections.constructor;
  * @author zejun
  * @date 2018/7/16 09:46
  */
-public class PortCombinationRepositoryImpl implements PortCombinationRepositoryCustom {
+@Repository
+public class PortCombinationRepositoryImpl extends SimpleBasicCustomRepositoryImpl
+        implements PortCombinationRepositoryCustom, BasicCustomRepository {
+
 
     private final EntityManager entityManager;
 
     public PortCombinationRepositoryImpl(EntityManager entityManager) {
+        super(entityManager);
         this.entityManager = entityManager;
     }
 
+
     @Override
-    public Page<CombinationVO> findAll(Integer companyId,CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
+    public Page<CombinationVO> findAll(Integer companyId, CombinationQueryDTO combinationQueryDTO, Pageable pageable) {
         List<String> params = new ArrayList<>();
         String sql = "SELECT\n" +
                 "ofpc.id, \n" +
@@ -52,7 +57,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
                 "general_port gp on gp.id = pczh.port_id where 1=1";
         if (StringUtils.isNotEmpty(combinationQueryDTO.getCombinationName())) {
             sql += " and ofpc.combination_name like ?";
-            params.add("%"+combinationQueryDTO.getCombinationName()+"%");
+            params.add("%" + combinationQueryDTO.getCombinationName() + "%");
         }
         if (StringUtils.isNotEmpty(combinationQueryDTO.getCarrierCode())) {
             sql += " and gc.id = ?";
@@ -60,21 +65,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
         }
         sql += " and ofpc.company_id = " + companyId;
         sql += " group by ofpc.id ";
-        Query query = entityManager.createNativeQuery(sql).setFirstResult(pageable.getPageNumber()).setMaxResults(Long.valueOf(pageable.getOffset()).intValue());
-
-        for (int i = 1; i <= params.size(); i++) {
-            query.setParameter(i, params.get(i-1));
-        }
-        String countSql = "select count(*) from (" + sql + ")";
-        Query countQuery = entityManager.createNativeQuery(countSql);
-        for (int i = 1; i <= params.size(); i++) {
-            countQuery.setParameter(i, params.get(i-1));
-        }
-        List<Object[]> results = query.getResultList();
-        List<CombinationVO> combinationVOS = results.stream()
-                .map(o -> new CombinationVO((Integer) o[0], (String) o[1], (Character)o[2], (String) o[3], (String) o[4], (String)o[5], (String)o[6])).collect(Collectors.toList());
-        long count = countQuery.getFirstResult();
-        return new PageImpl<>(combinationVOS, pageable, count);
+        return this.findBySql(sql, CombinationVO.class, pageable, params.toArray());
     }
 
     @Override
@@ -84,7 +75,7 @@ public class PortCombinationRepositoryImpl implements PortCombinationRepositoryC
         QPortCombination portCombination = QPortCombination.portCombination;
         QPortCombinationAssociated portCombinationAssociated = QPortCombinationAssociated.portCombinationAssociated;
         JPAQuery<CombinationAllVO> query = new JPAQuery<>(entityManager);
-        query = query.select(constructor(CombinationAllVO.class,portCombination.id,portCombination.combinationName))
+        query = query.select(constructor(CombinationAllVO.class, portCombination.id, portCombination.combinationName))
                 .from(portCombination)
                 .leftJoin(portCombinationAssociated)
                 .on(portCombination.id.eq(portCombinationAssociated.combinationId))

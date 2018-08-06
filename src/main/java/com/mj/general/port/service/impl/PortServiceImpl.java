@@ -3,7 +3,7 @@ package com.mj.general.port.service.impl;
 import com.google.common.collect.Lists;
 import com.mj.core.data.properties.StatusProperties;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
 import com.mj.general.port.model.Port;

@@ -1,6 +1,6 @@
 package com.mj.doc.tag.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.doc.tag.model.Tag;
 import com.mj.doc.tag.repo.TagRepository;
 import com.mj.doc.tag.service.TagService;

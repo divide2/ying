@@ -6,7 +6,7 @@ import com.mj.auth.principal.model.User;
 import com.mj.auth.principal.repo.UserRepository;
 import com.mj.auth.principal.service.UserService;
 import com.mj.core.exception.AlreadyExistsException;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;

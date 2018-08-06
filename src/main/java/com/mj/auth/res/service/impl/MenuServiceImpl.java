@@ -10,7 +10,7 @@ import com.mj.core.data.tree.Tree;
 import com.mj.core.data.tree.TreeMerger;
 import com.mj.core.er.Loginer;
 import com.mj.core.er.Treer;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

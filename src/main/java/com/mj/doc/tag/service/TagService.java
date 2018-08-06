@@ -1,6 +1,6 @@
 package com.mj.doc.tag.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.doc.tag.model.Tag;
 import com.mj.doc.tag.vo.TagVO;
 

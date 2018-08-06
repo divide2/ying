@@ -1,6 +1,6 @@
-package com.mj.core.service.impl;
+package com.mj.core.basic.service.impl;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

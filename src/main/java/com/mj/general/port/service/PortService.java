@@ -1,6 +1,6 @@
 package com.mj.general.port.service;
 
-import com.mj.core.service.BasicService;
+import com.mj.core.basic.service.BasicService;
 import com.mj.general.port.dto.PortCheckDTO;
 import com.mj.general.port.dto.PortQueryDTO;
 import com.mj.general.port.model.Port;

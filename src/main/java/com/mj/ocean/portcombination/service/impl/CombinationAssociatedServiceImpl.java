@@ -1,6 +1,6 @@
 package com.mj.ocean.portcombination.service.impl;
 
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.ocean.portcombination.model.PortCombinationAssociated;
 import com.mj.ocean.portcombination.repo.CombinationAssociatedRepository;
 import com.mj.ocean.portcombination.service.CombinationAssociatedService;

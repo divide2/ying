@@ -7,7 +7,7 @@ import com.mj.auth.res.repo.MenuRepository;
 import com.mj.auth.res.repo.OperRepository;
 import com.mj.auth.res.service.OperService;
 import com.mj.auth.res.val.MenuType;
-import com.mj.core.service.impl.SimpleBasicServiceImpl;
+import com.mj.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.mj.core.val.Punctuation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

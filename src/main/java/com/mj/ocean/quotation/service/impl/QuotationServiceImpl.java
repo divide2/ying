@@ -19,7 +19,6 @@ import com.mj.ocean.quotation.repo.QuotationRepository;
 import com.mj.ocean.quotation.service.QuotationCostService;
 import com.mj.ocean.quotation.service.QuotationService;
 import com.mj.ocean.quotation.vo.QuotationCostVO;
-import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationOneVO;
 import com.mj.ocean.quotation.vo.QuotationVO;
 import org.springframework.data.domain.Page;
@@ -28,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -273,45 +271,26 @@ public class QuotationServiceImpl extends SimpleBasicServiceImpl<Quotation, Inte
     @Override
     public Page<QuotationOneVO> find(String costServiceCode, QuotationQueryDTO quotationQueryDTO, Pageable pageable) {
         Page<QuotationVO> quotations = quotationRepository.findAll(costServiceCode, quotationQueryDTO, pageable);
-        return quotations.map(it -> {
-            QuotationOneVO quotationOneVO = QuotationOneVO.fromQuotationVO(it);
-            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(it.getId());
-            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(QuotationCostVO::of).collect(Collectors.toList());
-            quotationOneVO.setQuotationCosts(quotationCostVOS);
-            return quotationOneVO;
-        });
+        return quotations.map(this::getQuotationOneVO);
     }
 
-    private List<QuotationInfoVO> toList(List<QuotationVO> quotationVOS) {
-        List<QuotationInfoVO> lists = new ArrayList<>();
-        for (QuotationVO vo : quotationVOS) {
-            QuotationInfoVO quotationInfoVO = new QuotationInfoVO();
-            List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(vo.getId());
-            List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(
-                    it -> QuotationCostVO.builder()
-                            .id(it.getId())
-                            .type(it.getType())
-                            .originalPrice(it.getOriginalPrice())
-                            .businessPrice(it.getBusinessPrice())
-                            .commercePrice(it.getCommercePrice())
-                            .openPrice(it.getOpenPrice())
-                            .quotationId(it.getQuotationId()).build()
-            ).collect(Collectors.toList());
-            quotationInfoVO.setQuotationVO(vo);
-            quotationInfoVO.setQuotationCosts(quotationCostVOS);
-            lists.add(quotationInfoVO);
-        }
-        return lists;
+
+    private QuotationOneVO getQuotationOneVO(QuotationVO it) {
+        QuotationOneVO quotationOneVO = QuotationOneVO.ofQuotationVO(it);
+        List<QuotationCost> quotationCosts = quotationCostRepository.findByQuotationId(it.getId());
+        List<QuotationCostVO> quotationCostVOS = quotationCosts.stream().map(QuotationCostVO::of).collect(Collectors.toList());
+        quotationOneVO.setQuotationCosts(quotationCostVOS);
+        return quotationOneVO;
     }
 
     @Override
-    public List<QuotationInfoVO> callHistory(QuotationCallHistory quotationCallHistory) {
+    public List<QuotationOneVO> callHistory(QuotationCallHistory quotationCallHistory) {
         //todo 标准报价
         int companyId = 1;
-        String costServiceCode = "general";
         List<Quotation> quotation = quotationRepository.findOrderByCreatedDateDesc(companyId);
         List<QuotationVO> quotationVOS = quotationRepository.callHistory(quotationCallHistory, quotation.get(0));
-        return toList(quotationVOS);
+        return quotationVOS.stream().map(this::getQuotationOneVO).collect(Collectors.toList());
+
     }
 
     @Override

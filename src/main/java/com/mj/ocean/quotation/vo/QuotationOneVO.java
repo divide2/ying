@@ -80,6 +80,9 @@ public class QuotationOneVO {
     @ApiModelProperty("报价类别")
     private String costServiceCode;
 
+    @ApiModelProperty("启用/禁用 Y/N")
+    private Character enabled;
+
     @ApiModelProperty("柜型的价格")
     private List<QuotationCostVO> quotationCosts;
 
@@ -88,7 +91,7 @@ public class QuotationOneVO {
      * @param quotationVO vo
      * @return quotationOne
      */
-    public static QuotationOneVO fromQuotationVO(QuotationVO quotationVO) {
+    public static QuotationOneVO ofQuotationVO(QuotationVO quotationVO) {
         return QuotationOneVO.builder()
                 .carrierCode(quotationVO.getCarrierCode())
                 .carrierId(quotationVO.getCarrierId())
@@ -110,6 +113,8 @@ public class QuotationOneVO {
                 .routeCode(quotationVO.getRouteCode())
                 .transitPort(quotationVO.getTransitPort())
                 .routeId(quotationVO.getRouteId())
+                .enabled(quotationVO.getEnabled())
                 .build();
     }
+
 }

@@ -8,7 +8,6 @@ import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
 import com.mj.ocean.quotation.service.QuotationService;
-import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationOneVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -80,8 +79,8 @@ public class QuotationController {
 
     @GetMapping("/history")
     @ApiOperation("调用历史记录")
-    public ResponseEntity<List<QuotationInfoVO>> callHistory(QuotationCallHistory quotationCallHistory,BindingResult br) {
-        List<QuotationInfoVO> vos = quotationService.callHistory(quotationCallHistory);
+    public ResponseEntity<List<QuotationOneVO>> callHistory(QuotationCallHistory quotationCallHistory) {
+        List<QuotationOneVO> vos = quotationService.callHistory(quotationCallHistory);
         return ResponseEntity.ok(vos);
     }
 }

@@ -6,7 +6,6 @@ import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.dto.QuotationUpdateDTO;
 import com.mj.ocean.quotation.model.Quotation;
-import com.mj.ocean.quotation.vo.QuotationInfoVO;
 import com.mj.ocean.quotation.vo.QuotationOneVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -58,7 +57,7 @@ public interface QuotationService extends BasicService<Quotation,Integer> {
      * @param quotationCallHistory 调用历史数据时查询条件
      * @return List<QuotationInfoVO>
      */
-    List<QuotationInfoVO> callHistory(QuotationCallHistory quotationCallHistory);
+    List<QuotationOneVO> callHistory(QuotationCallHistory quotationCallHistory);
 
     /**
      * 切换状态

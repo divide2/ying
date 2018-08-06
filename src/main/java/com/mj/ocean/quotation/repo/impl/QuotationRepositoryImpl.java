@@ -1,5 +1,6 @@
 package com.mj.ocean.quotation.repo.impl;
 
+import com.mj.core.data.properties.CostTypeProperties;
 import com.mj.ocean.quotation.dto.QuotationCallHistory;
 import com.mj.ocean.quotation.dto.QuotationQueryDTO;
 import com.mj.ocean.quotation.model.QQuotation;
@@ -22,9 +23,12 @@ import static com.querydsl.core.types.Projections.constructor;
  */
 public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
     private final EntityManager entityManager;
+    private final CostTypeProperties costType;
 
-    public QuotationRepositoryImpl(EntityManager entityManager) {
+    public QuotationRepositoryImpl(EntityManager entityManager,
+                                   CostTypeProperties costType) {
         this.entityManager = entityManager;
+        this.costType = costType;
     }
 
     @Override
@@ -82,7 +86,7 @@ public class QuotationRepositoryImpl implements QuotationRepositoryCustom {
                 .where(quotation.carrierId.eq(quotationCallHistory.getCarrierId())
                         .and(quotation.portShipmentCombinationId.eq(quotationCallHistory.getPortShipmentCombinationId()))
                         .and(quotation.portDestinationCombinationId.eq(quotationCallHistory.getPortDestinationCombinationId()))
-                        .and(quotation.costServiceCode.eq("general"))
+                        .and(quotation.costServiceCode.eq(costType.getGeneral()))
                         .and(quotation.companyId.eq(companyId))
                 );
         if (qt != null) {

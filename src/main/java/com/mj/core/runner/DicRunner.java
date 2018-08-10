@@ -1,8 +1,9 @@
 package com.mj.core.runner;
 
 import com.mj.core.data.properties.DicProperties;
+import com.mj.core.val.Punctuation;
 import com.mj.general.dictionary.model.Dictionary;
-import com.mj.general.dictionary.service.DictionaryService;
+import com.mj.general.dictionary.repo.DictionaryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -19,13 +20,13 @@ import java.util.Map;
 public class DicRunner implements CommandLineRunner {
 
     private final DicProperties dicProperties;
-    private final DictionaryService dictionaryService;
+    private final DictionaryRepository dictionaryRepository;
 
     public DicRunner(
             DicProperties dicProperties,
-            DictionaryService dictionaryService) {
+            DictionaryRepository dictionaryRepository) {
         this.dicProperties = dicProperties;
-        this.dictionaryService = dictionaryService;
+        this.dictionaryRepository = dictionaryRepository;
     }
 
 
@@ -36,14 +37,34 @@ public class DicRunner implements CommandLineRunner {
         dics.forEach((gk, gv) -> {
             gv.forEach((k, v) -> {
                 log.info("init dictionary into db group->{}  code-> {}  value->{}", gk, k, v);
-                Dictionary dictionary = Dictionary.builder()
-                        .groupCode(gk)
-                        .code(k)
-                        .value(v)
-                        .build();
-                dictionaryService.add(dictionary);
+                String groupCode = minus2Upper(gk);
+                Dictionary dictionary = dictionaryRepository.getByGroupCodeAndCode(groupCode, k);
+                if (dictionary == null) {
+                    dictionary = new Dictionary();
+                }
+                dictionary.setGroupCode(groupCode);
+                dictionary.setCode(k);
+                dictionary.setValue(v);
+                dictionaryRepository.save(dictionary);
             });
         });
         log.info("init dictionary completed");
     }
+
+    /**
+     * 目前只能用于一个短线的
+     * abc-abc -> abcAbc
+     * @param word word
+     * @return word
+     */
+    private static String minus2Upper(String word) {
+        int index = word.indexOf(Punctuation.MINUS);
+        if (index > 0) {
+            return word.substring(0, index) +
+                    word.substring(index+1, index + 2).toUpperCase() +
+                    word.substring(index + 2);
+        }
+        return word;
+    }
+
 }

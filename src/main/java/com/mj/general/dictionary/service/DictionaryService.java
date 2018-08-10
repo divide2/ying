@@ -8,4 +8,11 @@ import com.mj.general.dictionary.model.Dictionary;
  * @date 2018/7/30 09:19
  */
 public interface DictionaryService extends BasicService<Dictionary,Integer> {
+    /**
+     * 通过group code 和 code 获取dic
+     * @param groupCode group code
+     * @param code code
+     * @return dic
+     */
+    Dictionary getByGroupCodeAndCode(String groupCode, String code);
 }

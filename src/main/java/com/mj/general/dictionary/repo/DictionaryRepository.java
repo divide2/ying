@@ -10,5 +10,14 @@ import org.springframework.stereotype.Repository;
  * @date 2018/7/30 09:20
  */
 @Repository
-public interface DictionaryRepository extends JpaRepository<Dictionary,Integer>,QuerydslPredicateExecutor<Dictionary> {
+public interface DictionaryRepository extends JpaRepository<Dictionary, Integer>, QuerydslPredicateExecutor<Dictionary> {
+
+    /**
+     * 通过 group code he code 获取
+     *
+     * @param groupCode group code
+     * @param code      code
+     * @return dic
+     */
+    Dictionary getByGroupCodeAndCode(String groupCode, String code);
 }

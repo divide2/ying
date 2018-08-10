@@ -31,5 +31,9 @@ public interface Punctuation {
      */
     String DOT = ".";
 
+    /**
+     * 减号
+     */
+    String MINUS = "-";
 
 }

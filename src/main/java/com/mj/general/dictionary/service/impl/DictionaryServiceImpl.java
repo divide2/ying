@@ -18,4 +18,9 @@ public class DictionaryServiceImpl extends SimpleBasicServiceImpl<Dictionary,Int
     public DictionaryServiceImpl(DictionaryRepository dictionaryRepository) {
         this.dictionaryRepository = dictionaryRepository;
     }
+
+    @Override
+    public Dictionary getByGroupCodeAndCode(String groupCode, String code) {
+        return dictionaryRepository.getByGroupCodeAndCode(groupCode, code);
+    }
 }

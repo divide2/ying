@@ -29,5 +29,5 @@ public class GeneralRouteJointName {
      * 航线统称
      */
     @Column(name = "route_joint_name")
-    private String RouteJointName;
+    private String routeJointName;
 }

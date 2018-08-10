@@ -56,6 +56,11 @@ public class Dictionary {
     private String code;
 
     /**
+     * 值
+     */
+    private String value;
+
+    /**
      * 组内排序
      */
     @Column(name = "order_num")

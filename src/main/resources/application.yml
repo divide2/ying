@@ -15,9 +15,9 @@ spring:
     show-sql: true
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    username: test2018
-    password: mj2018!@#
-    url: jdbc:mysql://120.79.32.147:3306/columbu
+    username: your
+    password: your
+    url: your
   profiles:
     active: default
   application:
@@ -36,11 +36,11 @@ logging:
        security: debug
 alibaba:
   oss:
-    end-point: http://oss-cn-shenzhen.aliyuncs.com
+    end-point: your
     access-key-id: LTAIHxopb8AXx7iF
-    secret-access-key: b2PrRJQgxCeMqhGL1y9QkKVebBV0rJ
-    bucket-name: mj-columbu
-    file-host: http://mj-columbu.oss-cn-shenzhen.aliyuncs.com/
+    secret-access-key: your
+    bucket-name: your
+    file-host: your
 dic:
   status:
     enable: Y

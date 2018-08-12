@@ -37,7 +37,7 @@ logging:
 alibaba:
   oss:
     end-point: your
-    access-key-id: LTAIHxopb8AXx7iF
+    access-key-id: your
     secret-access-key: your
     bucket-name: your
     file-host: your

@@ -49,4 +49,8 @@ public class Container {
      */
     @Builder.Default
     private Character enabled = 'Y';
+    /**
+     * 集装箱类型 普通还是特殊 字典
+     */
+    private String type;
 }

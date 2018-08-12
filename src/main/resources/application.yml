@@ -51,3 +51,6 @@ dic:
   publish-status: # 文章的发布状态
     publish: publish
     draft: draft
+  container-type:
+    general: G
+    special: S

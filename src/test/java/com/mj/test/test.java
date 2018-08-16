@@ -1,4 +1,4 @@
-package com.mj.test;
+package com.ying.test;
 
 /**
  * @author zejun

@@ -1,4 +1,4 @@
-package com.mj;
+package com.ying;
 
 import org.junit.Assert;
 import org.junit.Test;

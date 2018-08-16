@@ -1,4 +1,4 @@
-package com.mj.test;
+package com.ying.test;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

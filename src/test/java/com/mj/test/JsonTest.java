@@ -1,6 +1,6 @@
-package com.mj.test;
+package com.ying.test;
 
-import com.mj.general.port.model.Port;
+import com.ying.general.port.model.Port;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 

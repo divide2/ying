@@ -25,7 +25,7 @@ public class ProductAddDTO {
      * 图片
      */
     @ApiModelProperty("图片")
-    List<ImageDTO> images;
+    List<ProductImageDTO> images;
 
     /**
      * 标签

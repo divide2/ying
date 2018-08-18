@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel("图片")
-public class ImageDTO {
+public class ProductImageDTO {
 
     @ApiModelProperty("图片地址")
     private String url;

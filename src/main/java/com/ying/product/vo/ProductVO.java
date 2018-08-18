@@ -1,6 +1,6 @@
 package com.ying.product.vo;
 
-import com.ying.product.dto.ImageDTO;
+import com.ying.product.dto.ProductImageDTO;
 import com.ying.product.model.Product;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,7 +26,7 @@ public class ProductVO {
      * 图片
      */
     @ApiModelProperty("图片")
-    List<ImageDTO> images;
+    List<ProductImageDTO> images;
     /**
      * 标签
      */

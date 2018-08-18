@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -23,10 +24,10 @@ public class ProductUpdateDTO {
     @ApiModelProperty("名称")
     private String name;
     /**
-     * 主图
+     * 图片
      */
-    @ApiModelProperty("主图")
-    private String mainImg;
+    @ApiModelProperty("图片")
+    List<ImageDTO> images;
     /**
      * 标签
      */
@@ -59,8 +60,14 @@ public class ProductUpdateDTO {
     private String remarks;
 
     public Product toProduct() {
-
-        Product product = new Product();
-        return product;
+        return Product.builder()
+                .id(this.getId())
+                .tags(this.getTags())
+                .cdp(this.getCdp())
+                .longitude(this.getLongitude())
+                .latitude(this.getLatitude())
+                .enabled(this.getEnabled())
+                .remarks(this.getRemarks())
+                .build();
     }
 }

@@ -1,10 +1,12 @@
 package com.ying.product.vo;
 
+import com.ying.product.dto.ImageDTO;
 import com.ying.product.model.Product;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -21,10 +23,10 @@ public class ProductVO {
     @ApiModelProperty("名称")
     private String name;
     /**
-     * 主图
+     * 图片
      */
-    @ApiModelProperty("主图")
-    private String mainImg;
+    @ApiModelProperty("图片")
+    List<ImageDTO> images;
     /**
      * 标签
      */
@@ -57,6 +59,15 @@ public class ProductVO {
     private String remarks;
 
     public static ProductVO of(Product product) {
-        return new ProductVO();
+        ProductVO vo = new ProductVO();
+        vo.setId(product.getId());
+        vo.setName(product.getName());
+        vo.setTags(product.getTags());
+        vo.setCdp(product.getCdp());
+        vo.setLongitude(product.getLongitude());
+        vo.setLatitude(product.getLatitude());
+        vo.setEnabled(product.getEnabled());
+        vo.setRemarks(product.getRemarks());
+        return vo;
     }
 }

@@ -1,6 +1,8 @@
 package com.ying.product.repo;
 
 import com.ying.product.model.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -10,4 +12,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ProductRepository  extends JpaRepository<Product,Integer> {
 
 
+    /**
+     * 获取用户的产品
+     * @param userId userid
+     * @param pageable pageable
+     * @return product
+     */
+    Page<Product> findByFromId(Integer userId, Pageable pageable);
 }

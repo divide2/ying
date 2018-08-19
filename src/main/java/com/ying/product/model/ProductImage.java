@@ -45,4 +45,12 @@ public class ProductImage {
      * 图片类型
      */
     private String type;
+    /**
+     * 主要图片
+     */
+    private Boolean main;
+
+    @Column(name = "order_num")
+    private Integer orderNum;
+
 }

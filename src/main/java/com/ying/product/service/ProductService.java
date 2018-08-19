@@ -1,6 +1,8 @@
 package com.ying.product.service;
 
 import com.ying.core.basic.service.BasicService;
+import com.ying.product.dto.ProductAddDTO;
+import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +21,7 @@ public interface ProductService extends BasicService<Product,Integer> {
      */
     Page<Product> findByUser(Integer userId, Pageable pageable);
 
+    void add(ProductAddDTO dto);
+
+    void update(ProductUpdateDTO dto);
 }

@@ -1,6 +1,9 @@
 package com.ying.product.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.product.dto.ProductAddDTO;
+import com.ying.product.dto.ProductImageDTO;
+import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import com.ying.product.model.ProductImage;
 import com.ying.product.repo.ProductImageRepository;
@@ -9,6 +12,7 @@ import com.ying.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -34,6 +38,33 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
 
         return products;
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void add(ProductAddDTO dto) {
+        Product product = super.add(dto.toProduct());
+        this.saveImages(dto.getImages(), product.getId());
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(ProductUpdateDTO dto) {
+        Product product = super.update(dto.toProduct());
+        productImageRepository.deleteByProductId(product.getId());
+        this.saveImages(dto.getImages(),product.getId());
+    }
+
+    private void saveImages(List<ProductImageDTO> images,Integer productId) {
+        images.forEach(it -> {
+            ProductImage pi = new ProductImage();
+            pi.setProductId(productId);
+            pi.setUrl(it.getUrl());
+            pi.setMain(it.getMain());
+            productImageRepository.save(pi);
+        });
     }
 
 }

@@ -38,14 +38,14 @@ public class ProductController {
     @ApiOperation("添加作品")
     @PostMapping
     public ResponseEntity<Messager> add(@Valid @RequestBody ProductAddDTO dto, BindResult br) {
-        productService.add(dto.toProduct());
+        productService.add(dto);
         return Responser.created();
     }
 
     @PutMapping
     @ApiOperation("修改")
     public ResponseEntity<Messager> update(@Valid @RequestBody ProductUpdateDTO dto, BindResult br) {
-        productService.update(dto.toProduct());
+        productService.update(dto);
         return Responser.updated();
     }
 

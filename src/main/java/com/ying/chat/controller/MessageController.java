@@ -2,11 +2,12 @@ package com.ying.chat.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.socket.BinaryMessage;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import sun.management.Sensor;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author bvvy
@@ -16,7 +17,7 @@ import sun.management.Sensor;
 @RequestMapping("/'v1/message")
 public class MessageController extends TextWebSocketHandler {
 
-
+    private Map<String, WebSocketSession> userMap = new ConcurrentHashMap<>();
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         session.sendMessage(new TextMessage("nihao"));
@@ -24,6 +25,7 @@ public class MessageController extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        System.out.println(session);
         super.afterConnectionEstablished(session);
     }
 }

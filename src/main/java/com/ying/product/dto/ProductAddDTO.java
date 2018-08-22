@@ -1,9 +1,11 @@
 package com.ying.product.dto;
 
+import com.ying.core.val.Punctuation;
 import com.ying.product.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,7 +33,7 @@ public class ProductAddDTO {
      * 标签
      */
     @ApiModelProperty("标签 用，隔开")
-    private String tags;
+    private List<String> tags;
     /**
      * 创建地点
      */
@@ -60,7 +62,7 @@ public class ProductAddDTO {
 
     public Product toProduct() {
         return Product.builder()
-                .tags(this.getTags())
+                .tags(StringUtils.join(this.getTags(), Punctuation.COMMA))
                 .cdp(this.getCdp())
                 .longitude(this.getLongitude())
                 .latitude(this.getLatitude())

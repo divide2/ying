@@ -1,5 +1,9 @@
 package com.ying.chat.controller;
 
+import com.ying.chat.model.Message;
+import com.ying.core.er.Jsoner;
+import io.swagger.annotations.Api;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.TextMessage;
@@ -15,17 +19,23 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Controller
 @RequestMapping("/'v1/message")
+@Api(tags = "聊天")
 public class MessageController extends TextWebSocketHandler {
 
-    private Map<String, WebSocketSession> userMap = new ConcurrentHashMap<>();
+    private static final Map<String, WebSocketSession> CHATS = new ConcurrentHashMap<>();
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        session.sendMessage(new TextMessage("nihao"));
+        String payload = message.getPayload();
+        Message msg = Jsoner.from(payload, Message.class);
+        Integer toId = msg.getToId();
+        WebSocketSession webSocketSession = CHATS.get(String.valueOf(toId));
+        webSocketSession.sendMessage(new TextMessage(msg.getContent()));
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println(session);
-        super.afterConnectionEstablished(session);
+        CHATS.put(session.getId(), session);
     }
+
 }

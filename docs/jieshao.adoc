@@ -1,0 +1,96 @@
+
+== 字段规定
+
+=== 主要
+.摄影 product
+|===
+|名称 | 字段 | 解释
+|id | id |
+|名称/标题| name |
+|主图| mainImg |
+|标签| tags |
+| 价格 | price |
+| 创建人/摄影师名称 | fromName | from user name
+| 创建人/摄影师id | fromId | from user id
+| 创建时间| cdt | create date time
+| 创建地点| cdt | create date place
+| 经度 | longitude |
+| 纬度 | latitude |
+| 启用 | enabled | Y / N
+| 备注| remarks |
+|===
+
+.订单 order
+|===
+|名称 | 字段 | 解释
+|id | id |
+|订单的商品 | productId|
+|订单的商品名称 | productName |
+| 创建人/客户名称 | fromName | from user name
+| 创建人/客户 | fromId | from user id
+| 订单给与人/摄影师 | toId | to user id
+| 订单给与人/摄影师 | toName | to user id
+| 创建时间| cdt | create date time
+| 约定时间 | adt | appointed date time
+| 接单时间 | tdt | take date time
+| 完成时间 | fdt | finish date time
+| 状态 | status |
+| 备注| remarks |
+|===
+
+.消息
+|===
+|名称 | 字段 | 解释
+|id | id |
+| 创建人 | fromName | from user name
+| 创建人 | fromId | from user id
+| 发给的人 | toUser |
+| 发给的人 | toId |
+| 创建时间 | cdt |
+| 内容  | content |
+| 读过 | readed |
+
+|===
+
+
+.摄影师/工作室/用户 user
+|===
+|名称 | 字段 | 解释
+|id | id |
+| 其他 | 微信用户信息 | 调用微信用户信息
+|===
+
+=== 不重要
+.标签 tag
+|===
+|名称 | 字段 | 解释
+|id | id |
+|===
+
+.评论
+|===
+|名称 | 字段 | 解释
+|id | id |
+|===
+
+.点赞
+|===
+|名称 | 字段 | 解释
+|id | id |
+|===
+
+.举报
+|===
+|名称 | 字段 | 解释
+|id | id |
+|===
+
+.字典
+|===
+|名称 | 字段 | 解释
+|id | id |
+|===
+
+
+
+

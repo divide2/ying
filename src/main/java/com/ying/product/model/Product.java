@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -35,7 +36,12 @@ public class Product {
     /**
      * 标签
      */
-    private String tags;
+    @Type(type = "string-array")
+    @Column(
+            name = "tags",
+            columnDefinition = "text[]"
+    )
+    private String[] tags;
     /**
      * price
      */
@@ -67,7 +73,8 @@ public class Product {
     /**
      * 启用
      */
-    private String enabled;
+    @Type(type = "yes_no")
+    private Boolean enabled;
     /**
      * 备注 描述
      */

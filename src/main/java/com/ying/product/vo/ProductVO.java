@@ -31,7 +31,7 @@ public class ProductVO {
      * 标签
      */
     @ApiModelProperty("标签 用，隔开")
-    private String tags;
+    private List<String> tags;
     /**
      * 创建地点
      */
@@ -50,8 +50,8 @@ public class ProductVO {
     /**
      * 启用
      */
-    @ApiModelProperty("启用 Y , N")
-    private String enabled;
+    @ApiModelProperty
+    private Boolean enabled;
     /**
      * 备注 描述
      */

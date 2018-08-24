@@ -1,14 +1,14 @@
-package com.ying.product.service.impl;
+package com.ying.product.product.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.ying.product.dto.ProductAddDTO;
-import com.ying.product.dto.ProductImageDTO;
-import com.ying.product.dto.ProductUpdateDTO;
-import com.ying.product.model.Product;
-import com.ying.product.model.ProductImage;
-import com.ying.product.repo.ProductImageRepository;
-import com.ying.product.repo.ProductRepository;
-import com.ying.product.service.ProductService;
+import com.ying.product.product.dto.ProductAddDTO;
+import com.ying.product.product.dto.ProductImageDTO;
+import com.ying.product.product.dto.ProductUpdateDTO;
+import com.ying.product.product.model.Product;
+import com.ying.product.product.model.ProductImage;
+import com.ying.product.product.repo.ProductImageRepository;
+import com.ying.product.product.repo.ProductRepository;
+import com.ying.product.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

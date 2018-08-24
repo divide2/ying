@@ -1,6 +1,7 @@
-package com.ying.product.model;
+package com.ying.product.product.model;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -30,24 +31,9 @@ public class ProductImage {
      */
     private String url;
     /**
-     * 图片大小
-     */
-    private Integer size;
-    /**
-     * 图片宽度
-     */
-    private Integer width;
-    /**
-     * 图片高度
-     */
-    private Integer height;
-    /**
-     * 图片类型
-     */
-    private String type;
-    /**
      * 主要图片
      */
+    @Type(type = "yes_no")
     private Boolean main;
 
     @Column(name = "order_num")

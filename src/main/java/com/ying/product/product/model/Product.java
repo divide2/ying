@@ -1,10 +1,13 @@
-package com.ying.product.model;
+package com.ying.product.product.model;
 
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -20,6 +23,12 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@TypeDefs({
+        @TypeDef(
+                name = "string-array",
+                typeClass = StringArrayType.class
+        )
+})
 public class Product {
 
     @Id
@@ -43,7 +52,7 @@ public class Product {
     )
     private String[] tags;
     /**
-     * price
+     * pr ice
      */
     private String price;
     /**

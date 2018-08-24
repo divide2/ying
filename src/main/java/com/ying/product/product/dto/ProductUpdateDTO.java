@@ -1,6 +1,6 @@
-package com.ying.product.dto;
+package com.ying.product.product.dto;
 
-import com.ying.product.model.Product;
+import com.ying.product.product.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,9 +13,11 @@ import java.util.List;
  * @date 2018/8/16
  */
 @Data
-@ApiModel("产品添加数据")
-public class ProductAddDTO {
+@ApiModel("产品修改数据")
+public class ProductUpdateDTO {
 
+    @ApiModelProperty("id")
+    private Integer id;
     /**
      * 名称
      */
@@ -26,12 +28,11 @@ public class ProductAddDTO {
      */
     @ApiModelProperty("图片")
     List<ProductImageDTO> images;
-
     /**
      * 标签
      */
     @ApiModelProperty("标签 用，隔开")
-    private List<String> tags;
+    private String[] tags;
     /**
      * 创建地点
      */
@@ -60,6 +61,7 @@ public class ProductAddDTO {
 
     public Product toProduct() {
         return Product.builder()
+                .id(this.getId())
                 .tags(this.getTags())
                 .cdp(this.getCdp())
                 .longitude(this.getLongitude())
@@ -68,4 +70,5 @@ public class ProductAddDTO {
                 .remarks(this.getRemarks())
                 .build();
     }
+
 }

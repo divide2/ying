@@ -1,6 +1,6 @@
-package com.ying.product.repo;
+package com.ying.product.product.repo;
 
-import com.ying.product.model.ProductImage;
+import com.ying.product.product.model.ProductImage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

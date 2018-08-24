@@ -1,4 +1,4 @@
-package com.ying.product.dto;
+package com.ying.product.product.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

@@ -1,7 +1,7 @@
-package com.ying.product.vo;
+package com.ying.product.product.vo;
 
-import com.ying.product.dto.ProductImageDTO;
-import com.ying.product.model.Product;
+import com.ying.product.product.dto.ProductImageDTO;
+import com.ying.product.product.model.Product;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,7 +31,7 @@ public class ProductVO {
      * 标签
      */
     @ApiModelProperty("标签 用，隔开")
-    private List<String> tags;
+    private String[] tags;
     /**
      * 创建地点
      */

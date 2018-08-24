@@ -1,20 +1,21 @@
-package com.ying.product.controller;
+package com.ying.product.product.controller;
 
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
-import com.ying.product.dto.ProductAddDTO;
-import com.ying.product.dto.ProductUpdateDTO;
-import com.ying.product.model.Product;
-import com.ying.product.service.ProductService;
-import com.ying.product.vo.ProductVO;
+import com.ying.product.product.dto.ProductAddDTO;
+import com.ying.product.product.dto.ProductUpdateDTO;
+import com.ying.product.product.model.Product;
+import com.ying.product.product.service.ProductService;
+import com.ying.product.product.vo.ProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -37,21 +38,21 @@ public class ProductController {
 
     @ApiOperation("添加作品")
     @PostMapping
-    public ResponseEntity<Messager> add(@Valid @RequestBody ProductAddDTO dto, BindResult br) {
+    public ResponseEntity<Messager> add(@Valid @RequestBody ProductAddDTO dto, BindingResult br) {
         productService.add(dto);
         return Responser.created();
     }
 
     @PutMapping
     @ApiOperation("修改")
-    public ResponseEntity<Messager> update(@Valid @RequestBody ProductUpdateDTO dto, BindResult br) {
+    public ResponseEntity<Messager> update(@Valid @RequestBody ProductUpdateDTO dto, BindingResult br) {
         productService.update(dto);
         return Responser.updated();
     }
 
     @ApiOperation("删除")
     @DeleteMapping
-    public ResponseEntity<Messager> add(@Valid @RequestBody SingleId id, BindResult br) {
+    public ResponseEntity<Messager> add(@Valid @RequestBody SingleId id, BindingResult br) {
         productService.delete(id.getId());
         return Responser.deleted();
     }

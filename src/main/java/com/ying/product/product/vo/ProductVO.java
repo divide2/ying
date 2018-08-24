@@ -8,6 +8,8 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * @author bvvy
  * @date 2018/8/16
@@ -68,6 +70,9 @@ public class ProductVO {
         vo.setLatitude(product.getLatitude());
         vo.setEnabled(product.getEnabled());
         vo.setRemarks(product.getRemarks());
+        vo.setImages(product.getImages().stream().map(ProductImageDTO::of).collect(toList()));
         return vo;
     }
+
+
 }

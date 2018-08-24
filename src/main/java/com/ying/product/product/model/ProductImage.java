@@ -12,20 +12,8 @@ import javax.persistence.*;
  * @date 2018/8/18
  */
 @Data
-@Entity
-@Table(name = "p_product_image")
+@Embeddable
 public class ProductImage {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    /**
-     * 产品id
-     */
-    @Column(name = "product_id")
-    private Integer productId;
-
     /**
      * 图片地址
      */

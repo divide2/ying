@@ -12,6 +12,7 @@ import org.hibernate.annotations.TypeDefs;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -39,9 +40,14 @@ public class Product {
      */
     private String name;
     /**
-     * 主图
+     * 图片
      */
-    private String mainImg;
+    @ElementCollection
+    @CollectionTable(name = "p_product_images",
+            joinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<ProductImage> images;
+
     /**
      * 标签
      */

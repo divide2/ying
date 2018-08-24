@@ -7,6 +7,7 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -62,6 +63,7 @@ public class ProductAddDTO {
         return Product.builder()
                 .tags(this.getTags())
                 .cdp(this.getCdp())
+                .images(this.images.stream().map(ProductImageDTO::to).collect(Collectors.toList()))
                 .longitude(this.getLongitude())
                 .latitude(this.getLatitude())
                 .enabled(this.getEnabled())

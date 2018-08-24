@@ -1,9 +1,7 @@
 package com.ying.general.dictionary.service.impl;
 
+import com.ying.core.basic.service.BasicService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.ying.general.dictionary.model.GeneralRouteJointName;
-import com.ying.general.dictionary.repo.RouteNameRepository;
-import com.ying.general.dictionary.service.RouteNameService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +10,5 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RouteNameServiceImpl extends SimpleBasicServiceImpl<GeneralRouteJointName,Integer,RouteNameRepository>
-        implements RouteNameService {
+        implements BasicService<GeneralRouteJointName, Integer> {
 }

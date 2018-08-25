@@ -1,4 +1,4 @@
-package com.ying.chat.model;
+package com.ying.chat.message.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

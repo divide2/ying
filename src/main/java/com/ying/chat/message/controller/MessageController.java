@@ -1,9 +1,8 @@
-package com.ying.chat.controller;
+package com.ying.chat.message.controller;
 
-import com.ying.chat.model.Message;
+import com.ying.chat.message.model.Message;
 import com.ying.core.er.Jsoner;
 import io.swagger.annotations.Api;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.socket.TextMessage;

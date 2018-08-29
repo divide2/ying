@@ -12,8 +12,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 /**
  * @author bvvy
  */
-@Configuration
-@EnableAuthorizationServer
 public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;

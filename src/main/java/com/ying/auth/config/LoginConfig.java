@@ -16,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * com.divide2.auth.config
  */
 
-@Configuration
 class LoginConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
 

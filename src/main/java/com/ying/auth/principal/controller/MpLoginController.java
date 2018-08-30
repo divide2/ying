@@ -1,5 +1,6 @@
 package com.ying.auth.principal.controller;
 
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,12 @@ import java.util.Map;
  * @author bvvy
  * @date 2018/8/28
  */
+
+@Data
+class MpCode {
+
+    private String code;
+}
 @RestController
 public class MpLoginController {
 
@@ -38,7 +45,7 @@ public class MpLoginController {
     private OAuth2ClientContext context;
 
     @PostMapping("/login/mp")
-    public Object login(HttpServletRequest request) {
+    public Object login(HttpServletRequest request,MpCode code) {
         AuthorizationCodeResourceDetails resource = new AuthorizationCodeResourceDetails();
         resource.setAuthenticationScheme(AuthenticationScheme.form);
         resource.setClientAuthenticationScheme(AuthenticationScheme.form);
@@ -88,12 +95,7 @@ class WeixinOAuth2RestTemplate extends OAuth2RestTemplate {
     public WeixinOAuth2RestTemplate(AuthorizationCodeResourceDetails resource, OAuth2ClientContext context) {
         super(resource, context);
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
-        messageConverters.add(new MappingJackson2HttpMessageConverter() {
-            @Override
-            protected boolean canRead(MediaType mediaType) {
-                return true;
-            }
-        });
+        messageConverters.add(new MappingJackson2HttpMessageConverter());
         this.setMessageConverters(messageConverters);
         this.setAccessTokenProvider(new WeixinAuthorizationCodeAccessTokenProvider(messageConverters));
     }

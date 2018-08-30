@@ -116,4 +116,8 @@ class WeixinOAuth2RestTemplate extends OAuth2RestTemplate {
         return uri;
     }
 
+    @Override
+    public OAuth2AccessToken getAccessToken() throws UserRedirectRequiredException {
+        return super.getAccessToken();
+    }
 }

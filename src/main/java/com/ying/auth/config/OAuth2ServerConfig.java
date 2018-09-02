@@ -9,17 +9,18 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 
 /**
  * @author bvvy
+ * @date 9.2
  */
 //@Configuration
 //@EnableAuthorizationServer
-public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
 
-    public OAuth2Config(AuthenticationManager authenticationManager,
-                        UserDetailsService userDetailsService) {
+    public OAuth2ServerConfig(AuthenticationManager authenticationManager,
+                              UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
     }

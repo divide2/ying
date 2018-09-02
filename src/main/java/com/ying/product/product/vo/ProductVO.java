@@ -2,6 +2,7 @@ package com.ying.product.product.vo;
 
 import com.ying.product.product.dto.ProductImageDTO;
 import com.ying.product.product.model.Product;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,6 +16,7 @@ import static java.util.stream.Collectors.toList;
  * @date 2018/8/16
  */
 @Data
+@ApiModel("产品列表数据")
 public class ProductVO {
 
     @ApiModelProperty("id")
@@ -50,11 +52,6 @@ public class ProductVO {
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
     /**
-     * 启用
-     */
-    @ApiModelProperty
-    private Boolean enabled;
-    /**
      * 备注 描述
      */
     @ApiModelProperty("备注描述")
@@ -68,7 +65,6 @@ public class ProductVO {
         vo.setCdp(product.getCdp());
         vo.setLongitude(product.getLongitude());
         vo.setLatitude(product.getLatitude());
-        vo.setEnabled(product.getEnabled());
         vo.setRemarks(product.getRemarks());
         vo.setImages(product.getImages().stream().map(ProductImageDTO::of).collect(toList()));
         return vo;

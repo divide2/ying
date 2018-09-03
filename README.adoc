@@ -79,3 +79,5 @@ DemoRepositoryCustom <|-- DemoRepositoryImpl
 
 include::docs/jieshao.adoc[]
 
+=== 微信小程序登录流程
+

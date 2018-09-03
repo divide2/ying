@@ -1,27 +1,26 @@
 package com.ying.auth.config;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
-import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * @author bvvy
+ * @date 9.2
  */
-@Configuration
-@EnableAuthorizationServer
-public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
+//@Configuration
+//@EnableAuthorizationServer
+public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
 
-    public OAuth2Config(AuthenticationManager authenticationManager,
-                        UserDetailsService userDetailsService) {
+    public OAuth2ServerConfig(AuthenticationManager authenticationManager,
+                              UserDetailsService userDetailsService) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
     }

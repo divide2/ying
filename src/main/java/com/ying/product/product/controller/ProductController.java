@@ -72,7 +72,7 @@ public class ProductController {
     }
 
     @GetMapping("/find")
-    @ApiOperation("获取单个用户的产品")
+    @ApiOperation("获取分页的产品")
     public ResponseEntity<Page<ProductVO>> find( Pageable pageable) {
         Page<Product> products = productService.find(pageable);
         return Responser.ok(products.map(ProductVO::of));

@@ -447,6 +447,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#true--5">2.1. 名称解释</a></li>
 <li><a href="#true--6">2.2. 主要流程</a></li>
 <li><a href="#true--7">2.3. 涉及到的模块</a></li>
+<li><a href="#true--8">2.4. 微信小程序登录流程</a></li>
 </ul>
 </li>
 </ul>
@@ -1054,13 +1055,35 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </table>
 </div>
 </div>
+<div class="sect2">
+<h3 id="true--8"><a class="anchor" href="#true--8"></a>2.4. 微信小程序登录流程</h3>
+<div class="paragraph">
+<p>wxLogin -&#8594; /login/mp -&#8594; 获取access_token -&#8594; wx.getUserInfo -&#8594;</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>wx.request({
+                   url: "/v1/mp/user",
+                   data: res.userInfo,
+                   method: "POST",
+                   header: {
+                     'Authorization': 'Bearer ' + access_token,
+                     'content-type': 'application/json',
+                   },</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1.0<br>
-Last updated 2018-09-03 14:36:01
+Last updated 2018-09-04 22:16:21
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

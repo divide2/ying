@@ -81,3 +81,15 @@ include::docs/jieshao.adoc[]
 
 === 微信小程序登录流程
 
+wxLogin --> /login/mp --> 获取access_token --> wx.getUserInfo -->
+--
+ wx.request({
+                    url: "/v1/mp/user",
+                    data: res.userInfo,
+                    method: "POST",
+                    header: {
+                      'Authorization': 'Bearer ' + access_token,
+                      'content-type': 'application/json',
+                    },
+
+--

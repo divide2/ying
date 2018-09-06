@@ -78,10 +78,6 @@ public class ProductController {
         return Responser.ok(products.map(ProductVO::of));
     }
 
-    @GetMapping("/self")
-    public ResponseEntity<Page<ProductVO>> findBySelf(Pageable pageable) {
-        Page<Product> products = productService.findByUser(Loginer.userId(), pageable);
-        return Responser.ok(products.map(ProductVO::of));
-    }
+
 
 }

@@ -13,7 +13,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,13 +37,10 @@ class MpController {
     private static final String APPID = "wx3fdfbf00e5a3b9f9";
     private static final String SECRET = "4d17a936b70d0786f59d1fa972c92c49";
 
-    private final OAuth2ClientContext context;
     private final UserService userService;
 
     private static Map<String, String> SKEY_KEEPER = new ConcurrentHashMap<>();
-    MpController(OAuth2ClientContext context,
-                 UserService userService) {
-        this.context = context;
+    MpController(UserService userService) {
         this.userService = userService;
     }
 
@@ -74,7 +70,7 @@ class MpController {
         user.setPassword(openId);
         user.setGender(mpUser.getGender());
         user.setEnabled(true);
-        userService.add(user);
+        userService.update(user);
         this.login(user.getUsername(), user.getPassword());
         return Responser.created();
 
@@ -82,9 +78,11 @@ class MpController {
 
     private void login(String username, String password) {
         RestTemplate restTemplate = new RestTemplate();
-        Map<String, String> params = new HashMap<>();
+        Map<String, String> params = new HashMap<>(4);
         params.put("username", username);
         params.put("password", password);
+        params.put("scope", "webclient");
+        params.put("grant_type", "password");
         HttpEntity<Map<String, String>> form = new HttpEntity<>(params);
         ResponseEntity<String> resp = restTemplate.postForEntity("/oauth/token", form, String.class);
         System.out.println(resp.getBody());

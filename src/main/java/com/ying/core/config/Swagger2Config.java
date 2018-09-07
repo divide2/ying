@@ -1,7 +1,24 @@
 package com.ying.core.config;
 
+import com.fasterxml.classmate.TypeResolver;
+import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMethod;
+import springfox.documentation.builders.*;
+import springfox.documentation.service.*;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
+import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.util.List;
+
+import static java.util.Collections.singletonList;
+import static springfox.documentation.builders.PathSelectors.ant;
 
 /**
  * @author bvvy
@@ -9,9 +26,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-public class Swagger2Config  {
+public class Swagger2Config {
 
-/*
+    @Autowired
+    private TypeResolver typeResolver;
+
     @Bean
     public Docket petApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -19,89 +38,66 @@ public class Swagger2Config  {
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
                 .paths(PathSelectors.any())
                 .build()
+                .apiInfo(apiInfo())
                 .pathMapping("/")
-                .directModelSubstitute(LocalDate.class, String.class)
+                .directModelSubstitute(Character.class, String.class)
                 .genericModelSubstitutes(ResponseEntity.class)
-                .alternateTypeRules(
-                        newRule(typeResolver.resolve(DeferredResult.class,
-                                typeResolver.resolve(ResponseEntity.class, WildcardType.class)),
-                                typeResolver.resolve(WildcardType.class)))
                 .useDefaultResponseMessages(false)
-                .globalResponseMessage(RequestMethod.GET,
-                        Collections.singletonList(new ResponseMessageBuilder()
-                                .code(500)
-                                .message("500 message")
-                                .responseModel(new ModelRef("ValidError"))
-                                .build()))
-                .securitySchemes(Collections.singletonList(apiKey()))
-                .securityContexts(Collections.singletonList(securityContext()))
-                .enableUrlTemplating(true)
-                .globalOperationParameters(
-                        Collections.singletonList(new ParameterBuilder()
-                                .name("someGlobalParameter")
-                                .description("Description of someGlobalParameter")
-                                .modelRef(new ModelRef("string"))
-                                .parameterType("query")
-                                .required(true)
-                                .build()))
-                .tags(new Tag("Pet Service", "All apis relating dto pets"))
-//                .additionalModels(typeResolver.resolve(AdditionalModel.class))
+                .globalResponseMessage(RequestMethod.POST, singletonList(
+                        new ResponseMessageBuilder().code(409).message("{code: 错误问题}").build())
+                )
+                .ignoredParameterTypes(Pageable.class)
+                .securitySchemes(singletonList(oauth()))
+                .securityContexts(singletonList(securityContext()))
+//                .enableUrlTemplating(true)
+//               .additionalModels(typeResolver.resolve(AdditionalModel.class))
                 ;
     }
 
-    @Autowired
-    private TypeResolver typeResolver;
+    private ApiInfo apiInfo() {
 
-    private ApiKey apiKey() {
-        return new ApiKey("mykey", "api_key", "header");
+        return new ApiInfoBuilder()
+                .description("小影圈接口文档")
+                .title("小影圈接口文档")
+                .license("Apache License Version 2.0")
+                .version("0.0.1")
+                .termsOfServiceUrl("http://bvvy.ngrok.xiaoyingquan.cn")
+                .build();
     }
 
-    private SecurityContext securityContext() {
+    @Bean
+    public SecurityContext securityContext() {
+        AuthorizationScope readScope = new AuthorizationScope("webclient", "webclient");
+        AuthorizationScope[] scopes = new AuthorizationScope[1];
+        scopes[0] = readScope;
+        SecurityReference securityReference = SecurityReference.builder()
+                .reference("petstore_auth")
+                .scopes(scopes)
+                .build();
+
         return SecurityContext.builder()
-                .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/anyPath.*"))
+                .securityReferences(singletonList(securityReference))
+                .forPaths(ant("/**"))
                 .build();
     }
 
-    List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope
-                = new AuthorizationScope("global", "accessEverything");
-        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-        authorizationScopes[0] = authorizationScope;
-        return Collections.singletonList(
-                new SecurityReference("mykey", authorizationScopes));
-    }
 
     @Bean
-    SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder()
-                .clientId("test-app-client-id")
-                .clientSecret("test-app-client-secret")
-                .realm("test-app-realm")
-                .appName("test-app")
-                .scopeSeparator(",")
-                .additionalQueryStringParams(null)
-                .useBasicAuthenticationWithAccessCodeGrant(false)
+    public SecurityScheme oauth() {
+        return new OAuthBuilder()
+                .name("登录")
+                .grantTypes(grantTypes())
+                .scopes(scopes())
                 .build();
     }
 
-    @Bean
-    UiConfiguration uiConfig() {
-        return UiConfigurationBuilder.builder()
-                .deepLinking(true)
-                .displayOperationId(false)
-                .defaultModelsExpandDepth(1)
-                .defaultModelExpandDepth(1)
-                .defaultModelRendering(ModelRendering.EXAMPLE)
-                .displayRequestDuration(false)
-                .docExpansion(DocExpansion.NONE)
-                .filter(false)
-                .maxDisplayedTags(null)
-                .operationsSorter(OperationsSorter.ALPHA)
-                .showExtensions(false)
-                .tagsSorter(TagsSorter.ALPHA)
-                .supportedSubmitMethods(UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS)
-                .validatorUrl(null)
-                .build();
-    }*/
+    private List<GrantType> grantTypes() {
+        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8081/oauth/token");
+        return singletonList(grantType);
+    }
+
+    private List<AuthorizationScope> scopes() {
+        return singletonList(
+                new AuthorizationScope("webclient", "登录"));
+    }
 }

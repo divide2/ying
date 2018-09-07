@@ -5,6 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author bvvy
  * @date 2018/8/18
@@ -14,6 +17,7 @@ import lombok.Data;
 public class ProductImageDTO {
 
     @ApiModelProperty("图片地址")
+    @NotEmpty
     private String url;
 
     @ApiModelProperty("是否是主图")

@@ -63,7 +63,7 @@ DemoRepositoryCustom <|-- DemoRepositoryImpl
 
 === model相关
 
-1. 一律不能使用 Date类 使用LocalDate和LoacalDateTime替代
+1. 一律不能使用 Date类 使用LocalDate和LocalDateTime替代
 2. 不要滥用继承，导致过多的无用字段
 
 === dto vo相关

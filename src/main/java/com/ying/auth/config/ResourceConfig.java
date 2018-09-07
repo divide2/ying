@@ -8,6 +8,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 /**
  * @author bvvy
  */
+@Configuration
+@EnableResourceServer
 public class ResourceConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {

@@ -25,7 +25,7 @@ public class Comment {
      */
     private String content;
     /**
-     * 标签的类型 用于那一个对象的评论
+     * 标签的类型 用于那一个对象的评论 评论用户 / 评论作品 /评论其他
      */
     private String type;
 

@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * @author bvvy
+ *
+ * fixme 这种方式不太好  需要优化
  */
 @Data
 public class Tree implements Comparable<Tree> {

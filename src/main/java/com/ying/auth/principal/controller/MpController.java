@@ -11,8 +11,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.http.HttpEntity;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
+import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +28,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,10 +45,20 @@ class MpController {
     private static final String SECRET = "4d17a936b70d0786f59d1fa972c92c49";
 
     private final UserService userService;
+    @Bean
+    @Scope(
+            value = "session",
+            proxyMode = ScopedProxyMode.INTERFACES
+    )
+    public OAuth2ClientContext oauth2ClientContext() {
+        return new DefaultOAuth2ClientContext();
+    }
+    private final OAuth2ClientContext clientContext;
 
     private static Map<String, String> SKEY_KEEPER = new ConcurrentHashMap<>();
-    MpController(UserService userService) {
+    MpController(UserService userService, OAuth2ClientContext clientContext) {
         this.userService = userService;
+        this.clientContext = clientContext;
     }
 
 
@@ -57,7 +74,7 @@ class MpController {
 
     @PostMapping("/v1/mp/user")
     @ApiOperation("保存用户")
-    public ResponseEntity<Messager> saveMpUser(MpUserVO mpUser) {
+    public ResponseEntity<Messager> saveMpUser(@RequestBody @Valid MpUserVO mpUser,BindingResult br) {
 //        User user = userService.getByUsername("123");
         String openId = SKEY_KEEPER.get(mpUser.getSkey());
         User user = userService.getByUsername(openId);
@@ -77,15 +94,17 @@ class MpController {
     }
 
     private void login(String username, String password) {
-        RestTemplate restTemplate = new RestTemplate();
-        Map<String, String> params = new HashMap<>(4);
-        params.put("username", username);
-        params.put("password", password);
-        params.put("scope", "webclient");
-        params.put("grant_type", "password");
-        HttpEntity<Map<String, String>> form = new HttpEntity<>(params);
-        ResponseEntity<String> resp = restTemplate.postForEntity("/oauth/token", form, String.class);
-        System.out.println(resp.getBody());
+        ResourceOwnerPasswordResourceDetails resourceDetails = new ResourceOwnerPasswordResourceDetails();
+        resourceDetails.setAuthenticationScheme(AuthenticationScheme.form);
+        resourceDetails.setClientAuthenticationScheme(AuthenticationScheme.form);
+        resourceDetails.setAccessTokenUri("http://localhost:8081/oauth/token");
+        resourceDetails.setClientId("aiNzsAXE8tkOFJN6");
+        resourceDetails.setScope(Collections.singletonList("webclient"));
+        resourceDetails.setClientSecret("12345678");
+        resourceDetails.setUsername(username);
+        resourceDetails.setPassword(password);
+        OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(resourceDetails, clientContext);
+        System.out.println(restTemplate.getAccessToken());
     }
 
 

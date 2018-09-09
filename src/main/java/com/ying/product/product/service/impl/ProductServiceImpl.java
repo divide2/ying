@@ -1,5 +1,6 @@
 package com.ying.product.product.service.impl;
 
+import com.ying.basis.tag.service.TagService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.product.product.dto.ProductAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
@@ -9,6 +10,9 @@ import com.ying.product.product.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Arrays;
 
 /**
  * @author bvvy
@@ -18,9 +22,11 @@ import org.springframework.stereotype.Service;
 public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer, ProductRepository> implements ProductService {
 
     private final ProductRepository productRepository;
+    private final TagService tagService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, TagService tagService) {
         this.productRepository = productRepository;
+        this.tagService = tagService;
     }
 
     @Override
@@ -31,8 +37,12 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(ProductAddDTO dto) {
         Product product = super.add(dto.toProduct());
+        System.out.println(product.getId());
+        tagService.add(Arrays.asList(product.getTags()));
+
     }
 
 

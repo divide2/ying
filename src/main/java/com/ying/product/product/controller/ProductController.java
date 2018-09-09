@@ -2,7 +2,6 @@ package com.ying.product.product.controller;
 
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
-import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
 import com.ying.product.product.dto.ProductAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
@@ -11,7 +10,6 @@ import com.ying.product.product.service.ProductService;
 import com.ying.product.product.vo.ProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -77,7 +75,5 @@ public class ProductController {
         Page<Product> products = productService.find(pageable);
         return Responser.ok(products.map(ProductVO::of));
     }
-
-
 
 }

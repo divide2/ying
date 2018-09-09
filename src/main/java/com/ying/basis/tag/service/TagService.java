@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @author bvvy
  * @date 2018/7/19
+ * todo 把tag 用于不同的类型上面，目前tag只用于作品部分
  */
 public interface TagService extends BasicService<Tag, Integer> {
     /**

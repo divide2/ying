@@ -22,7 +22,7 @@ public class ValidationAspect {
     }
 
     @Around("validPointcut() && args(..,br)")
-    public Object validArount(ProceedingJoinPoint jp, BindingResult br) throws Throwable {
+    public Object validAround(ProceedingJoinPoint jp, BindingResult br) throws Throwable {
         if (br.hasErrors()) {
             throw new ValidationException(br.getAllErrors());
         }

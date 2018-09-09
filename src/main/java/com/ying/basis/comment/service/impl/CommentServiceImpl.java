@@ -4,6 +4,8 @@ import com.ying.basis.comment.model.Comment;
 import com.ying.basis.comment.repo.CommentRepository;
 import com.ying.basis.comment.service.CommentService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,4 +22,8 @@ public class CommentServiceImpl extends SimpleBasicServiceImpl<Comment, Integer,
     }
 
 
+    @Override
+    public Page<Comment> findByToIdAndType(Integer toId, String type, Pageable pageable) {
+        return commentRepository.findByToIdAndType(toId, type, pageable);
+    }
 }

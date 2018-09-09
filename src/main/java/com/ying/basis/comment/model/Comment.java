@@ -3,9 +3,11 @@ package com.ying.basis.comment.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * 标签
+ *
  * @author bvvy
  * @date 2018/7/19
  */
@@ -32,11 +34,26 @@ public class Comment {
     /**
      * 对应某个对象的id
      */
-    private Integer oid;
+    private Integer toId;
     /**
      * 添加的人
      */
-    private String fromId;
+    private Integer fromId;
+
+    /**
+     * 添加的人名
+     */
+    private String fromName;
+
+    /**
+     * 头像
+     */
+    private String fromAvatar;
+
+    /**
+     * 创建时间
+     */
+    private LocalDateTime cdt;
 
 
 }

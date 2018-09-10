@@ -65,19 +65,18 @@ public class Swagger2Config {
                 .build();
     }
 
-    @Bean
-    public SecurityContext securityContext() {
+    private SecurityContext securityContext() {
         AuthorizationScope readScope = new AuthorizationScope("webclient", "webclient");
         AuthorizationScope[] scopes = new AuthorizationScope[1];
         scopes[0] = readScope;
         SecurityReference securityReference = SecurityReference.builder()
-                .reference("petstore_auth")
+                .reference("OAuth2")
                 .scopes(scopes)
                 .build();
 
         return SecurityContext.builder()
                 .securityReferences(singletonList(securityReference))
-                .forPaths(ant("/**"))
+                .forPaths(ant("/v1/**"))
                 .build();
     }
 

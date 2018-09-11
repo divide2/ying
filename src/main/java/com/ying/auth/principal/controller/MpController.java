@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider;
 import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
 import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.validation.BindingResult;
@@ -104,6 +105,7 @@ class MpController {
         resourceDetails.setUsername(username);
         resourceDetails.setPassword(password);
         OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(resourceDetails, clientContext);
+        restTemplate.setAccessTokenProvider(new ResourceOwnerPasswordAccessTokenProvider());
         System.out.println(restTemplate.getAccessToken());
     }
 

@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "general_country")
+@Table(name = "basis_country")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

@@ -11,16 +11,21 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
-import org.springframework.security.oauth2.client.OAuth2RestTemplate;
-import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordAccessTokenProvider;
-import org.springframework.security.oauth2.client.token.grant.password.ResourceOwnerPasswordResourceDetails;
-import org.springframework.security.oauth2.common.AuthenticationScheme;
+import org.springframework.security.oauth2.client.token.AccessTokenRequest;
+import org.springframework.security.oauth2.client.token.DefaultAccessTokenRequest;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,12 +51,22 @@ class MpController {
 
     private final UserService userService;
     @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+    protected AccessTokenRequest accessTokenRequest(@Value("#{request.parameterMap}")
+                                                            Map<String, String[]> parameters, @Value("#{request.getAttribute('currentUri')}")
+                                                            String currentUri) {
+        DefaultAccessTokenRequest request = new DefaultAccessTokenRequest(parameters);
+        request.setCurrentUri(currentUri);
+        return request;
+    }
+
+    @Bean
     @Scope(
             value = "session",
             proxyMode = ScopedProxyMode.INTERFACES
     )
-    public OAuth2ClientContext oauth2ClientContext() {
-        return new DefaultOAuth2ClientContext();
+    public OAuth2ClientContext oauth2ClientContext(AccessTokenRequest accessTokenRequest) {
+        return new DefaultOAuth2ClientContext(accessTokenRequest);
     }
     private final OAuth2ClientContext clientContext;
 
@@ -94,23 +108,26 @@ class MpController {
 
     }
 
+
     private void login(String username, String password) {
-        ResourceOwnerPasswordResourceDetails resourceDetails = new ResourceOwnerPasswordResourceDetails();
-        resourceDetails.setAuthenticationScheme(AuthenticationScheme.form);
-        resourceDetails.setClientAuthenticationScheme(AuthenticationScheme.form);
-        resourceDetails.setAccessTokenUri("http://localhost:8081/oauth/token");
-        resourceDetails.setClientId("aiNzsAXE8tkOFJN6");
-        resourceDetails.setScope(Collections.singletonList("webclient"));
-        resourceDetails.setClientSecret("12345678");
-        resourceDetails.setUsername(username);
-        resourceDetails.setPassword(password);
-        OAuth2RestTemplate restTemplate = new OAuth2RestTemplate(resourceDetails, clientContext);
-        restTemplate.setAccessTokenProvider(new ResourceOwnerPasswordAccessTokenProvider());
-        System.out.println(restTemplate.getAccessToken());
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", Base64.encodeBase64String("aiNzsAXE8tkOFJN6:12345678".getBytes()));
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        MultiValueMap<String, String> body = new LinkedMultiValueMap<>(4);
+        body.add("socpe", "webclient");
+        body.add("username", username);
+        body.add("password", password);
+        body.add("grant_type", "password");
+        HttpEntity<MultiValueMap<String, String>> form = new HttpEntity<>(body, headers);
+        ResponseEntity<String> result = restTemplate.postForEntity("http://127.0.0.1:8081/oauth/token", form, String.class);
+        System.out.println(result);
     }
 
 
-
+    public static void main(String[] args) {
+        System.out.println(Base64.encodeBase64String("aiNzsAXE8tkOFJN6:12345678".getBytes()));
+    }
 }
 
 @Data

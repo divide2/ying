@@ -13,7 +13,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "general_dictionary")
+@Table(name = "basis_dictionary")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

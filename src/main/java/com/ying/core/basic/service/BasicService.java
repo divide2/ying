@@ -1,5 +1,6 @@
 package com.ying.core.basic.service;
 
+import com.ying.core.data.del.SingleId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

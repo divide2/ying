@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
  * @author bvvy
  * 对操作的返回信息
  */
-public class Responser {
+public class Responser{
+
     private static final Integer UPDATE_STATUE = 209;
     private static final Integer DELETE_STATUS = 210;
 

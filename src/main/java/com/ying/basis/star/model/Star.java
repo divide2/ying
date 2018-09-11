@@ -25,13 +25,18 @@ public class Star {
     /**
      * 点赞的人
      */
-    private String fromId;
+    private Integer fromId;
     private String fromName;
     private String fromAvatar;
     /**
      * 被点赞的对象
      */
     private Integer toId;
+
+    /**
+     * 被点赞的对象类型
+     */
+    private String type;
 
     /**
      * 被点赞的对象的名称

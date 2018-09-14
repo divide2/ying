@@ -21,4 +21,13 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
      * @return page
      */
     Page<Comment> findByToIdAndType(Integer toId, String type, Pageable pageable);
+
+    /**
+     * 获取我的评论
+     *
+     * @param userId   userId
+     * @param pageable page
+     * @return page
+     */
+    Page<Comment> findByFromId(Integer userId, Pageable pageable);
 }

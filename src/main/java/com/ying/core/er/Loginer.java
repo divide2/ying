@@ -13,11 +13,15 @@ public class Loginer {
     private static final UserDetailsImpl USER = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     public static Integer userId() {
-        return USER.getId();
+        return 1;
     }
 
     public static String username() {
-        return USER.getUsername();
+        return "bvvy";
+    }
+
+    public static String avatar() {
+        return "http://img4.imgtn.bdimg.com/it/u=3982063378,1910620738&fm=26&gp=0.jpg";
     }
 
     public static Integer companyId() {

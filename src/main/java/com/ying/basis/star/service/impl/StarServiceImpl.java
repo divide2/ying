@@ -5,6 +5,9 @@ import com.ying.basis.star.model.Star;
 import com.ying.basis.star.repository.StarRepository;
 import com.ying.basis.star.service.StarService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.er.Loginer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -33,6 +36,8 @@ public class StarServiceImpl extends SimpleBasicServiceImpl<Star,Integer,StarRep
         starRepository.save(star);
     }
 
-
-
+    @Override
+    public Page<Star> findByUser(Pageable pageable) {
+        return starRepository.findByFromId(Loginer.userId(), pageable);
+    }
 }

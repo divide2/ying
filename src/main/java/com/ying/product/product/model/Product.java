@@ -69,6 +69,11 @@ public class Product {
      * 创建人
      */
     private Integer fromId;
+
+    /**
+     * 头想
+     */
+    private String fromAvatar;
     /**
      * 创建日期
      */

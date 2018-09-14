@@ -21,6 +21,12 @@ public class ProductVO {
 
     @ApiModelProperty("id")
     private Integer id;
+
+    private Integer fromId;
+
+    private String fromName;
+
+    private String fromAvatar;
     /**
      * 名称
      */
@@ -66,6 +72,9 @@ public class ProductVO {
         vo.setLongitude(product.getLongitude());
         vo.setLatitude(product.getLatitude());
         vo.setRemarks(product.getRemarks());
+        vo.setFromId(product.getFromId());
+        vo.setFromName(product.getFromName());
+        vo.setFromAvatar(product.getFromAvatar());
         vo.setImages(product.getImages().stream().map(ProductImageDTO::of).collect(toList()));
         return vo;
     }

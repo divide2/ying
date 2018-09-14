@@ -20,4 +20,11 @@ public interface CommentService extends BasicService<Comment, Integer> {
      * @return page
      */
     Page<Comment> findByToIdAndType(Integer toId, String type, Pageable pageable);
+
+    /**
+     * 获取用户的评论
+     * @param pageable page
+     * @return page
+     */
+    Page<Comment> findByUser(Pageable pageable);
 }

@@ -2,6 +2,7 @@ package com.ying.product.product.service.impl;
 
 import com.ying.basis.tag.service.TagService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.er.Loginer;
 import com.ying.product.product.dto.ProductAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
 import com.ying.product.product.model.Product;
@@ -39,8 +40,11 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(ProductAddDTO dto) {
-        Product product = super.add(dto.toProduct());
-        System.out.println(product.getId());
+        Product product = dto.toProduct();
+        product.setFromId(Loginer.userId());
+        product.setFromName(Loginer.username());
+        product.setFromAvatar(Loginer.avatar());
+        super.add(product);
         tagService.add(Arrays.asList(product.getTags()));
 
     }

@@ -2,8 +2,9 @@ package com.ying.auth.res.service;
 
 import com.ying.auth.res.dto.MenuAddDTO;
 import com.ying.auth.res.model.Menu;
-import com.ying.core.data.tree.Tree;
+import com.ying.auth.res.payload.MenuPayload;
 import com.ying.core.basic.service.BasicService;
+import com.ying.core.data.tree.Tree;
 
 import java.util.List;
 
@@ -17,14 +18,14 @@ public interface MenuService extends BasicService<Menu, Integer> {
      *
      * @return 菜单树
      */
-    List<Tree> findMenuTree();
+    List<Tree<MenuPayload>> findMenuTree();
 
     /**
      * 获取整个左边菜单树
      *
      * @return tree
      */
-    List<Tree> findLeftMenuTree();
+    List<Tree<MenuPayload>> findLeftMenuTree();
 
     /**
      * 通过menuAddDTO新增
@@ -38,5 +39,5 @@ public interface MenuService extends BasicService<Menu, Integer> {
      *
      * @return tree
      */
-    List<Tree> findLeftMenuTreeBySelf();
+    List<Tree<MenuPayload>> findLeftMenuTreeBySelf();
 }

@@ -1,6 +1,6 @@
 package com.ying.auth.res.repo.custom;
 
-import com.ying.core.data.tree.TreeMerger;
+import com.ying.auth.res.bo.MenuBO;
 
 import java.util.List;
 
@@ -9,22 +9,23 @@ import java.util.List;
  */
 public interface MenuRepositoryCustom {
 
+
     /**
      * 获取一个用户的左边导航菜单
      * @param userId 用户id
      * @return 树
      */
-    List<TreeMerger> findLeftMenuTreeByUser(Integer userId);
+    List<MenuBO> findLeftMenuTreeByUser(Integer userId);
 
     /**
      * 获取整个菜单树
      * @return tree
      */
-    List<TreeMerger> findMenuTree();
+    List<MenuBO> findMenuTree();
 
     /**
      * 获取左边导航
      * @return tree
      */
-    List<TreeMerger> findLeftMenuTree();
+    List<MenuBO> findLeftMenuTree();
 }

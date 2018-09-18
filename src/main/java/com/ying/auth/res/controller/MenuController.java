@@ -3,6 +3,7 @@ package com.ying.auth.res.controller;
 import com.ying.auth.res.dto.MenuAddDTO;
 import com.ying.auth.res.dto.MenuUpdateDTO;
 import com.ying.auth.res.model.Menu;
+import com.ying.auth.res.payload.MenuPayload;
 import com.ying.auth.res.service.MenuService;
 import com.ying.auth.res.service.OperService;
 import com.ying.auth.res.vo.MenuVO;
@@ -87,13 +88,13 @@ public class MenuController {
 
     @GetMapping("/tree")
     @ApiOperation("获取菜单树")
-    public ResponseEntity<List<Tree>> tree() {
+    public ResponseEntity<List<Tree<MenuPayload>>> tree() {
         return Responser.ok(menuService.findMenuTree());
     }
 
     @GetMapping("/user/tree")
     @ApiOperation("获取用户能访问的菜单树")
-    public ResponseEntity<List<Tree>> userTrees() {
+    public ResponseEntity<List<Tree<MenuPayload>>> userTrees() {
         return Responser.ok(menuService.findLeftMenuTreeBySelf());
     }
 }

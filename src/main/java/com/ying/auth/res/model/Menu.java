@@ -60,4 +60,9 @@ public class Menu {
     private String code;
 
 
+    /**
+     * tubiao
+     */
+    private String icon;
+
 }

@@ -1,30 +1,32 @@
 package com.ying.core.data.tree;
 
+import com.ying.core.data.tree.payload.Payload;
 import lombok.Data;
 
 import java.util.List;
 
 /**
  * @author bvvy
- *
- * fixme 这种方式不太好  需要优化
  */
 @Data
-public class Tree implements Comparable<Tree> {
+public class Tree<P extends Payload> implements Comparable<Tree<P>> {
     private Integer id;
     private String label;
-    private List<Tree> children;
-    private String path;
+    private List<Tree<P>> children;
     private Integer orderNum;
+    private P payload;
+
 
     @Override
-    public int compareTo(Tree tree) {
-        if (this.orderNum > tree.orderNum) {
+    public int compareTo(Tree<P> o) {
+        if (this.orderNum > o.getOrderNum()) {
             return 1;
-        } else if (this.orderNum < tree.orderNum) {
+        } else if (this.orderNum < o.getOrderNum()) {
             return -1;
         } else {
             return 0;
         }
     }
+
+
 }

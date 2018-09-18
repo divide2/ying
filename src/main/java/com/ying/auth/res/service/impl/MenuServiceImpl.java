@@ -1,19 +1,23 @@
 package com.ying.auth.res.service.impl;
 
+import com.ying.auth.res.bo.MenuBO;
 import com.ying.auth.res.dto.MenuAddDTO;
 import com.ying.auth.res.model.Menu;
+import com.ying.auth.res.payload.MenuPayload;
 import com.ying.auth.res.repo.MenuRepository;
 import com.ying.auth.res.repo.OperRepository;
 import com.ying.auth.res.service.MenuService;
 import com.ying.auth.res.val.MenuType;
+import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.data.tree.ITreeMerger;
 import com.ying.core.data.tree.Tree;
-import com.ying.core.data.tree.TreeMerger;
 import com.ying.core.er.Loginer;
 import com.ying.core.er.Treer;
-import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author bvvy
@@ -29,15 +33,19 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
         this.menuRepository = menuRepository;
         this.operRepository = operRepository;
     }
+
     @Override
-    public List<Tree> findMenuTree() {
-        List<TreeMerger> treeMerger = menuRepository.findMenuTree();
-        return Treer.genTree(treeMerger);
+    public List<Tree<MenuPayload>> findMenuTree() {
+        List<MenuBO> bos = menuRepository.findMenuTree();
+        List<ITreeMerger<MenuPayload>> mergers = bos.stream().map(MenuBO::to).collect(toList());
+        return Treer.genTree(mergers);
     }
 
     @Override
-    public List<Tree> findLeftMenuTree() {
-        return Treer.genTree(menuRepository.findLeftMenuTree());
+    public List<Tree<MenuPayload>> findLeftMenuTree() {
+        List<MenuBO> bos = menuRepository.findLeftMenuTree();
+        List<ITreeMerger<MenuPayload>> mergers = bos.stream().map(MenuBO::to).collect(toList());
+        return Treer.genTree(mergers);
     }
 
     @Override
@@ -51,6 +59,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
                 .pid(menuAddDTO.getPid())
                 .type(MenuType.NAV)
                 .code(menuAddDTO.getCode())
+                .icon(menuAddDTO.getIcon())
                 .build();
         this.add(menu);
 
@@ -58,9 +67,9 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
 
 
     @Override
-    public List<Tree> findLeftMenuTreeBySelf() {
-        List<TreeMerger> tree = menuRepository.findLeftMenuTreeByUser(Loginer.userId());
-
-        return Treer.genTree(tree);
+    public List<Tree<MenuPayload>> findLeftMenuTreeBySelf() {
+        List<MenuBO> bos = menuRepository.findLeftMenuTreeByUser(Loginer.userId());
+        List<ITreeMerger<MenuPayload>> mergers = bos.stream().map(MenuBO::to).collect(toList());
+        return Treer.genTree(mergers);
     }
 }

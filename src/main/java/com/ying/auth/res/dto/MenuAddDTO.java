@@ -63,4 +63,7 @@ public class MenuAddDTO {
     @ApiModelProperty("编码")
     @NotEmpty
     private String code;
+
+    @ApiModelProperty("图标")
+    private String icon;
 }

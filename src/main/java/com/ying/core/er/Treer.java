@@ -1,7 +1,8 @@
 package com.ying.core.er;
 
+import com.ying.core.data.tree.ITreeMerger;
 import com.ying.core.data.tree.Tree;
-import com.ying.core.data.tree.TreeMerger;
+import com.ying.core.data.tree.payload.Payload;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,29 +18,30 @@ public class Treer {
 
     /**
      * 生成树
+     *
      * @param treeMergers treeMergers
      * @return list tree
      */
-    public static List<Tree> genTree(List<TreeMerger> treeMergers) {
-        List<TreeMerger> parents = getTreeParent(treeMergers);
-        List<Tree> trees = new ArrayList<>();
-        for (TreeMerger parent : parents) {
+    public static <P extends Payload> List<Tree<P>> genTree(List<ITreeMerger<P>> treeMergers) {
+        List<ITreeMerger<P>> parents = getTreeParent(treeMergers);
+        List<Tree<P>> trees = new ArrayList<>();
+        for (ITreeMerger<P> parent : parents) {
             trees.add(genTree(parent, treeMergers));
         }
         Collections.sort(trees);
         return trees;
     }
 
-    private static Tree genTree(TreeMerger parent, List<TreeMerger> treeMergers) {
-        Tree root = new Tree();
+    private static <P extends Payload> Tree<P> genTree(ITreeMerger<P> parent, List<ITreeMerger<P>> treeMergers) {
+        Tree<P> root = new Tree<>();
         root.setId(parent.getId());
         root.setLabel(parent.getLabel());
-        root.setPath(parent.getPath());
+        root.setPayload(parent.getPayload());
         root.setOrderNum(parent.getOrderNum());
-        List<Tree> children = new ArrayList<>();
-        for (TreeMerger treeMerger : treeMergers) {
+        List<Tree<P>> children = new ArrayList<>();
+        for (ITreeMerger<P> treeMerger : treeMergers) {
             if (treeMerger.getPid().equals(parent.getId())) {
-                Tree tree = genTree(treeMerger, treeMergers);
+                Tree<P> tree = genTree(treeMerger, treeMergers);
                 children.add(tree);
             }
         }
@@ -48,7 +50,7 @@ public class Treer {
         return root;
     }
 
-    private static List<TreeMerger> getTreeParent(List<TreeMerger> treeMerger) {
+    private static <P extends Payload> List<ITreeMerger<P>> getTreeParent(List<ITreeMerger<P>> treeMerger) {
         return treeMerger.stream().filter(tm -> tm.getPid().equals(0)).collect(Collectors.toList());
     }
 

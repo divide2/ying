@@ -95,6 +95,7 @@ public class MenuController {
     @GetMapping("/user/tree")
     @ApiOperation("获取用户能访问的菜单树")
     public ResponseEntity<List<Tree<MenuPayload>>> userTrees() {
+
         return Responser.ok(menuService.findLeftMenuTreeBySelf());
     }
 }

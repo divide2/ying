@@ -59,6 +59,8 @@ public class User {
          */
         private String avatar;
 
+        private String wechatOpenId;
+
         /**
          * 启用
          */

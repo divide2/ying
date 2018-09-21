@@ -59,6 +59,9 @@ public class User {
          */
         private String avatar;
 
+        /**
+         * 微信的openId
+         */
         private String wechatOpenId;
 
         /**

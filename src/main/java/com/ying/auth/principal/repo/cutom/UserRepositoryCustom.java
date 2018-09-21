@@ -27,4 +27,12 @@ public interface UserRepositoryCustom {
      * @return 用户
      */
     List<User> findUsersByRole(Integer roleId);
+
+    /**
+     * 通过登录账号获取用户
+     * @param username 账号
+     * @return user
+     */
+    User getByLogin(String username);
+
 }

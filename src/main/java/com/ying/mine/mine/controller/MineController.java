@@ -51,6 +51,7 @@ public class MineController {
     @GetMapping("/stars")
     @ApiOperation("我的star")
     public ResponseEntity<Page<StarVO>> star(Pageable pageable) {
+
         Page<Star> stars = starService.findByUser(pageable);
         return Responser.ok(stars.map(StarVO::of));
     }

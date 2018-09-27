@@ -7,12 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.*;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger.web.SecurityConfiguration;
+import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.List;
@@ -46,7 +49,7 @@ public class Swagger2Config {
                 .globalResponseMessage(RequestMethod.POST, singletonList(
                         new ResponseMessageBuilder().code(409).message("{code: 错误问题}").build())
                 )
-                .ignoredParameterTypes(Pageable.class)
+                .ignoredParameterTypes(Pageable.class,OAuth2Authentication.class)
                 .securitySchemes(singletonList(oauth()))
                 .securityContexts(singletonList(securityContext()))
 //                .enableUrlTemplating(true)
@@ -65,7 +68,7 @@ public class Swagger2Config {
                 .build();
     }
 
-    private SecurityContext securityContext() {
+    public SecurityContext securityContext() {
         AuthorizationScope readScope = new AuthorizationScope("webclient", "webclient");
         AuthorizationScope[] scopes = new AuthorizationScope[1];
         scopes[0] = readScope;
@@ -84,13 +87,13 @@ public class Swagger2Config {
     @Bean
     public SecurityScheme oauth() {
         return new OAuthBuilder()
-                .name("登录")
+                .name("OAuth2")
                 .grantTypes(grantTypes())
                 .scopes(scopes())
                 .build();
     }
 
-    private List<GrantType> grantTypes() {
+    private  List<GrantType> grantTypes() {
         GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8081/oauth/token");
         return singletonList(grantType);
     }
@@ -99,4 +102,16 @@ public class Swagger2Config {
         return singletonList(
                 new AuthorizationScope("webclient", "登录"));
     }
+
+    @Bean
+    public SecurityConfiguration securityInfo() {
+        return SecurityConfigurationBuilder.builder()
+                .clientId("aiNzsAXE8tkOFJN6")
+                .clientSecret("12345678")
+                .realm("realm")
+                .useBasicAuthenticationWithAccessCodeGrant(true)
+                .appName("xyq")
+                .build();
+    }
+
 }

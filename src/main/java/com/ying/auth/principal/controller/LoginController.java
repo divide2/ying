@@ -5,6 +5,7 @@ import com.ying.auth.principal.model.UserDetailsImpl;
 import com.ying.auth.principal.service.UserService;
 import com.ying.auth.principal.dto.JoinDTO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,13 +33,15 @@ public class LoginController {
     }
 
     @GetMapping("/user")
+    @ApiOperation("获取用户信息")
     public Object user(OAuth2Authentication o) {
         UserDetailsImpl principal = (UserDetailsImpl) o.getPrincipal();
         principal.setPassword(null);
         return principal;
     }
 
-    @PostMapping("/v1/join")
+    @PostMapping("join")
+    @ApiOperation("注册")
     public void join(@Valid  @RequestBody JoinDTO joinTO, BindingResult br) {
         User user = new User();
         user.setUsername(joinTO.getAccount());

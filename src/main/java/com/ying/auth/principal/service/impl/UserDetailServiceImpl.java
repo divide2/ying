@@ -15,13 +15,16 @@ import java.util.List;
 @Service
 class UserDetailServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserDetailServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = userRepository.getByLogin(username);
+        User user = userRepository.getByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("not found");
         }

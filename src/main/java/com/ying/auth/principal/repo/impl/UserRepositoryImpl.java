@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * @author bvvy
  */
-@Repository
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Autowired

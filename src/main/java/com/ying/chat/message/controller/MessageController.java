@@ -25,6 +25,7 @@ public class MessageController extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        session.getPrincipal();
         String payload = message.getPayload();
         Message msg = Jsoner.from(payload, Message.class);
         Integer toId = msg.getToId();
@@ -34,6 +35,7 @@ public class MessageController extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        session.sendMessage(new TextMessage("niaho"));
         CHATS.put(session.getId(), session);
     }
 

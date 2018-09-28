@@ -1089,5 +1089,13 @@ Last updated 2018-09-04 22:16:21
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
 <script>hljs.initHighlighting()</script>
+<script type="text/javascript">
+var wx = new WebSocket("ws://loaclhost:8081/myHandler")
+wx.onopen = function (x) {
+    console.log('xx', x)
+}
+wx.onmessage = function (ev) {
+    console.log(ev) }
+</script>
 </body>
 </html>

@@ -100,4 +100,6 @@ public class Product {
      */
     private String remarks;
 
+
+
 }

@@ -10,7 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @date 2018/7/28
  */
 public class Loginer {
-    private static final UserDetailsImpl USER = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    private static final UserDetailsImpl USER = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     public static Integer userId() {
         return 1;

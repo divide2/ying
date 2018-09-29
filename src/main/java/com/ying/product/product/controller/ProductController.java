@@ -4,6 +4,7 @@ import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.product.dto.ProductAddDTO;
+import com.ying.product.product.dto.ProductCommentAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
 import com.ying.product.product.model.Product;
 import com.ying.product.product.service.ProductService;
@@ -41,6 +42,14 @@ public class ProductController {
         return Responser.created();
     }
 
+    @ApiOperation("添加作品评论")
+    @PostMapping
+    public ResponseEntity<Messager> addComment(@Valid @RequestBody ProductCommentAddDTO comment, BindingResult br) {
+        productService.addComment(comment);
+        return Responser.created();
+    }
+    
+
     @PutMapping
     @ApiOperation("修改")
     public ResponseEntity<Messager> update(@Valid @RequestBody ProductUpdateDTO dto, BindingResult br) {
@@ -50,7 +59,7 @@ public class ProductController {
 
     @ApiOperation("删除")
     @DeleteMapping
-    public ResponseEntity<Messager> add(@Valid @RequestBody SingleId id, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId id, BindingResult br) {
         productService.delete(id.getId());
         return Responser.deleted();
     }
@@ -63,14 +72,14 @@ public class ProductController {
     }
 
     @GetMapping("/{userId}/products")
-    @ApiOperation("获取单个用户的产品")
+    @ApiOperation("获取单个用户的作品")
     public ResponseEntity<Page<ProductVO>> products(@PathVariable Integer userId, Pageable pageable) {
         Page<Product> products = productService.findByUser(userId,pageable);
         return Responser.ok(products.map(ProductVO::of));
     }
 
     @GetMapping("/find")
-    @ApiOperation("获取分页的产品")
+    @ApiOperation("获取分页的作品")
     public ResponseEntity<Page<ProductVO>> find( Pageable pageable) {
         Page<Product> products = productService.find(pageable);
         return Responser.ok(products.map(ProductVO::of));

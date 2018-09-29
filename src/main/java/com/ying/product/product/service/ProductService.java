@@ -2,6 +2,7 @@ package com.ying.product.product.service;
 
 import com.ying.core.basic.service.BasicService;
 import com.ying.product.product.dto.ProductAddDTO;
+import com.ying.product.product.dto.ProductCommentAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
 import com.ying.product.product.model.Product;
 import org.springframework.data.domain.Page;
@@ -32,4 +33,10 @@ public interface ProductService extends BasicService<Product,Integer> {
      * @param dto dto
      */
     void update(ProductUpdateDTO dto);
+
+    /**
+     * 添加作品的评论
+     * @param comment comment
+     */
+    void addComment(ProductCommentAddDTO comment);
 }

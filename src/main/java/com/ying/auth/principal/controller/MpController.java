@@ -100,6 +100,7 @@ class MpController {
         user.setNickname(mpUser.getNickName());
         user.setAvatar(mpUser.getAvatarUrl());
         user.setPassword(openId);
+        user.setWechatOpenId(openId);
         user.setGender(mpUser.getGender());
         user.setEnabled(true);
         userService.update(user);

@@ -32,4 +32,5 @@ public class CommentServiceImpl extends SimpleBasicServiceImpl<Comment, Integer,
     public Page<Comment> findByUser(Pageable pageable) {
         return  commentRepository.findByFromId(Loginer.userId(), pageable);
     }
+
 }

@@ -3,7 +3,9 @@ package com.ying.product.product.service.impl;
 import com.ying.basis.tag.service.TagService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
+import com.ying.product.consumer.service.ConsumerService;
 import com.ying.product.product.dto.ProductAddDTO;
+import com.ying.product.product.dto.ProductCommentAddDTO;
 import com.ying.product.product.dto.ProductUpdateDTO;
 import com.ying.product.product.model.Product;
 import com.ying.product.product.repo.ProductRepository;
@@ -24,10 +26,13 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
     private final ProductRepository productRepository;
     private final TagService tagService;
+    private final ConsumerService consumerService;
 
-    public ProductServiceImpl(ProductRepository productRepository, TagService tagService) {
+    public ProductServiceImpl(ProductRepository productRepository, TagService tagService,
+                              ConsumerService consumerService) {
         this.productRepository = productRepository;
         this.tagService = tagService;
+        this.consumerService = consumerService;
     }
 
     @Override
@@ -55,5 +60,8 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         Product product = super.update(dto.toProduct());
     }
 
-
+    @Override
+    public void addComment(ProductCommentAddDTO comment) {
+        consumerService.addComment(comment);
+    }
 }

@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -22,10 +23,13 @@ public class ProductVO {
     @ApiModelProperty("id")
     private Integer id;
 
+    @ApiModelProperty("创建人")
     private Integer fromId;
 
+    @ApiModelProperty("创建人的名字")
     private String fromName;
 
+    @ApiModelProperty("头像")
     private String fromAvatar;
     /**
      * 名称
@@ -57,11 +61,25 @@ public class ProductVO {
      */
     @ApiModelProperty("纬度")
     private BigDecimal latitude;
+
+    @ApiModelProperty("创建时间")
+    private LocalDateTime cdt;
     /**
      * 备注 描述
      */
     @ApiModelProperty("备注描述")
     private String remarks;
+
+    @ApiModelProperty("star数量")
+    private Long starCount;
+
+    @ApiModelProperty("评论数量")
+    private Long commentCount;
+
+
+    @ApiModelProperty("查看数量")
+    private Long readCount;
+
 
     public static ProductVO of(Product product) {
         ProductVO vo = new ProductVO();
@@ -76,6 +94,10 @@ public class ProductVO {
         vo.setFromName(product.getFromName());
         vo.setFromAvatar(product.getFromAvatar());
         vo.setImages(product.getImages().stream().map(ProductImageDTO::of).collect(toList()));
+        vo.setCdt(product.getCdt());
+        vo.setCommentCount(10L);
+        vo.setStarCount(199L);
+        vo.setReadCount(299L);
         return vo;
     }
 

@@ -43,7 +43,7 @@ public class ProductController {
     }
 
     @ApiOperation("添加作品评论")
-    @PostMapping
+    @PostMapping("/comment")
     public ResponseEntity<Messager> addComment(@Valid @RequestBody ProductCommentAddDTO comment, BindingResult br) {
         productService.addComment(comment);
         return Responser.created();

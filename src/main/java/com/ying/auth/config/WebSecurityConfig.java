@@ -4,15 +4,28 @@ package com.ying.auth.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
-import javax.servlet.Filter;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -23,6 +36,7 @@ import javax.servlet.Filter;
 @Configuration
 class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
+
 
     public WebSecurityConfig(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -42,12 +56,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(filter(), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new MpFilter(), BasicAuthenticationFilter.class);
     }
 
-    private Filter filter() {
 
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -56,4 +68,35 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 }
 
+class MpFilter extends AbstractAuthenticationProcessingFilter {
 
+    private AuthenticationManager am = new MpAuthenticationManager();
+
+    protected MpFilter() {
+        super("/login/mp");
+    }
+
+    @Override
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+        String code = request.getParameter("code");
+        Authentication authReq = new UsernamePasswordAuthenticationToken("", "");
+        return am.authenticate(authReq);
+    }
+}
+
+
+class MpAuthenticationManager implements AuthenticationManager {
+    static final List<GrantedAuthority> AUTHORITIES = new ArrayList<GrantedAuthority>();
+
+    static {
+        AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    public Authentication authenticate(Authentication auth) throws AuthenticationException {
+        if (auth.getName().equals(auth.getCredentials())) {
+            return new UsernamePasswordAuthenticationToken(auth.getName(),
+                    auth.getCredentials(), AUTHORITIES);
+        }
+        throw new BadCredentialsException("Bad Credentials");
+    }
+}

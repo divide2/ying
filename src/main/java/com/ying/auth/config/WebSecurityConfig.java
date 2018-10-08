@@ -79,19 +79,20 @@ class MpFilter extends AbstractAuthenticationProcessingFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         String code = request.getParameter("code");
-        Authentication authReq = new UsernamePasswordAuthenticationToken("", "");
+        Authentication authReq = new UsernamePasswordAuthenticationToken("xxxxx", "aaaaaa");
         return am.authenticate(authReq);
     }
 }
 
 
 class MpAuthenticationManager implements AuthenticationManager {
-    static final List<GrantedAuthority> AUTHORITIES = new ArrayList<GrantedAuthority>();
+    static final List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
 
     static {
         AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
-    }
+}
 
+    @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {
         if (auth.getName().equals(auth.getCredentials())) {
             return new UsernamePasswordAuthenticationToken(auth.getName(),

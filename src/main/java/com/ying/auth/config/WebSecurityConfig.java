@@ -16,9 +16,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -54,12 +54,6 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(new MpFilter(), BasicAuthenticationFilter.class);
-    }
-
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -73,7 +67,7 @@ class MpFilter extends AbstractAuthenticationProcessingFilter {
     private AuthenticationManager am = new MpAuthenticationManager();
 
     protected MpFilter() {
-        super("/login/mp");
+        super(new AntPathRequestMatcher("/login/mp", "POST"));
     }
 
     @Override
@@ -87,10 +81,9 @@ class MpFilter extends AbstractAuthenticationProcessingFilter {
 
 class MpAuthenticationManager implements AuthenticationManager {
     static final List<GrantedAuthority> AUTHORITIES = new ArrayList<>();
-
     static {
         AUTHORITIES.add(new SimpleGrantedAuthority("ROLE_USER"));
-}
+    }
 
     @Override
     public Authentication authenticate(Authentication auth) throws AuthenticationException {

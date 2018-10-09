@@ -2,25 +2,15 @@ package com.ying.auth.principal.controller;
 
 import com.ying.auth.principal.model.User;
 import com.ying.auth.principal.service.UserService;
-import com.ying.auth.principal.vo.MpUserVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Jsoner;
 import com.ying.core.er.Responser;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.commons.codec.binary.Base64;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +19,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -73,9 +62,6 @@ class MpController {
         return Responser.created();
     }
 
-    public static void main(String[] args) {
-        System.out.println(Base64.encodeBase64String("aiNzsAXE8tkOFJN6:12345678".getBytes()));
-    }
 }
 
 @Data
@@ -95,6 +81,9 @@ class MpLogin {
 class MpLoginReturn {
     private String openid;
     private String sessionKey;
+    private String errcode;
+    private String errmsg;
+    private List<String> hints;
 }
 
 @Data

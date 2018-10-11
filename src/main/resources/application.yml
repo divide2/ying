@@ -36,6 +36,12 @@ alibaba:
     secret-access-key: your
     bucket-name: your
     file-host: your
+qiniu:
+  oss:
+    access-key: OobyLRT8f_jxHigOjujGaGtwvLHJo8LSwzTWUQbi
+    secret-key: W1HuqgbOFQbWYkZYSyxrEqNb27ajrrRl39d-BQmq
+    bucket: ying
+    bucket-domain: http://pgc6voj4f.bkt.clouddn.com
 dic:
   status:
     enable: Y

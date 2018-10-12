@@ -18,7 +18,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .addFilterBefore(new MpFilter(),BasicAuthenticationFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/**").permitAll()
+                .antMatchers("/v1/**","/swagger**").permitAll()
                 .anyRequest().authenticated();
     }
 

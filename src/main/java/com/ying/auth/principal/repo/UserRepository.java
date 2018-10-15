@@ -18,4 +18,11 @@ public interface UserRepository extends UserRepositoryCustom, JpaRepository<User
      * @return principal
      */
     User getByUsername(String username);
+
+    /**
+     * 通过微信openid获取用户
+     * @param openid openid
+     * @return user
+     */
+    User getByWechatOpenId(String openid);
 }

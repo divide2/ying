@@ -67,4 +67,9 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         return userRepository.findAll(predicate, pageable);
     }
 
+    @Override
+    public User getByWechatOpenId(String openid) {
+        return userRepository.getByWechatOpenId(openid);
+    }
+
 }

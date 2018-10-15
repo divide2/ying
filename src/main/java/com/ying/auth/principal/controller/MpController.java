@@ -47,7 +47,7 @@ class MpController {
         String result = restTemplate.getForObject(URL+"?appid="+APPID+"&secret="+SECRET+"&js_code="+login.getCode()+"&grant_type=authorization_code", String.class);
         MpLoginReturn open = Jsoner.fromSnake(result, MpLoginReturn.class);
         String openid = open.getOpenid();
-        User user = userService.getByUsername(openid);
+        User user = userService.getByWechatOpenId(openid);
         if (user == null) {
             user = new User();
         }

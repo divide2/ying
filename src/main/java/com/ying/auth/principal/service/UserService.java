@@ -43,4 +43,11 @@ public interface UserService extends BasicService<User,Integer> {
      * @return users
      */
     Page<User> find(UserQueryDTO query, Pageable pageable);
+
+    /**
+     * 通过微信open Id 获取
+     * @param openid
+     * @return
+     */
+    User getByWechatOpenId(String openid);
 }

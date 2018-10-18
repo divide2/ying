@@ -54,6 +54,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(new MpFilter(), BasicAuthenticationFilter.class);
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

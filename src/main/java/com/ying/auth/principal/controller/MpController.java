@@ -7,9 +7,7 @@ import com.ying.core.er.Jsoner;
 import com.ying.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +49,6 @@ class MpController {
         if (user == null) {
             user = new User();
         }
-        user.setUsername(openid);
         user.setNickname(login.getNickName());
         user.setAvatar(login.getAvatarUrl());
         user.setPassword(openid);
@@ -86,9 +83,3 @@ class MpLoginReturn {
     private List<String> hints;
 }
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class Skey {
-    private String skey;
-}

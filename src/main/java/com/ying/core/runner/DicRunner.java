@@ -2,8 +2,8 @@ package com.ying.core.runner;
 
 import com.ying.core.data.properties.DicProperties;
 import com.ying.core.val.Punctuation;
-import com.ying.basis.dictionary.model.Dictionary;
-import com.ying.basis.dictionary.repo.DictionaryRepository;
+import com.ying.basis.model.Dictionary;
+import com.ying.basis.repo.DictionaryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

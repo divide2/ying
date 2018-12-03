@@ -7,6 +7,13 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.ying.core.val.Punctuation.COMMA;
 
 
 /**
@@ -24,7 +31,18 @@ public class ValidationAspect {
     @Around("validPointcut() && args(..,br)")
     public Object validAround(ProceedingJoinPoint jp, BindingResult br) throws Throwable {
         if (br.hasErrors()) {
-            throw new ValidationException(br.getAllErrors());
+            List<ObjectError> allErrors = br.getAllErrors();
+            String messages = allErrors.stream()
+                    .map(objectError -> {
+                        if (objectError instanceof FieldError) {
+                            FieldError fieldError = (FieldError) objectError;
+                            return fieldError.getField() + fieldError.getDefaultMessage();
+                        } else {
+                            return objectError.getObjectName() + objectError.getDefaultMessage();
+                        }
+                    })
+                    .collect(Collectors.joining(COMMA));
+            throw new ValidationException(messages);
         }
         return jp.proceed();
     }

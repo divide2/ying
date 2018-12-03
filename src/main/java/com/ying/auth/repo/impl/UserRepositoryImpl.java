@@ -45,11 +45,12 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public User getByLogin(String username) {
+    public User getByAccount(String username) {
 
         QUser user = QUser.user;
         JPAQuery<User> query = new JPAQuery<>(entityManager);
-        query.where(user.username.eq(username).or(user.phone.eq(username).or(user.email.eq(username)))).fetch();
-        return null;
+        User loginUser = query.where(user.username.eq(username).or(user.phone.eq(username).or(user.email.eq(username)))).fetchOne();
+        return loginUser;
     }
+
 }

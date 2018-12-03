@@ -1,26 +1,21 @@
 package com.ying.core.data.resp;
 
+import lombok.Data;
+
 /**
  * @author bvvy
  */
+@Data
 public class Messager {
 
-    private String code ;
+    private String message ;
 
-    public String getCode() {
-        return code;
+    public Messager(String message) {
+        this.message = message;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Messager(String code) {
-        this.code = code;
-    }
-
-    public static Messager of(String code) {
-        return new Messager(code);
+    public static Messager of(String message) {
+        return new Messager(message);
 
     }
 

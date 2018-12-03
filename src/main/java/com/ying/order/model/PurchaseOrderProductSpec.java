@@ -3,8 +3,7 @@ package com.ying.order.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -19,6 +18,8 @@ import java.time.LocalDateTime;
 @Table(name="o_purchase_order_product_spec")
 public class PurchaseOrderProductSpec extends OrderImpl implements IOrder{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer purchaseOrderId;
     private Integer purchaseOrderProductId;

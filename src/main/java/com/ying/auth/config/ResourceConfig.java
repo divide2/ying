@@ -15,7 +15,6 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .addFilterBefore(new MpFilter(),BasicAuthenticationFilter.class)
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()

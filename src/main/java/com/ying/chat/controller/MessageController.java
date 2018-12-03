@@ -1,6 +1,6 @@
-package com.ying.chat.message.controller;
+package com.ying.chat.controller;
 
-import com.ying.chat.message.model.Message;
+import com.ying.chat.model.Message;
 import com.ying.core.er.Jsoner;
 import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,7 @@
 package com.ying.order.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
  * @author bvvy
  * @date 2018/12/2
  */
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "o_purchase_order")
 @Data

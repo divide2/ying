@@ -33,6 +33,6 @@ public interface UserRepositoryCustom {
      * @param username 账号
      * @return user
      */
-    User getByLogin(String username);
+    User getByAccount(String username);
 
 }

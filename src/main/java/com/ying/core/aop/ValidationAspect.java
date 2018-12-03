@@ -16,7 +16,7 @@ import org.springframework.validation.BindingResult;
 @Component
 public class ValidationAspect {
 
-    @Pointcut("execution(* com.ying.*.*.controller.*.*(..))")
+    @Pointcut("execution(* com.ying.*.controller.*.*(..))")
     public void validPointcut() {
 
     }

@@ -1,6 +1,6 @@
 package com.ying.chat.config;
 
-import com.ying.chat.message.controller.MessageController;
+import com.ying.chat.controller.MessageController;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;

@@ -1,7 +1,7 @@
 package com.ying.core.runner;
 
-import com.ying.auth.res.model.Api;
-import com.ying.auth.res.service.ApiService;
+import com.ying.auth.model.Api;
+import com.ying.auth.service.ApiService;
 import com.ying.core.val.Punctuation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

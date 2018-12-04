@@ -1,8 +1,5 @@
 package com.ying.core.er;
 
-import com.ying.auth.principal.model.UserDetailsImpl;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 /**
  * 获取登录信息
  *

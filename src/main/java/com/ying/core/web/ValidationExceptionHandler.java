@@ -17,12 +17,7 @@ public class ValidationExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<Messager> valid(ValidationException exception) {
-
-        for (ObjectError objectError : exception.getErrors()) {
-            System.out.println(objectError.getObjectName());
-            System.out.println(objectError.getDefaultMessage());
-        }
-        return Responser.conflict(exception.getErrors().toString());
+        return Responser.conflict(exception.getMessage());
     }
 
     @ExceptionHandler(AlreadyExistsException.class)

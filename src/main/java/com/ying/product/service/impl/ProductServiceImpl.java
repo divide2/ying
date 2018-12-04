@@ -3,7 +3,7 @@ package com.ying.product.service.impl;
 import com.ying.basis.service.TagService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
-import com.ying.product.dto.ProductAddDTO;
+import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import com.ying.product.repo.ProductRepository;
@@ -37,11 +37,8 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(ProductAddDTO dto) {
-        Product product = dto.toProduct();
-        product.setFromId(Loginer.userId());
-        product.setFromName(Loginer.username());
-        super.add(product);
+    public void add(ProductDTO dto) {
+
 
     }
 

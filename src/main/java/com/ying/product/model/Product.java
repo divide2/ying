@@ -34,6 +34,7 @@ public class Product {
      * 公司id
      */
     private Integer companyId;
+
     /**
      * 名称
      */
@@ -44,15 +45,6 @@ public class Product {
      */
     private String image;
 
-    /**
-     * 采购价
-     */
-    private String purchasePrice;
-
-    /**
-     * 销售价
-     */
-    private String sellPrice;
     /**
      * 创建人
      */

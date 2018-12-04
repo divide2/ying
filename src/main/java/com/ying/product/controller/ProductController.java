@@ -3,7 +3,7 @@ package com.ying.product.controller;
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
-import com.ying.product.dto.ProductAddDTO;
+import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductCommentAddDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
@@ -37,17 +37,10 @@ public class ProductController {
 
     @ApiOperation("添加产品")
     @PostMapping
-    public ResponseEntity<Messager> add(@Valid @RequestBody ProductAddDTO dto, BindingResult br) {
+    public ResponseEntity<Messager> add(@Valid @RequestBody ProductDTO dto, BindingResult br) {
         productService.add(dto);
         return Responser.created();
     }
-
-    @ApiOperation("添加产品评论")
-    @PostMapping("/comment")
-    public ResponseEntity<Messager> addComment(@Valid @RequestBody ProductCommentAddDTO comment, BindingResult br) {
-        return Responser.created();
-    }
-    
 
     @PutMapping
     @ApiOperation("修改")

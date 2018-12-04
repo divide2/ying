@@ -1,6 +1,5 @@
 package com.ying.product.vo;
 
-import com.ying.product.dto.ProductImageDTO;
 import com.ying.product.model.Product;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,7 +7,6 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author bvvy
@@ -34,11 +32,7 @@ public class ProductVO {
      */
     @ApiModelProperty("名称")
     private String name;
-    /**
-     * 图片
-     */
-    @ApiModelProperty("图片")
-    List<ProductImageDTO> images;
+
     /**
      * 标签
      */

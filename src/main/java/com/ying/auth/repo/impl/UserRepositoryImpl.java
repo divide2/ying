@@ -41,7 +41,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         QUserRole ur = QUserRole.userRole;
         JPAQuery<User> query = new JPAQuery<>(entityManager);
         return query.select(user).from(ur).innerJoin(user).on(ur.userId.eq(user.id))
-                        .where(ur.roleId.eq(roleId)).fetch();
+                .where(ur.roleId.eq(roleId)).fetch();
     }
 
     @Override
@@ -49,7 +49,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
         QUser user = QUser.user;
         JPAQuery<User> query = new JPAQuery<>(entityManager);
-        User loginUser = query.where(user.username.eq(username).or(user.phone.eq(username).or(user.email.eq(username)))).fetchOne();
+        User loginUser = query.from(user)
+                .where(user.username.eq(username)
+                        .or(user.phone.eq(username))
+                        .or(user.email.eq(username))).fetchOne();
         return loginUser;
     }
 

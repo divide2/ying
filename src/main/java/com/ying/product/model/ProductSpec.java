@@ -1,5 +1,7 @@
 package com.ying.product.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name = "p_product_spec")
+@Data
 public class ProductSpec {
 
     @Id

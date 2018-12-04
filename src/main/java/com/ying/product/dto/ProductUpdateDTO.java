@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * @author bvvy
@@ -22,11 +21,7 @@ public class ProductUpdateDTO {
      */
     @ApiModelProperty("名称")
     private String name;
-    /**
-     * 图片
-     */
-    @ApiModelProperty("图片")
-    List<ProductImageDTO> images;
+
     /**
      * 标签
      */

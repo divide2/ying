@@ -1,7 +1,9 @@
 package com.ying.auth.service.impl;
 
 import com.ying.auth.model.User;
+import com.ying.auth.model.UserCompany;
 import com.ying.auth.model.UserDetailsImpl;
+import com.ying.auth.repo.UserCompanyRepository;
 import com.ying.auth.repo.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,9 +17,12 @@ import java.util.List;
 class UserDetailServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final UserCompanyRepository userCompanyRepository;
 
-    public UserDetailServiceImpl(UserRepository userRepository) {
+    public UserDetailServiceImpl(UserRepository userRepository,
+                                 UserCompanyRepository userCompanyRepository) {
         this.userRepository = userRepository;
+        this.userCompanyRepository = userCompanyRepository;
     }
 
     @Override
@@ -28,8 +33,14 @@ class UserDetailServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("not found");
         }
         List<SimpleGrantedAuthority> authorities = userRepository.findUserRolesByUsername(username);
+        UserCompany userCompany = userCompanyRepository.getByUserId(user.getId());
+        Integer companyId = null;
+        if (userCompany != null) {
+            companyId = userCompany.getCompanyId();
+        }
         return UserDetailsImpl.builder()
                 .id(user.getId())
+                .companyId(companyId)
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .authorities(authorities)

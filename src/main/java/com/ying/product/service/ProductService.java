@@ -1,8 +1,7 @@
 package com.ying.product.service;
 
 import com.ying.core.basic.service.BasicService;
-import com.ying.product.dto.ProductAddDTO;
-import com.ying.product.dto.ProductCommentAddDTO;
+import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import org.springframework.data.domain.Page;
@@ -26,7 +25,7 @@ public interface ProductService extends BasicService<Product,Integer> {
      * 添加
      * @param dto dto
      */
-    void add(ProductAddDTO dto);
+    void add(ProductDTO dto);
 
     /**
      * 修改

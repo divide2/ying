@@ -32,12 +32,10 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/v1/user")
     @ApiOperation("获取用户信息")
     public Object user(OAuth2Authentication o) {
-        UserDetailsImpl principal = (UserDetailsImpl) o.getPrincipal();
-        principal.setPassword(null);
-        return principal;
+        return o;
     }
 
     @PostMapping("join")

@@ -55,3 +55,6 @@ dic:
   container-type:
     general: G
     special: S
+devide:
+  defaults:
+    avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4

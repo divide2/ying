@@ -19,20 +19,20 @@ public class Responser{
     }
 
     public static ResponseEntity<Messager> created() {
-        return ResponseEntity.status(HttpStatus.CREATED).body(Messager.of("m_save_success"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(Messager.success());
     }
 
     public static ResponseEntity<Messager> updated() {
-        return ResponseEntity.status(UPDATE_STATUE).body(Messager.of("m_save_success"));
+        return ResponseEntity.status(UPDATE_STATUE).body(Messager.success());
     }
 
 
     public static ResponseEntity<Messager> deleted() {
-        return ResponseEntity.status(DELETE_STATUS).body(Messager.of("m_delete_success"));
+        return ResponseEntity.status(DELETE_STATUS).body(Messager.success());
     }
 
     public static ResponseEntity<Messager> conflict(String code) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(Messager.of(code));
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Messager.fail(code, "fail"));
     }
 
 }

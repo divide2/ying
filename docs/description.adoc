@@ -1,0 +1,20 @@
+=== 流程
+A新增一个采购单给B
+ 并支付定金 可申请取消
+->
+B获取到采购的订单  确认和取消
+->
+B确认发货  从B仓库中扣除
+->
+A确认收货并支付尾款
+A的仓库配件物品增加
+
+[plantuml, state,  png]
+--
+Alice -> Bob: 采购单
+Bob --> Alice: 确认
+
+Alice -> Bob: Another authentication Request
+Alice <-- Bob: another authentication Response
+
+--

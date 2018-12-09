@@ -1,7 +1,11 @@
 package com.ying.product.dto;
 
+import com.ying.product.model.ProductComposite;
+import com.ying.product.model.ProductSpec;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -12,6 +16,8 @@ import lombok.Data;
 public class ProductDTO {
 
     private Integer id;
+
+    private Integer warehouseId;
     /**
      * 名称
      */
@@ -23,19 +29,12 @@ public class ProductDTO {
     private String image;
 
     /**
-     * 采购价
-     */
-    private String purchasePrice;
-
-    /**
-     * 销售价
-     */
-    private String sellPrice;
-
-
-    /**
      * 备注 描述
      */
     private String remarks;
 
+
+    private List<ProductSpec> specs;
+
+    private List<ProductComposite> composites;
 }

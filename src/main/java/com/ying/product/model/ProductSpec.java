@@ -1,6 +1,7 @@
 package com.ying.product.model;
 
 import lombok.Data;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -19,6 +20,8 @@ public class ProductSpec {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String specName;
+
+    @JsonIgnore
     private Integer productId;
     private BigDecimal price;
 }

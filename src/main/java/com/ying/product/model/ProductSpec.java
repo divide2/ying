@@ -4,6 +4,8 @@ import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 /**
@@ -19,9 +21,12 @@ public class ProductSpec {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String specName;
+    @NotEmpty
+    private String name;
 
     @JsonIgnore
     private Integer productId;
+
+    @NotNull
     private BigDecimal price;
 }

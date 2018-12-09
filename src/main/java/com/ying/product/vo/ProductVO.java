@@ -43,16 +43,6 @@ public class ProductVO {
      */
     @ApiModelProperty("创建地点")
     private String cdp;
-    /**
-     * 经度
-     */
-    @ApiModelProperty("经度")
-    private BigDecimal longitude;
-    /**
-     * 纬度
-     */
-    @ApiModelProperty("纬度")
-    private BigDecimal latitude;
 
     @ApiModelProperty("创建时间")
     private LocalDateTime cdt;

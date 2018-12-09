@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @date 2018/12/4
  */
 @Entity
-@Table(name = "o_warehouse")
+@Table(name = "p_warehouse")
 @Data
 public class Warehouse {
 
@@ -23,8 +23,4 @@ public class Warehouse {
     private String type;
     private String name;
 
-    /**
-     * 产品总数
-     */
-    private Integer productAmount;
 }

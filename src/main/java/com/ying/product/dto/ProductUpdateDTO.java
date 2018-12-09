@@ -1,10 +1,13 @@
 package com.ying.product.dto;
 
+import com.ying.product.model.ProductSpec;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -14,45 +17,22 @@ import java.math.BigDecimal;
 @ApiModel("产品修改数据")
 public class ProductUpdateDTO {
 
-    @ApiModelProperty("id")
     private Integer id;
-    /**
-     * 名称
-     */
-    @ApiModelProperty("名称")
+
+    @ApiModelProperty("名字")
+    @NotEmpty
     private String name;
 
-    /**
-     * 标签
-     */
-    @ApiModelProperty("标签 用，隔开")
-    private String[] tags;
-    /**
-     * 创建地点
-     */
-    @ApiModelProperty("创建地点")
-    private String cdp;
-    /**
-     * 经度
-     */
-    @ApiModelProperty("经度")
-    private BigDecimal longitude;
-    /**
-     * 纬度
-     */
-    @ApiModelProperty("纬度")
-    private BigDecimal latitude;
-    /**
-     * 启用
-     */
-    @ApiModelProperty
-    private Boolean enabled;
-    /**
-     * 备注 描述
-     */
-    @ApiModelProperty("备注描述")
+    private Integer initAmount;
+
+    @ApiModelProperty("图")
+    private String image;
+
     private String remarks;
 
+    @ApiModelProperty("规格")
+    @NotEmpty
+    private List<ProductSpec> specs;
 
 
 }

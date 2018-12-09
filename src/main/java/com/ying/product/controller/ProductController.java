@@ -4,7 +4,6 @@ import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.dto.ProductDTO;
-import com.ying.product.dto.ProductCommentAddDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import com.ying.product.service.ProductService;
@@ -72,9 +71,9 @@ public class ProductController {
 
     @GetMapping("/find")
     @ApiOperation("获取分页的产品")
-    public ResponseEntity<Page<ProductVO>> find( Pageable pageable) {
-        Page<Product> products = productService.find(pageable);
-        return Responser.ok(products.map(ProductVO::of));
+    public ResponseEntity<Page<ProductDTO>> find( Pageable pageable) {
+        Page<ProductDTO> info = productService.findInfo(pageable);
+        return Responser.ok(info);
     }
 
 }

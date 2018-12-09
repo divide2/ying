@@ -6,6 +6,7 @@ import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 /**
  * @author bvvy
@@ -34,4 +35,10 @@ public interface ProductService extends BasicService<Product,Integer> {
     void update(ProductUpdateDTO dto);
 
 
+    /**
+     * 获取详细信息
+     * @param pageable 分页
+     * @return vo
+     */
+    Page<ProductDTO> findInfo(Pageable pageable);
 }

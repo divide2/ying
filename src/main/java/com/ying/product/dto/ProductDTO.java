@@ -1,10 +1,11 @@
 package com.ying.product.dto;
 
-import com.ying.product.model.ProductComposite;
 import com.ying.product.model.ProductSpec;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
@@ -15,26 +16,17 @@ import java.util.List;
 @ApiModel("产品添加数据")
 public class ProductDTO {
 
-    private Integer id;
-
-    private Integer warehouseId;
-    /**
-     * 名称
-     */
+    @ApiModelProperty("名字")
+    @NotEmpty
     private String name;
 
-    /**
-     * 图片
-     */
+    @ApiModelProperty("图")
     private String image;
 
-    /**
-     * 备注 描述
-     */
     private String remarks;
 
-
+    @ApiModelProperty("规格")
+    @NotEmpty
     private List<ProductSpec> specs;
 
-    private List<ProductComposite> composites;
 }

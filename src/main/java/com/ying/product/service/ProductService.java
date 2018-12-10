@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 /**
  * @author bvvy
  * @date 2018/8/16
@@ -21,6 +23,8 @@ public interface ProductService extends BasicService<Product,Integer> {
      * @return products
      */
     Page<Product> findByUser(Integer userId, Pageable pageable);
+
+    List<Product> listByCompany();
 
     /**
      * 添加
@@ -41,4 +45,6 @@ public interface ProductService extends BasicService<Product,Integer> {
      * @return vo
      */
     Page<ProductDTO> findInfo(Pageable pageable);
+
+    Page<Product> findByCompany(Pageable pageable);
 }

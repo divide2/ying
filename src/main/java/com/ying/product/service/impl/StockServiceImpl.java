@@ -1,7 +1,7 @@
 package com.ying.product.service.impl;
 
-import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.dto.StockDTO;
+import com.ying.product.model.Warehouse;
 import com.ying.product.model.WarehouseProduct;
 import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.repo.WarehouseProductRepository;
@@ -9,6 +9,8 @@ import com.ying.product.repo.WarehouseProductSpecRepository;
 import com.ying.product.service.StockService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author bvvy

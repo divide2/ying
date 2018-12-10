@@ -41,6 +41,13 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         return products;
     }
 
+    @Override
+    public List<Product> listByCompany() {
+        List<Product> products = productRepository.findByCompanyId(Loginer.companyId());
+        return products;
+    }
+
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -86,5 +93,10 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     @Override
     public Page<ProductDTO> findInfo(Pageable pageable) {
         return null;
+    }
+
+    @Override
+    public Page<Product> findByCompany(Pageable pageable) {
+        return productRepository.findByCompanyId(Loginer.companyId(), pageable);
     }
 }

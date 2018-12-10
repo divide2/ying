@@ -6,7 +6,9 @@ import com.ying.core.er.Responser;
 import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
+import com.ying.product.model.ProductSpec;
 import com.ying.product.service.ProductService;
+import com.ying.product.service.ProductSpecService;
 import com.ying.product.vo.ProductVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -29,9 +32,11 @@ import javax.validation.Valid;
 public class ProductController {
 
     private final ProductService productService;
+    private final ProductSpecService productSpecService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ProductSpecService productSpecService) {
         this.productService = productService;
+        this.productSpecService = productSpecService;
     }
 
     @ApiOperation("添加产品")
@@ -76,4 +81,10 @@ public class ProductController {
         return Responser.ok(info);
     }
 
+    @GetMapping("/{productId}/specs")
+    @ApiOperation("获取分页的产品")
+    public ResponseEntity<List<ProductSpec>> listProductSpecs(@PathVariable Integer productId) {
+        List<ProductSpec> info = productSpecService.listByProduct(productId);
+        return Responser.ok(info);
+    }
 }

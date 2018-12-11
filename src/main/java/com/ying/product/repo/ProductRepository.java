@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -36,4 +38,15 @@ public interface ProductRepository  extends JpaRepository<Product,Integer> {
      * @return x
      */
     Page<Product> findByCompanyId(Integer companyId, Pageable pageable);
+
+    /**
+     * 获取集合
+     * @param productIds ids
+     * @return products
+     */
+    List<Product> findByIdIn(List<Integer> productIds);
+
+    default Map<Integer, Product> findByIds(List<Integer> productIds) {
+        return this.findByIdIn(productIds).stream().collect(Collectors.toMap(Product::getId, product -> product));
+    }
 }

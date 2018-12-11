@@ -11,17 +11,22 @@ import com.ying.core.er.Responser;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.product.model.Product;
+import com.ying.product.query.StockQuery;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -47,6 +52,12 @@ public class MineController {
         this.commentService = commentService;
     }
 
+    @GetMapping("/stocks")
+    @ApiOperation("我的库存")
+    public ResponseEntity<Page<StockVO>> findStock(Pageable pageable, @Valid StockQuery stockQuery, BindingResult br) {
+        Page<StockVO> vo = mineService.findStock(stockQuery, pageable);
+        return Responser.ok(vo);
+    }
     @GetMapping("/warehouses")
     @ApiOperation("我的仓库")
     public ResponseEntity<List<WarehouseVO>> listWarehouse() {

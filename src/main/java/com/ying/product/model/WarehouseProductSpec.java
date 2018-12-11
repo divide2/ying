@@ -22,6 +22,7 @@ public class WarehouseProductSpec {
     private Integer warehouseId;
     private Integer productId;
     private Integer productSpecId;
+    private String productSpecName;
 
     private Integer amount;
 }

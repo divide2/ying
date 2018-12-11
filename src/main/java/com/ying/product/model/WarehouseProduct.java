@@ -3,6 +3,7 @@ package com.ying.product.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 /**
  * 仓库和产品的关联表 就是库存表
@@ -20,5 +21,8 @@ public class WarehouseProduct {
     private Integer warehouseId;
     private Integer productId;
     private Integer amount;
-
+    /**
+     * 最后一次入库时间
+     */
+    private LocalDateTime lastTime;
 }

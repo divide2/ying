@@ -1,5 +1,7 @@
 package com.ying.core.basic.custom.impl;
 
+import com.querydsl.core.types.Expression;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.core.basic.custom.BasicCustomRepository;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
@@ -9,6 +11,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
@@ -18,7 +21,7 @@ import java.util.List;
  */
 public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
 
-    private final EntityManager entityManager;
+    protected final EntityManager entityManager;
 
     public SimpleBasicCustomRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
@@ -26,6 +29,11 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
 
     private Session getSession() {
         return (Session) entityManager.getDelegate();
+    }
+
+    @Override
+    public long queryCount(JPAQuery<?> query, Pageable pageable) {
+        return query.limit(pageable.getPageSize()).offset(pageable.getOffset()).fetchCount();
     }
 
     @Override

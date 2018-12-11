@@ -19,61 +19,29 @@ public class ProductVO {
     @ApiModelProperty("id")
     private Integer id;
 
-    @ApiModelProperty("创建人")
-    private Integer fromId;
-
-    @ApiModelProperty("创建人的名字")
-    private String fromName;
-
-    @ApiModelProperty("头像")
-    private String fromAvatar;
     /**
      * 名称
      */
     @ApiModelProperty("名称")
     private String name;
 
-    /**
-     * 标签
-     */
-    @ApiModelProperty("标签 用，隔开")
-    private String[] tags;
-    /**
-     * 创建地点
-     */
-    @ApiModelProperty("创建地点")
-    private String cdp;
+    @ApiModelProperty("图片")
+    private String image;
 
     @ApiModelProperty("创建时间")
-    private LocalDateTime cdt;
+    private LocalDateTime createTime;
     /**
      * 备注 描述
      */
     @ApiModelProperty("备注描述")
     private String remarks;
 
-    @ApiModelProperty("star数量")
-    private Long starCount;
-
-    @ApiModelProperty("评论数量")
-    private Long commentCount;
-
-
-    @ApiModelProperty("查看数量")
-    private Long readCount;
-
-
     public static ProductVO of(Product product) {
         ProductVO vo = new ProductVO();
         vo.setId(product.getId());
+        vo.setImage(product.getImage());
         vo.setName(product.getName());
-
         vo.setRemarks(product.getRemarks());
-        vo.setFromId(product.getFromId());
-        vo.setFromName(product.getFromName());
-        vo.setCommentCount(10L);
-        vo.setStarCount(199L);
-        vo.setReadCount(299L);
         return vo;
     }
 

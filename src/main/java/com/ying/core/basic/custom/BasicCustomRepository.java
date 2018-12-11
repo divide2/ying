@@ -1,5 +1,6 @@
 package com.ying.core.basic.custom;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 public interface BasicCustomRepository {
 
 
+    long queryCount(JPAQuery<?> query, Pageable pageable);
+
     /**
      * 通过sql来查分页
      * @param sql sql
@@ -19,4 +22,6 @@ public interface BasicCustomRepository {
      * @return page
      */
     <T>Page<T> findBySql(String sql, Class<T> clz, Pageable pageable, Object... params);
+
+
 }

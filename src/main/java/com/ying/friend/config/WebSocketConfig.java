@@ -1,6 +1,6 @@
-package com.ying.chat.config;
+package com.ying.friend.config;
 
-import com.ying.chat.controller.MessageController;
+import com.ying.friend.controller.MessageController;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;

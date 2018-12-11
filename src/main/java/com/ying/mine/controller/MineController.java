@@ -8,6 +8,8 @@ import com.ying.basis.service.StarService;
 import com.ying.basis.vo.StarVO;
 import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
+import com.ying.friend.model.Friend;
+import com.ying.friend.service.impl.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.product.model.Product;
@@ -52,6 +54,13 @@ public class MineController {
         this.commentService = commentService;
     }
 
+
+    @GetMapping("/friends")
+    @ApiOperation("我的好友")
+    public ResponseEntity<List<FriendVO>> friends() {
+        List<FriendVO> vos = mineService.listFriends();
+        return Responser.ok(vos);
+    }
     @GetMapping("/stocks")
     @ApiOperation("我的库存")
     public ResponseEntity<Page<StockVO>> findStock(Pageable pageable, @Valid StockQuery stockQuery, BindingResult br) {

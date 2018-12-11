@@ -1,6 +1,8 @@
 package com.ying.mine.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.friend.service.FriendService;
+import com.ying.friend.service.impl.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.product.model.Warehouse;
@@ -24,10 +26,12 @@ public class MineServiceImpl implements MineService {
 
     private final WarehouseService warehouseService;
     private final StockService stockService;
+    private final FriendService friendService;
 
-    public MineServiceImpl(WarehouseService warehouseService, StockService stockService) {
+    public MineServiceImpl(WarehouseService warehouseService, StockService stockService, FriendService friendService) {
         this.warehouseService = warehouseService;
         this.stockService = stockService;
+        this.friendService = friendService;
     }
 
     @Override
@@ -43,7 +47,12 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
-    public Page<StockVO> findStock(StockQuery stockQuery,Pageable pageable) {
+    public Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable) {
         return stockService.findByCompany(stockQuery, pageable);
+    }
+
+    @Override
+    public List<FriendVO> listFriends() {
+        return friendService.listByFromId(Loginer.userId());
     }
 }

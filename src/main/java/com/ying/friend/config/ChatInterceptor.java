@@ -1,4 +1,4 @@
-package com.ying.chat.config;
+package com.ying.friend.config;
 
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;

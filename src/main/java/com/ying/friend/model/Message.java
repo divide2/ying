@@ -1,4 +1,4 @@
-package com.ying.chat.model;
+package com.ying.friend.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Entity
-@Table(name = "m_message")
+@Table(name = "f_message")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

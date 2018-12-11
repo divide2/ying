@@ -1,5 +1,6 @@
 package com.ying.mine.service;
 
+import com.ying.friend.service.impl.FriendVO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.StockVO;
@@ -20,4 +21,6 @@ public interface MineService {
     List<WarehouseVO> listWarehouse();
 
     Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable);
+
+    List<FriendVO> listFriends();
 }

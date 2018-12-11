@@ -1,6 +1,7 @@
 package com.ying.product.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.dto.StockDTO;
 import com.ying.product.model.*;
 import com.ying.product.query.StockQuery;
@@ -12,13 +13,16 @@ import com.ying.product.service.StockService;
 import com.ying.product.bo.StockBO;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import io.swagger.models.auth.In;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -48,7 +52,6 @@ public class StockServiceImpl implements StockService {
     @Transactional(rollbackFor = Exception.class)
     public void add(StockDTO dto) {
         // 先存入规格的库存
-
         dto.getSpecStocks().forEach(specStock -> {
             WarehouseProductSpec warehouseProductSpec = warehouseProductSpecRepository.getByAllId(
                     dto.getWarehouseId(), dto.getProductId(), specStock.getProductSpecId());
@@ -64,12 +67,18 @@ public class StockServiceImpl implements StockService {
             warehouseProductSpecRepository.save(warehouseProductSpec);
         });
         // 再存入单个商品的库存
+        Optional<Integer> totalAmount = dto.getSpecStocks().stream().map(ProductSpecStock::getAmount).reduce((a, b) -> a + b);
         WarehouseProduct warehouseProduct = warehouseProductRepository
                 .getByWarehouseIdAndProductId(dto.getWarehouseId(), dto.getProductId());
         if (warehouseProduct == null) {
             warehouseProduct = new WarehouseProduct();
+            warehouseProduct.setAmount(totalAmount.orElse(0));
+        } else{
+            warehouseProduct.setAmount(warehouseProduct.getAmount() + totalAmount.orElse(0));
+
         }
         warehouseProduct.setWarehouseId(dto.getWarehouseId());
+        warehouseProduct.setLastTime(LocalDateTime.now());
         warehouseProduct.setProductId(dto.getProductId());
         warehouseProductRepository.save(warehouseProduct);
         // todo 减去消耗

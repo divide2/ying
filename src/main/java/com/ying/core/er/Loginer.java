@@ -1,5 +1,8 @@
 package com.ying.core.er;
 
+import com.ying.auth.model.UserDetailsImpl;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 /**
  * 获取登录信息
  *
@@ -7,21 +10,21 @@ package com.ying.core.er;
  * @date 2018/7/28
  */
 public class Loginer {
-//    private static final UserDetailsImpl USER = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    private static final UserDetailsImpl LoginUser = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
     public static Integer userId() {
-        return 1;
+        return LoginUser.getId();
     }
 
     public static String username() {
-        return "bvvy";
+        return LoginUser.getUsername();
     }
 
     public static String avatar() {
-        return "http://img4.imgtn.bdimg.com/it/u=3982063378,1910620738&fm=26&gp=0.jpg";
+        return LoginUser.getAvatar();
     }
 
     public static Integer companyId() {
-        return 1;
+        return LoginUser.getCompanyId();
     }
 }

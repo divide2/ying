@@ -70,8 +70,8 @@ public class ProductController {
     @GetMapping("/{userId}/products")
     @ApiOperation("获取单个用户的产品")
     public ResponseEntity<Page<ProductVO>> products(@PathVariable Integer userId, Pageable pageable) {
-        Page<Product> products = productService.findByUser(userId,pageable);
-        return Responser.ok(products.map(ProductVO::of));
+        Page<ProductVO> products = productService.findByUser(userId,pageable);
+        return Responser.ok(products);
     }
 
     @GetMapping("/find")

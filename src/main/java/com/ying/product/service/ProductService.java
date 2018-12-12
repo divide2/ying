@@ -4,6 +4,7 @@ import com.ying.core.basic.service.BasicService;
 import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
+import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +23,14 @@ public interface ProductService extends BasicService<Product,Integer> {
      * @param pageable pageable
      * @return products
      */
-    Page<Product> findByUser(Integer userId, Pageable pageable);
+    Page<ProductVO> findByUser(Integer userId, Pageable pageable);
 
-    List<Product> listByCompany();
+    /**
+     * 获取公司下的商品
+     * @param companyId companyid
+     * @return x
+     */
+    List<ProductVO> listByCompany(Integer companyId);
 
     /**
      * 添加
@@ -46,5 +52,5 @@ public interface ProductService extends BasicService<Product,Integer> {
      */
     Page<ProductDTO> findInfo(Pageable pageable);
 
-    Page<Product> findByCompany(Pageable pageable);
+    Page<ProductVO> findByCompany(Pageable pageable);
 }

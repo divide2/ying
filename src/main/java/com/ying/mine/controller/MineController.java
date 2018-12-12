@@ -76,15 +76,15 @@ public class MineController {
 
     @GetMapping("/products")
     @ApiOperation("我的产品")
-    public ResponseEntity<List<Product>> product() {
-            List<Product> products = productService.listByCompany();
+    public ResponseEntity<List<ProductVO>> product() {
+            List<ProductVO> products = mineService.listProduct();
         return Responser.ok(products);
     }
 
     @GetMapping("/products/find")
     @ApiOperation("我的产品")
-    public ResponseEntity<Page<Product>> product(Pageable pageable) {
-        Page<Product> products = productService.findByCompany(pageable);
+    public ResponseEntity<Page<ProductVO>> product(Pageable pageable) {
+        Page<ProductVO> products = productService.findByCompany(pageable);
         return Responser.ok(products);
     }
 

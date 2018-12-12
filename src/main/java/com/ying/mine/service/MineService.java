@@ -2,7 +2,9 @@ package com.ying.mine.service;
 
 import com.ying.friend.service.impl.FriendVO;
 import com.ying.mine.vo.WarehouseVO;
+import com.ying.product.model.Product;
 import com.ying.product.query.StockQuery;
+import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +25,8 @@ public interface MineService {
     Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable);
 
     List<FriendVO> listFriends();
+
+    List<ProductVO> listProduct();
+
+
 }

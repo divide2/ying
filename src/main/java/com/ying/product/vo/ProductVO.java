@@ -1,12 +1,14 @@
 package com.ying.product.vo;
 
 import com.ying.product.model.Product;
+import com.ying.product.model.ProductSpec;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -35,6 +37,9 @@ public class ProductVO {
      */
     @ApiModelProperty("备注描述")
     private String remarks;
+
+    @ApiModelProperty("产品规格")
+    private List<ProductSpec> productSpecs;
 
     public static ProductVO of(Product product) {
         ProductVO vo = new ProductVO();

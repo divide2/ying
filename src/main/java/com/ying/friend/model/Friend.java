@@ -1,10 +1,8 @@
 package com.ying.friend.model;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @author bvvy

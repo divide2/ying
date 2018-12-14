@@ -17,6 +17,8 @@ import java.util.List;
  */
 public interface ProductService extends BasicService<Product,Integer> {
 
+    Page<ProductVO> findByUserCompany(Integer userId, Pageable pageable);
+
     /**
      * 获取用户的产品
      * @param userId userid
@@ -30,7 +32,7 @@ public interface ProductService extends BasicService<Product,Integer> {
      * @param companyId companyid
      * @return x
      */
-    List<ProductVO> listByCompany(Integer companyId);
+    Page<ProductVO> findByCompany(Integer companyId, Pageable pageable);
 
     /**
      * 添加
@@ -52,5 +54,4 @@ public interface ProductService extends BasicService<Product,Integer> {
      */
     Page<ProductDTO> findInfo(Pageable pageable);
 
-    Page<ProductVO> findByCompany(Pageable pageable);
 }

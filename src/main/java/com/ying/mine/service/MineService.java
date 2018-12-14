@@ -22,11 +22,26 @@ public interface MineService {
      */
     List<WarehouseVO> listWarehouse();
 
+    /**
+     * 库存
+     * @param stockQuery q
+     * @param pageable p
+     * @return x
+     */
     Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable);
 
+    /**
+     * 获取好友
+     * @return x
+     */
     List<FriendVO> listFriends();
 
-    List<ProductVO> listProduct();
+    /**
+     * 获取自己的产品
+     * @param pageable p
+     * @return x
+     */
+    Page<ProductVO> findProduct(Pageable pageable);
 
-
+    Page<ProductVO> findCompanyProduct(Pageable pageable);
 }

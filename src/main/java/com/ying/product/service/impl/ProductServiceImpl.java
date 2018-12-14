@@ -1,5 +1,7 @@
 package com.ying.product.service.impl;
 
+import com.ying.auth.model.UserCompany;
+import com.ying.auth.repo.UserCompanyRepository;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
 import com.ying.product.dto.ProductDTO;
@@ -28,11 +30,15 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
     private final ProductRepository productRepository;
     private final ProductSpecRepository productSpecRepository;
+    private final UserCompanyRepository userCompanyRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductSpecRepository productSpecRepository) {
+                              ProductSpecRepository productSpecRepository,
+                              UserCompanyRepository userCompanyRepository) {
         this.productRepository = productRepository;
         this.productSpecRepository = productSpecRepository;
+
+        this.userCompanyRepository = userCompanyRepository;
     }
 
     private ProductVO mergeProductSpecs(Product product) {
@@ -40,6 +46,11 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         List<ProductSpec> productSpecs = productSpecRepository.findByProductId(product.getId());
         vo.setProductSpecs(productSpecs);
         return vo;
+    }
+    @Override
+    public Page<ProductVO> findByUserCompany(Integer userId, Pageable pageable) {
+        UserCompany userCompany = userCompanyRepository.getByUserId(userId);
+        return this.findByCompany(userCompany.getCompanyId(), pageable);
     }
 
     @Override
@@ -49,9 +60,9 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     }
 
     @Override
-    public List<ProductVO> listByCompany(Integer companyId) {
-        List<Product> products = productRepository.findByCompanyId(companyId);
-        return products.stream().map(this::mergeProductSpecs).collect(Collectors.toList());
+    public Page<ProductVO> findByCompany(Integer companyId, Pageable pageable) {
+        Page<Product> products = productRepository.findByCompanyId(companyId, pageable);
+        return products.map(this::mergeProductSpecs);
     }
 
 
@@ -102,9 +113,4 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         return null;
     }
 
-    @Override
-    public Page<ProductVO> findByCompany(Pageable pageable) {
-        Page<Product> products = productRepository.findByCompanyId(Loginer.companyId(), pageable);
-        return products.map(this::mergeProductSpecs);
-    }
 }

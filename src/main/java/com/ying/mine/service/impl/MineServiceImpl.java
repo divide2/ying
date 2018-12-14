@@ -62,8 +62,12 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
-    public List<ProductVO> listProduct() {
-        return productService.listByCompany(Loginer.companyId());
+    public Page<ProductVO> findProduct(Pageable pageable) {
+        return productService.findByCompany(Loginer.companyId(),pageable);
     }
 
+    @Override
+    public Page<ProductVO> findCompanyProduct(Pageable pageable) {
+        return productService.findByCompany(Loginer.companyId(), pageable);
+    }
 }

@@ -6,13 +6,10 @@ import com.ying.basis.vo.CommentVO;
 import com.ying.basis.model.Star;
 import com.ying.basis.service.StarService;
 import com.ying.basis.vo.StarVO;
-import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
-import com.ying.friend.model.Friend;
 import com.ying.friend.service.impl.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
-import com.ying.product.model.Product;
 import com.ying.product.query.StockQuery;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
@@ -24,7 +21,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -76,15 +72,15 @@ public class MineController {
 
     @GetMapping("/products")
     @ApiOperation("我的产品")
-    public ResponseEntity<List<ProductVO>> product() {
-            List<ProductVO> products = mineService.listProduct();
+    public ResponseEntity<Page<ProductVO>> product(Pageable pageable) {
+            Page<ProductVO> products = mineService.findProduct(pageable);
         return Responser.ok(products);
     }
 
-    @GetMapping("/products/find")
-    @ApiOperation("我的产品")
-    public ResponseEntity<Page<ProductVO>> product(Pageable pageable) {
-        Page<ProductVO> products = productService.findByCompany(pageable);
+    @GetMapping("/company/products")
+    @ApiOperation("我的公司的产品")
+    public ResponseEntity<Page<ProductVO>> companyProduct(Pageable pageable) {
+        Page<ProductVO> products = mineService.findCompanyProduct(pageable);
         return Responser.ok(products);
     }
 

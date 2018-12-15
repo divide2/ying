@@ -12,10 +12,17 @@ import java.time.LocalDateTime;
 @Data
 public class FriendVO {
 
+    @ApiModelProperty("朋友的id")
     private Integer toId;
 
     @ApiModelProperty("备注名")
     private String memoName;
+
+    @ApiModelProperty("朋友公司")
+    private String companyId;
+
+    @ApiModelProperty("朋友名称")
+    private String companyName;
 
     private String avatar;
 

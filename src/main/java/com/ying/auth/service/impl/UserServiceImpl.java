@@ -5,6 +5,7 @@ import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.UserVO;
 import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -72,4 +73,11 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         return userRepository.getByWechatOpenId(openid);
     }
 
+    @Override
+    public UserVO getVO(Integer userId) {
+        User user = userRepository.getOne(userId);
+        UserVO vo = UserVO.fromUser(user);
+
+        return null;
+    }
 }

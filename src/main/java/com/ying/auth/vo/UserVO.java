@@ -49,23 +49,22 @@ public class UserVO {
     @ApiModelProperty("头像")
     private String avatar;
 
-    /**
-     * 启用
-     */
-    @ApiModelProperty("启用")
-    private Boolean enabled;
+    @ApiModelProperty("公司")
+    private Integer companyId;
+
+    @ApiModelProperty("公司名称")
+    private String companyName;
+
 
     public static UserVO fromUser(User user) {
         return UserVO.builder()
                 .id(user.getId())
                 .avatar(user.getAvatar())
                 .email(user.getEmail())
-                .enabled(user.isEnabled())
                 .nickname(user.getNickname())
                 .gender(user.getGender())
                 .phone(user.getPhone())
                 .username(user.getUsername())
                 .build();
-
     }
 }

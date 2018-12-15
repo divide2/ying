@@ -6,6 +6,8 @@ import javax.persistence.*;
 
 /**
  * 基础规格 规格 跟企业和人绑定 输入过的规格 用or 输入时匹配出来
+ *
+ * //todo not hear
  * @author bvvy
  * @date 2018/12/3
  */

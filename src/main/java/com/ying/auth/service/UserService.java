@@ -3,6 +3,7 @@ package com.ying.auth.service;
 
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.model.User;
+import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,4 +51,7 @@ public interface UserService extends BasicService<User,Integer> {
      * @return
      */
     User getByWechatOpenId(String openid);
+
+    UserVO getVO(Integer userId);
+
 }

@@ -12,4 +12,6 @@ import java.util.List;
  */
 public interface FriendService extends BasicService<Friend,Integer> {
     List<FriendVO> listByFromId(Integer fromId);
+
+    FriendVO getVO(Integer fromId, Integer toId);
 }

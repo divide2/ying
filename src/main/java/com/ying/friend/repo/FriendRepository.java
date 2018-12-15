@@ -1,5 +1,6 @@
 package com.ying.friend.repo;
 
+import com.ying.auth.vo.UserVO;
 import com.ying.friend.model.Friend;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -28,4 +29,5 @@ public interface FriendRepository extends JpaRepository<Friend, Integer> {
     }
 
     Friend findByFromIdAndToId(Integer fromId, Integer toId);
+
 }

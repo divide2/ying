@@ -3,9 +3,13 @@ package com.ying.auth.service.impl;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
+import com.ying.auth.model.UserCompany;
+import com.ying.auth.repo.UserCompanyRepository;
 import com.ying.auth.repo.UserRepository;
+import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
 import com.ying.auth.vo.UserVO;
+import com.ying.basis.model.Company;
 import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -30,6 +34,16 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
     @Autowired
     private UserRepository userRepository;
+
+    private final AuthConnectService authConnectService;
+
+    private final UserCompanyRepository userCompanyRepository;
+
+
+    public UserServiceImpl(AuthConnectService authConnectService, UserCompanyRepository userCompanyRepository) {
+        this.authConnectService = authConnectService;
+        this.userCompanyRepository = userCompanyRepository;
+    }
 
     @Override
     public User add(User user) {
@@ -75,9 +89,13 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
     @Override
     public UserVO getVO(Integer userId) {
-        User user = userRepository.getOne(userId);
+        User user = userRepository.getOne(
+                userId);
         UserVO vo = UserVO.fromUser(user);
-
-        return null;
+        UserCompany userCompany = userCompanyRepository.getByUserId(user.getId());
+        Company company = authConnectService.getCompany(userCompany.getCompanyId());
+        vo.setCompanyId(company.getId());
+        vo.setCompanyName(company.getName());
+        return vo;
     }
 }

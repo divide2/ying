@@ -1,5 +1,7 @@
 package com.ying.friend.service.impl;
 
+import com.ying.auth.vo.UserVO;
+import com.ying.friend.model.Friend;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -19,11 +21,12 @@ public class FriendVO {
     private String memoName;
 
     @ApiModelProperty("朋友公司")
-    private String companyId;
+    private Integer companyId;
 
     @ApiModelProperty("朋友名称")
     private String companyName;
 
     private String avatar;
+
 
 }

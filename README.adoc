@@ -38,6 +38,7 @@ DemoRepositoryCustom <|-- DemoRepositoryImpl
 === service相关
 
 1. service 中的错误处理统一抛出异常信息 不返回到controller中处理
+2. 不同的模块service不要直接依赖 通过connectService依赖
 
 === controller相关
 
@@ -77,20 +78,4 @@ DemoRepositoryCustom <|-- DemoRepositoryImpl
 1. 写注释
 2. 提交代码是请详细写出该次提交的内容
 
-include::docs/jieshao.adoc[]
-
-=== 微信小程序登录流程
-
-wxLogin --> /login/mp --> 获取access_token --> wx.getUserInfo -->
---
- wx.request({
-                    url: "/v1/mp/user",
-                    data: res.userInfo,
-                    method: "POST",
-                    header: {
-                      'Authorization': 'Bearer ' + access_token,
-                      'content-type': 'application/json',
-                    },
-
---
-
+include::docs/description.adoc[]

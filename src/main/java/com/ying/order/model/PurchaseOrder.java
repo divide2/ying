@@ -23,28 +23,6 @@ public class PurchaseOrder extends OrderImpl implements IOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /**
-     * 定金
-     */
-    private BigDecimal earnestMoney;
-
-    /**
-     * 尾款
-     */
-    private BigDecimal balancePayment;
-
-    private LocalDateTime createTime;
-
-    /**
-     * 交付日期
-     */
-    private LocalDate deliveryDate;
-
-    private String remarks;
-
-    private String attachment;
-
-    private String status;
-
+    private Integer orderId;
 
 }

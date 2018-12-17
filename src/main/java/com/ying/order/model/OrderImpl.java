@@ -9,18 +9,6 @@ import lombok.Data;
 @Data
 public class OrderImpl implements IOrder{
 
-    private Integer warehouseId;
-
-    private String warehouseName;
-
-    private Integer fromCompanyId;
-
-    private Integer toCompanyId;
-
-    private String fromCompanyName;
-
-    private String toCompanyName;
-
     private Integer toId;
 
     private String toName;

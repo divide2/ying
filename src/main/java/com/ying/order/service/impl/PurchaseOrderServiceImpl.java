@@ -39,6 +39,7 @@ public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrd
     @Transactional(rollbackFor = Exception.class)
     public void add(PurchaseOrderDTO dto) {
 
+        //todo 弄反了
         // 第一步
         FriendVO friend = orderConnectService.getOnlyFriend(Loginer.userId(), dto.getToId());
         PurchaseOrder purchaseOrder = new PurchaseOrder();
@@ -62,6 +63,13 @@ public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrd
 
     private void saveOrder(PurchaseOrder purchaseOrder) {
         Order order = new Order();
+        FriendVO friend = orderConnectService.getOnlyFriend(purchaseOrder.getToId(), purchaseOrder.getFromId());
+        order.setFromId(purchaseOrder.getFromId());
+        order.setFromName(friend.getMemoName());
+        order.setToId(purchaseOrder.getToId());
+        order.setToName(purchaseOrder.getToName());
+        order.setPurchaseOrderId(purchaseOrder.getId());
+
     }
 
     private void sendOrderMessage(PurchaseOrder purchaseOrder) {

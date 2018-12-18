@@ -17,6 +17,8 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Integer companyId;
+
+    private Integer userId;
     /**
      * parts P end product E
      */

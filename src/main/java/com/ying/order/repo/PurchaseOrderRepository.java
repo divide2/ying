@@ -1,6 +1,8 @@
 package com.ying.order.repo;
 
 import com.ying.order.model.PurchaseOrder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,4 +11,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Integer> {
 
+    Page<PurchaseOrder> findByFromId(Integer userId, Pageable pageable);
 }

@@ -4,22 +4,19 @@ import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
-import com.ying.friend.vo.FriendVO;
 import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.ProductSpecPrice;
 import com.ying.order.model.Order;
 import com.ying.order.model.OrderProduct;
 import com.ying.order.model.OrderProductSpec;
-import com.ying.order.model.SellOrder;
 import com.ying.order.repo.OrderProductRepository;
+import com.ying.order.repo.OrderProductSpecRepository;
 import com.ying.order.repo.OrderRepository;
-import com.ying.order.repo.SellOrderRepository;
 import com.ying.order.service.OrderConnectService;
+import com.ying.order.service.OrderInnerConnectService;
 import com.ying.order.service.OrderService;
-import com.ying.order.service.PurchaseOrderService;
 import com.ying.product.vo.ProductVO;
-import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,18 +34,21 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     private final OrderConnectService orderConnectService;
     private final OrderStatusProperties orderStatus;
     private final OrderProductRepository orderProductRepository;
-    private final SellOrderRepository sellOrderRepository;
+    private final OrderProductSpecRepository orderProductSpecRepository;
+    private final OrderInnerConnectService orderInnerConnectService;
 
 
     public OrderServiceImpl(OrderConnectService orderConnectService,
                             OrderStatusProperties orderStatus,
                             OrderProductRepository orderProductRepository,
-                            SellOrderRepository sellOrderRepository) {
+                            OrderProductSpecRepository orderProductSpecRepository,
+                            OrderInnerConnectService orderInnerConnectService) {
         this.orderConnectService = orderConnectService;
 
         this.orderStatus = orderStatus;
         this.orderProductRepository = orderProductRepository;
-        this.sellOrderRepository = sellOrderRepository;
+        this.orderProductSpecRepository = orderProductSpecRepository;
+        this.orderInnerConnectService = orderInnerConnectService;
     }
 
 
@@ -87,11 +87,12 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
                 orderProductSpec.setAmount(spec.getAmount());
                 orderProductSpec.setSpecName(spec.getSpecName());
                 orderProductSpec.setOrderId(order.getId());
-                orderProduct.setProductId(productId);
+                orderProductSpec.setProductId(productId);
+                orderProductSpecRepository.save(orderProductSpec);
             });
         });
         // todo 是不是真的需要 这样做? 先这样多张表 相当于采购和销售记录
-        orderConnectService.addPurchaseOrder(order);
+        orderInnerConnectService.addPurchaseOrder(order);
         orderConnectService.sendMessage(order);
     }
 
@@ -99,7 +100,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     public void confirm(OrderConfirmDTO confirm) {
         Order order = this.get(confirm.getOrderId());
         order.setStatus(orderStatus.getWaitingDeliver());
-        orderConnectService.addSellOrder(order);
+        orderInnerConnectService.addSellOrder(order);
         this.update(order);
     }
 

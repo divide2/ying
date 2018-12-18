@@ -2,6 +2,8 @@ package com.ying.mine.service;
 
 import com.ying.friend.vo.FriendVO;
 import com.ying.mine.vo.WarehouseVO;
+import com.ying.order.query.OrderQuery;
+import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
@@ -15,6 +17,8 @@ import java.util.List;
  * @date 2018/12/10
  */
 public interface MineService {
+    Page<OrderVO> findSellOrder(OrderQuery query, Pageable pageable);
+
     /**
      * 获取用户的仓库
      * @return vo
@@ -43,4 +47,6 @@ public interface MineService {
     Page<ProductVO> findProduct(Pageable pageable);
 
     Page<ProductVO> findCompanyProduct(Pageable pageable);
+
+    Page<OrderVO> findPurchaseOrder(OrderQuery query, Pageable pageable);
 }

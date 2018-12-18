@@ -24,16 +24,5 @@ public interface OrderConnectService extends ConnectService {
 
     void sendMessage(Order order);
 
-    /**
-     * 添加采购记录 和销售记录相反人员信息
-     * @param order order
-     */
-    void addPurchaseOrder(Order order);
 
-    /**
-     * 添加销售记录
-     * 和采购记录相反的人员信息
-     * @param order order
-     */
-    void addSellOrder(Order order);
 }

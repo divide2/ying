@@ -45,9 +45,10 @@ public class SellOrderServiceImpl extends SimpleBasicServiceImpl<SellOrder, Inte
         // sellOrder.setFromName(friend.getMemoName());
         this.add(sellOrder);
     }
+
     @Override
     public Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable) {
-        val page = sellOrderRepository.findAll(pageable);
+        val page = sellOrderRepository.findByFromId(userId, pageable);
         return page.map(item -> {
             val order = orderRepository.getOne(item.getOrderId());
             return new OrderVO(

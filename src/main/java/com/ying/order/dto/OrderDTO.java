@@ -1,10 +1,10 @@
 package com.ying.order.dto;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 public class OrderDTO {
 
     @ApiModelProperty("发给的人")
+    @NotNull
     private Integer toId;
 
     @ApiModelProperty("定金")
@@ -33,5 +34,6 @@ public class OrderDTO {
     private String attachment;
 
     @ApiModelProperty("商品属性价格")
+    @NotEmpty
     private List<ProductSpecPrice> productSpecPrices;
 }

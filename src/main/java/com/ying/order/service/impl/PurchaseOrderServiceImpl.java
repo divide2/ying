@@ -48,7 +48,7 @@ public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrd
 
     @Override
     public Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable) {
-        val page = purchaseOrderRepository.findAll(pageable);
+        val page = purchaseOrderRepository.findByFromId(userId,pageable);
         return page.map(item -> {
             val order = orderRepository.getOne(item.getOrderId());
             return new OrderVO(

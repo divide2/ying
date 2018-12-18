@@ -19,4 +19,12 @@ public class SellOrder {
 
     private Integer orderId;
 
+    private Integer toId;
+
+    private Integer fromId;
+
+    private String fromName;
+
+    private String toName;
+
 }

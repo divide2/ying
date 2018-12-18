@@ -1,11 +1,7 @@
 package com.ying.friend.vo;
 
-import com.ying.auth.vo.UserVO;
-import com.ying.friend.model.Friend;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * @author bvvy

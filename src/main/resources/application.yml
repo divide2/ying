@@ -60,6 +60,6 @@ devide:
     status:
       order:
         waiting-confirm: waiting_confirm
-        confirmed: confirmed
+        waiting-delever: waiting_deliver
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4

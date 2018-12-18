@@ -6,9 +6,8 @@ import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.order.dto.PurchaseOrderDTO;
 import com.ying.order.model.PurchaseOrder;
-import com.ying.order.query.PurchaseOrderQuery;
+import com.ying.order.query.OrderQuery;
 import com.ying.order.service.PurchaseOrderService;
-import com.ying.order.vo.PurchaseOrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -59,7 +58,7 @@ public class PurchaseOrderController {
 
     @GetMapping("/find")
     @ApiOperation("获取全部")
-    public ResponseEntity<Page<PurchaseOrder>> find(PurchaseOrderQuery query, Pageable pageable) {
+    public ResponseEntity<Page<PurchaseOrder>> find(OrderQuery query, Pageable pageable) {
         Page<PurchaseOrder> orders = purchaseOrderService.find(pageable);
         return Responser.ok(orders);
     }

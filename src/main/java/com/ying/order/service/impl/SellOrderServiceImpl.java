@@ -2,12 +2,12 @@ package com.ying.order.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.order.dto.PurchaseOrderDTO;
-import com.ying.order.model.PurchaseOrder;
+import com.ying.order.model.SellOrder;
 import com.ying.order.query.OrderQuery;
 import com.ying.order.repo.OrderRepository;
-import com.ying.order.repo.PurchaseOrderRepository;
+import com.ying.order.repo.SellOrderRepository;
 import com.ying.order.service.OrderConnectService;
-import com.ying.order.service.PurchaseOrderService;
+import com.ying.order.service.SellOrderService;
 import com.ying.order.vo.OrderVO;
 import lombok.val;
 import org.springframework.data.domain.Page;
@@ -16,39 +16,38 @@ import org.springframework.stereotype.Service;
 
 /**
  * @author bvvy
- * @date 2018/12/2
+ * @date 2018/12/18
  */
 @Service
-public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrder, Integer, PurchaseOrderRepository> implements PurchaseOrderService {
-    private final PurchaseOrderRepository purchaseOrderRepository;
-    private final OrderRepository orderRepository;
+public class SellOrderServiceImpl extends SimpleBasicServiceImpl<SellOrder, Integer, SellOrderRepository> implements SellOrderService {
+
     private final OrderConnectService orderConnectService;
+    private final SellOrderRepository sellOrderRepository;
+    private final OrderRepository orderRepository;
 
-
-    public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
-                                    OrderRepository orderRepository,
-                                    OrderConnectService orderConnectService) {
-        this.purchaseOrderRepository = purchaseOrderRepository;
-        this.orderRepository = orderRepository;
+    public SellOrderServiceImpl(OrderConnectService orderConnectService,
+                                SellOrderRepository sellOrderRepository,
+                                OrderRepository orderRepository) {
         this.orderConnectService = orderConnectService;
+        this.sellOrderRepository = sellOrderRepository;
+        this.orderRepository = orderRepository;
     }
 
     @Override
     public void add(PurchaseOrderDTO dto) {
         val friend = orderConnectService.getOnlyFriend(dto.getFromId(), dto.getToId());
-        PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setOrderId(dto.getOrderId());
-        purchaseOrder.setToId(dto.getToId());
-        purchaseOrder.setToName(friend.getMemoName());
-        purchaseOrder.setFromId(dto.getFromId());
+        SellOrder sellOrder = new SellOrder();
+        sellOrder.setOrderId(dto.getOrderId());
+        sellOrder.setToId(dto.getToId());
+        sellOrder.setToName(friend.getMemoName());
+        sellOrder.setFromId(dto.getFromId());
         // todo 是不是需要 先不要
-//        purchaseOrder.setFromName(fromUser.getUsername());
-        this.add(purchaseOrder);
+        // sellOrder.setFromName(friend.getMemoName());
+        this.add(sellOrder);
     }
-
     @Override
     public Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable) {
-        val page = purchaseOrderRepository.findAll(pageable);
+        val page = sellOrderRepository.findAll(pageable);
         return page.map(item -> {
             val order = orderRepository.getOne(item.getOrderId());
             return new OrderVO(
@@ -69,4 +68,5 @@ public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrd
             );
         });
     }
+
 }

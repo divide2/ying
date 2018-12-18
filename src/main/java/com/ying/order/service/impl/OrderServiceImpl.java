@@ -1,5 +1,6 @@
 package com.ying.order.service.impl;
 
+import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
@@ -34,19 +35,17 @@ import java.util.stream.Collectors;
 @Service
 public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, OrderRepository> implements OrderService {
     private final OrderConnectService orderConnectService;
-    private final PurchaseOrderService purchaseOrderService;
     private final OrderStatusProperties orderStatus;
     private final OrderProductRepository orderProductRepository;
     private final SellOrderRepository sellOrderRepository;
 
 
     public OrderServiceImpl(OrderConnectService orderConnectService,
-                            PurchaseOrderService purchaseOrderService,
                             OrderStatusProperties orderStatus,
                             OrderProductRepository orderProductRepository,
                             SellOrderRepository sellOrderRepository) {
         this.orderConnectService = orderConnectService;
-        this.purchaseOrderService = purchaseOrderService;
+
         this.orderStatus = orderStatus;
         this.orderProductRepository = orderProductRepository;
         this.sellOrderRepository = sellOrderRepository;
@@ -56,7 +55,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(OrderDTO dto) {
-        FriendVO friend = orderConnectService.getOnlyFriend(Loginer.userId(), dto.getToId());
+        UserVO user = orderConnectService.getUser(dto.getToId());
         Order order = new Order();
         order.setAttachment(dto.getAttachment());
         order.setBalancePayment(dto.getBalancePayment());
@@ -67,7 +66,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         order.setFromId(Loginer.userId());
         order.setFromName(Loginer.username());
         order.setToId(dto.getToId());
-        order.setToName(friend.getMemoName());
+        order.setToName(user.getUsername());
         order.setStatus(orderStatus.getWaitingConfirm());
         List<ProductSpecPrice> productSpecPrices = dto.getProductSpecPrices();
         Map<Integer, List<ProductSpecPrice>> productSpecMap = productSpecPrices.stream().collect(
@@ -91,19 +90,16 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
                 orderProduct.setProductId(productId);
             });
         });
-
-        // todo 是不是真的需要 这样做?
-        purchaseOrderService.add(order);
+        // todo 是不是真的需要 这样做? 先这样多张表 相当于采购和销售记录
+        orderConnectService.addPurchaseOrder(order);
         orderConnectService.sendMessage(order);
     }
 
     @Override
     public void confirm(OrderConfirmDTO confirm) {
         Order order = this.get(confirm.getOrderId());
-        order.setStatus(orderStatus.getConfirmed());
-        SellOrder sellOrder = new SellOrder();
-        sellOrder.setOrderId(order.getId());
-        sellOrderRepository.save(sellOrder);
+        order.setStatus(orderStatus.getWaitingDeliver());
+        orderConnectService.addSellOrder(order);
         this.update(order);
     }
 

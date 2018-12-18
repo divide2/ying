@@ -14,5 +14,5 @@ import org.springframework.stereotype.Component;
 public class OrderStatusProperties {
 
     private String waitingConfirm;
-    private String confirmed;
+    private String waitingDeliver;
 }

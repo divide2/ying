@@ -2,7 +2,7 @@ package com.ying.order.service;
 
 import com.ying.core.basic.service.BasicService;
 import com.ying.order.dto.PurchaseOrderDTO;
-import com.ying.order.model.PurchaseOrder;
+import com.ying.order.model.SellOrder;
 import com.ying.order.query.OrderQuery;
 import com.ying.order.vo.OrderVO;
 import org.springframework.data.domain.Page;
@@ -10,21 +10,18 @@ import org.springframework.data.domain.Pageable;
 
 /**
  * @author bvvy
- * @date 2018/12/2
+ * @date 2018/12/18
  */
-public interface PurchaseOrderService extends BasicService<PurchaseOrder,Integer> {
-    /**
-     * 通过order来添加
-     * @param dto purchase
-     */
+public interface SellOrderService  extends BasicService<SellOrder,Integer> {
+
     void add(PurchaseOrderDTO dto);
 
     /**
-     * 用户的采购单
-     * @param userId 用户
-     * @param query query
+     * 用户的销售单
+     * @param userId useid
+     * @param query q
      * @param pageable pageable
-     * @return page
+     * @return order vo
      */
     Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable);
 }

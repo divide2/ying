@@ -59,6 +59,7 @@ devide:
   dic:
     status:
       order:
-        waiting-confirm: WC
+        waiting-confirm: waiting_confirm
+        confirmed: confirmed
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4

@@ -1,8 +1,10 @@
 package com.ying.order.dto;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -13,10 +15,6 @@ import java.util.List;
  */
 @Data
 public class OrderDTO {
-    /**
-     * 仓库
-     */
-    private Integer warehouseId;
 
     @ApiModelProperty("发给的人")
     private Integer toId;

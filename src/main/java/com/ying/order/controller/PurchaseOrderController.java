@@ -34,12 +34,6 @@ public class PurchaseOrderController {
         this.purchaseOrderService = purchaseOrderService;
     }
 
-    @PostMapping
-    @ApiOperation("添加")
-    public ResponseEntity<Messager> add(@Valid @RequestBody PurchaseOrderDTO add, BindingResult br) {
-        purchaseOrderService.add(add);
-        return Responser.created();
-    }
 
     @PatchMapping
     @ApiOperation("修改")

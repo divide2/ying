@@ -4,17 +4,21 @@ import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
 import com.ying.friend.vo.FriendVO;
+import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.ProductSpecPrice;
 import com.ying.order.model.Order;
 import com.ying.order.model.OrderProduct;
 import com.ying.order.model.OrderProductSpec;
+import com.ying.order.model.SellOrder;
 import com.ying.order.repo.OrderProductRepository;
 import com.ying.order.repo.OrderRepository;
+import com.ying.order.repo.SellOrderRepository;
 import com.ying.order.service.OrderConnectService;
 import com.ying.order.service.OrderService;
 import com.ying.order.service.PurchaseOrderService;
 import com.ying.product.vo.ProductVO;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,22 +32,26 @@ import java.util.stream.Collectors;
  * @date 2018/12/17
  */
 @Service
-public class OrderServiceImpl extends SimpleBasicServiceImpl<Order,Integer, OrderRepository> implements OrderService {
+public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, OrderRepository> implements OrderService {
     private final OrderConnectService orderConnectService;
     private final PurchaseOrderService purchaseOrderService;
     private final OrderStatusProperties orderStatus;
     private final OrderProductRepository orderProductRepository;
+    private final SellOrderRepository sellOrderRepository;
 
 
     public OrderServiceImpl(OrderConnectService orderConnectService,
                             PurchaseOrderService purchaseOrderService,
                             OrderStatusProperties orderStatus,
-                            OrderProductRepository orderProductRepository) {
+                            OrderProductRepository orderProductRepository,
+                            SellOrderRepository sellOrderRepository) {
         this.orderConnectService = orderConnectService;
         this.purchaseOrderService = purchaseOrderService;
         this.orderStatus = orderStatus;
         this.orderProductRepository = orderProductRepository;
+        this.sellOrderRepository = sellOrderRepository;
     }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -66,7 +74,8 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order,Integer, Orde
                 Collectors.groupingBy(ProductSpecPrice::getProductId)
         );
         this.add(order);
-        productSpecMap.forEach((productId,productSpecPriceList) -> {
+        // todo 分开？
+        productSpecMap.forEach((productId, productSpecPriceList) -> {
             ProductVO product = orderConnectService.getProductById(productId);
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.setOrderId(order.getId());
@@ -83,7 +92,19 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order,Integer, Orde
             });
         });
 
+        // todo 是不是真的需要 这样做?
         purchaseOrderService.add(order);
         orderConnectService.sendMessage(order);
     }
+
+    @Override
+    public void confirm(OrderConfirmDTO confirm) {
+        Order order = this.get(confirm.getOrderId());
+        order.setStatus(orderStatus.getConfirmed());
+        SellOrder sellOrder = new SellOrder();
+        sellOrder.setOrderId(order.getId());
+        sellOrderRepository.save(sellOrder);
+        this.update(order);
+    }
+
 }

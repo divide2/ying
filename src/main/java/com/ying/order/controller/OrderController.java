@@ -3,6 +3,7 @@ package com.ying.order.controller;
 
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
+import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.model.Order;
 import com.ying.order.model.PurchaseOrder;
@@ -39,5 +40,11 @@ public class OrderController {
     public ResponseEntity<Messager> add(@Valid @RequestBody OrderDTO dto, BindingResult br) {
         orderService.add(dto);
         return Responser.created();
+    }
+
+    @PutMapping("/confirm")
+    public ResponseEntity<Messager> confirm(@Valid @RequestBody OrderConfirmDTO confirm, BindingResult bindingResult) {
+        orderService.confirm(confirm);
+        return Responser.updated();
     }
 }

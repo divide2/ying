@@ -1,4 +1,4 @@
-package com.ying.friend.service.impl;
+package com.ying.friend.vo;
 
 import com.ying.auth.vo.UserVO;
 import com.ying.friend.model.Friend;

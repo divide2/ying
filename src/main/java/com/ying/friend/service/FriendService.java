@@ -2,7 +2,7 @@ package com.ying.friend.service;
 
 import com.ying.core.basic.service.BasicService;
 import com.ying.friend.model.Friend;
-import com.ying.friend.service.impl.FriendVO;
+import com.ying.friend.vo.FriendVO;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.ying.friend.service.impl;
+package com.ying.basis.service.impl;
 
 import com.ying.basis.model.Company;
 import com.ying.basis.service.CompanyService;

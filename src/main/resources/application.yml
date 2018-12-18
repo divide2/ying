@@ -56,5 +56,9 @@ dic:
     general: G
     special: S
 devide:
+  dic:
+    status:
+      order:
+        waiting-confirm: WC
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4

@@ -1,7 +1,9 @@
 package com.ying.order.service;
 
 import com.ying.core.basic.service.ConnectService;
-import com.ying.friend.service.impl.FriendVO;
+import com.ying.friend.vo.FriendVO;
+import com.ying.order.model.Order;
+import com.ying.product.vo.ProductVO;
 
 /**
  * @author bvvy
@@ -9,4 +11,8 @@ import com.ying.friend.service.impl.FriendVO;
  */
 public interface OrderConnectService extends ConnectService {
     FriendVO getOnlyFriend(Integer userId, Integer toId);
+
+    ProductVO getProductById(Integer productId);
+
+    void sendMessage(Order order);
 }

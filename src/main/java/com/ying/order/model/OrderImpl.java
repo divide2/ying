@@ -17,5 +17,4 @@ public class OrderImpl implements IOrder{
 
     private String fromName;
 
-    private String orderNo;
 }

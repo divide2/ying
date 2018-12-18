@@ -1,79 +1,50 @@
 package com.ying.order.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.ying.core.er.Loginer;
-import com.ying.friend.model.Friend;
-import com.ying.friend.service.impl.FriendVO;
-import com.ying.order.dto.PurchaseOrderDTO;
 import com.ying.order.model.Order;
 import com.ying.order.model.PurchaseOrder;
+import com.ying.order.query.PurchaseOrderQuery;
 import com.ying.order.repo.OrderRepository;
 import com.ying.order.repo.PurchaseOrderRepository;
-import com.ying.order.service.OrderConnectService;
 import com.ying.order.service.PurchaseOrderService;
+import com.ying.order.vo.PurchaseOrderVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 /**
  * @author bvvy
  * @date 2018/12/2
  */
 @Service
-public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrder,Integer, PurchaseOrderRepository> implements PurchaseOrderService {
+public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrder, Integer, PurchaseOrderRepository> implements PurchaseOrderService {
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final OrderRepository orderRepository;
-    private final OrderConnectService orderConnectService;
 
 
     public PurchaseOrderServiceImpl(PurchaseOrderRepository purchaseOrderRepository,
-                                    OrderRepository orderRepository,
-                                    OrderConnectService orderConnectService) {
+                                    OrderRepository orderRepository) {
         this.purchaseOrderRepository = purchaseOrderRepository;
         this.orderRepository = orderRepository;
-        this.orderConnectService = orderConnectService;
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void add(PurchaseOrderDTO dto) {
-
-        //todo 弄反了
-        // 第一步
-        FriendVO friend = orderConnectService.getOnlyFriend(Loginer.userId(), dto.getToId());
+    public void add(Order order) {
         PurchaseOrder purchaseOrder = new PurchaseOrder();
-        purchaseOrder.setAttachment(dto.getAttachment());
-        purchaseOrder.setBalancePayment(dto.getBalancePayment());
-        purchaseOrder.setCreateTime(LocalDateTime.now());
-        purchaseOrder.setDeliveryDate(dto.getDeliveryDate());
-        purchaseOrder.setEarnestMoney(dto.getEarnestMoney());
-        purchaseOrder.setRemarks(dto.getRemarks());
-        purchaseOrder.setFromId(Loginer.userId());
-        purchaseOrder.setFromName(Loginer.username());
-        purchaseOrder.setToId(dto.getToId());
-        purchaseOrder.setToName(friend.getMemoName());
+        purchaseOrder.setOrderId(order.getId());
+        purchaseOrder.setToId(order.getToId());
+        purchaseOrder.setToName(order.getToName());
+        purchaseOrder.setFromId(order.getFromId());
+        purchaseOrder.setFromName(order.getFromName());
         this.add(purchaseOrder);
-        //发送消息
-        this.sendOrderMessage(purchaseOrder);
-        //第二步
-        this.saveOrder(purchaseOrder);
-
     }
 
-    private void saveOrder(PurchaseOrder purchaseOrder) {
-        Order order = new Order();
-        FriendVO friend = orderConnectService.getOnlyFriend(purchaseOrder.getToId(), purchaseOrder.getFromId());
-        order.setFromId(purchaseOrder.getFromId());
-        order.setFromName(friend.getMemoName());
-        order.setToId(purchaseOrder.getToId());
-        order.setToName(purchaseOrder.getToName());
-        order.setPurchaseOrderId(purchaseOrder.getId());
-
-    }
-
-    private void sendOrderMessage(PurchaseOrder purchaseOrder) {
-        //todo 发送消息
-
+    @Override
+    public Page<PurchaseOrderVO> findByUser(Integer userId, PurchaseOrderQuery query, Pageable pageable) {
+        Page<PurchaseOrder> page = purchaseOrderRepository.findAll(pageable);
+        return page.map(item -> {
+            Order order = orderRepository.getOne(item.getOrderId());
+            return new PurchaseOrderVO();
+        });
     }
 }

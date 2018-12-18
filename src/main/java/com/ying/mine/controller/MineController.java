@@ -7,7 +7,7 @@ import com.ying.basis.model.Star;
 import com.ying.basis.service.StarService;
 import com.ying.basis.vo.StarVO;
 import com.ying.core.er.Responser;
-import com.ying.friend.service.impl.FriendVO;
+import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.product.query.StockQuery;

@@ -54,4 +54,6 @@ public interface ProductService extends BasicService<Product,Integer> {
      */
     Page<ProductDTO> findInfo(Pageable pageable);
 
+    ProductVO getVO(Integer productId);
+
 }

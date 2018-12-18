@@ -6,6 +6,7 @@ import com.ying.friend.model.Friend;
 import com.ying.friend.repo.FriendRepository;
 import com.ying.friend.service.FriendConnectService;
 import com.ying.friend.service.FriendService;
+import com.ying.friend.vo.FriendVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

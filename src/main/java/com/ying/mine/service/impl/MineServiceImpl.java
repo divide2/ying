@@ -2,10 +2,9 @@ package com.ying.mine.service.impl;
 
 import com.ying.core.er.Loginer;
 import com.ying.friend.service.FriendService;
-import com.ying.friend.service.impl.FriendVO;
+import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
-import com.ying.product.model.Product;
 import com.ying.product.model.Warehouse;
 import com.ying.product.query.StockQuery;
 import com.ying.product.service.ProductService;

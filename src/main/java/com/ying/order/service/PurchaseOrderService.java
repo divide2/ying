@@ -2,7 +2,12 @@ package com.ying.order.service;
 
 import com.ying.core.basic.service.BasicService;
 import com.ying.order.dto.PurchaseOrderDTO;
+import com.ying.order.model.Order;
 import com.ying.order.model.PurchaseOrder;
+import com.ying.order.query.PurchaseOrderQuery;
+import com.ying.order.vo.PurchaseOrderVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * @author bvvy
@@ -10,11 +15,17 @@ import com.ying.order.model.PurchaseOrder;
  */
 public interface PurchaseOrderService extends BasicService<PurchaseOrder,Integer> {
     /**
-     * 添加 采购单
-     * 第一步 添加一个采购单 采购商品和规格数量 为未确认状态 消息通知
-     * 第二步 发送一个订单给好友
-     * @param dto dto
+     * 通过order来添加
+     * @param order order
      */
-    void add(PurchaseOrderDTO dto);
+    void add(Order order);
 
+    /**
+     * 用户的销售单
+     * @param userId 用户
+     * @param query query
+     * @param pageable pageable
+     * @return page
+     */
+    Page<PurchaseOrderVO> findByUser(Integer userId, PurchaseOrderQuery query, Pageable pageable);
 }

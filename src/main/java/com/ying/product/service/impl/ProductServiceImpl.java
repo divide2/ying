@@ -113,4 +113,9 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         return null;
     }
 
+    @Override
+    public ProductVO getVO(Integer productId) {
+        Product product = this.get(productId);
+        return this.mergeProductSpecs(product);
+    }
 }

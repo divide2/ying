@@ -1,4 +1,4 @@
-package com.ying.friend.service.impl;
+package com.ying.auth.service.impl;
 
 import com.ying.auth.service.AuthConnectService;
 import com.ying.basis.model.Company;

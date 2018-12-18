@@ -1,8 +1,11 @@
 package com.ying.order.service.impl;
 
 import com.ying.friend.service.FriendService;
-import com.ying.friend.service.impl.FriendVO;
+import com.ying.friend.vo.FriendVO;
+import com.ying.order.model.Order;
 import com.ying.order.service.OrderConnectService;
+import com.ying.product.service.ProductService;
+import com.ying.product.vo.ProductVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,9 +15,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderConnectServiceImpl implements OrderConnectService {
     private final FriendService friendService;
+    private final ProductService productService;
 
-    public OrderConnectServiceImpl(FriendService friendService) {
+    public OrderConnectServiceImpl(FriendService friendService, ProductService productService) {
         this.friendService = friendService;
+        this.productService = productService;
     }
 
 
@@ -23,4 +28,13 @@ public class OrderConnectServiceImpl implements OrderConnectService {
         return friendService.getVO(fromId, toId);
     }
 
+    @Override
+    public ProductVO getProductById(Integer productId) {
+        return productService.getVO(productId);
+    }
+
+    @Override
+    public void sendMessage(Order order) {
+
+    }
 }

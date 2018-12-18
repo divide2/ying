@@ -18,11 +18,22 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "o_order")
-public class Order extends OrderImpl implements IOrder {
+public class Order  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+
+    private Integer toId;
+
+    private String toName;
+
+    private Integer fromId;
+
+    private String fromName;
+
+    private String orderNo;
     /**
      * 定金
      */

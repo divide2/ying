@@ -5,4 +5,6 @@ package com.ying.order.vo;
  * @date 2018/12/2
  */
 public class PurchaseOrderVO {
+
+
 }

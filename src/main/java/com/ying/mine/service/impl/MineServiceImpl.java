@@ -58,7 +58,7 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public Page<OrderVO> findSellOrder(OrderQuery query, Pageable pageable) {
-        return purchaseOrderService.findByUser(Loginer.userId(), query, pageable);
+        return sellOrderService.findByUser(Loginer.userId(), query, pageable);
     }
 
     @Override

@@ -57,6 +57,12 @@ public class MineController {
         Page<OrderVO> vos = mineService.findPurchaseOrder(query, pageable);
         return Responser.ok(vos);
     }
+
+    @GetMapping("/order/sell")
+    public ResponseEntity<Page<OrderVO>> sellOrder(OrderQuery query,Pageable pageable) {
+        Page<OrderVO> vos = mineService.findSellOrder(query, pageable);
+        return Responser.ok(vos);
+    }
     @GetMapping("/friends")
     @ApiOperation("我的好友")
     public ResponseEntity<List<FriendVO>> friends() {

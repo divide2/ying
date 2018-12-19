@@ -25,4 +25,15 @@ public class PurchaseOrder extends OrderImpl implements IOrder {
 
     private Integer orderId;
 
+    private LocalDateTime createTime;
+
+    private Integer toId;
+
+    private String toName;
+
+    private Integer fromId;
+
+    private String fromName;
+
+
 }

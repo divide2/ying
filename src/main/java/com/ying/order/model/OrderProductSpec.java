@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="o_order_product_spec")
-public class OrderProductSpec extends OrderImpl implements IOrder{
+public class OrderProductSpec {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -63,3 +63,7 @@ devide:
         waiting-delever: waiting_deliver
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8081/v1/user

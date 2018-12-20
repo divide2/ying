@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @EqualsAndHashCode(callSuper = false)
 @Data
-@Entity
+@Entity(name = "o_order")
 @Table(name = "o_order")
 public class Order  {
 

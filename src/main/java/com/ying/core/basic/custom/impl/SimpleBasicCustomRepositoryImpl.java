@@ -10,6 +10,7 @@ import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.core.basic.custom.BasicCustomRepository;
 import com.ying.order.model.QOrder;
+import com.ying.order.vo.OrderVO;
 import org.hibernate.Session;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.transform.Transformers;
@@ -47,6 +48,7 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
         return query.limit(pageable.getPageSize()).offset(pageable.getOffset()).fetchCount();
     }
 
+
     @Override
     public <T> Page<T> findBySql(String sql, Class<T> clz, Pageable pageable, Object... params) {
         List<T> resultList = this.results(sql, clz, pageable, params);
@@ -54,6 +56,17 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
         return new PageImpl<>(resultList, pageable, count);
     }
 
+    @Override
+    public <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable, Path<T> mainPath) {
+
+        JPQLQuery<T> pagingQuery = this.applyPagination(pageable, jpqlQuery);
+        return new PageImpl<T>(pagingQuery.fetch(), pageable, pagingQuery.fetchCount());
+    }
+
+    @Override
+    public <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable) {
+        return findPage(jpqlQuery, pageable, null);
+    }
 
     private int count(String sql, Object... params) {
         String countSql = String.format("select count(*) from (%s)", sql);
@@ -75,6 +88,26 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
             query.setParameter(i + 1, params[i]);
         }
     }
+
+    /**
+     * Applies the given {@link Pageable} to the given {@link JPQLQuery}.
+     *
+     * @param pageable
+     * @param query must not be {@literal null}.
+     * @return the Querydsl {@link JPQLQuery}.
+     */
+    public <T> JPQLQuery<T> applyPagination(Pageable pageable, JPQLQuery<T> query) {
+
+        if (pageable.isUnpaged()) {
+            return query;
+        }
+
+        query.offset(pageable.getOffset());
+        query.limit(pageable.getPageSize());
+
+        return applySorting(pageable.getSort(), query);
+    }
+
 
     /**
      * Applies sorting to the given {@link JPQLQuery}.
@@ -197,4 +230,9 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
 
         return sortPropertyExpression;
     }
+
+    protected  <T>JPAQuery<T> createQuery() {
+        return new JPAQuery<>(entityManager);
+    }
+
 }

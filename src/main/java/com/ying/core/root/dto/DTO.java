@@ -1,4 +1,4 @@
-package com.ying.core.root;
+package com.ying.core.root.dto;
 
 /**
  * @author bvvy

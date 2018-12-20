@@ -10,6 +10,7 @@ import com.ying.order.query.OrderQuery;
 import com.ying.order.repo.custom.OrderRepositoryCustom;
 import com.ying.order.vo.OrderVO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -27,15 +28,13 @@ public class OrderRepositoryImpl extends SimpleBasicCustomRepositoryImpl impleme
 
     @Override
     public Page<OrderVO> findPurchaseOrderByUser(Integer userId, OrderQuery query, Pageable pageable) {
-        JPAQuery<?> jpaQuery = new JPAQuery<>(entityManager);
+        JPAQuery<OrderVO> jpaQuery = super.createQuery();
         QOrder o = QOrder.order;
         QPurchaseOrder po = QPurchaseOrder.purchaseOrder;
         QBean<OrderVO> qbean = Projections.bean(OrderVO.class, o.attachment, o.balancePayment, o.createTime,
                 o.deliveryDate, o.earnestMoney, o.remarks, o.status, o.id.as("orderId"), po.toName);
-        jpaQuery.select(qbean)
-                .from(po).leftJoin(o).on(po.orderId.eq(o.id)).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch();
-        Sort sort = pageable.getSort();
-        return null;
+        jpaQuery.select(qbean).from(po).leftJoin(o).on(po.orderId.eq(o.id)).where(o.fromId.eq(userId));
+        return findPage(jpaQuery, pageable);
     }
 
     @Override

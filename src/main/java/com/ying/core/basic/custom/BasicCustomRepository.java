@@ -1,5 +1,7 @@
 package com.ying.core.basic.custom;
 
+import com.querydsl.core.types.Path;
+import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +26,9 @@ public interface BasicCustomRepository {
     <T>Page<T> findBySql(String sql, Class<T> clz, Pageable pageable, Object... params);
 
 
+
+
+    <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable, Path<T> mainPath);
+
+    <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable);
 }

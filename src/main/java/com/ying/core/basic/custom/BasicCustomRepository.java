@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 public interface BasicCustomRepository {
 
 
-    long queryCount(JPAQuery<?> query, Pageable pageable);
 
     /**
      * 通过sql来查分页

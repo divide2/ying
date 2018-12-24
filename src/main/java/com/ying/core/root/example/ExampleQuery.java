@@ -15,9 +15,7 @@ import lombok.Data;
 @Data
 public class ExampleQuery implements QueryParam {
 
-    @QueryField(value = {"stuName","clazzName"},op = QueryField.OP.LIKE )
     private String stuOrClazzName;
 
-    @QueryField(value = "stuId", op = QueryField.OP.EQ)
     private String stuId;
 }

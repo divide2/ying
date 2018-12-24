@@ -15,7 +15,7 @@ public interface BasicCustomRepository {
 
 
     /**
-     * 通过sql来查分页
+     * 通过sql来查分页 有的查询通过query dsl 很难完成 需要使用 sql直接查询
      * @param sql sql
      * @param clz 分页后的对象/dto的class
      * @param pageable page
@@ -25,9 +25,23 @@ public interface BasicCustomRepository {
     <T>Page<T> findBySql(String sql, Class<T> clz, Pageable pageable, Object... params);
 
 
-
+    /**
+     *
+     * @param jpqlQuery jpalQuery
+     * @param pageable pageable
+     * @param <T> T
+     * @param mainPath 需要排序的path  todo 需要生成sort
+     * @return page
+     */
 
     <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable, Path<T> mainPath);
 
+    /**
+     * 获取分页 获取dto
+     * @param jpqlQuery jpalQuery
+     * @param pageable pageable
+     * @param <T> T
+     * @return page
+     */
     <T> Page<T> findPage(JPQLQuery<T> jpqlQuery, Pageable pageable);
 }

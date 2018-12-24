@@ -5,7 +5,7 @@ import com.ying.friend.service.FriendService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.service.PurchaseOrderService;
 import com.ying.order.service.SellOrderService;
 import com.ying.order.vo.OrderVO;
@@ -52,12 +52,12 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
-    public Page<OrderVO> findPurchaseOrder(OrderQuery query, Pageable pageable) {
+    public Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable) {
         return purchaseOrderService.findByUser(Loginer.userId(), query, pageable);
     }
 
     @Override
-    public Page<OrderVO> findSellOrder(OrderQuery query, Pageable pageable) {
+    public Page<OrderVO> findSellOrder(OrderQueryParam query, Pageable pageable) {
         return sellOrderService.findByUser(Loginer.userId(), query, pageable);
     }
 

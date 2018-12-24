@@ -10,7 +10,7 @@ import com.ying.core.er.Responser;
 import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.service.ProductService;
@@ -53,13 +53,13 @@ public class MineController {
     }
 
     @GetMapping("/order/purchase")
-    public ResponseEntity<Page<OrderVO>> purchaseOrder(OrderQuery query,Pageable pageable) {
+    public ResponseEntity<Page<OrderVO>> purchaseOrder(OrderQueryParam query, Pageable pageable) {
         Page<OrderVO> vos = mineService.findPurchaseOrder(query, pageable);
         return Responser.ok(vos);
     }
 
     @GetMapping("/order/sell")
-    public ResponseEntity<Page<OrderVO>> sellOrder(OrderQuery query,Pageable pageable) {
+    public ResponseEntity<Page<OrderVO>> sellOrder(OrderQueryParam query, Pageable pageable) {
         Page<OrderVO> vos = mineService.findSellOrder(query, pageable);
         return Responser.ok(vos);
     }

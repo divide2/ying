@@ -3,7 +3,7 @@ package com.ying.order.service;
 import com.ying.core.basic.service.BasicService;
 import com.ying.order.dto.PurchaseOrderDTO;
 import com.ying.order.model.PurchaseOrder;
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +26,5 @@ public interface PurchaseOrderService extends BasicService<PurchaseOrder,Integer
      * @param pageable pageable
      * @return page
      */
-    Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable);
+    Page<OrderVO> findByUser(Integer userId, OrderQueryParam query, Pageable pageable);
 }

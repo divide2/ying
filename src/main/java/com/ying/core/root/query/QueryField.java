@@ -1,5 +1,7 @@
 package com.ying.core.root.query;
 
+import com.querydsl.core.types.Ops;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,11 +15,11 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface QueryField {
 
-    String[] value();
+    String[] value() default "";
 
-    OP op();
+    Ops op() default Ops.EQ;
 
-    public enum OP {
-        EQ,LIKE
-    }
+    Class<?> entity();
+
+
 }

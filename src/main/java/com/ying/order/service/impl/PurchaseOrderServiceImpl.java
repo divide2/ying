@@ -3,7 +3,7 @@ package com.ying.order.service.impl;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.order.dto.PurchaseOrderDTO;
 import com.ying.order.model.PurchaseOrder;
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.repo.OrderRepository;
 import com.ying.order.repo.PurchaseOrderRepository;
 import com.ying.order.service.OrderConnectService;
@@ -47,7 +47,7 @@ public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrd
     }
 
     @Override
-    public Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable) {
+    public Page<OrderVO> findByUser(Integer userId, OrderQueryParam query, Pageable pageable) {
         val page = purchaseOrderRepository.findByFromId(userId,pageable);
         return page.map(item -> {
             val order = orderRepository.getOne(item.getOrderId());

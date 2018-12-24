@@ -1,6 +1,6 @@
 package com.ying.order.repo.custom;
 
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ public interface OrderRepositoryCustom {
      * @param pageable page
      * @return vo
      */
-    Page<OrderVO> findPurchaseOrderByUser(Integer userId, OrderQuery query, Pageable pageable);
+    Page<OrderVO> findPurchaseOrderByUser(Integer userId, OrderQueryParam query, Pageable pageable);
 
     /**
      * 获取销售单
@@ -29,5 +29,5 @@ public interface OrderRepositoryCustom {
      * @param pageable page
      * @return vo
      */
-    Page<OrderVO> findSellOrderByUser(Integer userId, OrderQuery query, Pageable pageable);
+    Page<OrderVO> findSellOrderByUser(Integer userId, OrderQueryParam query, Pageable pageable);
 }

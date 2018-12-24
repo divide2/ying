@@ -3,7 +3,7 @@ package com.ying.order.service.impl;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.order.dto.PurchaseOrderDTO;
 import com.ying.order.model.SellOrder;
-import com.ying.order.query.OrderQuery;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.repo.OrderRepository;
 import com.ying.order.repo.SellOrderRepository;
 import com.ying.order.service.OrderConnectService;
@@ -47,27 +47,8 @@ public class SellOrderServiceImpl extends SimpleBasicServiceImpl<SellOrder, Inte
     }
 
     @Override
-    public Page<OrderVO> findByUser(Integer userId, OrderQuery query, Pageable pageable) {
-        val page = sellOrderRepository.findByFromId(userId, pageable);
-        return page.map(item -> {
-            val order = orderRepository.getOne(item.getOrderId());
-            return new OrderVO(
-                    item.getId(),
-                    order.getId(),
-                    item.getToId(),
-                    item.getToName(),
-                    item.getFromId(),
-                    item.getFromName(),
-                    order.getOrderNo(),
-                    order.getEarnestMoney(),
-                    order.getBalancePayment(),
-                    order.getCreateTime(),
-                    order.getDeliveryDate(),
-                    order.getRemarks(),
-                    order.getAttachment(),
-                    order.getStatus()
-            );
-        });
+    public Page<OrderVO> findByUser(Integer userId, OrderQueryParam query, Pageable pageable) {
+        return orderRepository.findSellOrderByUser(userId, query, pageable);
     }
 
 }

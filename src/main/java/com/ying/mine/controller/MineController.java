@@ -52,14 +52,19 @@ public class MineController {
         this.commentService = commentService;
     }
 
+    @GetMapping("/orders")
+    public ResponseEntity<Page<OrderVO>> findOrder(OrderQueryParam queryParam, Pageable pageable) {
+        return Responser.ok(mineService.findReceiveOrder(queryParam, pageable));
+    }
+
     @GetMapping("/order/purchase")
-    public ResponseEntity<Page<OrderVO>> purchaseOrder(OrderQueryParam query, Pageable pageable) {
+    public ResponseEntity<Page<OrderVO>> findPurchaseOrder(OrderQueryParam query, Pageable pageable) {
         Page<OrderVO> vos = mineService.findPurchaseOrder(query, pageable);
         return Responser.ok(vos);
     }
 
     @GetMapping("/order/sell")
-    public ResponseEntity<Page<OrderVO>> sellOrder(OrderQueryParam query, Pageable pageable) {
+    public ResponseEntity<Page<OrderVO>> findSellOrder(OrderQueryParam query, Pageable pageable) {
         Page<OrderVO> vos = mineService.findSellOrder(query, pageable);
         return Responser.ok(vos);
     }

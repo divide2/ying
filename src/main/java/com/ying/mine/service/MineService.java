@@ -48,5 +48,13 @@ public interface MineService {
 
     Page<ProductVO> findCompanyProduct(Pageable pageable);
 
+    /**
+     * 获取收到的订单
+     * @param queryParam query
+     * @param pageable pageable
+     * @return x
+     */
+    Page<OrderVO> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable);
+
     Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable);
 }

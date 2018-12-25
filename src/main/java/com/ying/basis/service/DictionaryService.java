@@ -3,6 +3,8 @@ package com.ying.basis.service;
 import com.ying.core.basic.service.BasicService;
 import com.ying.basis.model.Dictionary;
 
+import java.util.List;
+
 /**
  * @author zejun
  * @date 2018/7/30 09:19
@@ -15,4 +17,6 @@ public interface DictionaryService extends BasicService<Dictionary,Integer> {
      * @return dic
      */
     Dictionary getByGroupCodeAndCode(String groupCode, String code);
+
+    List<Dictionary> findByGroup(String groupCode);
 }

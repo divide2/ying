@@ -1,4 +1,4 @@
-package com.ying.order.service;
+ package com.ying.order.service;
 
 import com.ying.core.basic.service.BasicService;
 import com.ying.core.data.del.SingleId;
@@ -33,5 +33,12 @@ public interface OrderService extends BasicService<Order, Integer> {
      */
     void confirm(SingleId confirm);
 
+    /**
+     * 获取用户收到的订单
+     * @param userId userId
+     * @param queryParam query
+     * @param pageable pageable
+     * @return page
+     */
     Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable);
 }

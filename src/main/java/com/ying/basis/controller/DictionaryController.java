@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +38,9 @@ public class DictionaryController {
         return Responser.ok(vos);
     }
 
-
+    @GetMapping("/{groupCode}")
+    @ApiOperation("查询一组字典")
+    public ResponseEntity<List<Dictionary>> listByGroup(@PathVariable String groupCode) {
+        return Responser.ok(dictionaryService.findByGroup(groupCode));
+    }
 }

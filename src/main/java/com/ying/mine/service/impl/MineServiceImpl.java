@@ -6,6 +6,7 @@ import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
+import com.ying.order.service.OrderService;
 import com.ying.order.service.PurchaseOrderService;
 import com.ying.order.service.SellOrderService;
 import com.ying.order.vo.OrderVO;
@@ -36,19 +37,26 @@ public class MineServiceImpl implements MineService {
     private final ProductService productService;
     private final PurchaseOrderService purchaseOrderService;
     private final SellOrderService sellOrderService;
+    private final OrderService orderService;
 
     public MineServiceImpl(WarehouseService warehouseService,
                            StockService stockService,
                            FriendService friendService,
                            ProductService productService,
                            PurchaseOrderService purchaseOrderService,
-                           SellOrderService sellOrderService) {
+                           SellOrderService sellOrderService, OrderService orderService) {
         this.warehouseService = warehouseService;
         this.stockService = stockService;
         this.friendService = friendService;
         this.productService = productService;
         this.purchaseOrderService = purchaseOrderService;
         this.sellOrderService = sellOrderService;
+        this.orderService = orderService;
+    }
+
+    @Override
+    public Page<OrderVO> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable) {
+        return orderService.findUserReceiveOrder(Loginer.userId(), queryParam, pageable);
     }
 
     @Override

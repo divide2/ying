@@ -120,6 +120,5 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         predicate = predicate.and(order.toId.eq(userId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
-
     }
 }

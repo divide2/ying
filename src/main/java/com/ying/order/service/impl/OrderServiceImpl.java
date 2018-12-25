@@ -1,22 +1,29 @@
 package com.ying.order.service.impl;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.data.del.SingleId;
 import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
-import com.ying.order.dto.OrderConfirmDTO;
+import com.ying.core.root.query.QueryManager;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.ProductSpecPrice;
 import com.ying.order.model.Order;
 import com.ying.order.model.OrderProduct;
 import com.ying.order.model.OrderProductSpec;
+import com.ying.order.model.QOrder;
+import com.ying.order.query.OrderQueryParam;
 import com.ying.order.repo.OrderProductRepository;
 import com.ying.order.repo.OrderProductSpecRepository;
 import com.ying.order.repo.OrderRepository;
 import com.ying.order.service.OrderConnectService;
 import com.ying.order.service.OrderInnerConnectService;
 import com.ying.order.service.OrderService;
+import com.ying.order.vo.OrderVO;
 import com.ying.product.vo.ProductVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,19 +43,21 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     private final OrderProductRepository orderProductRepository;
     private final OrderProductSpecRepository orderProductSpecRepository;
     private final OrderInnerConnectService orderInnerConnectService;
+    private final OrderRepository orderRepository;
 
 
     public OrderServiceImpl(OrderConnectService orderConnectService,
                             OrderStatusProperties orderStatus,
                             OrderProductRepository orderProductRepository,
                             OrderProductSpecRepository orderProductSpecRepository,
-                            OrderInnerConnectService orderInnerConnectService) {
+                            OrderInnerConnectService orderInnerConnectService, OrderRepository orderRepository) {
         this.orderConnectService = orderConnectService;
 
         this.orderStatus = orderStatus;
         this.orderProductRepository = orderProductRepository;
         this.orderProductSpecRepository = orderProductSpecRepository;
         this.orderInnerConnectService = orderInnerConnectService;
+        this.orderRepository = orderRepository;
     }
 
 
@@ -97,11 +106,20 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     }
 
     @Override
-    public void confirm(OrderConfirmDTO confirm) {
-        Order order = this.get(confirm.getOrderId());
+    public void confirm(SingleId confirm) {
+        Order order = this.get(confirm.getId());
         order.setStatus(orderStatus.getWaitingDeliver());
         orderInnerConnectService.addSellOrder(order);
         this.update(order);
     }
 
+    @Override
+    public Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
+        BooleanExpression predicate = new QueryManager(queryParam).predicate();
+        QOrder order = QOrder.order;
+        predicate = predicate.and(order.toId.eq(userId));
+        Page<Order> page = orderRepository.findAll(predicate, pageable);
+        return page.map(OrderVO::from);
+
+    }
 }

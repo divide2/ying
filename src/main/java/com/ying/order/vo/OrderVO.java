@@ -55,14 +55,14 @@ public class OrderVO {
 
     private String status;
 
-    public static OrderVO from(Order order, PurchaseOrder purchaseOrder) {
+    public static OrderVO from(Order order) {
         return new OrderVO(
-                purchaseOrder.getId(),
                 order.getId(),
-                purchaseOrder.getToId(),
-                purchaseOrder.getToName(),
-                purchaseOrder.getFromId(),
-                purchaseOrder.getFromName(),
+                order.getId(),
+                order.getToId(),
+                order.getToName(),
+                order.getFromId(),
+                order.getFromName(),
                 order.getOrderNo(),
                 order.getEarnestMoney(),
                 order.getBalancePayment(),

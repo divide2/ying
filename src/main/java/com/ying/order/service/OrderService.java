@@ -1,9 +1,15 @@
 package com.ying.order.service;
 
 import com.ying.core.basic.service.BasicService;
-import com.ying.order.dto.OrderConfirmDTO;
+import com.ying.core.data.del.SingleId;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.model.Order;
+import com.ying.order.query.OrderQueryParam;
+import com.ying.order.vo.OrderVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -25,5 +31,7 @@ public interface OrderService extends BasicService<Order, Integer> {
      *
      * @param confirm confirm
      */
-    void confirm(OrderConfirmDTO confirm);
+    void confirm(SingleId confirm);
+
+    Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable);
 }

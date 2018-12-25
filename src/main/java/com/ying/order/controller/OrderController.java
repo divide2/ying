@@ -1,15 +1,14 @@
 package com.ying.order.controller;
 
 
+import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.service.OrderService;
-import com.ying.order.vo.OrderVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class OrderController {
     }
 
     @PutMapping("/confirm")
-    public ResponseEntity<Messager> confirm(@Valid @RequestBody OrderConfirmDTO confirm, BindingResult bindingResult) {
+    public ResponseEntity<Messager> confirm(@Valid @RequestBody SingleId confirm, BindingResult bindingResult) {
         orderService.confirm(confirm);
         return Responser.updated();
     }

@@ -26,7 +26,7 @@ public class QueryManager {
         this.queryClass = queryParam.getClass();
     }
 
-    public Predicate predicate() {
+    public BooleanExpression predicate() {
         BooleanExpression predicate = Expressions.ONE.eq(Expressions.ONE);
         X x = new X(predicate);
         ReflectionUtils.doWithFields(queryClass, x, field -> {

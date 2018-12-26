@@ -105,11 +105,32 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         orderConnectService.sendMessage(order);
     }
 
+    /**
+     * todo 状态模式
+     * @param confirm confirm id
+     */
     @Override
     public void confirm(SingleId confirm) {
         Order order = this.get(confirm.getId());
         order.setStatus(orderStatus.getWaitingDeliver());
         orderInnerConnectService.addSellOrder(order);
+        this.update(order);
+    }
+
+    @Override
+    public void confirmDeliver(SingleId confirm) {
+        Order order = this.get(confirm.getId());
+        // todo 选择仓库 判断库存 减掉库存
+        order.setStatus(orderStatus.getWaitingReceive());
+        this.update(order);
+    }
+
+
+    @Override
+    public void confirmReceive(SingleId confirm) {
+        Order order = this.get(confirm.getId());
+        //
+        order.setStatus(orderStatus.getFinish());
         this.update(order);
     }
 

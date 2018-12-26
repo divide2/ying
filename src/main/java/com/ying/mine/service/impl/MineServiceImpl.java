@@ -71,7 +71,7 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public List<WarehouseVO> listWarehouse() {
-        List<Warehouse> warehouses = warehouseService.listByCompany(Loginer.companyId());
+        List<Warehouse> warehouses = warehouseService.listByUser(Loginer.userId());
         return warehouses.stream().map(warehouse -> {
             WarehouseVO vo = new WarehouseVO();
             vo.setId(warehouse.getId());

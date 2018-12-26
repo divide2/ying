@@ -33,6 +33,10 @@ public interface OrderService extends BasicService<Order, Integer> {
      */
     void confirm(SingleId confirm);
 
+    void confirmDeliver(SingleId confirm);
+
+    void confirmReceive(SingleId confirm);
+
     /**
      * 获取用户收到的订单
      * @param userId userId

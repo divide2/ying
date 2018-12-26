@@ -43,4 +43,14 @@ public class OrderController {
         orderService.confirm(confirm);
         return Responser.updated();
     }
+    @PutMapping("/confirm/deliver")
+    public ResponseEntity<Messager> confirmDeliver(@Valid @RequestBody SingleId confirm, BindingResult bindingResult) {
+        orderService.confirmDeliver(confirm);
+        return Responser.updated();
+    }
+    @PutMapping("/confirm/receive")
+    public ResponseEntity<Messager> confirmReceive(@Valid @RequestBody SingleId confirm, BindingResult bindingResult) {
+        orderService.confirmReceive(confirm);
+        return Responser.updated();
+    }
 }

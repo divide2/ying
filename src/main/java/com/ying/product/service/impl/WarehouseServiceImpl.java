@@ -26,4 +26,8 @@ public class WarehouseServiceImpl extends SimpleBasicServiceImpl<Warehouse,Integ
         return warehouseRepository.findByCompanyId(companyId);
     }
 
+    @Override
+    public List<Warehouse> listByUser(Integer userId) {
+        return warehouseRepository.findByUserId(userId);
+    }
 }

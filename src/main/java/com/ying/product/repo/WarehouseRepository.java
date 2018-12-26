@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface WarehouseRepository extends JpaRepository<Warehouse,Integer> {
     List<Warehouse> findByCompanyId(Integer companyId);
+
+    List<Warehouse> findByUserId(Integer userId);
 }

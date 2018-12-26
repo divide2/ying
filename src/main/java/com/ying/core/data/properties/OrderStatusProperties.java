@@ -15,4 +15,6 @@ public class OrderStatusProperties {
 
     private String waitingConfirm;
     private String waitingDeliver;
+    private String waitingReceive;
+    private String finish;
 }

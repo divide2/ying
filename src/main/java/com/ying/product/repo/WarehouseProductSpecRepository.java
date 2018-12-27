@@ -20,4 +20,5 @@ public interface WarehouseProductSpecRepository extends JpaRepository<WarehouseP
         return one.orElse(null);
     }
 
+    WarehouseProductSpec getByWarehouseIdAndProductSpecId(Integer warehouseId, Integer productSpecId);
 }

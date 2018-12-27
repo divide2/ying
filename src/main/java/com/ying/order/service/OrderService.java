@@ -4,6 +4,7 @@ import com.ying.core.basic.service.BasicService;
 import com.ying.core.data.del.SingleId;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.OrderDeliverDTO;
+import com.ying.order.dto.OrderReceiveDTO;
 import com.ying.order.model.Order;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -34,9 +35,17 @@ public interface OrderService extends BasicService<Order, Integer> {
      */
     void confirm(SingleId confirm);
 
+    /**
+     * 确认发货
+     * @param deliver delivery
+     */
     void confirmDeliver(OrderDeliverDTO deliver);
 
-    void confirmReceive(SingleId confirm);
+    /**
+     * 确认收货
+     * @param receive receive
+     */
+    void confirmReceive(OrderReceiveDTO receive);
 
     /**
      * 获取用户收到的订单

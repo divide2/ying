@@ -4,7 +4,10 @@ import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.order.model.Order;
+import com.ying.product.dto.InStockDTO;
+import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.ProductSpec;
+import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.vo.ProductVO;
 
 /**
@@ -28,4 +31,7 @@ public interface OrderConnectService extends ConnectService {
     ProductSpec getProductSpec(Integer productSpecId);
 
 
+    void outStock(OutStockDTO outStock);
+
+    void inStock(InStockDTO inStockDTO);
 }

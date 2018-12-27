@@ -6,9 +6,12 @@ import com.ying.friend.service.FriendService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.order.model.Order;
 import com.ying.order.service.OrderConnectService;
+import com.ying.product.dto.InStockDTO;
+import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.service.ProductService;
 import com.ying.product.service.ProductSpecService;
+import com.ying.product.service.StockService;
 import com.ying.product.vo.ProductVO;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +25,19 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     private final ProductService productService;
     private final UserService userService;
     private final ProductSpecService productSpecService;
+    private final StockService stockService;
 
 
     public OrderConnectServiceImpl(FriendService friendService,
                                    ProductService productService,
-                                   UserService userService, ProductSpecService productSpecService) {
+                                   UserService userService, ProductSpecService productSpecService,
+                                   StockService stockService) {
         this.friendService = friendService;
         this.productService = productService;
 
         this.userService = userService;
         this.productSpecService = productSpecService;
+        this.stockService = stockService;
     }
 
     @Override
@@ -59,4 +65,13 @@ public class OrderConnectServiceImpl implements OrderConnectService {
         return productSpecService.get(productSpecId);
     }
 
+    @Override
+    public void outStock(OutStockDTO outStock) {
+        stockService.out(outStock);
+    }
+
+    @Override
+    public void inStock(InStockDTO inStockDTO) {
+        stockService.in(inStockDTO);
+    }
 }

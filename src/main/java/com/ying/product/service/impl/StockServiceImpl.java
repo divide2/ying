@@ -1,8 +1,9 @@
 package com.ying.product.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
-import com.ying.product.dto.StockDTO;
+import com.ying.product.dto.InStockDTO;
 import com.ying.product.model.*;
 import com.ying.product.query.StockQuery;
 import com.ying.product.repo.ProductRepository;
@@ -13,7 +14,6 @@ import com.ying.product.service.StockService;
 import com.ying.product.bo.StockBO;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
-import io.swagger.models.auth.In;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class StockServiceImpl implements StockService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(StockDTO dto) {
+    public void in(InStockDTO dto) {
         // 先存入规格的库存
         dto.getSpecStocks().forEach(specStock -> {
             WarehouseProductSpec warehouseProductSpec = warehouseProductSpecRepository.getByAllId(
@@ -84,6 +84,11 @@ public class StockServiceImpl implements StockService {
         // todo 减去消耗
 
         // todo 记录过程
+    }
+
+    @Override
+    public void out(OutStockDTO dto) {
+
     }
 
     @Override

@@ -9,6 +9,7 @@ import com.ying.core.er.Loginer;
 import com.ying.core.root.query.QueryManager;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.OrderDeliverDTO;
+import com.ying.order.dto.OrderReceiveDTO;
 import com.ying.order.dto.ProductSpecPrice;
 import com.ying.order.model.Order;
 import com.ying.order.model.OrderProduct;
@@ -22,7 +23,11 @@ import com.ying.order.service.OrderConnectService;
 import com.ying.order.service.OrderInnerConnectService;
 import com.ying.order.service.OrderService;
 import com.ying.order.vo.OrderVO;
+import com.ying.product.dto.InStockDTO;
+import com.ying.product.dto.OutStockDTO;
+import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.model.ProductSpec;
+import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +38,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author bvvy
@@ -128,18 +135,31 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     @Transactional(rollbackFor = Exception.class)
     public void confirmDeliver(OrderDeliverDTO deliver) {
         Order order = this.get(deliver.getOrderId());
+        //获取的是订单的商品规格数量
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(deliver.getOrderId());
-        // 获取仓库的
-        // todo 选择仓库 判断库存 减掉库存
+        Map<Integer, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
+
+        // todo 调用出库 nice job
+        collect.forEach((productId,specs)-> {
+            OutStockDTO outStock = new OutStockDTO();
+            outStock.setProductId(productId);
+            outStock.setWarehouseId(deliver.getWarehouseId());
+            List<ProductSpecStock> productSpecStocks = specs.stream()
+                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
+            outStock.setSpecStocks(productSpecStocks);
+            orderConnectService.outStock(outStock);
+        });
         order.setStatus(orderStatus.getWaitingReceive());
         this.update(order);
     }
 
 
     @Override
-    public void confirmReceive(SingleId confirm) {
-        Order order = this.get(confirm.getId());
-        //
+    public void confirmReceive(OrderReceiveDTO receive) {
+        Order order = this.get(receive.getOrderId());
+        List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(receive.getOrderId());
+        // todo 调用入库
+        InStockDTO inStock = new InStockDTO();
         order.setStatus(orderStatus.getFinish());
         this.update(order);
     }

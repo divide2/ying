@@ -8,6 +8,7 @@ import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.query.QueryManager;
 import com.ying.order.dto.OrderDTO;
+import com.ying.order.dto.OrderDeliverDTO;
 import com.ying.order.dto.ProductSpecPrice;
 import com.ying.order.model.Order;
 import com.ying.order.model.OrderProduct;
@@ -21,6 +22,7 @@ import com.ying.order.service.OrderConnectService;
 import com.ying.order.service.OrderInnerConnectService;
 import com.ying.order.service.OrderService;
 import com.ying.order.vo.OrderVO;
+import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -72,6 +74,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         order.setDeliveryDate(dto.getDeliveryDate());
         order.setEarnestMoney(dto.getEarnestMoney());
         order.setRemarks(dto.getRemarks());
+        // todo 这估计是要分离的 个人的操作都应该到mine 中去  这个参数该是传递进来的 暂时先这样 目前有点不清晰
         order.setFromId(Loginer.userId());
         order.setFromName(Loginer.username());
         order.setToId(dto.getToId());
@@ -91,11 +94,15 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
             orderProduct.setProductName(product.getName());
             orderProductRepository.save(orderProduct);
             productSpecPriceList.forEach(spec -> {
+                ProductSpec productSpec = orderConnectService.getProductSpec(spec.getProductSpecId());
                 OrderProductSpec orderProductSpec = new OrderProductSpec();
                 orderProductSpec.setOrderProductId(orderProduct.getId());
                 orderProductSpec.setAmount(spec.getAmount());
-                orderProductSpec.setSpecName(spec.getSpecName());
+                orderProductSpec.setSpecName(productSpec.getName());
+                orderProductSpec.setProductSpecId(productSpec.getId());
                 orderProductSpec.setOrderId(order.getId());
+                orderProductSpec.setProductName(product.getName());
+                orderProductSpec.setPrice(productSpec.getPrice());
                 orderProductSpec.setProductId(productId);
                 orderProductSpecRepository.save(orderProductSpec);
             });
@@ -118,8 +125,11 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     }
 
     @Override
-    public void confirmDeliver(SingleId confirm) {
-        Order order = this.get(confirm.getId());
+    @Transactional(rollbackFor = Exception.class)
+    public void confirmDeliver(OrderDeliverDTO deliver) {
+        Order order = this.get(deliver.getOrderId());
+        List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(deliver.getOrderId());
+        // 获取仓库的
         // todo 选择仓库 判断库存 减掉库存
         order.setStatus(orderStatus.getWaitingReceive());
         this.update(order);

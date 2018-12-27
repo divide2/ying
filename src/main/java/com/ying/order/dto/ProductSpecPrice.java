@@ -19,8 +19,8 @@ public class ProductSpecPrice {
 
     private Integer productId;
 
-    @ApiModelProperty(value = "属性名称",example = "2.5寸7瓦")
-    private String specName;
+    @ApiModelProperty(value = "产品属性关联表id")
+    private Integer productSpecId;
 
     @ApiModelProperty("数量")
     private Integer amount;

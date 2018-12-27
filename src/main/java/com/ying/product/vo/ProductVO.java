@@ -39,7 +39,7 @@ public class ProductVO {
     private String remarks;
 
     @ApiModelProperty("产品规格")
-    private List<ProductSpec> productSpecs;
+    private List<ProductSpec> specs;
 
     public static ProductVO of(Product product) {
         ProductVO vo = new ProductVO();

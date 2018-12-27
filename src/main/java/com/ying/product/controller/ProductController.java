@@ -63,8 +63,8 @@ public class ProductController {
     @ApiOperation("查一条详情")
     @GetMapping("/{id}")
     public ResponseEntity<ProductVO> add(@PathVariable Integer id) {
-        Product product = productService.get(id);
-        return Responser.ok(ProductVO.of(product));
+        ProductVO vo = productService.getVO(id);
+        return Responser.ok(vo);
     }
 
     @GetMapping("/{userId}/products")

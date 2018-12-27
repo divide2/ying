@@ -44,7 +44,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     private ProductVO mergeProductSpecs(Product product) {
         ProductVO vo = ProductVO.of(product);
         List<ProductSpec> productSpecs = productSpecRepository.findByProductId(product.getId());
-        vo.setProductSpecs(productSpecs);
+        vo.setSpecs(productSpecs);
         return vo;
     }
     @Override
@@ -80,7 +80,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         product.setName(dto.getName());
         product.setRemarks(dto.getRemarks());
         this.add(product);
-        // todo 消耗
+        // todo 消耗规则 暂时不用 下一版本再说
         this.saveSpec(product.getId(), dto.getSpecs());
     }
 

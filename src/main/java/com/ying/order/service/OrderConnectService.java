@@ -4,6 +4,7 @@ import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.order.model.Order;
+import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
 
 /**
@@ -23,6 +24,8 @@ public interface OrderConnectService extends ConnectService {
     ProductVO getProductById(Integer productId);
 
     void sendMessage(Order order);
+
+    ProductSpec getProductSpec(Integer productSpecId);
 
 
 }

@@ -25,9 +25,9 @@ public class OrderProductSpec {
     private Integer orderProductId;
     private String productName;
     private Integer productId;
+    private Integer productSpecId;
     private String specName;
     private BigDecimal price;
     private Integer amount;
     private LocalDateTime createTime;
-
 }

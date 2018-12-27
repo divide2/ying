@@ -93,7 +93,7 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public Page<ProductVO> findProduct(Pageable pageable) {
-        return productService.findByCompany(Loginer.companyId(), pageable);
+        return productService.findByUser(Loginer.userId(), pageable);
     }
 
     @Override

@@ -6,7 +6,9 @@ import com.ying.friend.service.FriendService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.order.model.Order;
 import com.ying.order.service.OrderConnectService;
+import com.ying.product.model.ProductSpec;
 import com.ying.product.service.ProductService;
+import com.ying.product.service.ProductSpecService;
 import com.ying.product.vo.ProductVO;
 import org.springframework.stereotype.Service;
 
@@ -19,15 +21,17 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     private final FriendService friendService;
     private final ProductService productService;
     private final UserService userService;
+    private final ProductSpecService productSpecService;
 
 
     public OrderConnectServiceImpl(FriendService friendService,
                                    ProductService productService,
-                                   UserService userService) {
+                                   UserService userService, ProductSpecService productSpecService) {
         this.friendService = friendService;
         this.productService = productService;
 
         this.userService = userService;
+        this.productSpecService = productSpecService;
     }
 
     @Override
@@ -50,5 +54,9 @@ public class OrderConnectServiceImpl implements OrderConnectService {
 
     }
 
+    @Override
+    public ProductSpec getProductSpec(Integer productSpecId) {
+        return productSpecService.get(productSpecId);
+    }
 
 }

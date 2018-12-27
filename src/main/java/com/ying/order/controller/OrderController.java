@@ -7,6 +7,7 @@ import com.ying.core.er.Responser;
 import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.OrderDeliverDTO;
+import com.ying.order.dto.OrderReceiveDTO;
 import com.ying.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -56,8 +57,8 @@ public class OrderController {
 
     @ApiOperation("确认收货")
     @PutMapping("/confirm/receive")
-    public ResponseEntity<Messager> confirmReceive(@Valid @RequestBody SingleId confirm, BindingResult bindingResult) {
-        orderService.confirmReceive(confirm);
+    public ResponseEntity<Messager> confirmReceive(@Valid @RequestBody OrderReceiveDTO receiveDTO, BindingResult bindingResult) {
+        orderService.confirmReceive(receiveDTO);
         return Responser.updated();
     }
 

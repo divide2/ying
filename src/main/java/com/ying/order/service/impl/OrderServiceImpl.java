@@ -27,7 +27,6 @@ import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.model.ProductSpec;
-import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -121,6 +120,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
 
     /**
      * todo 状态模式
+     *
      * @param confirm confirm id
      */
     @Override
@@ -138,9 +138,8 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         //获取的是订单的商品规格数量
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(deliver.getOrderId());
         Map<Integer, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
-
-        // todo 调用出库 nice job
-        collect.forEach((productId,specs)-> {
+        // 调用出库 nice job
+        collect.forEach((productId, specs) -> {
             OutStockDTO outStock = new OutStockDTO();
             outStock.setProductId(productId);
             outStock.setWarehouseId(deliver.getWarehouseId());
@@ -154,12 +153,22 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     }
 
 
+
     @Override
     public void confirmReceive(OrderReceiveDTO receive) {
         Order order = this.get(receive.getOrderId());
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(receive.getOrderId());
-        // todo 调用入库
-        InStockDTO inStock = new InStockDTO();
+        Map<Integer, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
+        // 调用入库 nice job
+        collect.forEach((productId, specs) -> {
+            InStockDTO inStock = new InStockDTO();
+            inStock.setProductId(productId);
+            inStock.setWarehouseId(receive.getWarehouseId());
+            List  <ProductSpecStock> productSpecStocks = specs.stream()
+                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
+            inStock.setSpecStocks(productSpecStocks);
+            orderConnectService.inStock(inStock);
+        });
         order.setStatus(orderStatus.getFinish());
         this.update(order);
     }

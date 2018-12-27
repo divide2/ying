@@ -1,9 +1,10 @@
 package com.ying.product.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.product.bo.StockBO;
+import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
-import com.ying.product.dto.InStockDTO;
 import com.ying.product.model.*;
 import com.ying.product.query.StockQuery;
 import com.ying.product.repo.ProductRepository;
@@ -11,7 +12,6 @@ import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.repo.WarehouseProductRepository;
 import com.ying.product.repo.WarehouseProductSpecRepository;
 import com.ying.product.service.StockService;
-import com.ying.product.bo.StockBO;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
@@ -73,7 +73,7 @@ public class StockServiceImpl implements StockService {
         if (warehouseProduct == null) {
             warehouseProduct = new WarehouseProduct();
             warehouseProduct.setAmount(totalAmount.orElse(0));
-        } else{
+        } else {
             warehouseProduct.setAmount(warehouseProduct.getAmount() + totalAmount.orElse(0));
 
         }
@@ -87,7 +87,20 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void out(OutStockDTO dto) {
+    public void out(OutStockDTO out) {
+        // 减少规格产品的数量
+        out.getSpecStocks().forEach(specStock-> {
+            WarehouseProductSpec warehouseProductSpec = warehouseProductSpecRepository.getByAllId(out.getWarehouseId(), out.getProductId(), specStock.getProductSpecId());
+            warehouseProductSpec.setAmount(warehouseProductSpec.getAmount() - specStock.getAmount());
+            warehouseProductSpecRepository.save(warehouseProductSpec);
+        });
+        // 减少总数量
+        Optional<Integer> totalAmount = out.getSpecStocks().stream().map(ProductSpecStock::getAmount).reduce((a, b) -> a + b);
+        WarehouseProduct warehouseProduct = warehouseProductRepository
+                .getByWarehouseIdAndProductId(out.getWarehouseId(), out.getProductId());
+        warehouseProduct.setAmount(warehouseProduct.getAmount() - totalAmount.orElse(0));
+        warehouseProductRepository.save(warehouseProduct);
+        // todo 记录过程
 
     }
 

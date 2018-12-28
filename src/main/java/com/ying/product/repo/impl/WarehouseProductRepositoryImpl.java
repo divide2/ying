@@ -40,4 +40,18 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
 
         return super.findPage(query, pageable);
     }
+
+    @Override
+    public Page<StockBO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable) {
+
+        QWarehouse warehouse = QWarehouse.warehouse;
+        QWarehouseProduct warehouseProduct = QWarehouseProduct.warehouseProduct;
+        JPAQuery<StockBO> query = new JPAQuery<>(entityManager).select(Projections.bean(StockBO.class,
+                warehouse.id.as("warehouseId"), warehouse.name.as("warehouseName"),
+                warehouse.type.as("warehouseType"), warehouseProduct.productId, warehouseProduct.amount))
+                .from(warehouse).innerJoin(warehouseProduct).on(warehouse.id.eq(warehouseProduct.warehouseId))
+                .where(warehouse.userId.eq(userId).and(warehouse.type.eq(stockQuery.getWarehouseType())));
+
+        return super.findPage(query, pageable);
+    }
 }

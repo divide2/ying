@@ -3,10 +3,13 @@ package com.ying.product.service;
 import com.ying.product.bo.StockBO;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
+import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 /**
  * todo 单独的模块 商品 库存 订单 三个模块
@@ -35,4 +38,8 @@ public interface StockService {
     Page<StockVO> findByCompany(StockQuery stockQuery, Pageable pageable);
 
     Page<StockBO> find(StockQuery stockQuery);
+
+    List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId);
+
+    Page<StockVO> findByUser(StockQuery stockQuery, Pageable pageable);
 }

@@ -17,8 +17,6 @@ import java.util.List;
  * @date 2018/12/10
  */
 public interface MineService {
-    Page<OrderVO> findSellOrder(OrderQueryParam query, Pageable pageable);
-
     /**
      * 获取用户的仓库
      * @return vo
@@ -56,5 +54,18 @@ public interface MineService {
      */
     Page<OrderVO> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable);
 
+
+    /**
+     * 获取发送的订单
+     * @param queryParam query
+     * @param pageable page
+     * @return vo
+     */
+    Page<OrderVO> findSendOrder(OrderQueryParam queryParam, Pageable pageable);
+
+    @Deprecated
+    Page<OrderVO> findSellOrder(OrderQueryParam query, Pageable pageable);
+
+    @Deprecated
     Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable);
 }

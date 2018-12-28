@@ -71,6 +71,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     @Transactional(rollbackFor = Exception.class)
     public void add(ProductDTO dto) {
         Product product = new Product();
+        // fixme
         product.setCompanyId(Loginer.companyId());
         product.setFromId(Loginer.userId());
         product.setFromName(Loginer.username());

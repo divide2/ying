@@ -68,6 +68,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu,Integer,MenuRep
 
     @Override
     public List<Tree<MenuPayload>> findLeftMenuTreeBySelf() {
+        // fixme
         List<MenuBO> bos = menuRepository.findLeftMenuTreeByUser(Loginer.userId());
         List<ITreeMerger<MenuPayload>> mergers = bos.stream().map(MenuBO::to).collect(toList());
         return Treer.genTree(mergers);

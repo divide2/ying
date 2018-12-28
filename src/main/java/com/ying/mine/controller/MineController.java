@@ -1,10 +1,10 @@
 package com.ying.mine.controller;
 
 import com.ying.basis.model.Comment;
-import com.ying.basis.service.CommentService;
-import com.ying.basis.vo.CommentVO;
 import com.ying.basis.model.Star;
+import com.ying.basis.service.CommentService;
 import com.ying.basis.service.StarService;
+import com.ying.basis.vo.CommentVO;
 import com.ying.basis.vo.StarVO;
 import com.ying.core.er.Responser;
 import com.ying.friend.vo.FriendVO;
@@ -52,9 +52,18 @@ public class MineController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/orders")
-    public ResponseEntity<Page<OrderVO>> findOrder(OrderQueryParam queryParam, Pageable pageable) {
+
+    @GetMapping("/order/receive")
+    @ApiOperation("获取收到的订单")
+    public ResponseEntity<Page<OrderVO>> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable) {
         return Responser.ok(mineService.findReceiveOrder(queryParam, pageable));
+    }
+
+
+    @GetMapping("/order/send")
+    @ApiOperation("获取发送的订单，就是采购单")
+    public ResponseEntity<Page<OrderVO>> findSendOrder(OrderQueryParam queryParam, Pageable pageable) {
+        return Responser.ok(mineService.findSendOrder(queryParam, pageable));
     }
 
     @GetMapping("/order/purchase")
@@ -68,18 +77,21 @@ public class MineController {
         Page<OrderVO> vos = mineService.findSellOrder(query, pageable);
         return Responser.ok(vos);
     }
+
     @GetMapping("/friends")
     @ApiOperation("我的好友")
     public ResponseEntity<List<FriendVO>> friends() {
         List<FriendVO> vos = mineService.listFriends();
         return Responser.ok(vos);
     }
+
     @GetMapping("/stocks")
     @ApiOperation("我的库存")
     public ResponseEntity<Page<StockVO>> findStock(Pageable pageable, @Valid StockQuery stockQuery, BindingResult br) {
         Page<StockVO> vo = mineService.findStock(stockQuery, pageable);
         return Responser.ok(vo);
     }
+
     @GetMapping("/warehouses")
     @ApiOperation("我的仓库")
     public ResponseEntity<List<WarehouseVO>> listWarehouse() {
@@ -90,7 +102,7 @@ public class MineController {
     @GetMapping("/products")
     @ApiOperation("我的产品")
     public ResponseEntity<Page<ProductVO>> product(Pageable pageable) {
-            Page<ProductVO> products = mineService.findProduct(pageable);
+        Page<ProductVO> products = mineService.findProduct(pageable);
         return Responser.ok(products);
     }
 

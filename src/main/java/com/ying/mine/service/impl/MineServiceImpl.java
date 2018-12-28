@@ -70,6 +70,11 @@ public class MineServiceImpl implements MineService {
     }
 
     @Override
+    public Page<OrderVO> findSendOrder(OrderQueryParam queryParam, Pageable pageable) {
+        return orderService.findUserSendOrder(Loginer.userId(), queryParam, pageable);
+    }
+
+    @Override
     public List<WarehouseVO> listWarehouse() {
         List<Warehouse> warehouses = warehouseService.listByUser(Loginer.userId());
         return warehouses.stream().map(warehouse -> {
@@ -83,7 +88,7 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable) {
-        return stockService.findByCompany(stockQuery, pageable);
+        return stockService.findByUser(stockQuery, pageable);
     }
 
     @Override

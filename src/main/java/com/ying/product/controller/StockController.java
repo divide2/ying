@@ -4,17 +4,17 @@ import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
+import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.service.StockService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -49,6 +49,12 @@ public class StockController {
     public ResponseEntity<Messager> out(@Valid @RequestBody OutStockDTO dto, BindingResult br) {
         stockService.out(dto);
         return Responser.created();
+    }
+
+    @GetMapping("/warehouse/{warehouseId}")
+    @ApiModelProperty("获取某个仓库的库存")
+    public ResponseEntity<List<WarehouseProductSpec>> getByWarehouseId(@PathVariable Integer warehouseId) {
+        return Responser.ok(stockService.getByWarehouseId(warehouseId));
     }
 
 

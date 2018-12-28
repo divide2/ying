@@ -80,7 +80,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         order.setDeliveryDate(dto.getDeliveryDate());
         order.setEarnestMoney(dto.getEarnestMoney());
         order.setRemarks(dto.getRemarks());
-        // todo 这估计是要分离的 个人的操作都应该到mine 中去  这个参数该是传递进来的 暂时先这样 目前有点不清晰
+        // fixme 这估计是要分离的 个人的操作都应该到mine 中去  这个参数该是传递进来的 暂时先这样 目前有点不清晰
         order.setFromId(Loginer.userId());
         order.setFromName(Loginer.username());
         order.setToId(dto.getToId());
@@ -153,7 +153,6 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     }
 
 
-
     @Override
     public void confirmReceive(OrderReceiveDTO receive) {
         Order order = this.get(receive.getOrderId());
@@ -164,7 +163,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
             InStockDTO inStock = new InStockDTO();
             inStock.setProductId(productId);
             inStock.setWarehouseId(receive.getWarehouseId());
-            List  <ProductSpecStock> productSpecStocks = specs.stream()
+            List<ProductSpecStock> productSpecStocks = specs.stream()
                     .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
             inStock.setSpecStocks(productSpecStocks);
             orderConnectService.inStock(inStock);
@@ -181,4 +180,14 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
     }
+
+    @Override
+    public Page<OrderVO> findUserSendOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
+        BooleanExpression predicate = new QueryManager(queryParam).predicate();
+        QOrder order = QOrder.order;
+        predicate = predicate.and(order.fromId.eq(userId));
+        Page<Order> page = orderRepository.findAll(predicate, pageable);
+        return page.map(OrderVO::from);
+    }
+
 }

@@ -4,11 +4,12 @@ package com.ying.order.controller;
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
-import com.ying.order.dto.OrderConfirmDTO;
 import com.ying.order.dto.OrderDTO;
 import com.ying.order.dto.OrderDeliverDTO;
 import com.ying.order.dto.OrderReceiveDTO;
+import com.ying.order.model.OrderProductSpec;
 import com.ying.order.service.OrderService;
+import com.ying.order.service.impl.OrderProductSpecService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -29,9 +31,11 @@ public class OrderController {
 
 
     private final OrderService orderService;
+    private final OrderProductSpecService orderProductSpecService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderProductSpecService orderProductSpecService) {
         this.orderService = orderService;
+        this.orderProductSpecService = orderProductSpecService;
     }
 
     @PostMapping
@@ -62,4 +66,9 @@ public class OrderController {
         return Responser.updated();
     }
 
+    @GetMapping("/{orderId}/spec")
+    public ResponseEntity<List<OrderProductSpec>> listOrderProductSpecByOrder(@PathVariable Integer orderId) {
+        List<OrderProductSpec> orderProductSpecs = orderProductSpecService.listByOrder(orderId);
+        return Responser.ok(orderProductSpecs);
+    }
 }

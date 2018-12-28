@@ -90,7 +90,8 @@ public class StockServiceImpl implements StockService {
     public void out(OutStockDTO out) {
         // 减少规格产品的数量
         out.getSpecStocks().forEach(specStock-> {
-            WarehouseProductSpec warehouseProductSpec = warehouseProductSpecRepository.getByAllId(out.getWarehouseId(), out.getProductId(), specStock.getProductSpecId());
+            WarehouseProductSpec warehouseProductSpec =
+                    warehouseProductSpecRepository.getByAllId(out.getWarehouseId(), out.getProductId(), specStock.getProductSpecId());
             warehouseProductSpec.setAmount(warehouseProductSpec.getAmount() - specStock.getAmount());
             warehouseProductSpecRepository.save(warehouseProductSpec);
         });
@@ -122,6 +123,33 @@ public class StockServiceImpl implements StockService {
             stockVO.setAmount(bo.getAmount());
             return stockVO;
         });
+    }
+
+    @Override
+    public Page<StockVO> findByUser(StockQuery stockQuery, Pageable pageable) {
+        // fixme
+        Page<StockBO> boPage = warehouseProductRepository.findByUser(Loginer.userId(), stockQuery, pageable);
+        List<Integer> productIds = boPage.getContent().stream().map(StockBO::getProductId).collect(Collectors.toList());
+        // todo product 单独模块 再看
+        Map<Integer, Product> productMap = productRepository.findByIds(productIds);
+        return boPage.map(bo -> {
+            Product product = productMap.get(bo.getProductId());
+            ProductVO productVO = ProductVO.of(product);
+            StockVO stockVO = new StockVO();
+            stockVO.setProduct(productVO);
+            Warehouse warehouse = new Warehouse();
+            warehouse.setName(bo.getWarehouseName());
+            warehouse.setId(bo.getWarehouseId());
+            warehouse.setType(bo.getWarehouseType());
+            stockVO.setWarehouse(warehouse);
+            stockVO.setAmount(bo.getAmount());
+            return stockVO;
+        });
+    }
+
+    @Override
+    public List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId) {
+        return warehouseProductSpecRepository.findByWarehouseId(warehouseId);
     }
 
     @Override

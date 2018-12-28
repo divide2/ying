@@ -55,4 +55,14 @@ public interface OrderService extends BasicService<Order, Integer> {
      * @return page
      */
     Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable);
+
+
+    /**
+     * 获取用户发送的订单
+     * @param userId userId
+     * @param queryParam query
+     * @param pageable pageable
+     * @return page
+     */
+    Page<OrderVO> findUserSendOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable);
 }

@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface QueryField {
 
-    String[] value() default "";
+    String value() default "";
 
     Ops op() default Ops.EQ;
 

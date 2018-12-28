@@ -5,7 +5,9 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -22,4 +24,11 @@ public interface WarehouseProductSpecRepository extends JpaRepository<WarehouseP
     }
 
     List<WarehouseProductSpec> findByWarehouseId(Integer warehouseId);
+
+
+    default Map<Integer, List<WarehouseProductSpec>> mapByProductIds(Integer warehouseId) {
+        return this.findByWarehouseId(warehouseId).stream().collect(Collectors.groupingBy(WarehouseProductSpec::getProductId));
+    }
+
+    List<WarehouseProductSpec> findByWarehouseIdAndProductId(Integer warehouseId, Integer productId);
 }

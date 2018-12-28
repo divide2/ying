@@ -56,4 +56,10 @@ public interface ProductService extends BasicService<Product,Integer> {
 
     ProductVO getVO(Integer productId);
 
+    /**
+     * 通过集获取
+     *
+     * @param ids ids
+     */
+    List<ProductVO> findByIds(List<Integer> ids);
 }

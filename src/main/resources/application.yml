@@ -63,6 +63,10 @@ divide:
         waiting-deliver: waiting_deliver
         waiting-receive: waiting_receive
         finish: finish
+    type:
+      warehouse:
+        pair: pair
+        prod: prod
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4
 security:

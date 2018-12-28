@@ -1,21 +1,22 @@
 package com.ying.product.repo.impl;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.QBean;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.core.basic.custom.BasicCustomRepository;
 import com.ying.core.basic.custom.impl.SimpleBasicCustomRepositoryImpl;
+import com.ying.core.root.query.QueryManager;
+import com.ying.product.model.QProduct;
 import com.ying.product.model.QWarehouse;
 import com.ying.product.model.QWarehouseProduct;
 import com.ying.product.query.StockQuery;
-import com.ying.product.bo.StockBO;
 import com.ying.product.repo.custom.StockRepository;
+import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  * @author bvvy
@@ -24,34 +25,47 @@ import javax.persistence.PersistenceContext;
 public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryImpl
         implements StockRepository, BasicCustomRepository {
 
+    private QWarehouse w = QWarehouse.warehouse;
+    private QWarehouseProduct wp = QWarehouseProduct.warehouseProduct;
+    private QProduct p = QProduct.product;
+
     public WarehouseProductRepositoryImpl(EntityManager entityManager) {
         super(entityManager);
     }
 
+    private QBean<StockVO> qBean = Projections.bean(StockVO.class,
+            w.id.as("warehouseId"), w.name.as("warehouseName"),
+            w.type.as("warehouseType"), wp.productId, wp.amount.as("productAmount"),
+            p.name.as("productName"),p.image.as("productImage"));
+
     @Override
-    public Page<StockBO> findByCompany(Integer companyId, StockQuery stockQuery, Pageable pageable) {
-        QWarehouse warehouse = QWarehouse.warehouse;
-        QWarehouseProduct warehouseProduct = QWarehouseProduct.warehouseProduct;
-        JPAQuery<StockBO> query = new JPAQuery<>(entityManager).select(Projections.bean(StockBO.class,
-                warehouse.id.as("warehouseId"), warehouse.name.as("warehouseName"),
-                warehouse.type.as("warehouseType"), warehouseProduct.productId, warehouseProduct.amount))
-                .from(warehouse).leftJoin(warehouseProduct).on(warehouse.id.eq(warehouseProduct.warehouseId))
-                .where(warehouse.companyId.eq(companyId).and(warehouse.type.eq(stockQuery.getWarehouseType())));
+
+    public Page<StockVO> findByCompany(Integer companyId, StockQuery stockQuery, Pageable pageable) {
+
+        BooleanExpression predicate = QueryManager.resolvePredicate(stockQuery);
+        JPAQuery<StockVO> query = createQuery().select(qBean)
+                .from(w).leftJoin(wp).on(w.id.eq(wp.warehouseId))
+                .where(w.companyId.eq(companyId).and(predicate));
 
         return super.findPage(query, pageable);
     }
 
     @Override
-    public Page<StockBO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable) {
-
-        QWarehouse warehouse = QWarehouse.warehouse;
-        QWarehouseProduct warehouseProduct = QWarehouseProduct.warehouseProduct;
-        JPAQuery<StockBO> query = new JPAQuery<>(entityManager).select(Projections.bean(StockBO.class,
-                warehouse.id.as("warehouseId"), warehouse.name.as("warehouseName"),
-                warehouse.type.as("warehouseType"), warehouseProduct.productId, warehouseProduct.amount))
-                .from(warehouse).innerJoin(warehouseProduct).on(warehouse.id.eq(warehouseProduct.warehouseId))
-                .where(warehouse.userId.eq(userId).and(warehouse.type.eq(stockQuery.getWarehouseType())));
-
+    public Page<StockVO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable) {
+        BooleanExpression predicate = QueryManager.resolvePredicate(stockQuery);
+        JPAQuery<StockVO> query = createQuery().select(qBean)
+                .from(w)
+                .innerJoin(wp).on(w.id.eq(wp.warehouseId))
+                .innerJoin(p).on(p.id.eq(wp.productId))
+                .where(w.userId.eq(userId).and(predicate));
         return super.findPage(query, pageable);
+    }
+
+    @Override
+    public StockVO getStock(Integer warehouseId, Integer productId) {
+        return createQuery().select(qBean)
+                .from(w).innerJoin(wp).on(w.id.eq(wp.warehouseId))
+                .innerJoin(p).on(p.id.eq(wp.productId))
+                .where(wp.warehouseId.eq(warehouseId).and(wp.productId.eq(productId))).fetchOne();
     }
 }

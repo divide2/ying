@@ -23,7 +23,6 @@ public class SimpleBasicCustomRepositoryImpl implements BasicCustomRepository {
 
     protected final EntityManager entityManager;
 
-
     public SimpleBasicCustomRepositoryImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
     }

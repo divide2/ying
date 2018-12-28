@@ -1,5 +1,6 @@
 package com.ying.order.service.impl;
 
+import com.querydsl.core.Query;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
@@ -174,7 +175,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
 
     @Override
     public Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
-        BooleanExpression predicate = new QueryManager(queryParam).predicate();
+        BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
         predicate = predicate.and(order.toId.eq(userId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
@@ -183,7 +184,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
 
     @Override
     public Page<OrderVO> findUserSendOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
-        BooleanExpression predicate = new QueryManager(queryParam).predicate();
+        BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
         predicate = predicate.and(order.fromId.eq(userId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);

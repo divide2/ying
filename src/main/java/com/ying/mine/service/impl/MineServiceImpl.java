@@ -88,7 +88,7 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable) {
-        return stockService.findByUser(stockQuery, pageable);
+        return stockService.findByUser(Loginer.userId(),stockQuery, pageable);
     }
 
     @Override

@@ -1,27 +1,32 @@
 package com.ying.product.service.impl;
 
-import com.ying.core.er.Loginer;
+import com.ying.core.root.converter.Converter;
 import com.ying.product.bo.StockBO;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
-import com.ying.product.model.*;
+import com.ying.product.model.ProductSpec;
+import com.ying.product.model.WarehouseProduct;
+import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.query.StockQuery;
 import com.ying.product.repo.ProductRepository;
 import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.repo.WarehouseProductRepository;
 import com.ying.product.repo.WarehouseProductSpecRepository;
+import com.ying.product.service.ProductInnerCollectService;
 import com.ying.product.service.StockService;
-import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import com.ying.product.vo.WarehouseProductSpecVO;
+import lombok.val;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -36,16 +41,18 @@ public class StockServiceImpl implements StockService {
     private final WarehouseProductSpecRepository warehouseProductSpecRepository;
     private final ProductSpecRepository productSpecRepository;
     private final ProductRepository productRepository;
+    private final ProductInnerCollectService productInnerCollectService;
 
     public StockServiceImpl(WarehouseProductRepository warehouseProductRepository,
                             WarehouseProductSpecRepository warehouseProductSpecRepository,
                             ProductSpecRepository productSpecRepository,
-                            ProductRepository productRepository) {
+                            ProductRepository productRepository, ProductInnerCollectService productInnerCollectService) {
         this.warehouseProductRepository = warehouseProductRepository;
         this.warehouseProductSpecRepository = warehouseProductSpecRepository;
         this.productSpecRepository = productSpecRepository;
 
         this.productRepository = productRepository;
+        this.productInnerCollectService = productInnerCollectService;
     }
 
     @Override
@@ -89,7 +96,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public void out(OutStockDTO out) {
         // 减少规格产品的数量
-        out.getSpecStocks().forEach(specStock-> {
+        out.getSpecStocks().forEach(specStock -> {
             WarehouseProductSpec warehouseProductSpec =
                     warehouseProductSpecRepository.getByAllId(out.getWarehouseId(), out.getProductId(), specStock.getProductSpecId());
             warehouseProductSpec.setAmount(warehouseProductSpec.getAmount() - specStock.getAmount());
@@ -105,46 +112,34 @@ public class StockServiceImpl implements StockService {
 
     }
 
+
+    public StockVO getVO(Integer warehouseId, Integer productId) {
+
+        StockVO stockVO = warehouseProductRepository.getStock(warehouseId, productId);
+        List<WarehouseProductSpec> specs = warehouseProductSpecRepository.findByWarehouseIdAndProductId(warehouseId, productId);
+        stockVO.setSpecs(Converter.of(specs).convert(WarehouseProductSpecVO::from));
+        return stockVO;
+    }
+
     @Override
-    public Page<StockVO> findByCompany(StockQuery stockQuery, Pageable pageable) {
-        Page<StockBO> boPage = warehouseProductRepository.findByCompany(Loginer.companyId(), stockQuery, pageable);
-        List<Integer> productIds = boPage.getContent().stream().map(StockBO::getProductId).collect(Collectors.toList());
-        Map<Integer, Product> productMap = productRepository.findByIds(productIds);
-        return boPage.map(bo -> {
-            Product product = productMap.get(bo.getProductId());
-            ProductVO productVO = ProductVO.of(product);
-            StockVO stockVO = new StockVO();
-            stockVO.setProduct(productVO);
-            Warehouse warehouse = new Warehouse();
-            warehouse.setName(bo.getWarehouseName());
-            warehouse.setId(bo.getWarehouseId());
-            warehouse.setType(bo.getWarehouseType());
-            stockVO.setWarehouse(warehouse);
-            stockVO.setAmount(bo.getAmount());
-            return stockVO;
+    public Page<StockVO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable) {
+        val voPage = warehouseProductRepository.findByUser(userId, stockQuery, pageable);
+        val productIds = voPage.getContent().stream().map(StockVO::getProductId).collect(Collectors.toList());
+        val voMap = productRepository.findByIds(productIds);
+        return voPage.map(vo -> {
+            // todo cache
+            val specs = warehouseProductSpecRepository.findByWarehouseIdAndProductId(vo.getWarehouseId(), vo.getProductId());
+            val product = voMap.get(vo.getProductId());
+            vo.setProductName(product.getName());
+            vo.setProductImage(product.getImage());
+            vo.setSpecs(Converter.of(specs).convert(WarehouseProductSpecVO::from));
+            return vo;
         });
     }
 
     @Override
-    public Page<StockVO> findByUser(StockQuery stockQuery, Pageable pageable) {
-        // fixme
-        Page<StockBO> boPage = warehouseProductRepository.findByUser(Loginer.userId(), stockQuery, pageable);
-        List<Integer> productIds = boPage.getContent().stream().map(StockBO::getProductId).collect(Collectors.toList());
-        // todo product 单独模块 再看
-        Map<Integer, Product> productMap = productRepository.findByIds(productIds);
-        return boPage.map(bo -> {
-            Product product = productMap.get(bo.getProductId());
-            ProductVO productVO = ProductVO.of(product);
-            StockVO stockVO = new StockVO();
-            stockVO.setProduct(productVO);
-            Warehouse warehouse = new Warehouse();
-            warehouse.setName(bo.getWarehouseName());
-            warehouse.setId(bo.getWarehouseId());
-            warehouse.setType(bo.getWarehouseType());
-            stockVO.setWarehouse(warehouse);
-            stockVO.setAmount(bo.getAmount());
-            return stockVO;
-        });
+    public Page<StockVO> findByCompany(StockQuery stockQuery, Pageable pageable) {
+        return new PageImpl<StockVO>(Collections.EMPTY_LIST);
     }
 
     @Override
@@ -156,4 +151,7 @@ public class StockServiceImpl implements StockService {
     public Page<StockBO> find(StockQuery stockQuery) {
         return null;
     }
+
+
+
 }

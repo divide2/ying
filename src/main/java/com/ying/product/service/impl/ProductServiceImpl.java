@@ -119,4 +119,11 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         Product product = this.get(productId);
         return this.mergeProductSpecs(product);
     }
+
+    @Override
+    public List<ProductVO> findByIds(List<Integer> ids) {
+
+        List<Product> products = productRepository.findByIdIn(ids);
+        return products.stream().map(this::mergeProductSpecs).collect(Collectors.toList());
+    }
 }

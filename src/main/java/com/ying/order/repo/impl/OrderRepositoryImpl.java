@@ -44,7 +44,7 @@ public class OrderRepositoryImpl extends SimpleBasicCustomRepositoryImpl impleme
         QSellOrder so = QSellOrder.sellOrder;
         QBean<OrderVO> qbean = Projections.bean(OrderVO.class, o.attachment, o.balancePayment, o.createTime,
                 o.deliveryDate, o.earnestMoney, o.remarks, o.status, o.id.as("orderId"), so.toName);
-        jpaQuery.select(qbean).from(so).leftJoin(o).on(so.orderId.eq(o.id)).where(o.fromId.eq(userId)).where(new QueryManager(query).predicate());
+        jpaQuery.select(qbean).from(so).leftJoin(o).on(so.orderId.eq(o.id)).where(o.fromId.eq(userId)).where(QueryManager.resolvePredicate(query));
 
         return findPage(jpaQuery, pageable);
     }

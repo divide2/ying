@@ -1,7 +1,6 @@
 package com.ying.core.root.query;
 
 import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import org.apache.commons.lang3.StringUtils;
@@ -18,18 +17,12 @@ import java.lang.reflect.Field;
 public class QueryManager {
 
     private static final EntityPathResolver entityPathResolver = SimpleEntityPathResolver.INSTANCE;
-    private final Class<? extends QueryParam> queryClass;
-    private QueryParam queryParam;
 
-    public QueryManager(QueryParam queryParam) {
-        this.queryParam = queryParam;
-        this.queryClass = queryParam.getClass();
-    }
 
-    public BooleanExpression predicate() {
+    public static BooleanExpression resolvePredicate(QueryParam queryParam) {
         BooleanExpression predicate = Expressions.ONE.eq(Expressions.ONE);
-        X x = new X(predicate);
-        ReflectionUtils.doWithFields(queryClass, x, field -> {
+        X x = new X(predicate, queryParam);
+        ReflectionUtils.doWithFields(queryParam.getClass(), x, field -> {
             try {
                 field.setAccessible(true);
                 Object o = field.get(queryParam);
@@ -47,11 +40,13 @@ public class QueryManager {
         return x.getPredicate();
     }
 
-    class X implements ReflectionUtils.FieldCallback {
+    static class X implements ReflectionUtils.FieldCallback {
         private BooleanExpression predicate;
+        private QueryParam queryParam;
 
-        public X(BooleanExpression predicate) {
+        public X(BooleanExpression predicate, QueryParam queryParam) {
             this.predicate = predicate;
+            this.queryParam = queryParam;
         }
 
         public BooleanExpression getPredicate() {
@@ -63,14 +58,13 @@ public class QueryManager {
             field.setAccessible(true);
             QueryField queryField = field.getAnnotation(QueryField.class);
             EntityPath<?> path = entityPathResolver.createPath(queryField.entity());
-            if (field.get(queryParam) != null) {
-
-            }
+            String columnName = StringUtils.defaultIfBlank(queryField.value(), field.getName());
             this.predicate = predicate.and(Expressions.predicate(
                     queryField.op(),
-                    Expressions.path(String.class, path, field.getName()),
+                    Expressions.path(String.class, path, columnName),
                     Expressions.constant(field.get(queryParam))
             ));
         }
+
     }
 }

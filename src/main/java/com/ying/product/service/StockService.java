@@ -41,5 +41,5 @@ public interface StockService {
 
     List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId);
 
-    Page<StockVO> findByUser(StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findByUser(Integer userId,StockQuery stockQuery, Pageable pageable);
 }

@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.function.Function;
 
 /**
  * @author bvvy
@@ -71,7 +71,5 @@ public class Product {
      * 备注 描述
      */
     private String remarks;
-
-
 
 }

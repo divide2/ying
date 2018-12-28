@@ -26,7 +26,7 @@ public class QueryManagerTest {
     @Test
     public void testPredicate() {
         QueryParam orderQueryParam = new OrderQueryParam(LocalDate.now(), "z");
-        Predicate predicate = new QueryManager(orderQueryParam).predicate();
+        Predicate predicate = QueryManager.resolvePredicate(orderQueryParam);
         System.out.println(predicate);
 
     }

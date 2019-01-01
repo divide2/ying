@@ -1,6 +1,9 @@
 package com.ying.core.root.converter;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.function.Function;
@@ -11,6 +14,7 @@ import java.util.stream.Collectors;
  * @date 2018/12/28
  */
 @Data
+
 public class Converter<T> {
 
     private List<T> source;

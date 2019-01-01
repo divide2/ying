@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -21,28 +23,18 @@ import java.time.LocalDateTime;
 public class Message {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
     /**
      * 发的人
      */
     private Integer fromId;
     /**
-     * 发的人
-     */
-    private String fromName;
-    /**
-     * 发的人头像
-     */
-    private String fromAvatar;
-    /**
      * 给的人
      */
     private Integer toId;
-    /**
-     * 给的人名称
-     */
-    private String toName;
+
     /**
      * 消息内容
      */
@@ -50,10 +42,11 @@ public class Message {
     /**
      * 创建时间
      */
-    private LocalDateTime cdt;
+    private LocalDateTime createTime;
     /**
      * 读过么
      */
+    @Type(type = "yes_no")
     private Boolean readed;
 }
 

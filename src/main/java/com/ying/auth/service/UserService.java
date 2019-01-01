@@ -54,4 +54,6 @@ public interface UserService extends BasicService<User,Integer> {
 
     UserVO getVO(Integer userId);
 
+    UserVO getByAccount(String account);
+
 }

@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -98,4 +99,17 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         vo.setCompanyName(company.getName());
         return vo;
     }
+
+    @Override
+    @Transactional
+    public UserVO getByAccount(String account) {
+        User user = userRepository.getByAccount(account);
+        UserVO vo = UserVO.fromUser(user);
+        UserCompany userCompany = userCompanyRepository.getByUserId(user.getId());
+        Company company = authConnectService.getCompany(userCompany.getCompanyId());
+        vo.setCompanyId(company.getId());
+        vo.setCompanyName(company.getName());
+        return vo;
+    }
+
 }

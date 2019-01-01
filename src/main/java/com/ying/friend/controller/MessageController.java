@@ -1,42 +1,37 @@
 package com.ying.friend.controller;
 
-import com.ying.friend.model.Message;
-import com.ying.core.er.Jsoner;
+import com.ying.friend.dto.MessageDTO;
+import com.ying.friend.service.MessageService;
 import io.swagger.annotations.Api;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.security.Principal;
 
 /**
  * @author bvvy
  * @date 2018/8/19
  */
 @Controller
-@RequestMapping("/'v1/message")
 @Api(tags = "聊天")
-public class MessageController extends TextWebSocketHandler {
+public class MessageController {
 
-    private static final Map<String, WebSocketSession> CHATS = new ConcurrentHashMap<>();
+    private final MessageService messageService;
+    private final SimpUserRegistry simpUserRegistry;
 
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        session.getPrincipal();
-        String payload = message.getPayload();
-        Message msg = Jsoner.from(payload, Message.class);
-        Integer toId = msg.getToId();
-        WebSocketSession webSocketSession = CHATS.get(String.valueOf(toId));
-        webSocketSession.sendMessage(new TextMessage(msg.getContent()));
+    public MessageController(MessageService messageService,
+                             SimpUserRegistry simpUserRegistry) {
+        this.messageService = messageService;
+        this.simpUserRegistry = simpUserRegistry;
     }
 
-    @Override
-    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        session.sendMessage(new TextMessage("niaho"));
-        CHATS.put(session.getId(), session);
+    @MessageMapping("/topic/send/message/{username}")
+    public void sendMessage(String content, @DestinationVariable String username, Principal principal) {
+        MessageDTO dto = new MessageDTO(principal.getName(), username, content);
+        messageService.sendMessage(dto);
     }
+
 
 }

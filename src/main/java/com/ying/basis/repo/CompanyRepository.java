@@ -1,4 +1,4 @@
-package com.ying.friend.repo;
+package com.ying.basis.repo;
 
 import com.ying.basis.model.Company;
 import org.springframework.data.jpa.repository.JpaRepository;

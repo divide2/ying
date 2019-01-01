@@ -1,33 +1,30 @@
 package com.ying.friend.config;
 
-import com.ying.friend.controller.MessageController;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.socket.config.annotation.EnableWebSocket;
-import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 /**
  * @author bvvy
  * @date 2018/8/19
  */
 @Configuration
-@EnableWebSocket
-public class WebSocketConfig implements WebSocketConfigurer {
+@EnableWebSocketMessageBroker
+public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
-    private final MessageController messageController;
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/portfolio").addInterceptors(new ChatInterceptor())
 
-    public WebSocketConfig(MessageController messageController) {
-        this.messageController = messageController;
+                .setAllowedOrigins("http://localhost:9527", "http://www.blue-zero.com");
     }
 
     @Override
-    public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-
-        registry.addHandler(messageController, "/myHandler")
-                .addInterceptors(new ChatInterceptor())
-                .setAllowedOrigins("http://localhost:8080","http://www.blue-zero.com");
-
+    public void configureMessageBroker(MessageBrokerRegistry config) {
+        config.setApplicationDestinationPrefixes("/app");
+        config.enableSimpleBroker("/topic", "/queue");
     }
-
 
 }

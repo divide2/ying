@@ -10,6 +10,9 @@ import lombok.Data;
 @Data
 public class FriendVO {
 
+
+    private String id;
+
     @ApiModelProperty("朋友的id")
     private Integer toId;
 

@@ -1,5 +1,6 @@
 package com.ying.product.service.impl;
 
+import com.ying.core.exception.ValidationException;
 import com.ying.core.root.converter.Converter;
 import com.ying.product.bo.StockBO;
 import com.ying.product.dto.InStockDTO;
@@ -90,16 +91,23 @@ public class StockServiceImpl implements StockService {
         warehouseProductRepository.save(warehouseProduct);
         // todo 减去消耗
 
-        // todo 记录过程
+        // todo 异步记录过程
     }
 
+
     @Override
+    @Transactional(rollbackFor =Exception.class)
     public void out(OutStockDTO out) {
         // 减少规格产品的数量
         out.getSpecStocks().forEach(specStock -> {
             WarehouseProductSpec warehouseProductSpec =
                     warehouseProductSpecRepository.getByAllId(out.getWarehouseId(), out.getProductId(), specStock.getProductSpecId());
-            warehouseProductSpec.setAmount(warehouseProductSpec.getAmount() - specStock.getAmount());
+            Integer left = warehouseProductSpec.getAmount() - specStock.getAmount();
+            if (left < 0) {
+                throw new ValidationException("outofstock");
+            }
+            warehouseProductSpec.setAmount(left);
+
             warehouseProductSpecRepository.save(warehouseProductSpec);
         });
         // 减少总数量
@@ -108,7 +116,7 @@ public class StockServiceImpl implements StockService {
                 .getByWarehouseIdAndProductId(out.getWarehouseId(), out.getProductId());
         warehouseProduct.setAmount(warehouseProduct.getAmount() - totalAmount.orElse(0));
         warehouseProductRepository.save(warehouseProduct);
-        // todo 记录过程
+        // todo 异步记录过程
 
     }
 

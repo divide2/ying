@@ -14,7 +14,6 @@ import java.util.Map;
 public class ChatInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        System.out.println(request.getURI());
         return true;
     }
 

@@ -21,4 +21,9 @@ public class FriendConnectServiceImpl implements FriendConnectService {
     public UserVO getUser(Integer userId) {
         return userService.getVO(userId);
     }
+
+    @Override
+    public UserVO getUserByAccount(String account) {
+        return userService.getByAccount(account);
+    }
 }

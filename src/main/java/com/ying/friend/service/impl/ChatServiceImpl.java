@@ -29,6 +29,7 @@ public class ChatServiceImpl extends SimpleBasicServiceImpl<Chat,String,ChatRepo
         this.friendConnectService = friendConnectService;
     }
 
+    @Override
     public List<ChatVO> listByUser(Integer userId) {
         List<Chat> chats = chatRepository.findByFromId(userId);
         return Converter.of(chats).convert(chat -> {

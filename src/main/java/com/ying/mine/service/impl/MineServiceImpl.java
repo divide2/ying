@@ -1,7 +1,9 @@
 package com.ying.mine.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.friend.service.ChatService;
 import com.ying.friend.service.FriendService;
+import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
@@ -38,13 +40,15 @@ public class MineServiceImpl implements MineService {
     private final PurchaseOrderService purchaseOrderService;
     private final SellOrderService sellOrderService;
     private final OrderService orderService;
+    private final ChatService chatService;
 
     public MineServiceImpl(WarehouseService warehouseService,
                            StockService stockService,
                            FriendService friendService,
                            ProductService productService,
                            PurchaseOrderService purchaseOrderService,
-                           SellOrderService sellOrderService, OrderService orderService) {
+                           SellOrderService sellOrderService, OrderService orderService,
+                           ChatService chatService) {
         this.warehouseService = warehouseService;
         this.stockService = stockService;
         this.friendService = friendService;
@@ -52,6 +56,11 @@ public class MineServiceImpl implements MineService {
         this.purchaseOrderService = purchaseOrderService;
         this.sellOrderService = sellOrderService;
         this.orderService = orderService;
+        this.chatService = chatService;
+    }
+
+    public List<ChatVO> listChat() {
+        return chatService.listByUser(Loginer.userId());
     }
 
     @Override

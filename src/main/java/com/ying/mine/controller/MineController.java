@@ -39,15 +39,13 @@ import java.util.List;
 public class MineController {
 
     private final MineService mineService;
-    private final ProductService productService;
     private final StarService starService;
     private final CommentService commentService;
 
-    public MineController(MineService mineService, ProductService productService,
+    public MineController(MineService mineService,
                           StarService starService,
                           CommentService commentService) {
         this.mineService = mineService;
-        this.productService = productService;
         this.starService = starService;
         this.commentService = commentService;
     }

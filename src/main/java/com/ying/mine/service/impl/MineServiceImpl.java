@@ -1,10 +1,14 @@
 package com.ying.mine.service.impl;
 
 import com.ying.core.er.Loginer;
+import com.ying.friend.dto.MessageDTO;
+import com.ying.friend.query.MessageQuery;
 import com.ying.friend.service.ChatService;
 import com.ying.friend.service.FriendService;
+import com.ying.friend.service.MessageService;
 import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
+import com.ying.friend.vo.MessageVO;
 import com.ying.mine.service.MineService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
@@ -41,6 +45,7 @@ public class MineServiceImpl implements MineService {
     private final SellOrderService sellOrderService;
     private final OrderService orderService;
     private final ChatService chatService;
+    private final MessageService messageService;
 
     public MineServiceImpl(WarehouseService warehouseService,
                            StockService stockService,
@@ -48,7 +53,7 @@ public class MineServiceImpl implements MineService {
                            ProductService productService,
                            PurchaseOrderService purchaseOrderService,
                            SellOrderService sellOrderService, OrderService orderService,
-                           ChatService chatService) {
+                           ChatService chatService, MessageService messageService) {
         this.warehouseService = warehouseService;
         this.stockService = stockService;
         this.friendService = friendService;
@@ -57,8 +62,20 @@ public class MineServiceImpl implements MineService {
         this.sellOrderService = sellOrderService;
         this.orderService = orderService;
         this.chatService = chatService;
+        this.messageService = messageService;
     }
 
+    @Override
+    public Page<MessageVO> findMessage(Integer toUserId, MessageQuery query, Pageable pageable) {
+        return messageService.findChatMessage(Loginer.userId(), toUserId, query, pageable);
+    }
+
+    @Override
+    public void sendMessage(MessageDTO messageDTO) {
+        messageService.sendMessage(Loginer.userId(), messageDTO);
+    }
+
+    @Override
     public List<ChatVO> listChat() {
         return chatService.listByUser(Loginer.userId());
     }

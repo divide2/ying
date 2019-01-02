@@ -1,6 +1,10 @@
 package com.ying.mine.service;
 
+import com.ying.friend.dto.MessageDTO;
+import com.ying.friend.query.MessageQuery;
+import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
+import com.ying.friend.vo.MessageVO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -68,4 +72,27 @@ public interface MineService {
 
     @Deprecated
     Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable);
+
+    /**
+     * 获取历史聊天的人
+     * @return chat
+     */
+    List<ChatVO> listChat();
+
+    /**
+     * 获取消息
+     *
+     * @param toUserId 和谁的
+     * @param query query
+     * @param pageable page
+     * @return page message
+     */
+    Page<MessageVO> findMessage(Integer toUserId, MessageQuery query, Pageable pageable);
+
+    /**
+     * 发送消息
+     * @param messageDTO dto
+     */
+    void sendMessage(MessageDTO messageDTO);
+
 }

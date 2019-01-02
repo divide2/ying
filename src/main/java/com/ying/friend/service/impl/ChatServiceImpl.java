@@ -1,15 +1,11 @@
 package com.ying.friend.service.impl;
 
-import com.ying.auth.vo.UserVO;
-import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ChatDTO;
 import com.ying.friend.model.Chat;
 import com.ying.friend.repo.ChatRepository;
 import com.ying.friend.service.ChatService;
-import com.ying.friend.service.FriendConnectService;
-import com.ying.friend.service.FriendInnerConnectService;
+import com.ying.friend.service.ChatInnerConnectService;
 import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
 import org.springframework.stereotype.Service;
@@ -25,40 +21,51 @@ public class ChatServiceImpl implements ChatService {
 
     private final ChatRepository chatRepository;
 
-    private final FriendInnerConnectService friendInnerConnectService;
+    private final ChatInnerConnectService chatInnerConnectService;
 
 
     public ChatServiceImpl(ChatRepository chatRepository,
-                           FriendInnerConnectService friendInnerConnectService) {
+                           ChatInnerConnectService chatInnerConnectService) {
         this.chatRepository = chatRepository;
-        this.friendInnerConnectService = friendInnerConnectService;
+        this.chatInnerConnectService = chatInnerConnectService;
     }
 
 
     @Override
     public void add(ChatDTO dto) {
-
-        Chat chat = chatRepository.getByFromIdAndToId(dto.getFromId(), dto.getToId());
-        // 不在聊天历史里
-        if (chat == null) {
-            chat = new Chat();
-            chat.setUnreadCount(0);
-        } else {
-            chat.setUnreadCount(chat.getUnreadCount() + 1);
+        // 发送方
+        Chat from = chatRepository.getByFromIdAndToId(dto.getFromId(), dto.getToId());
+        if (from == null) {
+            from = new Chat();
+            from.setUnreadCount(0);
         }
-        chat.setFromId(dto.getFromId());
-        chat.setToId(dto.getToId());
-        chat.setLastMessage(dto.getLastMessage());
-        chat.setLastTime(dto.getLastTime());
-        chat.setOrderNum(0);
-        chatRepository.save(chat);
+        from.setFromId(dto.getFromId());
+        from.setToId(dto.getToId());
+        from.setLastMessage(dto.getLastMessage());
+        from.setLastTime(dto.getLastTime());
+        from.setOrderNum(0);
+        chatRepository.save(from);
+        // 接收方
+        Chat to = chatRepository.getByFromIdAndToId(dto.getToId(), dto.getFromId());
+        if (to == null) {
+            to = new Chat();
+            to.setUnreadCount(1);
+        } else {
+            to.setUnreadCount(to.getUnreadCount() + 1);
+        }
+        to.setFromId(dto.getToId());
+        to.setToId(dto.getFromId());
+        to.setLastMessage(dto.getLastMessage());
+        to.setLastTime(dto.getLastTime());
+        to.setOrderNum(0);
+        chatRepository.save(to);
     }
 
     @Override
     public List<ChatVO> listByUser(Integer userId) {
         List<Chat> chats = chatRepository.findByFromId(userId);
         return Converter.of(chats).convert(chat -> {
-            FriendVO friend = friendInnerConnectService.getFriend(userId,chat.getToId());
+            FriendVO friend = chatInnerConnectService.getFriend(userId,chat.getToId());
             return ChatVO.builder()
                     .id(chat.getId())
                     .lastMessage(chat.getLastMessage())

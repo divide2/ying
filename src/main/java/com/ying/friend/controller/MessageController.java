@@ -1,14 +1,20 @@
 package com.ying.friend.controller;
 
-import com.ying.friend.dto.MessageDTO;
+import com.ying.core.data.del.SingleId;
+import com.ying.core.data.resp.Messager;
+import com.ying.core.er.Responser;
 import com.ying.friend.service.MessageService;
 import io.swagger.annotations.Api;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
+import lombok.Data;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.user.SimpUserRegistry;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.security.Principal;
+import javax.validation.Valid;
 
 /**
  * @author bvvy
@@ -16,6 +22,7 @@ import java.security.Principal;
  */
 @Controller
 @Api(tags = "聊天")
+@RequestMapping("/v1/message")
 public class MessageController {
 
     private final MessageService messageService;
@@ -27,12 +34,14 @@ public class MessageController {
         this.simpUserRegistry = simpUserRegistry;
     }
 
-    @MessageMapping("/topic/send/message/{toUserId}")
-    public void sendMessage(String content, @DestinationVariable Integer toUserId, Principal principal) {
-
-        MessageDTO dto = new MessageDTO(principal.getName(), toUserId, content);
-        messageService.sendMessage(dto);
+    @DeleteMapping
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleStringId id, BindingResult br) {
+        messageService.delete(id.getId());
+        return Responser.deleted();
     }
 
-
+    @Data
+    private class SingleStringId {
+        private String id;
+    }
 }

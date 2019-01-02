@@ -27,9 +27,10 @@ public class MessageController {
         this.simpUserRegistry = simpUserRegistry;
     }
 
-    @MessageMapping("/topic/send/message/{username}")
-    public void sendMessage(String content, @DestinationVariable String username, Principal principal) {
-        MessageDTO dto = new MessageDTO(principal.getName(), username, content);
+    @MessageMapping("/topic/send/message/{toUserId}")
+    public void sendMessage(String content, @DestinationVariable Integer toUserId, Principal principal) {
+
+        MessageDTO dto = new MessageDTO(principal.getName(), toUserId, content);
         messageService.sendMessage(dto);
     }
 

@@ -24,7 +24,8 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     private final FriendConnectService friendConnectService;
 
     public FriendServiceImpl(FriendRepository friendRepository,
-                             FriendConnectService friendConnectService) {
+                             FriendConnectService friendConnectService
+                             ) {
         this.friendRepository = friendRepository;
         this.friendConnectService = friendConnectService;
     }

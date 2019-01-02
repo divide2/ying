@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageDTO {
     private  String fromName;
-    private  String toName;
+    private  Integer toId;
     private  String content;
 }

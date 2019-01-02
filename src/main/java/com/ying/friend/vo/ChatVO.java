@@ -22,6 +22,9 @@ public class ChatVO {
 
     private Integer toId;
 
+    @ApiModelProperty("备注名")
+    private String memoName;
+
     private String toAvatar;
 
     @ApiModelProperty("最后一条消息")

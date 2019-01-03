@@ -72,7 +72,8 @@ public class MineServiceImpl implements MineService {
 
     @Override
     public void sendMessage(MessageDTO messageDTO) {
-        messageService.sendMessage(Loginer.userId(), messageDTO);
+        messageDTO.setFromId(Loginer.userId());
+        messageService.sendMessage(messageDTO);
     }
 
     @Override

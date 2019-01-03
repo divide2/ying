@@ -9,7 +9,7 @@ import com.ying.core.basic.service.ConnectService;
  */
 public interface FriendConnectService extends ConnectService {
 
-    UserVO getUser(Integer toId);
+    UserVO getUser(Integer userId);
 
     UserVO getUserByAccount(String account);
 }

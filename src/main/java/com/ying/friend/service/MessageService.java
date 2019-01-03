@@ -15,11 +15,10 @@ import org.springframework.data.domain.Pageable;
 public interface MessageService extends BasicService<Message,String> {
     /**
      * 发送信息
-     * @param fromId from id
      * todo 对内容处理
      * @param dto dto
      */
-    void sendMessage(Integer fromId,MessageDTO dto);
+    void sendMessage(MessageDTO dto);
 
     Page<MessageVO> findChatMessage(Integer fromId, Integer toId, MessageQuery query, Pageable pageable);
 }

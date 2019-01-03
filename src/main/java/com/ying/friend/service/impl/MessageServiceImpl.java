@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
  * @date 2018/12/30
  */
 @Service
-public class MessageServiceImpl extends SimpleBasicServiceImpl<Message,String,MessageRepository> implements MessageService {
+public class MessageServiceImpl extends SimpleBasicServiceImpl<Message, String, MessageRepository> implements MessageService {
 
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final MessageRepository messageRepository;
@@ -44,43 +44,48 @@ public class MessageServiceImpl extends SimpleBasicServiceImpl<Message,String,Me
 
     @Override
     @Transactional
-    public void sendMessage(Integer fromId,MessageDTO dto) {
+    public void sendMessage( MessageDTO dto) {
         UserVO toUser = friendConnectService.getUser(dto.getToId());
 
         Message message = Message.builder()
                 .content(dto.getContent())
                 .createTime(LocalDateTime.now())
-                .fromId(fromId)
+                .fromId(dto.getFromId())
                 .toId(toUser.getId())
                 .readed(false)
                 .build();
         messageRepository.save(message);
         ChatDTO chatDTO = new ChatDTO();
-        chatDTO.setToId(toUser.getId());
-        chatDTO.setFromId(dto.getToId());
+        chatDTO.setToId(dto.getToId());
+        chatDTO.setFromId(dto.getFromId());
         chatDTO.setLastMessage(message.getContent());
         chatDTO.setLastTime(message.getCreateTime());
         messageInnerConnectService.addChat(chatDTO);
-
-        simpMessagingTemplate.convertAndSendToUser(toUser.getUsername(), "/queue/receive/message", dto.getContent());
+        simpMessagingTemplate.convertAndSendToUser(
+                toUser.getUsername(),
+                "/queue/receive/message",
+                convertVO(dto.getFromId(),message));
 
     }
 
     @Override
     public Page<MessageVO> findChatMessage(Integer fromId, Integer toId, MessageQuery query, Pageable pageable) {
         Page<Message> messagePage = messageRepository.findChatMessage(fromId, toId, pageable);
-        FriendVO friend = messageInnerConnectService.getFriend(fromId, toId);
-        return messagePage.map(message -> {
-                    MessageVO vo = new MessageVO();
-                    vo.setId(message.getId());
-                    vo.setContent(message.getContent());
-                    vo.setCreateTime(message.getCreateTime());
-                    vo.setMemoName(friend.getMemoName());
-                    vo.setReaded(message.getReaded());
-                    vo.setToAvatar(friend.getAvatar());
-                    vo.setToId(message.getToId());
-                    return vo;
-                }
-        );
+        return messagePage.map(message -> convertVO(fromId, message));
+    }
+
+    private MessageVO convertVO(Integer fromId,Message message) {
+        FriendVO friend = messageInnerConnectService.getFriend(message.getFromId(), message.getToId());
+        MessageVO vo = new MessageVO();
+        vo.setId(message.getId());
+        vo.setContent(message.getContent());
+        vo.setCreateTime(message.getCreateTime());
+        vo.setMemoName(friend.getMemoName());
+        vo.setReaded(message.getReaded());
+        UserVO user = friendConnectService.getUser(message.getFromId());
+        vo.setFromAvatar(user.getAvatar());
+        vo.setToId(message.getToId());
+        vo.setBySelf(message.getFromId().equals(fromId));
+        return vo;
     }
 }

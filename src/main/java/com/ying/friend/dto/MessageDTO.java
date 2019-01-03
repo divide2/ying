@@ -1,8 +1,14 @@
 package com.ying.friend.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author bvvy
@@ -11,7 +17,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ApiModel
 public class MessageDTO {
-    private  Integer toId;
-    private  String content;
+
+    @JsonIgnore
+    @ApiModelProperty(hidden = true)
+    private Integer fromId;
+
+    @NotNull
+    private Integer toId;
+
+    @NotBlank
+    private String content;
 }

@@ -26,9 +26,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.ws.BindingType;
 import java.util.List;
 
 /**
@@ -53,7 +55,7 @@ public class MineController {
     }
 
     @PostMapping("/message")
-    public ResponseEntity<Messager> sendMessage(MessageDTO messageDTO) {
+    public ResponseEntity<Messager> sendMessage(@RequestBody @Valid MessageDTO messageDTO, Errors errors) {
         mineService.sendMessage(messageDTO);
         return Responser.created();
     }

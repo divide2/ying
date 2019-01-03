@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
@@ -29,7 +30,7 @@ public class ValidationAspect {
     }
 
     @Around("validPointcut() && args(..,br)")
-    public Object validAround(ProceedingJoinPoint jp, BindingResult br) throws Throwable {
+    public Object validAround(ProceedingJoinPoint jp, Errors br) throws Throwable {
         if (br.hasErrors()) {
             List<ObjectError> allErrors = br.getAllErrors();
             String messages = allErrors.stream()

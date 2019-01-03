@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
 public class MessageVO implements VO<Message> {
     private String id;
 
-    @ApiModelProperty("给的人的头像")
-    private String toAvatar;
+    @ApiModelProperty("发送人的头像")
+    private String fromAvatar;
 
-    @ApiModelProperty("备注名")
+    @ApiModelProperty("发送人的名称")
     private String memoName;
 
     @ApiModelProperty("给的人")
@@ -32,4 +32,7 @@ public class MessageVO implements VO<Message> {
 
     @ApiModelProperty("读过么")
     private Boolean readed;
+
+    @ApiModelProperty("是否是自己")
+    private Boolean bySelf;
 }

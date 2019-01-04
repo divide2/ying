@@ -20,5 +20,8 @@ public class Attention {
     private LocalDateTime createTime;
     private String title;
     private String content;
+    /**
+     * 用 模板？
+     */
     private String type;
 }

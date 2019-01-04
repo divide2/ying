@@ -1,6 +1,5 @@
 package com.ying.core.basic.service;
 
-import com.ying.core.data.del.SingleId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,7 +33,7 @@ public interface BasicService<T, ID> {
     /**
      * 修改
      *
-     * @param t   修改的对象
+     * @param t 修改的对象
      * @return s
      */
     T update(T t);

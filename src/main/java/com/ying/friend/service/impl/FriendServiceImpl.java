@@ -45,6 +45,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     public FriendVO to(Friend friend) {
         UserVO friendInfo = friendConnectService.getUser(friend.getToId());
         FriendVO vo = new FriendVO();
+        vo.setId(friend.getId());
         vo.setToId(friend.getToId());
         vo.setMemoName(friend.getMemoName());
         vo.setAvatar(friendInfo.getAvatar());

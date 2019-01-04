@@ -13,12 +13,15 @@ import com.ying.friend.service.MessageService;
 import com.ying.friend.vo.FriendVO;
 import com.ying.friend.vo.MessageVO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -44,7 +47,7 @@ public class MessageServiceImpl extends SimpleBasicServiceImpl<Message, String, 
 
     @Override
     @Transactional
-    public void sendMessage( MessageDTO dto) {
+    public void sendMessage(MessageDTO dto) {
         UserVO toUser = friendConnectService.getUser(dto.getToId());
 
         Message message = Message.builder()
@@ -64,17 +67,31 @@ public class MessageServiceImpl extends SimpleBasicServiceImpl<Message, String, 
         simpMessagingTemplate.convertAndSendToUser(
                 toUser.getUsername(),
                 "/queue/receive/message",
-                convertVO(dto.getFromId(),message));
+                convertVO(dto.getFromId(), message));
 
     }
 
     @Override
     public Page<MessageVO> findChatMessage(Integer fromId, Integer toId, MessageQuery query, Pageable pageable) {
         Page<Message> messagePage = messageRepository.findChatMessage(fromId, toId, pageable);
-        return messagePage.map(message -> convertVO(fromId, message));
+        Page<MessageVO> voPage = messagePage.map(message -> convertVO(fromId, message));
+        return sort(voPage);
     }
 
-    private MessageVO convertVO(Integer fromId,Message message) {
+    private Page<MessageVO> sort(Page<MessageVO> voPage) {
+        List<MessageVO> newContent = new ArrayList<>(voPage.getContent());
+        newContent.sort((m1, m2) -> {
+            if (m1.getCreateTime().isAfter(m2.getCreateTime())) {
+                return 1;
+            }
+            if (m1.getCreateTime().isBefore(m2.getCreateTime())) {
+                return -1;
+            } else return 0;
+        });
+        return new PageImpl<>(newContent, voPage.getPageable(), voPage.getTotalElements());
+    }
+
+    private MessageVO convertVO(Integer fromId, Message message) {
         FriendVO friend = messageInnerConnectService.getFriend(message.getFromId(), message.getToId());
         MessageVO vo = new MessageVO();
         vo.setId(message.getId());

@@ -2,7 +2,7 @@ package com.ying.basis.service.impl;
 
 import com.ying.basis.dto.StarAddDTO;
 import com.ying.basis.model.Star;
-import com.ying.basis.repository.StarRepository;
+import com.ying.basis.repo.StarRepository;
 import com.ying.basis.service.StarService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;

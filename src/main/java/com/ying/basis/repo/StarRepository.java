@@ -1,4 +1,4 @@
-package com.ying.basis.repository;
+package com.ying.basis.repo;
 
 import com.ying.basis.model.Star;
 import org.springframework.data.domain.Page;

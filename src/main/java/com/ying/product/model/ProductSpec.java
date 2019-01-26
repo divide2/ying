@@ -29,4 +29,6 @@ public class ProductSpec {
 
     @NotNull
     private BigDecimal price;
+
+    private String image;
 }

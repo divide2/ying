@@ -25,5 +25,9 @@ public class ProductSpecPrice {
     @ApiModelProperty("数量")
     private Integer amount;
 
+    @ApiModelProperty("单位")
+    private String unit;
+
+
     private BigDecimal price;
 }

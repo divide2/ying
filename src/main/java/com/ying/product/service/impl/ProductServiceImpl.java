@@ -102,9 +102,9 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         specs.forEach(spec -> {
             ProductSpec productSpec = new ProductSpec();
             productSpec.setProductId(productId);
-
             productSpec.setPrice(spec.getPrice());
             productSpec.setName(spec.getName());
+            productSpec.setImage(spec.getImage());
             productSpecRepository.save(productSpec);
         });
     }

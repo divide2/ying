@@ -29,5 +29,6 @@ public class OrderProductSpec {
     private String specName;
     private BigDecimal price;
     private Integer amount;
+    private String unit;
     private LocalDateTime createTime;
 }

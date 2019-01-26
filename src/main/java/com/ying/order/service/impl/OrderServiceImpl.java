@@ -105,6 +105,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
                 OrderProductSpec orderProductSpec = new OrderProductSpec();
                 orderProductSpec.setOrderProductId(orderProduct.getId());
                 orderProductSpec.setAmount(spec.getAmount());
+                orderProductSpec.setUnit(spec.getUnit());
                 orderProductSpec.setSpecName(productSpec.getName());
                 orderProductSpec.setProductSpecId(productSpec.getId());
                 orderProductSpec.setOrderId(order.getId());

@@ -33,7 +33,8 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderProductSpecService orderProductSpecService;
 
-    public OrderController(OrderService orderService, OrderProductSpecService orderProductSpecService) {
+    public OrderController(OrderService orderService,
+                           OrderProductSpecService orderProductSpecService) {
         this.orderService = orderService;
         this.orderProductSpecService = orderProductSpecService;
     }

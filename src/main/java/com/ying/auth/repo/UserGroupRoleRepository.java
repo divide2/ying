@@ -1,13 +1,13 @@
 package com.ying.auth.repo;
 
-import com.ying.auth.model.UserRole;
+import com.ying.auth.model.UserGroupRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author bvvy
  */
-public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
+public interface UserGroupRoleRepository extends JpaRepository<UserGroupRole, Integer> {
 
     /**
      * 通过角色id来删除
@@ -16,4 +16,11 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
      */
     @Transactional(rollbackFor = Exception.class)
     void deleteByRoleId(Integer roleId);
+
+    /**
+     * 用户在团队下的角色
+     * @param userId userid
+     * @param groupId groupid
+     */
+    UserGroupRole getByUserIdAndGroupId(Integer userId, String groupId);
 }

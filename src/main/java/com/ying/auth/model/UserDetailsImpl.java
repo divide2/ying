@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @author bvvy
@@ -16,7 +17,6 @@ import java.util.Collection;
 @Builder
 public class UserDetailsImpl implements UserDetails {
     private Integer id;
-    private Integer companyId;
     private String username;
     private String password;
     private String nickname;
@@ -25,7 +25,7 @@ public class UserDetailsImpl implements UserDetails {
     private String gender;
     private String avatar;
     private boolean enabled;
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

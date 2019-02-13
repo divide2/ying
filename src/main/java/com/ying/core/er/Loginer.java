@@ -26,7 +26,7 @@ public class Loginer {
     public static Integer companyId() {
 
 
-        return loginUser().getCompanyId();
+        return 0;
     }
 
     private static UserDetailsImpl loginUser() {

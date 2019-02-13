@@ -1,19 +1,18 @@
 package com.ying.auth.service.impl;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
-import com.ying.auth.model.UserCompany;
-import com.ying.auth.repo.UserCompanyRepository;
+import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.UserGroupVO;
 import com.ying.auth.vo.UserVO;
-import com.ying.basis.model.Company;
-import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.Expressions;
+import com.ying.core.exception.AlreadyExistsException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,12 +37,12 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
     private final AuthConnectService authConnectService;
 
-    private final UserCompanyRepository userCompanyRepository;
+    private final UserGroupRoleRepository userGroupRoleRepository;
 
 
-    public UserServiceImpl(AuthConnectService authConnectService, UserCompanyRepository userCompanyRepository) {
+    public UserServiceImpl(AuthConnectService authConnectService, UserGroupRoleRepository userGroupRoleRepository) {
         this.authConnectService = authConnectService;
-        this.userCompanyRepository = userCompanyRepository;
+        this.userGroupRoleRepository = userGroupRoleRepository;
     }
 
     @Override
@@ -92,24 +91,19 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     public UserVO getVO(Integer userId) {
         User user = userRepository.getOne(
                 userId);
-        UserVO vo = UserVO.fromUser(user);
-        UserCompany userCompany = userCompanyRepository.getByUserId(user.getId());
-        Company company = authConnectService.getCompany(userCompany.getCompanyId());
-        vo.setCompanyId(company.getId());
-        vo.setCompanyName(company.getName());
-        return vo;
+        return UserVO.fromUser(user);
     }
 
     @Override
     @Transactional
     public UserVO getByAccount(String account) {
         User user = userRepository.getByAccount(account);
-        UserVO vo = UserVO.fromUser(user);
-        UserCompany userCompany = userCompanyRepository.getByUserId(user.getId());
-        Company company = authConnectService.getCompany(userCompany.getCompanyId());
-        vo.setCompanyId(company.getId());
-        vo.setCompanyName(company.getName());
-        return vo;
+        return UserVO.fromUser(user);
+    }
+
+    @Override
+    public List<UserGroupVO> listUserGroup(Integer userId) {
+        return userRepository.listUserGroup(userId);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.ying.auth.service.impl;
 
 import com.ying.auth.service.AuthConnectService;
-import com.ying.basis.model.Company;
+import com.ying.auth.model.Group;
 import com.ying.basis.service.CompanyService;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class AuthConnectServiceImpl implements AuthConnectService {
     }
 
     @Override
-    public Company getCompany(Integer companyId) {
+    public Group getCompany(Integer companyId) {
         return companyService.get(companyId);
     }
 

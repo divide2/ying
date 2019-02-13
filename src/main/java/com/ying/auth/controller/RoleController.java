@@ -1,10 +1,10 @@
 package com.ying.auth.controller;
 
 
-import com.ying.auth.service.AclService;
 import com.ying.auth.dto.*;
 import com.ying.auth.model.Role;
 import com.ying.auth.model.User;
+import com.ying.auth.service.AclService;
 import com.ying.auth.service.RoleService;
 import com.ying.auth.service.UserService;
 import com.ying.auth.vo.RoleVO;
@@ -45,7 +45,7 @@ public class RoleController {
 
     @PostMapping
     @ApiOperation("添加角色")
-    public ResponseEntity<Messager>  add(@Valid @RequestBody RoleAddDTO roleAddDTO, BindingResult br) {
+    public ResponseEntity<Messager> add(@Valid @RequestBody RoleAddDTO roleAddDTO, BindingResult br) {
         Role role = Role.builder()
                 .code(roleAddDTO.getCode())
                 .name(roleAddDTO.getName()).build();
@@ -82,7 +82,8 @@ public class RoleController {
 
     /**
      * 单表模糊查询
-     * @param query 条件
+     *
+     * @param query    条件
      * @param pageable pageable
      * @return result
      */
@@ -125,10 +126,4 @@ public class RoleController {
         return Responser.created();
     }
 
-    @GetMapping("/{roleId}/menus")
-    @ApiOperation("获取角色所有菜单id")
-    public ResponseEntity<List<Integer>> findRoleMenus(@PathVariable Integer roleId) {
-        List<Integer> menuIds = aclService.findMenuIdsByRole(roleId);
-        return Responser.ok(menuIds);
-    }
 }

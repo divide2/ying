@@ -47,6 +47,11 @@ public class Product {
     private String image;
 
     /**
+     * 单位
+     */
+    private String unit;
+
+    /**
      * 创建人
      */
     private String fromName;

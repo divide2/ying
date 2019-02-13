@@ -1,5 +1,6 @@
 package com.ying.mine.controller;
 
+import com.ying.auth.vo.UserGroupVO;
 import com.ying.basis.model.Comment;
 import com.ying.basis.model.Star;
 import com.ying.basis.service.CommentService;
@@ -52,6 +53,18 @@ public class MineController {
         this.mineService = mineService;
         this.starService = starService;
         this.commentService = commentService;
+    }
+
+    @GetMapping("/groups")
+    public ResponseEntity<List<UserGroupVO>> findGroup() {
+        List<UserGroupVO> vos = mineService.listUserGroup();
+        return Responser.ok(vos);
+    }
+
+    @GetMapping("/group/{groupId}/authorities")
+    public ResponseEntity<List<String>> listAuthorities(@PathVariable String groupId) {
+        List<String> authorities = mineService.listAuthorities(groupId);
+        return Responser.ok(authorities);
     }
 
     @PostMapping("/message")

@@ -1,11 +1,11 @@
 package com.ying.auth.service.impl;
 
 import com.ying.auth.model.Acl;
+import com.ying.auth.model.UserGroupRole;
 import com.ying.auth.repo.AclRepository;
+import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.service.AclService;
 import com.ying.auth.dto.RolePerAddDTO;
-import com.ying.auth.model.Role;
-import com.ying.auth.model.Menu;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,27 +16,24 @@ import java.util.List;
 @Service
 public class AclServiceImpl implements AclService {
     private final AclRepository aclRepository;
+    private final UserGroupRoleRepository userGroupRoleRepository;
 
-    public AclServiceImpl(AclRepository aclRepository) {
+    public AclServiceImpl(AclRepository aclRepository,
+                          UserGroupRoleRepository userGroupRoleRepository) {
         this.aclRepository = aclRepository;
+        this.userGroupRoleRepository = userGroupRoleRepository;
     }
 
     @Override
     public void addRolePerm(RolePerAddDTO rolePerAddDTO) {
-        Acl acl = Acl.builder()
-                .aclStatus(1)
-                .principalId(rolePerAddDTO.getRoleId())
-                .principalType(Role.PRINCIPAL)
-                .resId(rolePerAddDTO.getResId())
-                .resType(Menu.RES_TYPE)
-                .build();
+        Acl acl = new Acl();
         aclRepository.save(acl);
     }
 
+
     @Override
-    public List<Integer> findMenuIdsByRole(Integer roleId) {
-        return aclRepository.findMenuIdsByRole(roleId) ;
+    public List<String> listAuthorities(Integer userId, String groupId) {
+        UserGroupRole userGroupRole = userGroupRoleRepository.getByUserIdAndGroupId(userId, groupId);
+        return aclRepository.findAuthorities(userGroupRole.getRoleId());
     }
-
-
 }

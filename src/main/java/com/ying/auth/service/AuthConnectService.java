@@ -1,6 +1,6 @@
 package com.ying.auth.service;
 
-import com.ying.basis.model.Company;
+import com.ying.auth.model.Group;
 import com.ying.core.basic.service.ConnectService;
 
 /**
@@ -8,6 +8,6 @@ import com.ying.core.basic.service.ConnectService;
  * @date 2018/12/16
  */
 public interface AuthConnectService extends ConnectService {
-    Company getCompany(Integer companyId);
+    Group getCompany(Integer companyId);
 
 }

@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class AclOperBO {
-    private Integer aclStatus;
+    private Boolean aclStatus;
     private Integer operId;
     private Integer operIndexPos;
 }

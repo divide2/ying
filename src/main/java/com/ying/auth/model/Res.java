@@ -6,16 +6,17 @@ import javax.persistence.*;
 
 /**
  * @author bvvy
- * @date 2018/12/4
+ * @date 2019/2/13
  */
-@Entity
-@Table(name="sys_user_company")
 @Data
-public class UserCompany {
+@Entity
+@Table(name = "sys_res")
+public class Res {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer companyId;
-    private Integer userId;
+
+    private String code;
+
 }

@@ -25,7 +25,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
 
     public FriendServiceImpl(FriendRepository friendRepository,
                              FriendConnectService friendConnectService
-                             ) {
+    ) {
         this.friendRepository = friendRepository;
         this.friendConnectService = friendConnectService;
     }
@@ -49,8 +49,6 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
         vo.setToId(friend.getToId());
         vo.setMemoName(friend.getMemoName());
         vo.setAvatar(friendInfo.getAvatar());
-        vo.setCompanyId(friendInfo.getCompanyId());
-        vo.setCompanyName(friendInfo.getCompanyName());
         return vo;
     }
 }

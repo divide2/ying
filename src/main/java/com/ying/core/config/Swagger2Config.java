@@ -94,7 +94,7 @@ public class Swagger2Config {
     }
 
     private  List<GrantType> grantTypes() {
-        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8081/oauth/token");
+        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8080/oauth/token");
         return singletonList(grantType);
     }
 

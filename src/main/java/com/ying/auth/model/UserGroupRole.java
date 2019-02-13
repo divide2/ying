@@ -7,12 +7,12 @@ import javax.persistence.*;
 /**
  * @author bvvy
  * <p>
- * 用户角色关联
+ * 用户在组里面的角色
  */
 @Entity
-@Table(name = "sys_user_role")
+@Table(name = "sys_user_group_role")
 @Data
-public class UserRole {
+public class UserGroupRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -24,4 +24,9 @@ public class UserRole {
      * 角色id
      */
     private Integer roleId;
+
+    /**
+     * 组的id
+     */
+    private String groupId;
 }

@@ -1,7 +1,5 @@
 package com.ying.product.service.impl;
 
-import com.ying.auth.model.UserCompany;
-import com.ying.auth.repo.UserCompanyRepository;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
 import com.ying.product.dto.ProductDTO;
@@ -13,11 +11,13 @@ import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,15 +30,12 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
     private final ProductRepository productRepository;
     private final ProductSpecRepository productSpecRepository;
-    private final UserCompanyRepository userCompanyRepository;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductSpecRepository productSpecRepository,
-                              UserCompanyRepository userCompanyRepository) {
+                              ProductSpecRepository productSpecRepository) {
         this.productRepository = productRepository;
         this.productSpecRepository = productSpecRepository;
 
-        this.userCompanyRepository = userCompanyRepository;
     }
 
     private ProductVO mergeProductSpecs(Product product) {
@@ -49,8 +46,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     }
     @Override
     public Page<ProductVO> findByUserCompany(Integer userId, Pageable pageable) {
-        UserCompany userCompany = userCompanyRepository.getByUserId(userId);
-        return this.findByCompany(userCompany.getCompanyId(), pageable);
+        return new PageImpl<>(Collections.emptyList());
     }
 
     @Override
@@ -79,6 +75,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         product.setEnabled(true);
         product.setImage(dto.getImage());
         product.setName(dto.getName());
+        product.setUnit(dto.getUnit());
         product.setRemarks(dto.getRemarks());
         this.add(product);
         // todo 消耗规则 暂时不用 下一版本再说

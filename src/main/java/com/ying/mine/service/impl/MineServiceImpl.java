@@ -1,5 +1,8 @@
 package com.ying.mine.service.impl;
 
+import com.ying.auth.service.AclService;
+import com.ying.auth.service.UserService;
+import com.ying.auth.vo.UserGroupVO;
 import com.ying.core.er.Loginer;
 import com.ying.friend.dto.MessageDTO;
 import com.ying.friend.query.MessageQuery;
@@ -46,6 +49,8 @@ public class MineServiceImpl implements MineService {
     private final OrderService orderService;
     private final ChatService chatService;
     private final MessageService messageService;
+    private final UserService userService;
+    private final AclService aclService;
 
     public MineServiceImpl(WarehouseService warehouseService,
                            StockService stockService,
@@ -53,7 +58,7 @@ public class MineServiceImpl implements MineService {
                            ProductService productService,
                            PurchaseOrderService purchaseOrderService,
                            SellOrderService sellOrderService, OrderService orderService,
-                           ChatService chatService, MessageService messageService) {
+                           ChatService chatService, MessageService messageService, UserService userService, AclService aclService) {
         this.warehouseService = warehouseService;
         this.stockService = stockService;
         this.friendService = friendService;
@@ -63,6 +68,8 @@ public class MineServiceImpl implements MineService {
         this.orderService = orderService;
         this.chatService = chatService;
         this.messageService = messageService;
+        this.userService = userService;
+        this.aclService = aclService;
     }
 
     @Override
@@ -131,5 +138,15 @@ public class MineServiceImpl implements MineService {
     @Override
     public Page<ProductVO> findCompanyProduct(Pageable pageable) {
         return productService.findByCompany(Loginer.companyId(), pageable);
+    }
+
+    @Override
+    public List<UserGroupVO> listUserGroup() {
+        return userService.listUserGroup(Loginer.userId());
+    }
+
+    @Override
+    public List<String> listAuthorities(String groupId) {
+        return aclService.listAuthorities(Loginer.userId(), groupId);
     }
 }

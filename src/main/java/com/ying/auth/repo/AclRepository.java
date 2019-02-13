@@ -12,10 +12,8 @@ public interface AclRepository extends JpaRepository<Acl, Integer>, AclRepositor
     /**
      * 删除角色的菜单权限
      *
-     * @param pid pricipal id
-     * @param resType resType
-     * @param ptype pricipal Type
+     * @param roleId role
      */
     @Transactional(rollbackFor = Exception.class)
-    void deleteByPrincipalIdAndPrincipalTypeAndResType(Integer pid, String ptype, String resType);
+    void deleteByRoleId(Integer roleId);
 }

@@ -1,17 +1,14 @@
 package com.ying.auth.service.impl;
 
-import com.ying.auth.model.Acl;
+import com.ying.auth.model.*;
 import com.ying.auth.repo.AclRepository;
 import com.ying.auth.dto.RoleAddAuthDTO;
 import com.ying.auth.dto.RoleAddUsersDTO;
 import com.ying.auth.dto.RoleQueryDTO;
-import com.ying.auth.model.QRole;
-import com.ying.auth.model.Role;
-import com.ying.auth.model.UserRole;
+import com.ying.auth.model.UserGroupRole;
 import com.ying.auth.repo.RoleRepository;
-import com.ying.auth.repo.UserRoleRepository;
+import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.service.RoleService;
-import com.ying.auth.model.Menu;
 import com.ying.auth.service.MenuService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.Predicate;
@@ -29,16 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleRepository> implements RoleService {
 
     private final RoleRepository roleRepository;
-    private final UserRoleRepository userRoleRepository;
+    private final UserGroupRoleRepository userGroupRoleRepository;
     private final MenuService menuService;
     private final AclRepository aclRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository,
-                           UserRoleRepository userRoleRepository,
+                           UserGroupRoleRepository userGroupRoleRepository,
                            MenuService menuService,
                            AclRepository aclRepository) {
         this.roleRepository = roleRepository;
-        this.userRoleRepository = userRoleRepository;
+        this.userGroupRoleRepository = userGroupRoleRepository;
         this.menuService = menuService;
         this.aclRepository = aclRepository;
     }
@@ -59,28 +56,23 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleR
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addUsers(RoleAddUsersDTO roleAddUsersDTO) {
-        userRoleRepository.deleteByRoleId(roleAddUsersDTO.getRoleId());
+        userGroupRoleRepository.deleteByRoleId(roleAddUsersDTO.getRoleId());
         roleAddUsersDTO.getUserIds()
                 .forEach(userId -> {
-                    UserRole ur = new UserRole();
+                    UserGroupRole ur = new UserGroupRole();
                     ur.setRoleId(roleAddUsersDTO.getRoleId());
                     ur.setUserId(userId);
-                    userRoleRepository.save(ur);
+                    userGroupRoleRepository.save(ur);
                 });
     }
 
     @Override
     public void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO) {
         // 先删除 再添加  todo // 以后统一处理这种批量修改的情况
-        aclRepository.deleteByPrincipalIdAndPrincipalTypeAndResType(roleAddAuthDTO.getRoleId(), Role.PRINCIPAL, Menu.RES_TYPE);
+        aclRepository.deleteByRoleId(roleAddAuthDTO.getRoleId());
         roleAddAuthDTO.getResIds().
                 forEach(resId -> {
                     Acl acl = new Acl();
-                    acl.setPrincipalId(roleAddAuthDTO.getRoleId());
-                    acl.setResId(resId);
-                    acl.setPrincipalType(Role.PRINCIPAL);
-                    acl.setResType(Menu.RES_TYPE);
-                    acl.setAclStatus(1);
                     aclRepository.save(acl);
                 });
     }

@@ -17,11 +17,12 @@ public interface AclService {
      */
     void addRolePerm(RolePerAddDTO rolePerAddDTO);
 
+
     /**
-     * 获取角色能访问的菜单ids
-     *
-     * @param roleId 角色
-     * @return 菜单ids
+     * 获取这个人在团队下可以访问的功能
+     * @param userId userid
+     * @param groupId groupid
+     * @return 功能码
      */
-    List<Integer> findMenuIdsByRole(Integer roleId);
+    List<String> listAuthorities(Integer userId, String groupId);
 }

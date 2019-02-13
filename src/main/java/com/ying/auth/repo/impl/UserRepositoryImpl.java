@@ -3,11 +3,9 @@ package com.ying.auth.repo.impl;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
-import com.ying.auth.model.QRole;
-import com.ying.auth.model.QUser;
-import com.ying.auth.model.QUserRole;
-import com.ying.auth.model.User;
+import com.ying.auth.model.*;
 import com.ying.auth.repo.cutom.UserRepositoryCustom;
+import com.ying.auth.vo.UserGroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -23,7 +21,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private EntityManager entityManager;
     private QUser user = QUser.user;
     private QRole role = QRole.role;
-    private QUserRole ur = QUserRole.userRole;
+    private QGroup g = QGroup.group;
+    private QUserGroupRole ur = QUserGroupRole.userGroupRole;
+    private QUserGroupRole ugr = QUserGroupRole.userGroupRole;
 
 
     @Override
@@ -48,11 +48,18 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public User getByAccount(String username) {
 
         JPAQuery<User> query = new JPAQuery<>(entityManager);
-        User loginUser = query.from(user)
+        return query.from(user)
                 .where(user.username.eq(username)
                         .or(user.phone.eq(username))
                         .or(user.email.eq(username))).fetchOne();
-        return loginUser;
+    }
+
+    @Override
+    public List<UserGroupVO> listUserGroup(Integer userId) {
+        JPAQuery<?> query = new JPAQuery<>(entityManager);
+        return query.select(Projections.bean(UserGroupVO.class, ugr.groupId, g.name.as("groupName")))
+                .from(ugr).innerJoin(g).on(ugr.groupId.eq(g.id))
+                .where(ugr.userId.eq(userId)).fetch();
     }
 
 }

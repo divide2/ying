@@ -1,10 +1,13 @@
 package com.ying.auth.vo;
 
+import com.ying.auth.model.Group;
 import com.ying.auth.model.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -48,13 +51,6 @@ public class UserVO {
      */
     @ApiModelProperty("头像")
     private String avatar;
-
-    @ApiModelProperty("公司")
-    private Integer companyId;
-
-    @ApiModelProperty("公司名称")
-    private String companyName;
-
 
     public static UserVO fromUser(User user) {
         return UserVO.builder()

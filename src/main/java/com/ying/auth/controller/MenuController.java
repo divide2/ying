@@ -3,13 +3,10 @@ package com.ying.auth.controller;
 import com.ying.auth.dto.MenuAddDTO;
 import com.ying.auth.dto.MenuUpdateDTO;
 import com.ying.auth.model.Menu;
-import com.ying.auth.payload.MenuPayload;
 import com.ying.auth.service.MenuService;
-import com.ying.auth.service.OperService;
 import com.ying.auth.vo.MenuVO;
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
-import com.ying.core.data.tree.Tree;
 import com.ying.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -18,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * @author bvvy
@@ -30,12 +26,10 @@ import java.util.List;
 public class MenuController {
 
     private final MenuService menuService;
-    private final OperService operService;
 
-    public MenuController(MenuService menuService,
-                          OperService operService) {
+    public MenuController(MenuService menuService
+    ) {
         this.menuService = menuService;
-        this.operService = operService;
 
     }
 
@@ -86,16 +80,5 @@ public class MenuController {
         return Responser.deleted();
     }
 
-    @GetMapping("/tree")
-    @ApiOperation("获取菜单树")
-    public ResponseEntity<List<Tree<MenuPayload>>> tree() {
-        return Responser.ok(menuService.findMenuTree());
-    }
 
-    @GetMapping("/user/tree")
-    @ApiOperation("获取用户能访问的菜单树")
-    public ResponseEntity<List<Tree<MenuPayload>>> userTrees() {
-
-        return Responser.ok(menuService.findLeftMenuTreeBySelf());
-    }
 }

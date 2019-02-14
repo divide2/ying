@@ -26,6 +26,7 @@ import com.ying.product.service.StockService;
 import com.ying.product.service.WarehouseService;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import io.swagger.models.auth.In;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -128,6 +129,11 @@ public class MineServiceImpl implements MineService {
     @Override
     public List<FriendVO> listFriends() {
         return friendService.listByFromId(Loginer.userId());
+    }
+
+    @Override
+    public FriendVO getFriend(Integer friendId) {
+        return friendService.getVO(Loginer.userId(), friendId);
     }
 
     @Override

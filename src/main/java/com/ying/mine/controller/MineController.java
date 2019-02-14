@@ -117,6 +117,13 @@ public class MineController {
         return Responser.ok(vos);
     }
 
+    @GetMapping("/friend/{friendId}")
+    @ApiOperation("我的好友")
+    public ResponseEntity<FriendVO> friends(@PathVariable Integer friendId) {
+        FriendVO vo = mineService.getFriend(friendId);
+        return Responser.ok(vo);
+    }
+
     @GetMapping("/stocks")
     @ApiOperation("我的库存")
     public ResponseEntity<Page<StockVO>> findStock(Pageable pageable, @Valid StockQuery stockQuery, BindingResult br) {

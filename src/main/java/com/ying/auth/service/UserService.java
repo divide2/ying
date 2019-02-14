@@ -54,6 +54,11 @@ public interface UserService extends BasicService<User,Integer> {
      */
     User getByWechatOpenId(String openid);
 
+    /**
+     * 获取用户的详情信息
+     * @param userId 用户
+     * @return x
+     */
     UserVO getVO(Integer userId);
 
     UserVO getByAccount(String account);

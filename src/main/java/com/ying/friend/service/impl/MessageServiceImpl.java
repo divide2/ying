@@ -54,7 +54,7 @@ public class MessageServiceImpl extends SimpleBasicServiceImpl<Message, String, 
                 .content(dto.getContent())
                 .createTime(LocalDateTime.now())
                 .fromId(dto.getFromId())
-                .toId(toUser.getId())
+                .toId(toUser.getUserId())
                 .readed(false)
                 .build();
         messageRepository.save(message);

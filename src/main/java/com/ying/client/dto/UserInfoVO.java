@@ -1,14 +1,14 @@
-package com.ying.friend.vo;
+package com.ying.client.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
  * @author bvvy
- * @date 2018/12/11
+ * @date 2019/2/14
  */
 @Data
-public class FriendVO {
+public class UserInfoVO {
 
     @ApiModelProperty("朋友的id")
     private Integer userId;
@@ -23,6 +23,5 @@ public class FriendVO {
     private String phone;
     private String email;
     private String gender;
-
-
+    private boolean friend;
 }

@@ -66,9 +66,8 @@ public class UserController {
     @GetMapping("/{id}")
     @ApiOperation("获取单个")
     public ResponseEntity<UserVO> get(@PathVariable Integer id) {
-        User user = userService.get(id);
-        UserVO userVO = UserVO.fromUser(user);
-        return Responser.ok(userVO);
+        UserVO user = userService.getVO(id);
+        return Responser.ok(user);
     }
 
     @GetMapping("/search")

@@ -90,8 +90,7 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
     @Override
     public UserVO getVO(Integer userId) {
-        User user = userRepository.getOne(
-                userId);
+        User user = userRepository.getOne(userId);
         return UserVO.fromUser(user);
     }
 

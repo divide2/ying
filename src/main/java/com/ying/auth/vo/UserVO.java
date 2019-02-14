@@ -1,13 +1,10 @@
 package com.ying.auth.vo;
 
-import com.ying.auth.model.Group;
 import com.ying.auth.model.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @author bvvy
@@ -17,8 +14,8 @@ import java.util.List;
 @Data
 @ApiModel("用户基础信息")
 public class UserVO {
-    @ApiModelProperty("id")
-    private Integer id;
+    @ApiModelProperty("用户id")
+    private Integer userId;
     /**
      * 用户名
      */
@@ -54,7 +51,7 @@ public class UserVO {
 
     public static UserVO fromUser(User user) {
         return UserVO.builder()
-                .id(user.getId())
+                .userId(user.getId())
                 .avatar(user.getAvatar())
                 .email(user.getEmail())
                 .nickname(user.getNickname())

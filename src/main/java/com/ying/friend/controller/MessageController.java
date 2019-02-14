@@ -1,6 +1,5 @@
 package com.ying.friend.controller;
 
-import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.friend.service.MessageService;

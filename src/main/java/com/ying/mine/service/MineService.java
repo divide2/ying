@@ -42,6 +42,8 @@ public interface MineService {
      */
     List<FriendVO> listFriends();
 
+    FriendVO getFriend(Integer friendId);
+
     /**
      * 获取自己的产品
      * @param pageable p

@@ -57,7 +57,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     @Override
     public List<UserGroupVO> listUserGroup(Integer userId) {
         JPAQuery<?> query = new JPAQuery<>(entityManager);
-        return query.select(Projections.bean(UserGroupVO.class, ugr.groupId, g.name.as("groupName")))
+        return query.select(Projections.bean(UserGroupVO.class, ugr.groupId, g.name.as("groupName"),g.image.as("groupImage")))
                 .from(ugr).innerJoin(g).on(ugr.groupId.eq(g.id))
                 .where(ugr.userId.eq(userId)).fetch();
     }

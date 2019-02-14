@@ -3,6 +3,7 @@ package com.ying.auth.service.impl;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.ying.auth.dto.UserQueryDTO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
 import com.ying.auth.repo.UserGroupRoleRepository;
@@ -91,6 +92,15 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     public UserVO getVO(Integer userId) {
         User user = userRepository.getOne(
                 userId);
+        return UserVO.fromUser(user);
+    }
+
+    @Override
+    public UserVO search(UserSearchDTO search) {
+        User user = userRepository.getByPhone(search.getQuery());
+        if (user == null) {
+            return null;
+        }
         return UserVO.fromUser(user);
     }
 

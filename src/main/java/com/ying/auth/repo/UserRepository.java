@@ -27,4 +27,10 @@ public interface UserRepository extends UserRepositoryCustom, JpaRepository<User
     User getByWechatOpenId(String openid);
 
 
+    /**
+     * 通过手机号获取
+     * @param query
+     * @return
+     */
+    User getByPhone(String query);
 }

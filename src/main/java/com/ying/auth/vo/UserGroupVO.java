@@ -12,4 +12,5 @@ public class UserGroupVO {
 
     private String groupId;
     private String groupName;
+    private String groupImage;
 }

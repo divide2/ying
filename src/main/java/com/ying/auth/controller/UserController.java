@@ -2,6 +2,7 @@ package com.ying.auth.controller;
 
 import com.ying.auth.dto.UserAddDTO;
 import com.ying.auth.dto.UserQueryDTO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.dto.UserUpdateDTO;
 import com.ying.auth.model.User;
 import com.ying.auth.service.UserService;
@@ -33,6 +34,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
 
     @PostMapping
     @ApiOperation("添加")
@@ -67,6 +69,12 @@ public class UserController {
         User user = userService.get(id);
         UserVO userVO = UserVO.fromUser(user);
         return Responser.ok(userVO);
+    }
+
+    @GetMapping("/search")
+    @ApiOperation("查询")
+    public ResponseEntity<UserVO> search(UserSearchDTO search) {
+        return Responser.ok(userService.search(search));
     }
 
     @GetMapping("/find")

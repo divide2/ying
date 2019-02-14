@@ -2,6 +2,7 @@ package com.ying.auth.service;
 
 
 import com.ying.auth.dto.UserQueryDTO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.User;
 import com.ying.auth.vo.UserGroupVO;
 import com.ying.auth.vo.UserVO;
@@ -58,4 +59,6 @@ public interface UserService extends BasicService<User,Integer> {
     UserVO getByAccount(String account);
 
     List<UserGroupVO> listUserGroup(Integer userId);
+
+    UserVO search(UserSearchDTO search);
 }

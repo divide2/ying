@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMethod;
 import springfox.documentation.builders.*;
 import springfox.documentation.service.*;
@@ -49,7 +50,7 @@ public class Swagger2Config {
                 .globalResponseMessage(RequestMethod.POST, singletonList(
                         new ResponseMessageBuilder().code(409).message("{code: 错误问题}").build())
                 )
-                .ignoredParameterTypes(Pageable.class,OAuth2Authentication.class)
+                .ignoredParameterTypes(Pageable.class,OAuth2Authentication.class, Errors.class)
                 .securitySchemes(singletonList(oauth()))
                 .securityContexts(singletonList(securityContext()))
 //                .enableUrlTemplating(true)

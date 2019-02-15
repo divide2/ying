@@ -3,6 +3,7 @@ package com.ying.core.web;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.core.exception.AlreadyExistsException;
+import com.ying.core.exception.NotFoundException;
 import com.ying.core.exception.ValidationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.ObjectError;
@@ -25,4 +26,8 @@ public class ValidationExceptionHandler {
         return Responser.conflict("exist");
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<Messager> valid(NotFoundException exception) {
+        return ResponseEntity.notFound().build();
+    }
 }

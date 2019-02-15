@@ -18,7 +18,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/v1/group")
-@Api(tags = "用户")
+@Api(tags = "团队")
 public class GroupController {
 
 

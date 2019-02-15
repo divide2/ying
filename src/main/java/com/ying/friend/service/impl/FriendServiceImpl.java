@@ -2,6 +2,7 @@ package com.ying.friend.service.impl;
 
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.friend.dto.ApplyDTO;
 import com.ying.friend.dto.ConfirmDTO;
@@ -76,11 +77,12 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
                     vo.setRemarks(application.getRemarks());
                     vo.setStatus(application.getStatus());
                     UserVO user = null;
-                    if (!application.getFromId().equals(Loginer.userId())) {
-                        user = friendConnectService.getUser(application.getFromId());
-                    }
-                    if (!application.getToId().equals(Loginer.userId())) {
+                    if (application.getFromId().equals(Loginer.userId())) {
                         user = friendConnectService.getUser(application.getToId());
+                        vo.setSelfApply(true);
+                    }
+                    if (application.getToId().equals(Loginer.userId())) {
+                        user = friendConnectService.getUser(application.getFromId());
                     }
                     vo.setUser(user);
                     return vo;
@@ -90,7 +92,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
 
     @Override
     public void apply(ApplyDTO dto) {
-        Application application =applicationRepository.getByFromIdAndToId(Loginer.userId(), dto.getToId());
+        Application application = applicationRepository.getByFromIdAndToId(Loginer.userId(), dto.getToId());
         if (application == null) {
             application = new Application();
             application.setCreateTime(LocalDateTime.now());
@@ -108,6 +110,8 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     @Transactional
     public void confirm(ConfirmDTO dto) {
         Application application = applicationRepository.getByFromIdAndToId(dto.getToId(), Loginer.userId());
+        Asserter.notNull(application);
+
         application.setUpdateTime(LocalDateTime.now());
         application.setStatus("finish");
         applicationRepository.save(application);
@@ -119,7 +123,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
         this.add(friend);
         friend = new Friend();
         friend.setFromId(application.getFromId());
-        friend.setFromId(application.getToId());
+        friend.setToId(application.getToId());
         friend.setMemoName(application.getMemoName());
         friend.setCreateTime(LocalDateTime.now());
         this.add(friend);

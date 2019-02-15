@@ -10,6 +10,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
+
 /**
  * @author bvvy
  */
@@ -26,7 +28,7 @@ public class ValidationExceptionHandler {
         return Responser.conflict("exist");
     }
 
-    @ExceptionHandler(NotFoundException.class)
+    @ExceptionHandler({NotFoundException.class, EntityNotFoundException.class})
     public ResponseEntity<Messager> valid(NotFoundException exception) {
         return ResponseEntity.notFound().build();
     }

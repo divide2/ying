@@ -14,6 +14,7 @@ import com.ying.friend.service.FriendConnectService;
 import com.ying.friend.service.FriendService;
 import com.ying.friend.vo.ApplicationVO;
 import com.ying.friend.vo.FriendVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,6 +94,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     @Override
     public void apply(ApplyDTO dto) {
         Application application = applicationRepository.getByFromIdAndToId(Loginer.userId(), dto.getToId());
+        UserVO user = friendConnectService.getUser(dto.getToId());
         if (application == null) {
             application = new Application();
             application.setCreateTime(LocalDateTime.now());
@@ -101,6 +103,9 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
             application.setToId(dto.getToId());
             application.setStatus("waiting_confirm");
             application.setMemoName(dto.getMemoName());
+            if (StringUtils.isBlank(dto.getMemoName())) {
+                application.setMemoName(user.getNickname());
+            }
         }
         application.setUpdateTime(LocalDateTime.now());
         applicationRepository.save(application);

@@ -23,9 +23,11 @@ public class Loginer {
         return loginUser().getAvatar();
     }
 
+    public static String nickname() {
+        return loginUser().getNickname();
+    }
+
     public static Integer companyId() {
-
-
         return 0;
     }
 

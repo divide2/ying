@@ -28,7 +28,7 @@ public class LoginController {
 
     private final UserService userService;
     private final ConsumerTokenServices consumerTokenServices;
-    @Value("devide.defaults.avatar")
+    @Value("${devide.defaults.avatar}")
     private String defaultAvatar;
 
     public LoginController(UserService userService,
@@ -50,6 +50,8 @@ public class LoginController {
         user.setUsername(joinTO.getAccount());
         user.setPassword(joinTO.getPassword());
         user.setAvatar(defaultAvatar);
+        user.setNickname(joinTO.getAccount());
+        user.setPhone(joinTO.getAccount());
         user.setEnabled(true);
         userService.add(user);
         return Responser.created();

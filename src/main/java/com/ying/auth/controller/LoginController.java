@@ -28,7 +28,7 @@ public class LoginController {
 
     private final UserService userService;
     private final ConsumerTokenServices consumerTokenServices;
-    @Value("${devide.defaults.avatar}")
+    @Value("${divide.defaults.avatar}")
     private String defaultAvatar;
 
     public LoginController(UserService userService,

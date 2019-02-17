@@ -1,17 +1,19 @@
 package com.ying.auth.controller;
 
 import com.ying.auth.dto.GroupAddDTO;
+import com.ying.auth.dto.GroupApplyDTO;
+import com.ying.auth.dto.GroupConfirmDTO;
+import com.ying.auth.dto.InviteDTO;
 import com.ying.auth.model.Group;
 import com.ying.auth.service.GroupService;
 import com.ying.auth.vo.GroupUserVO;
-import com.ying.auth.vo.GroupVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
-import com.ying.friend.model.Message;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -57,10 +59,30 @@ public class GroupController {
     }
 
     @GetMapping("/{groupId}/users")
-    @ApiOperation("获取单个")
+    @ApiOperation("获取成员")
     public ResponseEntity<List<GroupUserVO>> listGroupUsers(@PathVariable String groupId) {
         List<GroupUserVO> groupUsers = groupService.listGroupUsers(groupId);
         return Responser.ok(groupUsers);
+    }
+
+    @PostMapping("/invite")
+    @ApiOperation("邀请")
+    public ResponseEntity<Messager> invite(InviteDTO dto) {
+        return Responser.created();
+    }
+
+    @PostMapping("/apply")
+    @ApiOperation("申请加入团队")
+    public ResponseEntity<Messager> apply(@Valid @RequestBody GroupApplyDTO dto, Errors errors) {
+        groupService.apply(dto);
+        return Responser.created();
+    }
+
+    @PostMapping("/confirm")
+    @ApiOperation("确认加入团队")
+    public ResponseEntity<Messager> confirm(@Valid @RequestBody GroupConfirmDTO dto, Errors errors ){
+        groupService.confirm(dto);
+        return Responser.created();
     }
 
 }

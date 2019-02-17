@@ -1,6 +1,8 @@
 package com.ying.auth.service;
 
 import com.ying.auth.dto.GroupAddDTO;
+import com.ying.auth.dto.GroupApplyDTO;
+import com.ying.auth.dto.GroupConfirmDTO;
 import com.ying.auth.model.Group;
 import com.ying.auth.vo.GroupUserVO;
 import com.ying.auth.vo.GroupVO;
@@ -24,4 +26,8 @@ public interface GroupService extends BasicService<Group,String> {
     List<GroupUserVO> listGroupUsers(String groupId);
 
     GroupVO getVO(String groupId);
+
+    void apply(GroupApplyDTO dto);
+
+    void confirm(GroupConfirmDTO dto);
 }

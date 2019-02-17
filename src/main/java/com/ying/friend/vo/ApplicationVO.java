@@ -11,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class ApplicationVO implements VO<Application> {
+    private Integer id;
 
     private String remarks;
 

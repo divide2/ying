@@ -43,4 +43,12 @@ public interface FriendService extends BasicService<Friend,Integer> {
      * @param dto dto
      */
     void confirm(ConfirmDTO dto);
+
+    /**
+     * application id
+     * @param applicationId application id
+     * @return xx
+     */
+    ApplicationVO getApplication(Integer applicationId);
+
 }

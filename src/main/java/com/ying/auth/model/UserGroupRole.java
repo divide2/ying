@@ -26,7 +26,12 @@ public class UserGroupRole {
     private Integer roleId;
 
     /**
-     * 组的id
+     * 团队的id
      */
     private String groupId;
+
+    /**
+     * 团队里备注
+     */
+    private String memoName;
 }

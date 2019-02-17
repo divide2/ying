@@ -6,11 +6,16 @@ import com.ying.auth.model.UserGroupRole;
 import com.ying.auth.repo.GroupRepository;
 import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.service.GroupService;
+import com.ying.auth.vo.GroupUserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
+import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.exception.ValidationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -43,8 +48,11 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group,String, Group
 
     private void checkGroupExists(String name) {
         Group group = groupRepository.getByName(name);
-        if (group != null) {
-            throw new ValidationException("exists");
-        }
+        Asserter.isNull(group);
+    }
+
+    @Override
+    public List<GroupUserVO> listGroupUsers(String groupId) {
+        return null;
     }
 }

@@ -46,4 +46,11 @@ public class FriendController {
         friendService.confirm(dto);
         return Responser.created();
     }
+
+
+    @GetMapping("/applicatoin/{applicationId}")
+    public ResponseEntity<ApplicationVO> getApplication(@PathVariable Integer applicationId) {
+        ApplicationVO vo = friendService.getApplication(applicationId);
+        return Responser.ok(vo);
+    }
 }

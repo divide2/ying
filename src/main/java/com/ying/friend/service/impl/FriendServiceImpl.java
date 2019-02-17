@@ -4,6 +4,7 @@ import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
+import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ApplyDTO;
 import com.ying.friend.dto.ConfirmDTO;
 import com.ying.friend.model.Application;
@@ -72,23 +73,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     @Override
     public List<ApplicationVO> listApplications() {
         List<Application> applications = applicationRepository.findUserApplications(Loginer.userId());
-        return applications.stream().map(
-                application -> {
-                    ApplicationVO vo = new ApplicationVO();
-                    vo.setRemarks(application.getRemarks());
-                    vo.setStatus(application.getStatus());
-                    UserVO user = null;
-                    if (application.getFromId().equals(Loginer.userId())) {
-                        user = friendConnectService.getUser(application.getToId());
-                        vo.setSelfApply(true);
-                    }
-                    if (application.getToId().equals(Loginer.userId())) {
-                        user = friendConnectService.getUser(application.getFromId());
-                    }
-                    vo.setUser(user);
-                    return vo;
-                }
-        ).collect(Collectors.toList());
+        return Converter.of(applications).convert(this::toApplicationVO);
     }
 
     @Override
@@ -133,4 +118,28 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
         friend.setCreateTime(LocalDateTime.now());
         this.add(friend);
     }
+
+    @Override
+    public ApplicationVO getApplication(Integer applicationId) {
+        Application application = applicationRepository.getOne(applicationId);
+        return toApplicationVO(application);
+    }
+
+    private ApplicationVO toApplicationVO(Application application) {
+        ApplicationVO vo = new ApplicationVO();
+        vo.setId(application.getId());
+        vo.setRemarks(application.getRemarks());
+        vo.setStatus(application.getStatus());
+        UserVO user = null;
+        if (application.getFromId().equals(Loginer.userId())) {
+            user = friendConnectService.getUser(application.getToId());
+            vo.setSelfApply(true);
+        }
+        if (application.getToId().equals(Loginer.userId())) {
+            user = friendConnectService.getUser(application.getFromId());
+        }
+        vo.setUser(user);
+        return vo;
+    }
+
 }

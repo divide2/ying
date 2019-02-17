@@ -2,7 +2,10 @@ package com.ying.auth.service;
 
 import com.ying.auth.dto.GroupAddDTO;
 import com.ying.auth.model.Group;
+import com.ying.auth.vo.GroupUserVO;
 import com.ying.core.basic.service.BasicService;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -12,4 +15,10 @@ public interface GroupService extends BasicService<Group,String> {
 
     void add(GroupAddDTO dto);
 
+    /**
+     * 获取团队下的成员
+     * @param groupId 团队
+     * @return 团队成员
+     */
+    List<GroupUserVO> listGroupUsers(String groupId);
 }

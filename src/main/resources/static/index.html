@@ -5,8 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.5.dev">
-<meta name="author" content="Doc Writer">
-<title>项目规约文档</title>
+<title>流程和功能</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -419,683 +418,123 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
-<body class="article toc2 toc-left">
+<body class="article">
 <div id="header">
-<h1>项目规约文档</h1>
-<div class="details">
-<span id="author" class="author">Doc Writer</span><br>
-<span id="email" class="email"><a href="mailto:bvvy@qq.com">bvvy@qq.com</a></span><br>
-<span id="revnumber">version 1.0,</span>
-<span id="revdate">2018-07</span>
-</div>
-<div id="toc" class="toc2">
-<div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#true-">1. 编码规范</a>
-<ul class="sectlevel2">
-<li><a href="#true--2">1.1. 总体文件夹结构</a></li>
-<li><a href="#truerepo">1.2. repo</a></li>
-<li><a href="#trueservice">1.3. service相关</a></li>
-<li><a href="#truecontroller">1.4. controller相关</a></li>
-<li><a href="#truemodel">1.5. model相关</a></li>
-<li><a href="#truedto-vo">1.6. dto vo相关</a></li>
-<li><a href="#true--3">1.7. 其他</a></li>
-</ul>
-</li>
-<li><a href="#true--4">2. 主要功能</a>
-<ul class="sectlevel2">
-<li><a href="#true--5">2.1. 名称解释</a></li>
-<li><a href="#true--6">2.2. 主要流程</a></li>
-<li><a href="#true--7">2.3. 涉及到的模块</a></li>
-<li><a href="#true--8">2.4. 微信小程序登录流程</a></li>
-</ul>
-</li>
-</ul>
-</div>
+<h1>流程和功能</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="true-"><a class="anchor" href="#true-"></a>1. 编码规范</h2>
+<h2 id="true-"><a class="anchor" href="#true-"></a>登录注册 忘记密码</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="true--2"><a class="anchor" href="#true--2"></a>1.1. 总体文件夹结构</h3>
-<div class="imageblock">
-<div class="content">
-<img src="docs/images/filedir.png" alt="filedir.png">
-</div>
-</div>
+<h3 id="true--2"><a class="anchor" href="#true--2"></a>账号密码</h3>
+
 </div>
 <div class="sect2">
-<h3 id="truerepo"><a class="anchor" href="#truerepo"></a>1.2. repo</h3>
-<div class="imageblock">
-<div class="content">
-<img src="docs/images/repo.png" alt="repo.png">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="docs/images/repoclass.png" alt="repoclass.png">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>DemoRepository实现JpaRepository 和 RepositoryCustom存放与当前表的操作方法</p>
-</li>
-<li>
-<p>Costom里面主要连表部分的方法和需要多条件模糊查询的方法</p>
-</li>
-<li>
-<p>Impl实现Custom</p>
-</li>
-</ol>
-</div>
+<h3 id="true--3"><a class="anchor" href="#true--3"></a>手机登录</h3>
+
 </div>
 <div class="sect2">
-<h3 id="trueservice"><a class="anchor" href="#trueservice"></a>1.3. service相关</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>service 中的错误处理统一抛出异常信息 不返回到controller中处理</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="truecontroller"><a class="anchor" href="#truecontroller"></a>1.4. controller相关</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-java" data-lang="java">    @PostMapping
-    public ResponseEntity&lt;Messager&gt; add(@Valid @RequestBody MenuAddDTO menuAddDTO, BindingResult br) {
-        Menu menu = Menu.builder()
-                .enabled(menuAddDTO.getEnabled())
-                .name(menuAddDTO.getName())
-                .orderNum(menuAddDTO.getOrderNum())
-                .path(menuAddDTO.getPath())
-                .pid(menuAddDTO.getPid())
-                .build();
-        menuService.add(menu);
-        return Responser.created();
-    }</code></pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>在类上使用@RestController 不用使用@Controller</p>
-</li>
-<li>
-<p>在方法上使用PostMapping GetMapping DeleteMapping PatchMapping
-不能使用@RequestMapping</p>
-</li>
-<li>
-<p>不能直接返回model必须转成VO</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="truemodel"><a class="anchor" href="#truemodel"></a>1.5. model相关</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>一律不能使用 Date类 使用LocalDate和LoacalDateTime替代</p>
-</li>
-<li>
-<p>不要滥用继承，导致过多的无用字段</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="truedto-vo"><a class="anchor" href="#truedto-vo"></a>1.6. dto vo相关</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>dto 存放前端传递到后端的数据，必须做验证 规则是Hibernate Validation</p>
-</li>
-<li>
-<p>vo 存放后端返回给前端的数据</p>
-</li>
-<li>
-<p>dto vo 中不能相互继承导致前端无数个字段，全部重新写</p>
-</li>
-<li>
-<p>dto vo上面必须写ApiModelProperties</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="true--3"><a class="anchor" href="#true--3"></a>1.7. 其他</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>写注释</p>
-</li>
-<li>
-<p>提交代码是请详细写出该次提交的内容</p>
-</li>
-</ol>
-</div>
+<h3 id="true--4"><a class="anchor" href="#true--4"></a>第三方登录</h3>
+
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="true--4"><a class="anchor" href="#true--4"></a>2. 主要功能</h2>
+<h2 id="true--5"><a class="anchor" href="#true--5"></a>建立联系</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="true--5"><a class="anchor" href="#true--5"></a>2.1. 名称解释</h3>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 1. 名词和解释</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">商家</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">摄影师/工作室</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">个人</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">模特/普通人</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="true--6"><a class="anchor" href="#true--6"></a>2.2. 主要流程</h3>
+<h3 id="true--6"><a class="anchor" href="#true--6"></a>新的朋友</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>商家或者个人发布作品，系统推荐或者通过搜索匹配相关作品。</p>
+<p>进入新的朋友页面</p>
 </li>
 <li>
-<p>商家或者个人通过聊天系统沟通并发送邀请,双方确认并支付价格生成订单（类似于boss直聘的聊天系统）。</p>
+<p>输入手机号/..确认后调用 get  /v1/user/search. 没有提示没有</p>
 </li>
 <li>
-<p>最后双方确认完成订单，将钱打到商户账户。</p>
+<p>点击用户查看信息  调用 get /v2/user/{id} 包含由判断是不是好友,不是好友才能加 已经是好友就只是发消息之类的</p>
+</li>
+<li>
+<p>如果不是好友 点击加为好友 调用 post /v1/friend/apply 申请</p>
+</li>
+<li>
+<p>对方收到请求 调用  get /v1/friend/applications 申请列表</p>
+</li>
+<li>
+<p>可以点接受   调用 post /v1/friend/confirm</p>
+</li>
+<li>
+<p>删除申请 delete /v1/friend/application/{id}</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="true--7"><a class="anchor" href="#true--7"></a>新的团队</h3>
 <div class="paragraph">
-<p>未来：服装设备租赁系统</p>
+<p>进入新的团队页面有两个选项
+创建团队 加入团队</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>创建团队</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>填写表单 确认添加 post /v1/group</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>加入团队</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>输入搜索团队 点击申请加入</p>
+</li>
+<li>
+<p>团队下成员收到信息(是不是要只能管理员确认,还是全部人都可以确认) 确认加入</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="true--7"><a class="anchor" href="#true--7"></a>2.3. 涉及到的模块</h3>
-<div class="sect3">
-<h4 id="true-product-and-others"><a class="anchor" href="#true-product-and-others"></a>2.3.1. 作品 和 相关配套 (Product and Others)</h4>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 2. 作品 product</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称/标题</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">图片</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">images</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">标签</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tags</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">价格</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">price</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人/摄影师名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人/摄影师id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">cdt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">create date time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">经度</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">longitude</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">纬度</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">latitude</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">启用</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Y / N 前端 boolean</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">备注</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">remarks</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 3. 产品图片</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">产品id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">productId</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">地址</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">url</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">是否是主图</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">main</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Y/N 前端boolean</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="true-chat"><a class="anchor" href="#true-chat"></a>2.3.2. 聊天 (Chat)</h4>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 4. 消息</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">发给的人</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">toName</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">发给的人</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">toId</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">cdt</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">内容</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">content</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">读过</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">readed</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="true-order"><a class="anchor" href="#true-order"></a>2.3.3. 订单 (Order?)</h4>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 5. 订单 order</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">订单的商品</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">productId</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">订单的商品名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">productName</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人/客户名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建人/客户</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fromId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">from user id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">订单给与人/摄影师</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">toId</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">to user id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">订单给与人/摄影师</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">toName</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">to user id</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">创建时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">cdt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">create date time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">约定时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">adt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">appointed date time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">接单时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tdt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">take date time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">完成时间</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">fdt</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">finish date time</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">状态</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">status</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">备注</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">remarks</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="true-user-and-authorization"><a class="anchor" href="#true-user-and-authorization"></a>2.3.4. 用户和权限(User and Authorization)</h4>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 6. 摄影师/工作室/用户 (User)</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">其他</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">微信用户信息</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">调用微信用户信息</p></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 7. 积分</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect3">
-<h4 id="true-general"><a class="anchor" href="#true-general"></a>2.3.5. 公共模块(General?)</h4>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 8. 标签 tag</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 9. 评论</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 10. 点赞</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 11. 举报</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-<table class="tableblock frame-all grid-all spread">
-<caption class="title">Table 12. 字典</caption>
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">字段</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">解释</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">id</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">组名</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">groupName</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">组码</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">groupCode</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">编码</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">code</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">值</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">value</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
+<h3 id="true--8"><a class="anchor" href="#true--8"></a>我的团队</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>我的团队 /v1/mine/groups</p>
+</li>
+<li>
+<p>点击团队查看详情  /v1/group/{id}</p>
+</li>
+<li>
+<p>详情里面有基本信息 和 邀请加入团队按钮 发送消息</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="true--8"><a class="anchor" href="#true--8"></a>2.4. 微信小程序登录流程</h3>
-<div class="paragraph">
-<p>wxLogin -&#8594; /login/mp -&#8594; 获取access_token -&#8594; wx.getUserInfo -&#8594;</p>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="literalblock">
-<div class="content">
-<pre>wx.request({
-                   url: "/v1/mp/user",
-                   data: res.userInfo,
-                   method: "POST",
-                   header: {
-                     'Authorization': 'Bearer ' + access_token,
-                     'content-type': 'application/json',
-                   },</pre>
-</div>
-</div>
-</div>
-</div>
+<h3 id="true--9"><a class="anchor" href="#true--9"></a>二维码功能</h3>
+
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Version 1.0<br>
-Last updated 2018-09-04 22:16:21
+Last updated 2019-02-17 11:29:37
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/highlight.min.js"></script>
 <script>hljs.initHighlighting()</script>
-<script type="text/javascript">
-var wx = new WebSocket("ws://loaclhost:8081/myHandler")
-wx.onopen = function (x) {
-    console.log('xx', x)
-}
-wx.onmessage = function (ev) {
-    console.log(ev) }
-</script>
 </body>
 </html>

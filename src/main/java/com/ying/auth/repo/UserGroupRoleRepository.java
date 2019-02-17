@@ -4,6 +4,8 @@ import com.ying.auth.model.UserGroupRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author bvvy
  */
@@ -19,8 +21,19 @@ public interface UserGroupRoleRepository extends JpaRepository<UserGroupRole, In
 
     /**
      * 用户在团队下的角色
-     * @param userId userid
+     *
+     * @param userId  userid
      * @param groupId groupid
      */
     UserGroupRole getByUserIdAndGroupId(Integer userId, String groupId);
+
+
+    /**
+     * 团队下的人员
+     *
+     * @param groupId 团队
+     * @return info
+     */
+    List<UserGroupRole> findByGroupId(String groupId);
+
 }

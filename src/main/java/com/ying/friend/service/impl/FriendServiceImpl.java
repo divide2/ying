@@ -53,6 +53,9 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     @Override
     public FriendVO getVO(Integer fromId, Integer toId) {
         Friend friend = friendRepository.getOnlyFriend(fromId, toId);
+        if (friend == null) {
+            return null;
+        }
         return this.to(friend);
     }
 

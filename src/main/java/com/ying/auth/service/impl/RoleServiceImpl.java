@@ -10,6 +10,7 @@ import com.ying.auth.repo.RoleRepository;
 import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.service.RoleService;
 import com.ying.auth.service.MenuService;
+import com.ying.auth.vo.RoleVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.Expressions;
@@ -75,5 +76,12 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleR
                     Acl acl = new Acl();
                     aclRepository.save(acl);
                 });
+    }
+
+    @Override
+    public RoleVO getVO(Integer roleId) {
+        Role role = this.get(roleId);
+        return
+                RoleVO.builder().code(role.getCode()).name(role.getName()).id(role.getId()).build();
     }
 }

@@ -4,6 +4,7 @@ import com.ying.auth.dto.RoleAddAuthDTO;
 import com.ying.auth.dto.RoleAddUsersDTO;
 import com.ying.auth.dto.RoleQueryDTO;
 import com.ying.auth.model.Role;
+import com.ying.auth.vo.RoleVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,4 +35,5 @@ public interface RoleService extends BasicService<Role, Integer> {
      */
     void addRoleAuth(RoleAddAuthDTO roleAddAuthDTO);
 
+    RoleVO getVO(Integer roleId);
 }

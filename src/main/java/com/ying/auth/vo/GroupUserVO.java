@@ -1,16 +1,18 @@
 package com.ying.auth.vo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 /**
  * @author bvvy
  * @date 2019/2/17
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class GroupUserVO {
 
-    private GroupVO group;
-    private List<UserVO> user;
+    private RoleVO role;
+    private UserVO user;
 }

@@ -1,13 +1,11 @@
 package com.ying.auth.controller;
 
-import com.ying.auth.dto.GroupAddDTO;
-import com.ying.auth.dto.GroupApplyDTO;
-import com.ying.auth.dto.GroupConfirmDTO;
-import com.ying.auth.dto.InviteDTO;
+import com.ying.auth.dto.*;
 import com.ying.auth.model.Group;
 import com.ying.auth.service.GroupService;
 import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
+import com.ying.auth.vo.GroupVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.mine.vo.WarehouseVO;
@@ -61,10 +59,14 @@ public class GroupController {
 
     @GetMapping("/{id}")
     @ApiOperation("获取单个")
-    public ResponseEntity<Group> get(@PathVariable String id) {
-        Group group = groupService.get(id);
-//        Group groupVO = GroupVO.fromGroup(group);
-        return Responser.ok(group);
+    public ResponseEntity<GroupVO> get(@PathVariable String id) {
+        return Responser.ok(groupService.getVO(id));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<GroupVO> search(UserSearchDTO search) {
+        GroupVO vo = groupService.search(search);
+        return Responser.ok(vo);
     }
 
     @GetMapping("/{groupId}/users")

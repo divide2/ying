@@ -3,6 +3,7 @@ package com.ying.auth.service;
 import com.ying.auth.dto.GroupAddDTO;
 import com.ying.auth.dto.GroupApplyDTO;
 import com.ying.auth.dto.GroupConfirmDTO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.Group;
 import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
@@ -37,6 +38,7 @@ public interface GroupService extends BasicService<Group, String> {
 
     GroupVO getVO(String groupId);
 
+    GroupVO search(UserSearchDTO search);
     /**
      * todo 通知
      *
@@ -90,6 +92,7 @@ public interface GroupService extends BasicService<Group, String> {
      * @return vo
      */
     Page<OrderVO> findSendOrder(String groupId,OrderQueryParam queryParam, Pageable pageable);
+
 
 
 }

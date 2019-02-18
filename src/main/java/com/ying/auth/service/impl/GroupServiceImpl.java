@@ -3,6 +3,7 @@ package com.ying.auth.service.impl;
 import com.ying.auth.dto.GroupAddDTO;
 import com.ying.auth.dto.GroupApplyDTO;
 import com.ying.auth.dto.GroupConfirmDTO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.Group;
 import com.ying.auth.model.GroupApplication;
 import com.ying.auth.model.UserGroupRole;
@@ -56,6 +57,10 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
     @Override
     public GroupVO getVO(String groupId) {
         Group group = this.get(groupId);
+        return toGroupVO(group);
+    }
+
+    private GroupVO toGroupVO(Group group) {
         return new GroupVO(
                 group.getId(),
                 group.getName(),
@@ -81,6 +86,13 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
     private void checkGroupExists(String name) {
         Group group = groupRepository.getByName(name);
         Asserter.isNull(group);
+    }
+
+
+    @Override
+    public GroupVO search(UserSearchDTO search) {
+        Group group = groupRepository.getByName(search.getQuery());
+        return toGroupVO(group);
     }
 
     @Override

@@ -11,5 +11,6 @@ public class GroupConfirmDTO {
 
     private String groupApplicationId;
     private String memoName;
+    private Integer roleId;
 
 }

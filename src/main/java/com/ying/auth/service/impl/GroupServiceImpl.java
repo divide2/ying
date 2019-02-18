@@ -90,7 +90,6 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
         return new GroupUserVO(role, user);
     }
 
-
     @Override
     public void apply(GroupApplyDTO dto) {
 
@@ -110,16 +109,22 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
             groupApplication.setUpdateTime(LocalDateTime.now());
         }
         groupApplicationRepository.save(groupApplication);
-        // todo 通知
     }
-
     @Override
     public void confirm(GroupConfirmDTO dto) {
+
         GroupApplication groupApplication = groupApplicationRepository.getOne(dto.getGroupApplicationId());
+        UserGroupRole existsUser = userGroupRoleRepository.getByUserIdAndGroupId(groupApplication.getFromId(), groupApplication.getToGroupId());
+        Asserter.isNull(existsUser);
         groupApplication.setStatus("finish");
         groupApplication.setUpdateTime(LocalDateTime.now());
         groupApplicationRepository.save(groupApplication);
-        // todo 通知
+        UserGroupRole userGroupRole = new UserGroupRole();
+        userGroupRole.setMemoName(dto.getMemoName());
+        userGroupRole.setRoleId(dto.getRoleId());
+        userGroupRole.setGroupId(groupApplication.getToGroupId());
+        userGroupRole.setUserId(groupApplication.getFromId());
+        userGroupRoleRepository.save(userGroupRole);
 
     }
 }

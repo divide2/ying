@@ -14,12 +14,13 @@ import java.util.List;
  * @author bvvy
  * @date 2019/2/13
  */
-public interface GroupService extends BasicService<Group,String> {
+public interface GroupService extends BasicService<Group, String> {
 
     void add(GroupAddDTO dto);
 
     /**
      * 获取团队下的成员
+     *
      * @param groupId 团队
      * @return 团队成员
      */
@@ -27,7 +28,17 @@ public interface GroupService extends BasicService<Group,String> {
 
     GroupVO getVO(String groupId);
 
+    /**
+     * todo 通知
+     *
+     * @param dto
+     */
     void apply(GroupApplyDTO dto);
 
+    /**
+     * todo 通知
+     *
+     * @param dto
+     */
     void confirm(GroupConfirmDTO dto);
 }

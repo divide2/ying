@@ -4,6 +4,7 @@ import com.ying.auth.dto.GroupAddDTO;
 import com.ying.auth.dto.GroupApplyDTO;
 import com.ying.auth.dto.GroupConfirmDTO;
 import com.ying.auth.model.Group;
+import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
 import com.ying.auth.vo.GroupVO;
 import com.ying.core.basic.service.BasicService;
@@ -41,4 +42,7 @@ public interface GroupService extends BasicService<Group, String> {
      * @param dto
      */
     void confirm(GroupConfirmDTO dto);
+
+    List<GroupApplicationVO> listGroupApplications(String groupId);
+
 }

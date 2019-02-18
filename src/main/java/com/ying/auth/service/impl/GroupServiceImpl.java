@@ -11,10 +11,7 @@ import com.ying.auth.repo.GroupRepository;
 import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.service.GroupInnerConnectService;
 import com.ying.auth.service.GroupService;
-import com.ying.auth.vo.GroupUserVO;
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.RoleVO;
-import com.ying.auth.vo.UserVO;
+import com.ying.auth.vo.*;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
@@ -126,5 +123,22 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
         userGroupRole.setUserId(groupApplication.getFromId());
         userGroupRoleRepository.save(userGroupRole);
 
+    }
+
+    @Override
+    public List<GroupApplicationVO> listGroupApplications(String groupId) {
+        List<GroupApplication> groupApplications = groupApplicationRepository.findByToGroupIdOrderByUpdateTimeDesc(groupId);
+        return Converter.of(groupApplications).convert(this::toGroupApplicationVO);
+    }
+
+    private GroupApplicationVO toGroupApplicationVO(GroupApplication groupApplication) {
+
+        UserVO user = groupInnerConnectService.getUser(groupApplication.getFromId());
+        return new GroupApplicationVO(
+                groupApplication.getId(),
+                groupApplication.getMemoName(),
+                groupApplication.getStatus(),
+                user
+        );
     }
 }

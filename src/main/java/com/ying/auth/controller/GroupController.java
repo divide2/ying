@@ -6,6 +6,7 @@ import com.ying.auth.dto.GroupConfirmDTO;
 import com.ying.auth.dto.InviteDTO;
 import com.ying.auth.model.Group;
 import com.ying.auth.service.GroupService;
+import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
@@ -65,6 +66,11 @@ public class GroupController {
         return Responser.ok(groupUsers);
     }
 
+    @GetMapping("/{groupId}/applications")
+    public ResponseEntity<List<GroupApplicationVO>> listGroupApplications(@PathVariable String groupId) {
+        List<GroupApplicationVO> groupApplications = groupService.listGroupApplications(groupId);
+        return Responser.ok(groupApplications);
+    }
     @PostMapping("/invite")
     @ApiOperation("邀请")
     public ResponseEntity<Messager> invite(InviteDTO dto) {

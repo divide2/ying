@@ -20,5 +20,5 @@ public class Spec {
     private Integer id;
     private String name;
     private Integer userId;
-    private Integer companyId;
+    private Integer groupId;
 }

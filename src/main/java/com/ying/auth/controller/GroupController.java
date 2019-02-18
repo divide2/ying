@@ -10,8 +10,16 @@ import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
+import com.ying.mine.vo.WarehouseVO;
+import com.ying.order.query.OrderQueryParam;
+import com.ying.order.vo.OrderVO;
+import com.ying.product.query.StockQuery;
+import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -89,6 +97,40 @@ public class GroupController {
     public ResponseEntity<Messager> confirm(@Valid @RequestBody GroupConfirmDTO dto, Errors errors ){
         groupService.confirm(dto);
         return Responser.created();
+    }
+
+    @GetMapping("{groupId}/order/receive")
+    @ApiOperation("获取团队收到的订单")
+    public ResponseEntity<Page<OrderVO>> findReceiveOrder(@PathVariable String groupId, OrderQueryParam queryParam, Pageable pageable) {
+        return Responser.ok(groupService.findReceiveOrder(groupId,queryParam, pageable));
+    }
+
+
+    @GetMapping("{groupId}/order/send")
+    @ApiOperation("获取团对发送的订单，就是采购单")
+    public ResponseEntity<Page<OrderVO>> findSendOrder(@PathVariable String groupId,OrderQueryParam queryParam, Pageable pageable) {
+        return Responser.ok(groupService.findSendOrder(groupId,queryParam, pageable));
+    }
+
+    @GetMapping("{groupId}/stocks")
+    @ApiOperation("团队库存")
+    public ResponseEntity<Page<StockVO>> findStock(@PathVariable String groupId,Pageable pageable,  StockQuery stockQuery) {
+        Page<StockVO> vo = groupService.findStock(groupId,stockQuery, pageable);
+        return Responser.ok(vo);
+    }
+
+    @GetMapping("{groupId}/warehouses")
+    @ApiOperation("团队仓库")
+    public ResponseEntity<List<WarehouseVO>> listWarehouse(@PathVariable String groupId) {
+        List<WarehouseVO> warehouses = groupService.listWarehouse(groupId);
+        return Responser.ok(warehouses);
+    }
+
+    @GetMapping("{groupId}/products")
+    @ApiOperation("团队产品")
+    public ResponseEntity<Page<ProductVO>> product(@PathVariable String groupId,Pageable pageable) {
+        Page<ProductVO> products = groupService.findProduct(groupId,pageable);
+        return Responser.ok(products);
     }
 
 }

@@ -31,10 +31,8 @@ public class Product {
      */
     private Integer fromId;
 
-    /**
-     * 公司id
-     */
-    private Integer companyId;
+    private String groupId;
+
 
     /**
      * 名称

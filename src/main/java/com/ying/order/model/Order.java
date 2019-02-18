@@ -33,6 +33,8 @@ public class Order  {
 
     private String fromName;
 
+    private String groupId;
+
     private String orderNo;
     /**
      * 定金

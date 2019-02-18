@@ -67,12 +67,6 @@ public class ProductController {
         return Responser.ok(vo);
     }
 
-    @GetMapping("/{userId}/products")
-    @ApiOperation("获取单个用户的产品")
-    public ResponseEntity<Page<ProductVO>> products(@PathVariable Integer userId, Pageable pageable) {
-        Page<ProductVO> products = productService.findByUser(userId,pageable);
-        return Responser.ok(products);
-    }
 
     @GetMapping("/find")
     @ApiOperation("获取分页的产品")

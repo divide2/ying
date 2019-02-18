@@ -44,20 +44,12 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         vo.setSpecs(productSpecs);
         return vo;
     }
-    @Override
-    public Page<ProductVO> findByUserCompany(Integer userId, Pageable pageable) {
-        return new PageImpl<>(Collections.emptyList());
-    }
+
+
 
     @Override
-    public Page<ProductVO> findByUser(Integer userId, Pageable pageable) {
-        Page<Product> products = productRepository.findByFromId(userId, pageable);
-        return products.map(this::mergeProductSpecs);
-    }
-
-    @Override
-    public Page<ProductVO> findByCompany(Integer companyId, Pageable pageable) {
-        Page<Product> products = productRepository.findByCompanyId(companyId, pageable);
+    public Page<ProductVO> findByGroup(String  groupId, Pageable pageable) {
+        Page<Product> products = productRepository.findByGroupId(groupId, pageable);
         return products.map(this::mergeProductSpecs);
     }
 
@@ -68,7 +60,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     public void add(ProductDTO dto) {
         Product product = new Product();
         // fixme
-        product.setCompanyId(Loginer.companyId());
+        product.setGroupId(dto.getGroupId());
         product.setFromId(Loginer.userId());
         product.setFromName(Loginer.username());
         product.setCreateTime(LocalDateTime.now());

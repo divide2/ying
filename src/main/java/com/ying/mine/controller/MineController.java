@@ -85,31 +85,6 @@ public class MineController {
         return Responser.ok(chats);
     }
 
-    @GetMapping("/order/receive")
-    @ApiOperation("获取收到的订单")
-    public ResponseEntity<Page<OrderVO>> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable) {
-        return Responser.ok(mineService.findReceiveOrder(queryParam, pageable));
-    }
-
-
-    @GetMapping("/order/send")
-    @ApiOperation("获取发送的订单，就是采购单")
-    public ResponseEntity<Page<OrderVO>> findSendOrder(OrderQueryParam queryParam, Pageable pageable) {
-        return Responser.ok(mineService.findSendOrder(queryParam, pageable));
-    }
-
-    @GetMapping("/order/purchase")
-    public ResponseEntity<Page<OrderVO>> findPurchaseOrder(OrderQueryParam query, Pageable pageable) {
-        Page<OrderVO> vos = mineService.findPurchaseOrder(query, pageable);
-        return Responser.ok(vos);
-    }
-
-    @GetMapping("/order/sell")
-    public ResponseEntity<Page<OrderVO>> findSellOrder(OrderQueryParam query, Pageable pageable) {
-        Page<OrderVO> vos = mineService.findSellOrder(query, pageable);
-        return Responser.ok(vos);
-    }
-
     @GetMapping("/friends")
     @ApiOperation("我的好友")
     public ResponseEntity<List<FriendVO>> friends() {
@@ -122,34 +97,6 @@ public class MineController {
     public ResponseEntity<FriendVO> friends(@PathVariable Integer friendId) {
         FriendVO vo = mineService.getFriend(friendId);
         return Responser.ok(vo);
-    }
-
-    @GetMapping("/stocks")
-    @ApiOperation("我的库存")
-    public ResponseEntity<Page<StockVO>> findStock(Pageable pageable, @Valid StockQuery stockQuery, BindingResult br) {
-        Page<StockVO> vo = mineService.findStock(stockQuery, pageable);
-        return Responser.ok(vo);
-    }
-
-    @GetMapping("/warehouses")
-    @ApiOperation("我的仓库")
-    public ResponseEntity<List<WarehouseVO>> listWarehouse() {
-        List<WarehouseVO> warehouses = mineService.listWarehouse();
-        return Responser.ok(warehouses);
-    }
-
-    @GetMapping("/products")
-    @ApiOperation("我的产品")
-    public ResponseEntity<Page<ProductVO>> product(Pageable pageable) {
-        Page<ProductVO> products = mineService.findProduct(pageable);
-        return Responser.ok(products);
-    }
-
-    @GetMapping("/company/products")
-    @ApiOperation("我的公司的产品")
-    public ResponseEntity<Page<ProductVO>> companyProduct(Pageable pageable) {
-        Page<ProductVO> products = mineService.findCompanyProduct(pageable);
-        return Responser.ok(products);
     }
 
 

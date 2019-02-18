@@ -10,7 +10,6 @@ import java.util.List;
  * @date 2018/12/9
  */
 public interface WarehouseRepository extends JpaRepository<Warehouse,Integer> {
-    List<Warehouse> findByCompanyId(Integer companyId);
+    List<Warehouse> findByGroupId(String groupId);
 
-    List<Warehouse> findByUserId(Integer userId);
 }

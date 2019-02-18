@@ -174,20 +174,21 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         this.update(order);
     }
 
+    // todo
     @Override
-    public Page<OrderVO> findUserReceiveOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
+    public Page<OrderVO> findGroupReceiveOrder(String groupId, OrderQueryParam queryParam, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
-        predicate = predicate.and(order.toId.eq(userId));
+        predicate = predicate.and(order.groupId.eq(groupId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
     }
 
     @Override
-    public Page<OrderVO> findUserSendOrder(Integer userId, OrderQueryParam queryParam, Pageable pageable) {
+    public Page<OrderVO> findGroupSendOrder(String groupId, OrderQueryParam queryParam, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
-        predicate = predicate.and(order.fromId.eq(userId));
+        predicate = predicate.and(order.groupId.eq(groupId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
     }

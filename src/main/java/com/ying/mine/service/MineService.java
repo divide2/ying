@@ -22,19 +22,6 @@ import java.util.List;
  * @date 2018/12/10
  */
 public interface MineService {
-    /**
-     * 获取用户的仓库
-     * @return vo
-     */
-    List<WarehouseVO> listWarehouse();
-
-    /**
-     * 库存
-     * @param stockQuery q
-     * @param pageable p
-     * @return x
-     */
-    Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable);
 
     /**
      * 获取好友
@@ -44,37 +31,6 @@ public interface MineService {
 
     FriendVO getFriend(Integer friendId);
 
-    /**
-     * 获取自己的产品
-     * @param pageable p
-     * @return x
-     */
-    Page<ProductVO> findProduct(Pageable pageable);
-
-    Page<ProductVO> findCompanyProduct(Pageable pageable);
-
-    /**
-     * 获取收到的订单
-     * @param queryParam query
-     * @param pageable pageable
-     * @return x
-     */
-    Page<OrderVO> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable);
-
-
-    /**
-     * 获取发送的订单
-     * @param queryParam query
-     * @param pageable page
-     * @return vo
-     */
-    Page<OrderVO> findSendOrder(OrderQueryParam queryParam, Pageable pageable);
-
-    @Deprecated
-    Page<OrderVO> findSellOrder(OrderQueryParam query, Pageable pageable);
-
-    @Deprecated
-    Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable);
 
     /**
      * 获取历史聊天的人

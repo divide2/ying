@@ -22,12 +22,9 @@ public class WarehouseServiceImpl extends SimpleBasicServiceImpl<Warehouse,Integ
     }
 
     @Override
-    public List<Warehouse> listByCompany(Integer companyId) {
-        return warehouseRepository.findByCompanyId(companyId);
+    public List<Warehouse> listByGroup(String groupId) {
+        return warehouseRepository.findByGroupId(groupId);
     }
 
-    @Override
-    public List<Warehouse> listByUser(Integer userId) {
-        return warehouseRepository.findByUserId(userId);
-    }
+
 }

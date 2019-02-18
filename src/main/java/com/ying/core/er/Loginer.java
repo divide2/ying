@@ -27,10 +27,6 @@ public class Loginer {
         return loginUser().getNickname();
     }
 
-    public static Integer companyId() {
-        return 0;
-    }
-
     private static UserDetailsImpl loginUser() {
         return (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }

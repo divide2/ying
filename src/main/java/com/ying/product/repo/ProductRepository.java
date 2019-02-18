@@ -17,27 +17,13 @@ public interface ProductRepository  extends JpaRepository<Product,Integer> {
 
 
     /**
-     * 获取用户的产品
-     * @param userId userid
-     * @param pageable pageable
-     * @return product
-     */
-    Page<Product> findByFromId(Integer userId, Pageable pageable);
-
-    /**
      * 获取公司的商品
-     * @param companyId companyId
+     *
+     * @param groupId groupId
      * @return product
      */
-    List<Product> findByCompanyId(Integer companyId);
+    Page<Product> findByGroupId(String groupId, Pageable pageable);
 
-    /**
-     * 分页
-     * @param companyId companyId
-     * @param pageable page
-     * @return x
-     */
-    Page<Product> findByCompanyId(Integer companyId, Pageable pageable);
 
     /**
      * 获取集合

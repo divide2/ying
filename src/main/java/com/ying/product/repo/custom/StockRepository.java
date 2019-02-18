@@ -11,9 +11,8 @@ import org.springframework.data.domain.Pageable;
  * @date 2018/12/10
  */
 public interface StockRepository {
-    Page<StockVO> findByCompany(Integer companyId, StockQuery stockQuery, Pageable pageable);
 
-    Page<StockVO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findByGroup(String groupId, StockQuery stockQuery, Pageable pageable);
 
     StockVO getStock(Integer warehouseId, Integer productId);
 }

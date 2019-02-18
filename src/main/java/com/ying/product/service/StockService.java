@@ -35,11 +35,11 @@ public interface StockService {
      */
     void out(OutStockDTO dto);
 
-    Page<StockVO> findByCompany(StockQuery stockQuery, Pageable pageable);
 
     Page<StockBO> find(StockQuery stockQuery);
 
     List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId);
 
-    Page<StockVO> findByUser(Integer userId,StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findByGroup(String groupId,StockQuery stockQuery, Pageable pageable);
+
 }

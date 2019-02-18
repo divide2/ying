@@ -130,8 +130,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Page<StockVO> findByUser(Integer userId, StockQuery stockQuery, Pageable pageable) {
-        val voPage = warehouseProductRepository.findByUser(userId, stockQuery, pageable);
+    public Page<StockVO> findByGroup(String groupId, StockQuery stockQuery, Pageable pageable) {
+        val voPage = warehouseProductRepository.findByGroup(groupId, stockQuery, pageable);
         val productIds = voPage.getContent().stream().map(StockVO::getProductId).collect(Collectors.toList());
         val voMap = productRepository.findByIds(productIds);
         return voPage.map(vo -> {
@@ -143,11 +143,6 @@ public class StockServiceImpl implements StockService {
             vo.setSpecs(Converter.of(specs).convert(WarehouseProductSpecVO::from));
             return vo;
         });
-    }
-
-    @Override
-    public Page<StockVO> findByCompany(StockQuery stockQuery, Pageable pageable) {
-        return new PageImpl<StockVO>(Collections.EMPTY_LIST);
     }
 
     @Override

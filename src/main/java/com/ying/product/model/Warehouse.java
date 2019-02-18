@@ -16,9 +16,10 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer companyId;
+    private String groupId;
 
     private Integer userId;
+
     /**
      * parts P end product E
      */

@@ -17,22 +17,13 @@ import java.util.List;
  */
 public interface ProductService extends BasicService<Product,Integer> {
 
-    Page<ProductVO> findByUserCompany(Integer userId, Pageable pageable);
-
-    /**
-     * 获取用户的产品
-     * @param userId userid
-     * @param pageable pageable
-     * @return products
-     */
-    Page<ProductVO> findByUser(Integer userId, Pageable pageable);
 
     /**
      * 获取公司下的商品
-     * @param companyId companyid
+     * @param groupId groupId
      * @return x
      */
-    Page<ProductVO> findByCompany(Integer companyId, Pageable pageable);
+    Page<ProductVO> findByGroup(String groupId, Pageable pageable);
 
     /**
      * 添加

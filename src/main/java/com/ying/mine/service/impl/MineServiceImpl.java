@@ -41,32 +41,19 @@ import java.util.stream.Collectors;
 @Service
 public class MineServiceImpl implements MineService {
 
-    private final WarehouseService warehouseService;
-    private final StockService stockService;
     private final FriendService friendService;
-    private final ProductService productService;
-    private final PurchaseOrderService purchaseOrderService;
-    private final SellOrderService sellOrderService;
-    private final OrderService orderService;
     private final ChatService chatService;
     private final MessageService messageService;
     private final UserService userService;
     private final AclService aclService;
 
-    public MineServiceImpl(WarehouseService warehouseService,
-                           StockService stockService,
+    public MineServiceImpl(
                            FriendService friendService,
-                           ProductService productService,
-                           PurchaseOrderService purchaseOrderService,
-                           SellOrderService sellOrderService, OrderService orderService,
-                           ChatService chatService, MessageService messageService, UserService userService, AclService aclService) {
-        this.warehouseService = warehouseService;
-        this.stockService = stockService;
+                           ChatService chatService,
+                           MessageService messageService,
+                           UserService userService,
+                           AclService aclService) {
         this.friendService = friendService;
-        this.productService = productService;
-        this.purchaseOrderService = purchaseOrderService;
-        this.sellOrderService = sellOrderService;
-        this.orderService = orderService;
         this.chatService = chatService;
         this.messageService = messageService;
         this.userService = userService;
@@ -89,42 +76,7 @@ public class MineServiceImpl implements MineService {
         return chatService.listByUser(Loginer.userId());
     }
 
-    @Override
-    public Page<OrderVO> findReceiveOrder(OrderQueryParam queryParam, Pageable pageable) {
-        return orderService.findUserReceiveOrder(Loginer.userId(), queryParam, pageable);
-    }
 
-    @Override
-    public Page<OrderVO> findPurchaseOrder(OrderQueryParam query, Pageable pageable) {
-        return purchaseOrderService.findByUser(Loginer.userId(), query, pageable);
-    }
-
-    @Override
-    public Page<OrderVO> findSellOrder(OrderQueryParam query, Pageable pageable) {
-        return sellOrderService.findByUser(Loginer.userId(), query, pageable);
-    }
-
-    @Override
-    public Page<OrderVO> findSendOrder(OrderQueryParam queryParam, Pageable pageable) {
-        return orderService.findUserSendOrder(Loginer.userId(), queryParam, pageable);
-    }
-
-    @Override
-    public List<WarehouseVO> listWarehouse() {
-        List<Warehouse> warehouses = warehouseService.listByUser(Loginer.userId());
-        return warehouses.stream().map(warehouse -> {
-            WarehouseVO vo = new WarehouseVO();
-            vo.setId(warehouse.getId());
-            vo.setName(warehouse.getName());
-            vo.setType(warehouse.getType());
-            return vo;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<StockVO> findStock(StockQuery stockQuery, Pageable pageable) {
-        return stockService.findByUser(Loginer.userId(),stockQuery, pageable);
-    }
 
     @Override
     public List<FriendVO> listFriends() {
@@ -136,15 +88,6 @@ public class MineServiceImpl implements MineService {
         return friendService.getVO(Loginer.userId(), friendId);
     }
 
-    @Override
-    public Page<ProductVO> findProduct(Pageable pageable) {
-        return productService.findByUser(Loginer.userId(), pageable);
-    }
-
-    @Override
-    public Page<ProductVO> findCompanyProduct(Pageable pageable) {
-        return productService.findByCompany(Loginer.companyId(), pageable);
-    }
 
     @Override
     public List<UserGroupVO> listUserGroup() {

@@ -16,11 +16,21 @@ import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
+import com.ying.mine.vo.WarehouseVO;
+import com.ying.order.query.OrderQueryParam;
+import com.ying.order.vo.OrderVO;
+import com.ying.product.model.Warehouse;
+import com.ying.product.query.StockQuery;
+import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -140,5 +150,30 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
                 groupApplication.getStatus(),
                 user
         );
+    }
+
+    @Override
+    public List<WarehouseVO> listWarehouse(String groupId) {
+        return groupInnerConnectService.listWarehouse(groupId);
+    }
+
+    @Override
+    public Page<StockVO> findStock(String groupId, StockQuery stockQuery, Pageable pageable) {
+        return groupInnerConnectService.findStock(groupId, stockQuery, pageable);
+    }
+
+    @Override
+    public Page<ProductVO> findProduct(String groupId, Pageable pageable) {
+        return groupInnerConnectService.findProduct(groupId, pageable);
+    }
+
+    @Override
+    public Page<OrderVO> findReceiveOrder(String groupId, OrderQueryParam queryParam, Pageable pageable) {
+        return groupInnerConnectService.findReceiveOrder(groupId, queryParam, pageable);
+    }
+
+    @Override
+    public Page<OrderVO> findSendOrder(String groupId, OrderQueryParam queryParam, Pageable pageable) {
+        return groupInnerConnectService.findSendOrder(groupId, queryParam, pageable);
     }
 }

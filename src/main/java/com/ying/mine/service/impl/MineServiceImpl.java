@@ -2,6 +2,7 @@ package com.ying.mine.service.impl;
 
 import com.ying.auth.service.AclService;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.GroupVO;
 import com.ying.auth.vo.UserGroupVO;
 import com.ying.core.er.Loginer;
 import com.ying.friend.dto.MessageDTO;
@@ -90,7 +91,7 @@ public class MineServiceImpl implements MineService {
 
 
     @Override
-    public List<UserGroupVO> listUserGroup() {
+    public List<GroupVO> listUserGroup() {
         return userService.listUserGroup(Loginer.userId());
     }
 

@@ -10,6 +10,7 @@ import com.ying.auth.repo.UserGroupRoleRepository;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.GroupVO;
 import com.ying.auth.vo.UserGroupVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
@@ -112,7 +113,7 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     }
 
     @Override
-    public List<UserGroupVO> listUserGroup(Integer userId) {
+    public List<GroupVO> listUserGroup(Integer userId) {
         return userRepository.listUserGroup(userId);
     }
 

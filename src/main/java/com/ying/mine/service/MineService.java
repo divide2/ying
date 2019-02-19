@@ -1,5 +1,6 @@
 package com.ying.mine.service;
 
+import com.ying.auth.vo.GroupVO;
 import com.ying.auth.vo.UserGroupVO;
 import com.ying.friend.dto.MessageDTO;
 import com.ying.friend.query.MessageQuery;
@@ -54,7 +55,7 @@ public interface MineService {
      */
     void sendMessage(MessageDTO messageDTO);
 
-    List<UserGroupVO> listUserGroup();
+    List<GroupVO> listUserGroup();
 
     List<String> listAuthorities(String groupId);
 

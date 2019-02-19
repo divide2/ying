@@ -27,14 +27,59 @@
 . 创建团队
 .. 填写表单 确认添加 post /v1/group
 . 加入团队
-.. 输入搜索团队 点击申请加入
-.. 团队下成员收到信息(是不是要只能管理员确认,还是全部人都可以确认) 确认加入
+.. 输入搜索团队 get /v1/group/search
+.. 点击申请加入 填写申请表单  确认申请 post /v1/group/apply
+
+=== 团队申请信息
+
+. 获取到申请列表 /v1/group/applications
+. 接受申请  -> 填写表单 -> 确认 /v1/group/confirm
 
 === 我的团队
 
 . 我的团队 /v1/mine/groups
 . 点击团队查看详情  /v1/group/{id}
-. 详情里面有基本信息 和 邀请加入团队按钮 发送消息
-
+. 详情里面有基本信息 邀请加入团队按钮 查看团队成员 发送消息
 
 === 二维码功能
+
+TIP: todo
+
+. 团队二维码 个人二维码
+
+=== 合作团队
+
+. 申请合作 -> 输入名称搜索 -> 申请合作 post  /v1/group/cooperation/apply
+. 确认合作 -> 合作申请列表 -> get  /v1/group/cooperation/applications
+. 确认合作 ->post  /v1/group/cooperation/confirm
+, 合作伙伴 -> get  /v1/group/cooperations
+. 删除合作 delete  /v1/group/cooperation
+. 修改 put  /v1/group/cooperation
+. 删除合作申请  delete /v1/group/cooperation/application
+
+
+
+== 团队工作功能
+
+
+=== 商品
+
+|===
+| 商品列表 |get  | /v1/group/{groupId}/products
+| 添加商品 |post | /v1/product
+| 修改 | put | /v1/product
+| 删除  | delete | /v1/product
+|===
+
+=== 库存
+
+|===
+|入库|post | /v1/stock/in
+|出库| post | /v1/stock/out
+|===
+
+=== 采购
+
+
+
+

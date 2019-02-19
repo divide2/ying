@@ -1,5 +1,6 @@
 package com.ying.mine.controller;
 
+import com.ying.auth.vo.GroupVO;
 import com.ying.auth.vo.UserGroupVO;
 import com.ying.basis.model.Comment;
 import com.ying.basis.model.Star;
@@ -56,8 +57,8 @@ public class MineController {
     }
 
     @GetMapping("/groups")
-    public ResponseEntity<List<UserGroupVO>> findGroup() {
-        List<UserGroupVO> vos = mineService.listUserGroup();
+    public ResponseEntity<List<GroupVO>> findGroup() {
+        List<GroupVO> vos = mineService.listUserGroup();
         return Responser.ok(vos);
     }
 

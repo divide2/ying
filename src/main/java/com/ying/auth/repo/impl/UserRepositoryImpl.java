@@ -5,6 +5,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.auth.model.*;
 import com.ying.auth.repo.cutom.UserRepositoryCustom;
+import com.ying.auth.vo.GroupVO;
 import com.ying.auth.vo.UserGroupVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -55,9 +56,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public List<UserGroupVO> listUserGroup(Integer userId) {
+    public List<GroupVO> listUserGroup(Integer userId) {
         JPAQuery<?> query = new JPAQuery<>(entityManager);
-        return query.select(Projections.bean(UserGroupVO.class, ugr.groupId, g.name.as("groupName"),g.image.as("groupImage")))
+        return query.select(Projections.bean(GroupVO.class, g.id, g.name,g.image))
                 .from(ugr).innerJoin(g).on(ugr.groupId.eq(g.id))
                 .where(ugr.userId.eq(userId)).fetch();
     }

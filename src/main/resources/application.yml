@@ -63,6 +63,9 @@ divide:
         waiting-deliver: waiting_deliver
         waiting-receive: waiting_receive
         finish: finish
+      application:
+        waiting-confirm: waiting_confirm
+        finish: finish
     type:
       warehouse:
         pair: pair

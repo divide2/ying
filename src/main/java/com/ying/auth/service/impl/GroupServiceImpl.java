@@ -1,15 +1,8 @@
 package com.ying.auth.service.impl;
 
-import com.ying.auth.dto.GroupAddDTO;
-import com.ying.auth.dto.GroupApplyDTO;
-import com.ying.auth.dto.GroupConfirmDTO;
-import com.ying.auth.dto.UserSearchDTO;
-import com.ying.auth.model.Group;
-import com.ying.auth.model.GroupApplication;
-import com.ying.auth.model.UserGroupRole;
-import com.ying.auth.repo.GroupApplicationRepository;
-import com.ying.auth.repo.GroupRepository;
-import com.ying.auth.repo.UserGroupRoleRepository;
+import com.ying.auth.dto.*;
+import com.ying.auth.model.*;
+import com.ying.auth.repo.*;
 import com.ying.auth.service.GroupInnerConnectService;
 import com.ying.auth.service.GroupService;
 import com.ying.auth.vo.*;
@@ -20,7 +13,6 @@ import com.ying.core.root.converter.Converter;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
-import com.ying.product.model.Warehouse;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
@@ -31,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -43,15 +34,20 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
     private final GroupRepository groupRepository;
     private final GroupInnerConnectService groupInnerConnectService;
     private final GroupApplicationRepository groupApplicationRepository;
-
+    private final GroupCooperationApplicationRepository groupCooperationApplicationRepository;
+    private final GroupCooperationRepository groupCooperationRepository;
     public GroupServiceImpl(UserGroupRoleRepository userGroupRoleRepository,
                             GroupRepository groupRepository,
                             GroupInnerConnectService groupInnerConnectService,
-                            GroupApplicationRepository groupApplicationRepository) {
+                            GroupApplicationRepository groupApplicationRepository,
+                            GroupCooperationApplicationRepository groupCooperationApplicationRepository,
+                            GroupCooperationRepository groupCooperationRepository) {
         this.userGroupRoleRepository = userGroupRoleRepository;
         this.groupRepository = groupRepository;
         this.groupInnerConnectService = groupInnerConnectService;
         this.groupApplicationRepository = groupApplicationRepository;
+        this.groupCooperationApplicationRepository = groupCooperationApplicationRepository;
+        this.groupCooperationRepository = groupCooperationRepository;
     }
 
     @Override
@@ -92,6 +88,9 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
     @Override
     public GroupVO search(UserSearchDTO search) {
         Group group = groupRepository.getByName(search.getQuery());
+        if (group == null) {
+            return null;
+        }
         return toGroupVO(group);
     }
 
@@ -124,11 +123,12 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
             groupApplication.setUpdateTime(LocalDateTime.now());
             groupApplication.setStatus("waiting_confirm");
         } else {
-           groupApplication.setStatus("waiting_confirm");
+            groupApplication.setStatus("waiting_confirm");
             groupApplication.setUpdateTime(LocalDateTime.now());
         }
         groupApplicationRepository.save(groupApplication);
     }
+
     @Override
     public void confirm(GroupConfirmDTO dto) {
 
@@ -162,6 +162,58 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
                 groupApplication.getStatus(),
                 user
         );
+    }
+
+
+    @Override
+    public void confirmCooperation(GroupCooperationConfirmDTO dto) {
+        GroupCooperationApplication application = groupCooperationApplicationRepository.getOne(dto.getId());
+        application.setStatus("finish");
+        groupCooperationApplicationRepository.save(application);
+        checkExistCooperation(application.getFromGroupId(), application.getToGroupId());
+        GroupCooperation groupCooperation = new GroupCooperation();
+        groupCooperation.setCreateTime(LocalDateTime.now());
+        groupCooperation.setFromGroupId(application.getFromGroupId());
+        groupCooperation.setToGroupId(application.getToGroupId());
+        groupCooperationRepository.save(groupCooperation);
+        groupCooperation = new GroupCooperation();
+        groupCooperation.setCreateTime(LocalDateTime.now());
+        groupCooperation.setFromGroupId(application.getToGroupId());
+        groupCooperation.setToGroupId(application.getFromGroupId());
+        groupCooperationRepository.save(groupCooperation);
+
+    }
+
+    private void checkExistCooperation(String fromGroupId, String toGroupId) {
+        GroupCooperation groupCooperation = groupCooperationRepository.getByFromGroupIdAndToGroupId(fromGroupId, toGroupId);
+        Asserter.isNull(groupCooperation);
+        groupCooperation = groupCooperationRepository.getByFromGroupIdAndToGroupId(toGroupId, fromGroupId);
+        Asserter.isNull(groupCooperation);
+    }
+
+    @Override
+    public void applyCooperation(GroupCooperationApplyDTO dto) {
+        GroupCooperationApplication existApplication = groupCooperationApplicationRepository.getByFromGroupIdAndToGroupId(dto.getToGroupId(), dto.getFromGroupId());
+        if (existApplication != null) {
+            this.confirmCooperation(new GroupCooperationConfirmDTO(existApplication.getId()));
+            return;
+        }
+        checkExistCooperation(dto.getFromGroupId(), dto.getToGroupId());
+        GroupCooperationApplication groupCooperationApplication = groupCooperationApplicationRepository.getByFromGroupIdAndToGroupId(dto.getFromGroupId(), dto.getToGroupId());
+        if (groupCooperationApplication == null) {
+            groupCooperationApplication = new GroupCooperationApplication();
+        }
+        groupCooperationApplication.setCreateTime(LocalDateTime.now());
+        groupCooperationApplication.setFromGroupId(dto.getFromGroupId());
+        groupCooperationApplication.setToGroupId(dto.getToGroupId());
+        groupCooperationApplication.setRemarks(dto.getRemarks());
+        groupCooperationApplication.setStatus("waiting_confirm");
+        groupCooperationApplicationRepository.save(groupCooperationApplication);
+    }
+
+    @Override
+    public List<CooperationApplicationVO> listGroupCooperationApplication(String groupId) {
+        return null;
     }
 
     @Override

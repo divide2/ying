@@ -1,10 +1,8 @@
 package com.ying.auth.service;
 
-import com.ying.auth.dto.GroupAddDTO;
-import com.ying.auth.dto.GroupApplyDTO;
-import com.ying.auth.dto.GroupConfirmDTO;
-import com.ying.auth.dto.UserSearchDTO;
+import com.ying.auth.dto.*;
 import com.ying.auth.model.Group;
+import com.ying.auth.vo.CooperationApplicationVO;
 import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.auth.vo.GroupUserVO;
 import com.ying.auth.vo.GroupVO;
@@ -53,7 +51,25 @@ public interface GroupService extends BasicService<Group, String> {
      */
     void confirm(GroupConfirmDTO dto);
 
+
+
     List<GroupApplicationVO> listGroupApplications(String groupId);
+
+
+    /**
+     * 确认建立何总
+     * @param dto dto
+     */
+    void confirmCooperation(GroupCooperationConfirmDTO dto);
+
+    /**
+     * 申请 合作
+     * @param dto dto
+     */
+
+    void applyCooperation(GroupCooperationApplyDTO dto);
+
+    List<CooperationApplicationVO> listGroupCooperationApplication(String groupId);
 
     /**
      * 获取团队的仓库
@@ -92,7 +108,6 @@ public interface GroupService extends BasicService<Group, String> {
      * @return vo
      */
     Page<OrderVO> findSendOrder(String groupId,OrderQueryParam queryParam, Pageable pageable);
-
 
 
 }

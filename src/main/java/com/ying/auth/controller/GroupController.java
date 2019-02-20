@@ -3,9 +3,7 @@ package com.ying.auth.controller;
 import com.ying.auth.dto.*;
 import com.ying.auth.model.Group;
 import com.ying.auth.service.GroupService;
-import com.ying.auth.vo.GroupApplicationVO;
-import com.ying.auth.vo.GroupUserVO;
-import com.ying.auth.vo.GroupVO;
+import com.ying.auth.vo.*;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.mine.vo.WarehouseVO;
@@ -100,6 +98,29 @@ public class GroupController {
         groupService.confirm(dto);
         return Responser.created();
     }
+
+    @GetMapping("/{groupId}/application/cooperation")
+    @ApiOperation("合作申请")
+    public ResponseEntity<List<CooperationApplicationVO>> listCooperationApplication(@PathVariable String groupId) {
+        List<CooperationApplicationVO> cooperationApplications = groupService.listGroupCooperationApplication(groupId);
+        return Responser.ok(cooperationApplications);
+    }
+
+    @PostMapping("//apply")
+    @ApiOperation("申请合作")
+    public ResponseEntity<Messager> applyCooperation(@Valid @RequestBody GroupCooperationApplyDTO dto, Errors errors) {
+        groupService.applyCooperation(dto);
+        return Responser.created();
+    }
+
+    @PostMapping("/confirm")
+    @ApiOperation("确认合作")
+    public ResponseEntity<Messager> confirmCooperation(@Valid @RequestBody GroupCooperationConfirmDTO dto, Errors errors ){
+        groupService.confirmCooperation(dto);
+        return Responser.created();
+    }
+
+
 
     @GetMapping("{groupId}/order/receive")
     @ApiOperation("获取团队收到的订单")

@@ -99,21 +99,28 @@ public class GroupController {
         return Responser.created();
     }
 
-    @GetMapping("/{groupId}/application/cooperation")
+    @GetMapping("/{groupId}/cooperation/applications")
     @ApiOperation("合作申请")
     public ResponseEntity<List<CooperationApplicationVO>> listCooperationApplication(@PathVariable String groupId) {
         List<CooperationApplicationVO> cooperationApplications = groupService.listGroupCooperationApplication(groupId);
         return Responser.ok(cooperationApplications);
     }
 
-    @PostMapping("//apply")
+    @GetMapping("/{groupId}/cooperations")
+    @ApiOperation("合作伙伴")
+    public ResponseEntity<List<GroupVO>> listCooperations(@PathVariable String groupId) {
+        List<GroupVO> cooperations= groupService.listGroupCooperations(groupId);
+        return Responser.ok(cooperations);
+    }
+
+    @PostMapping("/cooperation/apply")
     @ApiOperation("申请合作")
     public ResponseEntity<Messager> applyCooperation(@Valid @RequestBody GroupCooperationApplyDTO dto, Errors errors) {
         groupService.applyCooperation(dto);
         return Responser.created();
     }
 
-    @PostMapping("/confirm")
+    @PostMapping("/cooperation/confirm")
     @ApiOperation("确认合作")
     public ResponseEntity<Messager> confirmCooperation(@Valid @RequestBody GroupCooperationConfirmDTO dto, Errors errors ){
         groupService.confirmCooperation(dto);

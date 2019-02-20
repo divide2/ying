@@ -2,10 +2,7 @@ package com.ying.auth.service;
 
 import com.ying.auth.dto.*;
 import com.ying.auth.model.Group;
-import com.ying.auth.vo.CooperationApplicationVO;
-import com.ying.auth.vo.GroupApplicationVO;
-import com.ying.auth.vo.GroupUserVO;
-import com.ying.auth.vo.GroupVO;
+import com.ying.auth.vo.*;
 import com.ying.core.basic.service.BasicService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
@@ -69,7 +66,19 @@ public interface GroupService extends BasicService<Group, String> {
 
     void applyCooperation(GroupCooperationApplyDTO dto);
 
+    /**
+     * 团队合作申请
+     * @param groupId groupId
+     * @return
+     */
     List<CooperationApplicationVO> listGroupCooperationApplication(String groupId);
+
+    /**
+     * 获取合作伙伴
+     * @param groupId group
+     * @return group
+     */
+    List<GroupVO> listGroupCooperations(String groupId);
 
     /**
      * 获取团队的仓库

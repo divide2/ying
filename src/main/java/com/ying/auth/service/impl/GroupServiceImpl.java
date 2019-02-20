@@ -10,6 +10,7 @@ import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
+import com.ying.friend.vo.ApplicationVO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -36,6 +37,7 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
     private final GroupApplicationRepository groupApplicationRepository;
     private final GroupCooperationApplicationRepository groupCooperationApplicationRepository;
     private final GroupCooperationRepository groupCooperationRepository;
+
     public GroupServiceImpl(UserGroupRoleRepository userGroupRoleRepository,
                             GroupRepository groupRepository,
                             GroupInnerConnectService groupInnerConnectService,
@@ -213,7 +215,29 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
 
     @Override
     public List<CooperationApplicationVO> listGroupCooperationApplication(String groupId) {
-        return null;
+        List<GroupCooperationApplication> groupCooperationApplications = groupCooperationApplicationRepository.findGroupCooperationApplications(groupId);
+        return Converter.of(groupCooperationApplications).convert(app -> {
+            CooperationApplicationVO vo = new CooperationApplicationVO();
+            vo.setId(app.getId());
+            vo.setRemarks(app.getRemarks());
+            vo.setStatus(app.getStatus());
+            GroupVO group = null;
+            if (app.getFromGroupId().equals(groupId)) {
+                group = this.getVO(app.getToGroupId());
+                vo.setSelfApply(true);
+            }
+            if (app.getToGroupId().equals(groupId)) {
+                group = this.getVO(app.getFromGroupId());
+            }
+            vo.setGroup(group);
+            return vo;
+        });
+    }
+
+    @Override
+    public List<GroupVO> listGroupCooperations(String groupId) {
+        List<GroupCooperation> vos = groupCooperationRepository.findByFromGroupId(groupId);
+        return Converter.of(vos).convert(vo -> this.getVO(vo.getToGroupId()));
     }
 
     @Override

@@ -10,5 +10,9 @@ import lombok.Data;
 public class CooperationApplicationVO {
 
     private String id;
+    private String remarks;
+    private String status;
+    private boolean selfApply;
+    private GroupVO group;
 
 }

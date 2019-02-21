@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * 聊天 就是最近聊过的人
+ * 聊天 就是最近聊过对象
  *
  * @author bvvy
  * @date 2018/12/28

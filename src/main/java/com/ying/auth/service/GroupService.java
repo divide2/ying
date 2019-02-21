@@ -69,7 +69,7 @@ public interface GroupService extends BasicService<Group, String> {
     /**
      * 团队合作申请
      * @param groupId groupId
-     * @return
+     * @return groupId
      */
     List<CooperationApplicationVO> listGroupCooperationApplication(String groupId);
 

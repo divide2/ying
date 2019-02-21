@@ -14,11 +14,17 @@ import java.time.LocalDateTime;
 public class ChatDTO {
 
     @NotNull
-    private Integer toId;
+    private Integer userId;
 
-    @NotNull
-    private Integer fromId;
+    @NotEmpty
+    private String target;
 
+    @NotEmpty
+    private String type;
+
+    private String name;
+
+    private String avatar;
     /**
      * 最后一条消息
      */

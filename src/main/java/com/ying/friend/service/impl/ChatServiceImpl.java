@@ -34,45 +34,31 @@ public class ChatServiceImpl implements ChatService {
     @Override
     public void add(ChatDTO dto) {
         // 发送方
-        Chat from = chatRepository.getByFromIdAndToId(dto.getFromId(), dto.getToId());
-        if (from == null) {
-            from = new Chat();
-            from.setUnreadCount(0);
+        Chat chat = chatRepository.getByUserIdAndTarget(dto.getUserId(), dto.getTarget());
+        if (chat == null) {
+            chat = new Chat();
+            chat.setUnreadCount(0);
         }
-        from.setFromId(dto.getFromId());
-        from.setToId(dto.getToId());
-        from.setLastMessage(dto.getLastMessage());
-        from.setLastTime(dto.getLastTime());
-        from.setOrderNum(0);
-        chatRepository.save(from);
-        // 接收方
-        Chat to = chatRepository.getByFromIdAndToId(dto.getToId(), dto.getFromId());
-        if (to == null) {
-            to = new Chat();
-            to.setUnreadCount(1);
-        } else {
-            to.setUnreadCount(to.getUnreadCount() + 1);
-        }
-        to.setFromId(dto.getToId());
-        to.setToId(dto.getFromId());
-        to.setLastMessage(dto.getLastMessage());
-        to.setLastTime(dto.getLastTime());
-        to.setOrderNum(0);
-        chatRepository.save(to);
+        chat.setTarget(dto.getTarget());
+        chat.setUserId(dto.getUserId());
+        chat.setLastMessage(dto.getLastMessage());
+        chat.setLastTime(dto.getLastTime());
+        chat.setOrderNum(0);
+        chatRepository.save(chat);
     }
 
     @Override
     public List<ChatVO> listByUser(Integer userId) {
-        List<Chat> chats = chatRepository.findByFromId(userId);
+        List<Chat> chats = chatRepository.findByUserId(userId);
         return Converter.of(chats).convert(chat -> {
-            FriendVO friend = chatInnerConnectService.getFriend(userId,chat.getToId());
+            FriendVO friend = chatInnerConnectService.getFriend(userId,chat.getUserId());
             return ChatVO.builder()
                     .id(chat.getId())
                     .lastMessage(chat.getLastMessage())
                     .lastTime(chat.getLastTime())
                     .toAvatar(friend.getAvatar())
                     .memoName(friend.getMemoName())
-                    .toId(chat.getToId())
+                    .toId(chat.getUserId())
                     .unreadCount(chat.getUnreadCount())
                     .build();
         });

@@ -24,8 +24,30 @@ public class Chat {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
-    private Integer fromId;
-    private Integer toId;
+    /**
+     * 聊天对象 int / string
+     */
+    private String target;
+    /**
+     * 对象类型
+     */
+    private String type;
+
+    /**
+     * 对象名称
+     */
+    private String name;
+
+    /**
+     * 对象的头像
+     */
+    private String avatar;
+
+    /**
+     * 属于的人
+     */
+    private Integer userId;
+
     /**
      * 最后一条消息
      */

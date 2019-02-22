@@ -1,7 +1,7 @@
 package com.ying.auth.repo;
 
-import com.ying.auth.model.Acl;
 import com.ying.auth.repo.custom.AclRepositoryCustom;
+import com.ying.team.model.Acl;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

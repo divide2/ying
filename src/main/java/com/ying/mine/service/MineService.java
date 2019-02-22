@@ -1,6 +1,6 @@
 package com.ying.mine.service;
 
-import com.ying.auth.vo.TeamVO;
+import com.ying.team.vo.TeamVO;
 import com.ying.friend.dto.MessageDTO;
 import com.ying.friend.query.MessageQuery;
 import com.ying.friend.vo.ChatVO;
@@ -48,8 +48,6 @@ public interface MineService {
      */
     void sendMessage(MessageDTO messageDTO);
 
-    List<TeamVO> listUserTeam();
-
-    List<String> listAuthorities(String teamId);
+    List<TeamVO> listUserTeams();
 
 }

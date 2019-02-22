@@ -1,8 +1,7 @@
 package com.ying.mine.service.impl;
 
-import com.ying.auth.service.AclService;
-import com.ying.auth.service.UserService;
-import com.ying.auth.vo.TeamVO;
+import com.ying.team.service.TeamService;
+import com.ying.team.vo.TeamVO;
 import com.ying.core.er.Loginer;
 import com.ying.friend.dto.MessageDTO;
 import com.ying.friend.query.MessageQuery;
@@ -29,20 +28,17 @@ public class MineServiceImpl implements MineService {
     private final FriendService friendService;
     private final ChatService chatService;
     private final MessageService messageService;
-    private final UserService userService;
-    private final AclService aclService;
+    private final TeamService teamService;
 
     public MineServiceImpl(
-                           FriendService friendService,
-                           ChatService chatService,
-                           MessageService messageService,
-                           UserService userService,
-                           AclService aclService) {
+            FriendService friendService,
+            ChatService chatService,
+            MessageService messageService,
+            TeamService teamService) {
         this.friendService = friendService;
         this.chatService = chatService;
         this.messageService = messageService;
-        this.userService = userService;
-        this.aclService = aclService;
+        this.teamService = teamService;
     }
 
     @Override
@@ -75,12 +71,8 @@ public class MineServiceImpl implements MineService {
 
 
     @Override
-    public List<TeamVO> listUserTeam() {
-        return userService.listUserTeam(Loginer.userId());
+    public List<TeamVO> listUserTeams() {
+        return teamService.listUserTeams(Loginer.userId());
     }
 
-    @Override
-    public List<String> listAuthorities(String teamId) {
-        return aclService.listAuthorities(Loginer.userId(), teamId);
-    }
 }

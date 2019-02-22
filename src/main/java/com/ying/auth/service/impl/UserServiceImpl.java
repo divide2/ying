@@ -6,11 +6,10 @@ import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
-import com.ying.auth.repo.UserTeamRoleRepository;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
-import com.ying.auth.vo.TeamVO;
+import com.ying.team.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.exception.AlreadyExistsException;
@@ -36,15 +35,6 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     @Autowired
     private UserRepository userRepository;
 
-    private final AuthConnectService authConnectService;
-
-    private final UserTeamRoleRepository userTeamRoleRepository;
-
-
-    public UserServiceImpl(AuthConnectService authConnectService, UserTeamRoleRepository userTeamRoleRepository) {
-        this.authConnectService = authConnectService;
-        this.userTeamRoleRepository = userTeamRoleRepository;
-    }
 
     @Override
     public User add(User user) {
@@ -67,10 +57,6 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         }
     }
 
-    @Override
-    public List<User> findUsersByRole(Integer roleId) {
-        return userRepository.findUsersByRole(roleId);
-    }
 
     @Override
     public Page<User> find(UserQueryDTO query, Pageable pageable) {
@@ -111,9 +97,5 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         return UserVO.fromUser(user);
     }
 
-    @Override
-    public List<TeamVO> listUserTeam(Integer userId) {
-        return userRepository.listUserTeam(userId);
-    }
 
 }

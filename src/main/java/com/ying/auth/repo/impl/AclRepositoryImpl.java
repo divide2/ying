@@ -1,8 +1,8 @@
 package com.ying.auth.repo.impl;
 
 import com.querydsl.jpa.impl.JPAQuery;
-import com.ying.auth.model.QAcl;
 import com.ying.auth.repo.custom.AclRepositoryCustom;
+import com.ying.team.model.QAcl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

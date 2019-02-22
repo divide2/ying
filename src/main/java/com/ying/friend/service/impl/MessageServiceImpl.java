@@ -60,72 +60,10 @@ public class MessageServiceImpl extends SimpleBasicServiceImpl<Message, String, 
         messageRepository.save(message);
         ChatDTO chatDTO = new ChatDTO();
         chatDTO.setUserId(dto.getToId());
-        chatDTO.setTarget(dto.getContent());
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        chatDTO.setLastMessage(message.getContent());
-        chatDTO.setLastTime(message.getCreateTime());
+        chatDTO.setTarget(dto.getFromId().toString());
+        chatDTO.setType("chat");
+        chatDTO.setContent(message.getContent());
+        // todo next
         messageInnerConnectService.addChat(chatDTO);
         simpMessagingTemplate.convertAndSendToUser(
                 toUser.getUsername(),

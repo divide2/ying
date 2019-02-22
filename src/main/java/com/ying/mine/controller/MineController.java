@@ -1,6 +1,6 @@
 package com.ying.mine.controller;
 
-import com.ying.auth.vo.TeamVO;
+import com.ying.team.vo.TeamVO;
 import com.ying.basis.model.Comment;
 import com.ying.basis.model.Star;
 import com.ying.basis.service.CommentService;
@@ -49,14 +49,8 @@ public class MineController {
 
     @GetMapping("/teams")
     public ResponseEntity<List<TeamVO>> findTeam() {
-        List<TeamVO> vos = mineService.listUserTeam();
+        List<TeamVO> vos = mineService.listUserTeams();
         return Responser.ok(vos);
-    }
-
-    @GetMapping("/team/{teamId}/authorities")
-    public ResponseEntity<List<String>> listAuthorities(@PathVariable String teamId) {
-        List<String> authorities = mineService.listAuthorities(teamId);
-        return Responser.ok(authorities);
     }
 
     @PostMapping("/message")

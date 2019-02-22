@@ -4,7 +4,7 @@ package com.ying.auth.service;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.User;
-import com.ying.auth.vo.TeamVO;
+import com.ying.team.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
@@ -31,14 +31,6 @@ public interface UserService extends BasicService<User,Integer> {
      */
     void validUsername(String username);
 
-
-    /**
-     * 获取角色所有用户
-     * @param roleId roleId
-     * @return users
-     */
-    List<User> findUsersByRole(Integer roleId);
-
     /**
      * 用户分页查询
      * @param query queyr
@@ -63,7 +55,6 @@ public interface UserService extends BasicService<User,Integer> {
 
     UserVO getByAccount(String account);
 
-    List<TeamVO> listUserTeam(Integer userId);
 
     UserVO search(UserSearchDTO search);
 }

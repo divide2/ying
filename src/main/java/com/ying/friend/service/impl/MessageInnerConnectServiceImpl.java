@@ -25,7 +25,7 @@ public class MessageInnerConnectServiceImpl implements MessageInnerConnectServic
 
     @Override
     public void addChat(ChatDTO chatDTO) {
-        chatService.add(chatDTO);
+        chatService.save(chatDTO);
     }
 
     @Override

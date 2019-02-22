@@ -104,3 +104,21 @@ TIP: todo
 | 例: user,group,remind | | ||||
 |===
 
+我提交了加入团队的申请,需要对方团队管理员的同意加入,
+或者说是需要拥有管理申请这个功能的人
+此时接收的对象是对方团队的管理员,如何确定对方是谁
+
+首先确定功能，团队申请这个功能会有一个唯一编码,例如 group_join_apply.
+通过编码获取有这个权限的人。(用户和功能的权限关系应该是 g1->u1->m1,g1->u2->m1)
+就相当于通过g1 m1查 u1,u2
+执行两次addChat -> addChat(u1,g1,'apply?',).addChat(u2,g1,)
+
+其中涉及到的 新的元素有
+
+. 菜单（id,name）(1,团队申请,x)
+. role (id,name) (1.管理员)
+. group_role (gid,rid) (1,1) 职位/部门 类型
+. group_pr_menu -> gid pid ptype  mid (1,1,role,团队申请)
+. group_role_user -> gid rid uid
+
+

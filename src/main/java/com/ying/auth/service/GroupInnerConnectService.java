@@ -1,8 +1,10 @@
 package com.ying.auth.service;
 
+import com.ying.auth.vo.MenuVO;
 import com.ying.auth.vo.RoleVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
+import com.ying.friend.dto.ChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -25,19 +27,23 @@ public interface GroupInnerConnectService extends ConnectService {
 
     /**
      * 获取团队的仓库
+     *
      * @return vo
      */
     List<WarehouseVO> listWarehouse(String groupId);
 
     /**
      * 库存
+     *
      * @param stockQuery q
-     * @param pageable p
+     * @param pageable   p
      * @return x
      */
     Page<StockVO> findStock(String groupId, StockQuery stockQuery, Pageable pageable);
+
     /**
      * 获取团队产品
+     *
      * @param pageable p
      * @return x
      */
@@ -46,8 +52,9 @@ public interface GroupInnerConnectService extends ConnectService {
 
     /**
      * 获取收到的订单
+     *
      * @param queryParam query
-     * @param pageable pageable
+     * @param pageable   pageable
      * @return x
      */
     Page<OrderVO> findReceiveOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
@@ -55,9 +62,17 @@ public interface GroupInnerConnectService extends ConnectService {
 
     /**
      * 获取发送的订单
+     *
      * @param queryParam query
-     * @param pageable page
+     * @param pageable   page
      * @return vo
      */
-    Page<OrderVO> findSendOrder(String groupId,OrderQueryParam queryParam, Pageable pageable);
+    Page<OrderVO> findSendOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
+
+    void addChat(ChatDTO chat);
+
+
+    MenuVO getMenu(String menuCode);
+
+    List<UserVO> listGroupOwnMenuUsers(String groupId, Integer menuId);
 }

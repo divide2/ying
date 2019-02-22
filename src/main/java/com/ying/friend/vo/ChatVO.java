@@ -23,15 +23,15 @@ public class ChatVO {
     private Integer toId;
 
     @ApiModelProperty("备注名")
-    private String memoName;
+    private String name;
 
-    private String toAvatar;
+    private String avatar;
 
-    @ApiModelProperty("最后一条消息")
-    private String lastMessage;
+    @ApiModelProperty("内容")
+    private String content;
 
     @ApiModelProperty("最后一条消息的时间")
-    private LocalDateTime lastTime;
+    private LocalDateTime updateTime;
 
     @ApiModelProperty("没有读过的数量")
     private Integer unreadCount;

@@ -10,7 +10,7 @@ import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
-import com.ying.friend.vo.ApplicationVO;
+import com.ying.friend.dto.ChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -129,6 +129,30 @@ public class GroupServiceImpl extends SimpleBasicServiceImpl<Group, String, Grou
             groupApplication.setUpdateTime(LocalDateTime.now());
         }
         groupApplicationRepository.save(groupApplication);
+        // 获取功能菜单 group_join_apply
+        MenuVO menu = groupInnerConnectService.getMenu("group_join_apply");
+
+        // 获取该团队下管理这个功能的人
+        List<UserVO> users = groupInnerConnectService.listGroupOwnMenuUsers(dto.getToGroupId(), menu.getId());
+
+        users.forEach(user -> {
+            groupInnerConnectService.addChat(new ChatDTO(
+                    user.getUserId(),
+                    menu.getId().toString(),
+                    "menu",
+                    menu.getName(),
+                    menu.getPath(),
+                    "你有新的团队申请"
+
+            ));
+        });
+
+      /*   //推送给谁??
+        menu.getMenu("group_apply");
+        groupInnerConnectService.addChat(new ChatDTO(
+
+        ));
+*/
     }
 
     @Override

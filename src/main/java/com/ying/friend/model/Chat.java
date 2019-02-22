@@ -51,11 +51,11 @@ public class Chat {
     /**
      * 最后一条消息
      */
-    private String lastMessage;
+    private String content;
     /**
      * 最后一条消息的时间
      */
-    private LocalDateTime lastTime;
+    private LocalDateTime updateTime;
     /**
      * 没有读过的数量
      */

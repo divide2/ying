@@ -10,6 +10,7 @@ import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,18 +33,24 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public void add(ChatDTO dto) {
+    public void save(ChatDTO dto) {
         // 发送方
-        Chat chat = chatRepository.getByUserIdAndTarget(dto.getUserId(), dto.getTarget());
+        Chat chat = chatRepository.getByUserIdAndTargetAndType(dto.getUserId(), dto.getTarget(), dto.getType());
         if (chat == null) {
             chat = new Chat();
             chat.setUnreadCount(0);
+            chat.setTarget(dto.getTarget());
+            chat.setUserId(dto.getUserId());
+            chat.setType(dto.getType());
+            chat.setAvatar(dto.getAvatar());
+            chat.setName(dto.getName());
+            chat.setOrderNum(0);
+        } else {
+            chat.setUnreadCount(chat.getUnreadCount() + 1);
         }
-        chat.setTarget(dto.getTarget());
-        chat.setUserId(dto.getUserId());
-        chat.setLastMessage(dto.getLastMessage());
-        chat.setLastTime(dto.getLastTime());
-        chat.setOrderNum(0);
+        chat.setContent(dto.getContent());
+        chat.setUpdateTime(LocalDateTime.now());
+
         chatRepository.save(chat);
     }
 
@@ -54,10 +61,10 @@ public class ChatServiceImpl implements ChatService {
             FriendVO friend = chatInnerConnectService.getFriend(userId,chat.getUserId());
             return ChatVO.builder()
                     .id(chat.getId())
-                    .lastMessage(chat.getLastMessage())
-                    .lastTime(chat.getLastTime())
-                    .toAvatar(friend.getAvatar())
-                    .memoName(friend.getMemoName())
+                    .content(chat.getContent())
+                    .updateTime(chat.getUpdateTime())
+                    .avatar(friend.getAvatar())
+                    .name(friend.getMemoName())
                     .toId(chat.getUserId())
                     .unreadCount(chat.getUnreadCount())
                     .build();

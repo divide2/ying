@@ -1,6 +1,8 @@
 package com.ying.friend.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -11,6 +13,9 @@ import java.time.LocalDateTime;
  * @date 2019/1/2
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class ChatDTO {
 
     @NotNull
@@ -22,17 +27,15 @@ public class ChatDTO {
     @NotEmpty
     private String type;
 
+    @NotEmpty
     private String name;
 
+    @NotEmpty
     private String avatar;
     /**
      * 最后一条消息
      */
     @NotEmpty
-    private String lastMessage;
-    /**
-     * 最后一条消息的时间
-     */
-    @NotNull
-    private LocalDateTime lastTime;
+    private String content;
+
 }

@@ -5,6 +5,7 @@ import com.ying.auth.model.Menu;
 import com.ying.auth.repo.MenuRepository;
 import com.ying.auth.service.MenuService;
 import com.ying.auth.val.MenuType;
+import com.ying.auth.vo.MenuVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,29 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
 
     }
 
+    @Override
+    public MenuVO getVO(Integer menuId) {
+        Menu menu = this.get(menuId);
+        return toVO(menu);
+    }
+
+    @Override
+    public MenuVO getByCode(String menuCode) {
+        Menu menu =  menuRepository.getByCode(menuCode);
+        return toVO(menu);
+    }
+
+    private MenuVO toVO(Menu menu) {
+        return MenuVO.builder()
+                .enabled(menu.getEnabled())
+                .id(menu.getId())
+                .name(menu.getName())
+                .orderNum(menu.getOrderNum())
+                .path(menu.getPath())
+                .pid(menu.getPid())
+                .type(menu.getType())
+                .code(menu.getCode())
+                .build();
+    }
 
 }

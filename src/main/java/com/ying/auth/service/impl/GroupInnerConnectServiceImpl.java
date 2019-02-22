@@ -1,11 +1,14 @@
 package com.ying.auth.service.impl;
 
 import com.ying.auth.service.GroupInnerConnectService;
+import com.ying.auth.service.MenuService;
 import com.ying.auth.service.RoleService;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.MenuVO;
 import com.ying.auth.vo.RoleVO;
 import com.ying.auth.vo.UserVO;
-import com.ying.core.er.Loginer;
+import com.ying.friend.dto.ChatDTO;
+import com.ying.friend.service.ChatService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.service.OrderService;
@@ -37,14 +40,18 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
     private final WarehouseService warehouseService;
     private final ProductService productService;
     private final StockService stockService;
+    private final ChatService chatService;
+    private final MenuService menuService;
 
-    public GroupInnerConnectServiceImpl(UserService userService, RoleService roleService, OrderService orderService, WarehouseService warehouseService, ProductService productService, StockService stockService) {
+    public GroupInnerConnectServiceImpl(UserService userService, RoleService roleService, OrderService orderService, WarehouseService warehouseService, ProductService productService, StockService stockService, ChatService chatService, MenuService menuService) {
         this.userService = userService;
         this.roleService = roleService;
         this.orderService = orderService;
         this.warehouseService = warehouseService;
         this.productService = productService;
         this.stockService = stockService;
+        this.chatService = chatService;
+        this.menuService = menuService;
     }
 
     @Override
@@ -90,5 +97,20 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
     @Override
     public Page<ProductVO> findProduct(String groupId,Pageable pageable) {
         return productService.findByGroup(groupId, pageable);
+    }
+
+    @Override
+    public void addChat(ChatDTO chat) {
+        chatService.save(chat);
+    }
+
+    @Override
+    public MenuVO getMenu(String menuCode) {
+        return menuService.getByCode(menuCode);
+    }
+
+    @Override
+    public List<UserVO> listGroupOwnMenuUsers(String groupId, Integer menuId) {
+        return null;
     }
 }

@@ -58,18 +58,8 @@ public class MenuController {
     @GetMapping("/{id}")
     @ApiOperation("获取单个")
     public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
-        Menu menu = menuService.get(id);
-        MenuVO menuVO = MenuVO.builder()
-                .enabled(menu.getEnabled())
-                .id(menu.getId())
-                .name(menu.getName())
-                .orderNum(menu.getOrderNum())
-                .path(menu.getPath())
-                .pid(menu.getPid())
-                .type(menu.getType())
-                .code(menu.getCode())
-                .build();
-        return Responser.ok(menuVO);
+        MenuVO menu = menuService.getVO(id);
+        return Responser.ok(menu);
 
     }
 

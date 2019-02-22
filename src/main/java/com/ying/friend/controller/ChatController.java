@@ -28,7 +28,7 @@ public class ChatController {
 
     @PostMapping
     public ResponseEntity<Messager> add(@RequestBody @Valid ChatDTO dto, BindingResult br) {
-        chatService.add(dto);
+        chatService.save(dto);
         return Responser.created();
     }
 }

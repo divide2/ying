@@ -7,15 +7,15 @@ import javax.persistence.*;
 /**
  * @author bvvy
  * <p>
- * 用户在组里面的角色
+ * 团队小分队下的人员
  */
 @Entity
-@Table(name = "t_team_user_role")
+@Table(name = "t_member")
 @Data
-public class UserTeamRole {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     /**
      * 团队的id
@@ -27,13 +27,18 @@ public class UserTeamRole {
      */
     private Integer userId;
     /**
-     * 角色id
+     * 所在分队
      */
-    private Integer roleId;
+    private String squadId;
 
 
     /**
      * 团队里备注
      */
     private String memoName;
+
+    /**
+     * 职位
+     */
+    private String position;
 }

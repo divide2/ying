@@ -1,24 +1,22 @@
 package com.ying.team.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author bvvy
  */
 @Data
-@Builder
-public class RoleVO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class SquadVO {
 
     @ApiModelProperty("id")
-    private Integer id;
+    private String id;
 
-    /**
-     * 角色编码
-     */
-    @ApiModelProperty("角色编码")
-    private String code;
     /**
      * 角色名称
      */

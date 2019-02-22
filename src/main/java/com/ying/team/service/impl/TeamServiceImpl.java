@@ -33,20 +33,20 @@ import java.util.List;
  */
 @Service
 public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRepository> implements TeamService {
-    private final UserTeamRoleRepository userTeamRoleRepository;
+    private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
     private final TeamInnerConnectService teamInnerConnectService;
     private final TeamApplicationRepository teamApplicationRepository;
     private final TeamCooperationApplicationRepository teamCooperationApplicationRepository;
     private final TeamCooperationRepository teamCooperationRepository;
 
-    public TeamServiceImpl(UserTeamRoleRepository userTeamRoleRepository,
+    public TeamServiceImpl(MemberRepository memberRepository,
                            TeamRepository teamRepository,
                            TeamInnerConnectService teamInnerConnectService,
                            TeamApplicationRepository teamApplicationRepository,
                            TeamCooperationApplicationRepository teamCooperationApplicationRepository,
                            TeamCooperationRepository teamCooperationRepository) {
-        this.userTeamRoleRepository = userTeamRoleRepository;
+        this.memberRepository = memberRepository;
         this.teamRepository = teamRepository;
         this.teamInnerConnectService = teamInnerConnectService;
         this.teamApplicationRepository = teamApplicationRepository;
@@ -75,12 +75,12 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         Team team = new Team();
         team.setName(dto.getName());
         this.add(team);
-        UserTeamRole userTeamRole = new UserTeamRole();
-        userTeamRole.setUserId(Loginer.userId());
-        userTeamRole.setTeamId(team.getId());
+        Member member = new Member();
+        member.setUserId(Loginer.userId());
+        member.setTeamId(team.getId());
         // todo 管理员的id
-        userTeamRole.setRoleId(1);
-        userTeamRoleRepository.save(userTeamRole);
+        member.setSquadId("");
+        memberRepository.save(member);
     }
 
     private void checkGroupExists(String name) {
@@ -99,24 +99,24 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     }
 
     @Override
-    public List<TeamUserVO> listGroupUsers(String teamId) {
+    public List<MemberVO> listGroupUsers(String teamId) {
         this.getVO(teamId);
-        List<UserTeamRole> teamUsers = userTeamRoleRepository.findByTeamId(teamId);
+        List<Member> teamUsers = memberRepository.findByTeamId(teamId);
         return Converter.of(teamUsers).convert(this::toGroupUserVO);
     }
 
-    private TeamUserVO toGroupUserVO(UserTeamRole teamUser) {
+    private MemberVO toGroupUserVO(Member member) {
 
-        UserVO user = teamInnerConnectService.getUser(teamUser.getUserId());
-        RoleVO role = teamInnerConnectService.getRole(teamUser.getRoleId());
-        return new TeamUserVO(role, user);
+        UserVO user = teamInnerConnectService.getUser(member.getUserId());
+        SquadVO squad = teamInnerConnectService.getSquad(member.getSquadId());
+        return new MemberVO(squad, user);
     }
 
     @Override
     public void apply(TeamApplyDTO dto) {
 
-        UserTeamRole existGroupUser = userTeamRoleRepository.getByUserIdAndTeamId(Loginer.userId(), dto.getToTeamId());
-        Asserter.isNull(existGroupUser);
+        Member existMember = memberRepository.getByTeamIdAndUserId(dto.getToTeamId(), Loginer.userId());
+        Asserter.isNull(existMember);
         TeamJoinApplication teamJoinApplication = teamApplicationRepository.getByFromIdAndToTeamId(Loginer.userId(), dto.getToTeamId());
         if (teamJoinApplication == null) {
             teamJoinApplication = new TeamJoinApplication();
@@ -152,27 +152,27 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     public void confirm(TeamConfirmDTO dto) {
 
         TeamJoinApplication teamJoinApplication = teamApplicationRepository.getOne(dto.getTeamApplicationId());
-        UserTeamRole existsUser = userTeamRoleRepository.getByUserIdAndTeamId(teamJoinApplication.getFromId(), teamJoinApplication.getToTeamId());
+        Member existsUser = memberRepository.getByTeamIdAndUserId(teamJoinApplication.getToTeamId(), teamJoinApplication.getFromId());
         Asserter.isNull(existsUser);
         teamJoinApplication.setStatus("finish");
         teamJoinApplication.setUpdateTime(LocalDateTime.now());
         teamApplicationRepository.save(teamJoinApplication);
-        UserTeamRole userTeamRole = new UserTeamRole();
-        userTeamRole.setMemoName(dto.getMemoName());
-        userTeamRole.setRoleId(dto.getRoleId());
-        userTeamRole.setTeamId(teamJoinApplication.getToTeamId());
-        userTeamRole.setUserId(teamJoinApplication.getFromId());
-        userTeamRoleRepository.save(userTeamRole);
+        Member member = new Member();
+        member.setMemoName(dto.getMemoName());
+        member.setSquadId(dto.getSquadId());
+        member.setTeamId(teamJoinApplication.getToTeamId());
+        member.setUserId(teamJoinApplication.getFromId());
+        memberRepository.save(member);
 
     }
 
     @Override
     public List<TeamApplicationVO> listTeamApplications(String teamId) {
         List<TeamJoinApplication> teamJoinApplications = teamApplicationRepository.findByToTeamIdOrderByUpdateTimeDesc(teamId);
-        return Converter.of(teamJoinApplications).convert(this::toGroupApplicationVO);
+        return Converter.of(teamJoinApplications).convert(this::toTeamApplicationVO);
     }
 
-    private TeamApplicationVO toGroupApplicationVO(TeamJoinApplication teamJoinApplication) {
+    private TeamApplicationVO toTeamApplicationVO(TeamJoinApplication teamJoinApplication) {
 
         UserVO user = teamInnerConnectService.getUser(teamJoinApplication.getFromId());
         return new TeamApplicationVO(
@@ -253,7 +253,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
 
     @Override
     public List<TeamVO> listUserTeams(Integer userId) {
-        List<UserTeamRole> userTeams = userTeamRoleRepository.findByUserId(userId);
+        List<Member> userTeams = memberRepository.findByUserId(userId);
         return Converter.of(userTeams).convert(userTeam -> this.getVO(userTeam.getTeamId()));
     }
 

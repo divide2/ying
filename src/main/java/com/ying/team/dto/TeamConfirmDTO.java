@@ -14,6 +14,6 @@ public class TeamConfirmDTO {
     @NotEmpty
     private String teamApplicationId;
     private String memoName;
-    private Integer roleId;
+    private String squadId;
 
 }

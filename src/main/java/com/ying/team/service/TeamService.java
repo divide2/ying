@@ -5,7 +5,7 @@ import com.ying.team.dto.*;
 import com.ying.team.model.Team;
 import com.ying.team.vo.CooperationApplicationVO;
 import com.ying.team.vo.TeamApplicationVO;
-import com.ying.team.vo.TeamUserVO;
+import com.ying.team.vo.MemberVO;
 import com.ying.team.vo.TeamVO;
 import com.ying.core.basic.service.BasicService;
 import com.ying.mine.vo.WarehouseVO;
@@ -33,7 +33,7 @@ public interface TeamService extends BasicService<Team, String> {
      * @param teamId 团队
      * @return 团队成员
      */
-    List<TeamUserVO> listGroupUsers(String teamId);
+    List<MemberVO> listGroupUsers(String teamId);
 
     TeamVO getVO(String teamId);
 

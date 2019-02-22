@@ -116,9 +116,9 @@ TIP: todo
 其中涉及到的 新的元素有
 
 . 菜单（id,name）(1,团队申请,x)
-. role (id,name) (1.管理员)
+. squad (id,name) (1.管理员)
 . group_role (gid,rid) (1,1) 职位/部门 类型
-. group_pr_menu -> gid pid ptype  mid (1,1,role,团队申请)
+. group_pr_menu -> gid pid ptype  mid (1,1,squad,团队申请)
 . group_role_user -> gid rid uid
 
 

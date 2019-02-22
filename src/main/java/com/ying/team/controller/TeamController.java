@@ -14,7 +14,7 @@ import com.ying.team.model.Team;
 import com.ying.team.service.TeamService;
 import com.ying.team.vo.CooperationApplicationVO;
 import com.ying.team.vo.TeamApplicationVO;
-import com.ying.team.vo.TeamUserVO;
+import com.ying.team.vo.MemberVO;
 import com.ying.team.vo.TeamVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,8 +73,8 @@ public class TeamController {
 
     @GetMapping("/{teamId}/users")
     @ApiOperation("获取成员")
-    public ResponseEntity<List<TeamUserVO>> listGroupUsers(@PathVariable String teamId) {
-        List<TeamUserVO> teamUsers = teamService.listGroupUsers(teamId);
+    public ResponseEntity<List<MemberVO>> listGroupUsers(@PathVariable String teamId) {
+        List<MemberVO> teamUsers = teamService.listGroupUsers(teamId);
         return Responser.ok(teamUsers);
     }
 

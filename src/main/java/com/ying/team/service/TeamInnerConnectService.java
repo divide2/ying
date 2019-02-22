@@ -1,7 +1,7 @@
 package com.ying.team.service;
 
 import com.ying.team.vo.MenuVO;
-import com.ying.team.vo.RoleVO;
+import com.ying.team.vo.SquadVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
 import com.ying.friend.dto.ChatDTO;
@@ -23,7 +23,7 @@ import java.util.List;
 public interface TeamInnerConnectService extends ConnectService {
     UserVO getUser(Integer userId);
 
-    RoleVO getRole(Integer roleId);
+    SquadVO getSquad(String squadId);
 
     /**
      * 获取团队的仓库

@@ -2,8 +2,6 @@ package com.ying.team.service.impl;
 
 
 import com.ying.auth.service.UserService;
-import com.ying.team.vo.MenuVO;
-import com.ying.team.vo.RoleVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.friend.dto.ChatDTO;
 import com.ying.friend.service.ChatService;
@@ -19,8 +17,10 @@ import com.ying.product.service.WarehouseService;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.service.MenuService;
-import com.ying.team.service.RoleService;
+import com.ying.team.service.SquadService;
 import com.ying.team.service.TeamInnerConnectService;
+import com.ying.team.vo.MenuVO;
+import com.ying.team.vo.SquadVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
 
     private final UserService userService;
-    private final RoleService roleService;
+    private final SquadService squadService;
     private final OrderService orderService;
     private final WarehouseService warehouseService;
     private final ProductService productService;
@@ -44,9 +44,18 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     private final ChatService chatService;
     private final MenuService menuService;
 
-    public TeamInnerConnectServiceImpl(UserService userService, RoleService roleService, OrderService orderService, WarehouseService warehouseService, ProductService productService, StockService stockService, ChatService chatService, MenuService menuService) {
+    public TeamInnerConnectServiceImpl(
+            UserService userService,
+            SquadService squadService,
+            OrderService orderService,
+            WarehouseService warehouseService,
+            ProductService productService,
+            StockService stockService,
+            ChatService chatService,
+            MenuService menuService) {
+
         this.userService = userService;
-        this.roleService = roleService;
+        this.squadService = squadService;
         this.orderService = orderService;
         this.warehouseService = warehouseService;
         this.productService = productService;
@@ -61,19 +70,19 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     }
 
     @Override
-    public RoleVO getRole(Integer roleId) {
-        return roleService.getVO(roleId);
+    public SquadVO getSquad(String squadId) {
+        return squadService.getVO(squadId);
     }
 
 
     @Override
-    public Page<OrderVO> findReceiveOrder(String teamId,OrderQueryParam queryParam, Pageable pageable) {
+    public Page<OrderVO> findReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
         return orderService.findTeamReceiveOrder(teamId, queryParam, pageable);
     }
 
 
     @Override
-    public Page<OrderVO> findSendOrder(String teamId,OrderQueryParam queryParam, Pageable pageable) {
+    public Page<OrderVO> findSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
         return orderService.findTeamSendOrder(teamId, queryParam, pageable);
     }
 
@@ -90,13 +99,13 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     }
 
     @Override
-    public Page<StockVO> findStock(String teamId,StockQuery stockQuery, Pageable pageable) {
-        return stockService.findByTeam(teamId,stockQuery, pageable);
+    public Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable) {
+        return stockService.findByTeam(teamId, stockQuery, pageable);
     }
 
 
     @Override
-    public Page<ProductVO> findProduct(String teamId,Pageable pageable) {
+    public Page<ProductVO> findProduct(String teamId, Pageable pageable) {
         return productService.findByTeam(teamId, pageable);
     }
 

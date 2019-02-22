@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeamUserVO {
+public class MemberVO {
 
-    private RoleVO role;
+    private SquadVO role;
     private UserVO user;
 }

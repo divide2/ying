@@ -25,7 +25,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -78,8 +81,8 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         Member member = new Member();
         member.setUserId(Loginer.userId());
         member.setTeamId(team.getId());
-        // todo 管理员的id
-        member.setSquadId("");
+        // todo 初始化权限
+        member.setPosition("管理员");
         memberRepository.save(member);
     }
 
@@ -102,15 +105,17 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     public List<MemberVO> listGroupUsers(String teamId) {
         this.getVO(teamId);
         List<Member> teamUsers = memberRepository.findByTeamId(teamId);
-        return Converter.of(teamUsers).convert(this::toGroupUserVO);
+        Map<String, List<Member>> squadMembers = teamUsers.stream().collect(Collectors.groupingBy(Member::getSquadId));
+        List<MemberVO> vos = new ArrayList<>();
+        squadMembers.forEach((squadId,members)-> {
+            SquadVO squad = teamInnerConnectService.getSquad(squadId);
+            List<UserVO> users = Converter.of(teamUsers).convert(member -> teamInnerConnectService.getUser(member.getUserId()));
+            MemberVO vo = new MemberVO(squad, users);
+            vos.add(vo);
+        });
+        return vos;
     }
 
-    private MemberVO toGroupUserVO(Member member) {
-
-        UserVO user = teamInnerConnectService.getUser(member.getUserId());
-        SquadVO squad = teamInnerConnectService.getSquad(member.getSquadId());
-        return new MemberVO(squad, user);
-    }
 
     @Override
     public void apply(TeamApplyDTO dto) {

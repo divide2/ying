@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @author bvvy
  * @date 2019/2/17
@@ -14,6 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberVO {
 
-    private SquadVO role;
-    private UserVO user;
+    private SquadVO squad;
+    private List<UserVO> user;
 }

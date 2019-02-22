@@ -1,6 +1,7 @@
 package com.ying.team.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -13,8 +14,10 @@ import javax.persistence.*;
 @Table(name = "t_member")
 @Data
 public class Member {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
     /**

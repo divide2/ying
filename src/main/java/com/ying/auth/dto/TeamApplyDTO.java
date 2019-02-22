@@ -7,9 +7,9 @@ import lombok.Data;
  * @date 2019/2/17
  */
 @Data
-public class GroupApplyDTO {
+public class TeamApplyDTO {
 
-    private String toGroupId;
+    private String toTeamId;
     private String memoName;
 
 }

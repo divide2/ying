@@ -1,9 +1,9 @@
 package com.ying.auth.service.impl;
 
 import com.ying.auth.model.Acl;
-import com.ying.auth.model.UserGroupRole;
+import com.ying.auth.model.UserTeamRole;
 import com.ying.auth.repo.AclRepository;
-import com.ying.auth.repo.UserGroupRoleRepository;
+import com.ying.auth.repo.UserTeamRoleRepository;
 import com.ying.auth.service.AclService;
 import com.ying.auth.dto.RolePerAddDTO;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,12 @@ import java.util.List;
 @Service
 public class AclServiceImpl implements AclService {
     private final AclRepository aclRepository;
-    private final UserGroupRoleRepository userGroupRoleRepository;
+    private final UserTeamRoleRepository userTeamRoleRepository;
 
     public AclServiceImpl(AclRepository aclRepository,
-                          UserGroupRoleRepository userGroupRoleRepository) {
+                          UserTeamRoleRepository userTeamRoleRepository) {
         this.aclRepository = aclRepository;
-        this.userGroupRoleRepository = userGroupRoleRepository;
+        this.userTeamRoleRepository = userTeamRoleRepository;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class AclServiceImpl implements AclService {
 
 
     @Override
-    public List<String> listAuthorities(Integer userId, String groupId) {
-        UserGroupRole userGroupRole = userGroupRoleRepository.getByUserIdAndGroupId(userId, groupId);
-        return aclRepository.findAuthorities(userGroupRole.getRoleId());
+    public List<String> listAuthorities(Integer userId, String teamId) {
+        UserTeamRole userTeamRole = userTeamRoleRepository.getByUserIdAndTeamId(userId, teamId);
+        return aclRepository.findAuthorities(userTeamRole.getRoleId());
     }
 }

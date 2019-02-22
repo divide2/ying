@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
  */
 public interface StockRepository {
 
-    Page<StockVO> findByGroup(String groupId, StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 
     StockVO getStock(Integer warehouseId, Integer productId);
 }

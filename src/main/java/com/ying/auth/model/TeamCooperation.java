@@ -11,30 +11,24 @@ import java.time.LocalDateTime;
 
 /**
  * @author bvvy
- * @date 2019/2/17
+ * @date 2019/2/20
  */
 @Data
 @Entity
-@Table(name = "g_group_application")
-public class GroupApplication {
-
+@Table(name = "t_team_cooperation")
+public class TeamCooperation {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
-    private String toGroupId;
+    /**
+     *
+     */
+    private String fromTeamId;
 
-    private String memoName;
-
-    private Integer fromId;
-
-    private String status;
-
+    private String toTeamId;
 
     private LocalDateTime createTime;
-
-    private LocalDateTime updateTime;
-
 }

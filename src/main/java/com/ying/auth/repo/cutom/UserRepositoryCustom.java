@@ -1,8 +1,7 @@
 package com.ying.auth.repo.cutom;
 
 import com.ying.auth.model.User;
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public interface UserRepositoryCustom {
      * @param userId 用户
      * @return 团队
      */
-    List<GroupVO> listUserGroup(Integer userId);
+    List<TeamVO> listUserTeam(Integer userId);
 
 
 }

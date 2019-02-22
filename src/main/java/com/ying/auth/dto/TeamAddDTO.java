@@ -8,7 +8,7 @@ import lombok.Data;
  * @date 2019/2/13
  */
 @Data
-public class GroupAddDTO {
+public class TeamAddDTO {
 
     @ApiModelProperty("名字")
     private String name;

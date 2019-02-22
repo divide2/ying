@@ -49,21 +49,21 @@ public interface OrderService extends BasicService<Order, Integer> {
 
     /**
      * 获取用户收到的订单
-     * @param groupId groupId
+     * @param teamId teamId
      * @param queryParam query
      * @param pageable pageable
      * @return page
      */
-    Page<OrderVO> findGroupReceiveOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
+    Page<OrderVO> findTeamReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
 
 
     /**
      * 获取用户发送的订单
-     * @param groupId groupId
+     * @param teamId teamId
      * @param queryParam query
      * @param pageable pageable
      * @return page
      */
-    Page<OrderVO> findGroupSendOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
+    Page<OrderVO> findTeamSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
 
 }

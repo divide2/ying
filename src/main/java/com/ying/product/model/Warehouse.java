@@ -16,7 +16,7 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String groupId;
+    private String teamId;
 
     private Integer userId;
 

@@ -9,10 +9,10 @@ import javax.validation.constraints.NotEmpty;
  * @date 2019/2/17
  */
 @Data
-public class GroupConfirmDTO {
+public class TeamConfirmDTO {
 
     @NotEmpty
-    private String groupApplicationId;
+    private String teamApplicationId;
     private String memoName;
     private Integer roleId;
 

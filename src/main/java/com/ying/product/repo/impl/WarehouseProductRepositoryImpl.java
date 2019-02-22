@@ -40,13 +40,13 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
 
 
     @Override
-    public Page<StockVO> findByGroup(String groupId, StockQuery stockQuery, Pageable pageable) {
+    public Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(stockQuery);
         JPAQuery<StockVO> query = createQuery().select(qBean)
                 .from(w)
                 .innerJoin(wp).on(w.id.eq(wp.warehouseId))
                 .innerJoin(p).on(p.id.eq(wp.productId))
-                .where(w.groupId.eq(groupId).and(predicate));
+                .where(w.teamId.eq(teamId).and(predicate));
         return super.findPage(query, pageable);
     }
 

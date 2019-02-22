@@ -1,6 +1,6 @@
 package com.ying.auth.service.impl;
 
-import com.ying.auth.service.GroupInnerConnectService;
+import com.ying.auth.service.TeamInnerConnectService;
 import com.ying.auth.service.MenuService;
 import com.ying.auth.service.RoleService;
 import com.ying.auth.service.UserService;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
  * @date 2019/2/17
  */
 @Service
-public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
+public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
 
     private final UserService userService;
     private final RoleService roleService;
@@ -43,7 +43,7 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
     private final ChatService chatService;
     private final MenuService menuService;
 
-    public GroupInnerConnectServiceImpl(UserService userService, RoleService roleService, OrderService orderService, WarehouseService warehouseService, ProductService productService, StockService stockService, ChatService chatService, MenuService menuService) {
+    public TeamInnerConnectServiceImpl(UserService userService, RoleService roleService, OrderService orderService, WarehouseService warehouseService, ProductService productService, StockService stockService, ChatService chatService, MenuService menuService) {
         this.userService = userService;
         this.roleService = roleService;
         this.orderService = orderService;
@@ -66,19 +66,19 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
 
 
     @Override
-    public Page<OrderVO> findReceiveOrder(String groupId,OrderQueryParam queryParam, Pageable pageable) {
-        return orderService.findGroupReceiveOrder(groupId, queryParam, pageable);
+    public Page<OrderVO> findReceiveOrder(String teamId,OrderQueryParam queryParam, Pageable pageable) {
+        return orderService.findTeamReceiveOrder(teamId, queryParam, pageable);
     }
 
 
     @Override
-    public Page<OrderVO> findSendOrder(String groupId,OrderQueryParam queryParam, Pageable pageable) {
-        return orderService.findGroupSendOrder(groupId, queryParam, pageable);
+    public Page<OrderVO> findSendOrder(String teamId,OrderQueryParam queryParam, Pageable pageable) {
+        return orderService.findTeamSendOrder(teamId, queryParam, pageable);
     }
 
     @Override
-    public List<WarehouseVO> listWarehouse(String groupId) {
-        List<Warehouse> warehouses = warehouseService.listByGroup(groupId);
+    public List<WarehouseVO> listWarehouse(String teamId) {
+        List<Warehouse> warehouses = warehouseService.listByTeam(teamId);
         return warehouses.stream().map(warehouse -> {
             WarehouseVO vo = new WarehouseVO();
             vo.setId(warehouse.getId());
@@ -89,14 +89,14 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
     }
 
     @Override
-    public Page<StockVO> findStock(String groupId,StockQuery stockQuery, Pageable pageable) {
-        return stockService.findByGroup(groupId,stockQuery, pageable);
+    public Page<StockVO> findStock(String teamId,StockQuery stockQuery, Pageable pageable) {
+        return stockService.findByTeam(teamId,stockQuery, pageable);
     }
 
 
     @Override
-    public Page<ProductVO> findProduct(String groupId,Pageable pageable) {
-        return productService.findByGroup(groupId, pageable);
+    public Page<ProductVO> findProduct(String teamId,Pageable pageable) {
+        return productService.findByTeam(teamId, pageable);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class GroupInnerConnectServiceImpl implements GroupInnerConnectService {
     }
 
     @Override
-    public List<UserVO> listGroupOwnMenuUsers(String groupId, Integer menuId) {
+    public List<UserVO> listGroupOwnMenuUsers(String teamId, Integer menuId) {
         return null;
     }
 }

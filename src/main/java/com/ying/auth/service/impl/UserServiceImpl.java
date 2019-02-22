@@ -6,12 +6,11 @@ import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
-import com.ying.auth.repo.UserGroupRoleRepository;
+import com.ying.auth.repo.UserTeamRoleRepository;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.exception.AlreadyExistsException;
@@ -39,12 +38,12 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
     private final AuthConnectService authConnectService;
 
-    private final UserGroupRoleRepository userGroupRoleRepository;
+    private final UserTeamRoleRepository userTeamRoleRepository;
 
 
-    public UserServiceImpl(AuthConnectService authConnectService, UserGroupRoleRepository userGroupRoleRepository) {
+    public UserServiceImpl(AuthConnectService authConnectService, UserTeamRoleRepository userTeamRoleRepository) {
         this.authConnectService = authConnectService;
-        this.userGroupRoleRepository = userGroupRoleRepository;
+        this.userTeamRoleRepository = userTeamRoleRepository;
     }
 
     @Override
@@ -113,8 +112,8 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     }
 
     @Override
-    public List<GroupVO> listUserGroup(Integer userId) {
-        return userRepository.listUserGroup(userId);
+    public List<TeamVO> listUserTeam(Integer userId) {
+        return userRepository.listUserTeam(userId);
     }
 
 }

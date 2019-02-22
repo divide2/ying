@@ -1,18 +1,11 @@
 package com.ying.mine.service;
 
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import com.ying.friend.dto.MessageDTO;
 import com.ying.friend.query.MessageQuery;
 import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
 import com.ying.friend.vo.MessageVO;
-import com.ying.mine.vo.WarehouseVO;
-import com.ying.order.query.OrderQueryParam;
-import com.ying.order.vo.OrderVO;
-import com.ying.product.query.StockQuery;
-import com.ying.product.vo.ProductVO;
-import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -55,8 +48,8 @@ public interface MineService {
      */
     void sendMessage(MessageDTO messageDTO);
 
-    List<GroupVO> listUserGroup();
+    List<TeamVO> listUserTeam();
 
-    List<String> listAuthorities(String groupId);
+    List<String> listAuthorities(String teamId);
 
 }

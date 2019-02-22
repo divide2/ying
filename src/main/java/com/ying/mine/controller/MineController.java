@@ -1,7 +1,6 @@
 package com.ying.mine.controller;
 
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import com.ying.basis.model.Comment;
 import com.ying.basis.model.Star;
 import com.ying.basis.service.CommentService;
@@ -16,23 +15,15 @@ import com.ying.friend.vo.ChatVO;
 import com.ying.friend.vo.FriendVO;
 import com.ying.friend.vo.MessageVO;
 import com.ying.mine.service.MineService;
-import com.ying.mine.vo.WarehouseVO;
-import com.ying.order.query.OrderQueryParam;
-import com.ying.order.vo.OrderVO;
-import com.ying.product.query.StockQuery;
-import com.ying.product.vo.ProductVO;
-import com.ying.product.vo.StockVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.BindingType;
 import java.util.List;
 
 /**
@@ -56,15 +47,15 @@ public class MineController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/groups")
-    public ResponseEntity<List<GroupVO>> findGroup() {
-        List<GroupVO> vos = mineService.listUserGroup();
+    @GetMapping("/teams")
+    public ResponseEntity<List<TeamVO>> findTeam() {
+        List<TeamVO> vos = mineService.listUserTeam();
         return Responser.ok(vos);
     }
 
-    @GetMapping("/group/{groupId}/authorities")
-    public ResponseEntity<List<String>> listAuthorities(@PathVariable String groupId) {
-        List<String> authorities = mineService.listAuthorities(groupId);
+    @GetMapping("/team/{teamId}/authorities")
+    public ResponseEntity<List<String>> listAuthorities(@PathVariable String teamId) {
+        List<String> authorities = mineService.listAuthorities(teamId);
         return Responser.ok(authorities);
     }
 

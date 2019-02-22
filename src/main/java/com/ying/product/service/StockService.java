@@ -40,6 +40,6 @@ public interface StockService {
 
     List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId);
 
-    Page<StockVO> findByGroup(String groupId,StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 
 }

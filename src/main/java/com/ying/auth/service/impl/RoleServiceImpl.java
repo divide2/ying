@@ -5,9 +5,9 @@ import com.ying.auth.repo.AclRepository;
 import com.ying.auth.dto.RoleAddAuthDTO;
 import com.ying.auth.dto.RoleAddUsersDTO;
 import com.ying.auth.dto.RoleQueryDTO;
-import com.ying.auth.model.UserGroupRole;
+import com.ying.auth.model.UserTeamRole;
 import com.ying.auth.repo.RoleRepository;
-import com.ying.auth.repo.UserGroupRoleRepository;
+import com.ying.auth.repo.UserTeamRoleRepository;
 import com.ying.auth.service.RoleService;
 import com.ying.auth.service.MenuService;
 import com.ying.auth.vo.RoleVO;
@@ -27,16 +27,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleRepository> implements RoleService {
 
     private final RoleRepository roleRepository;
-    private final UserGroupRoleRepository userGroupRoleRepository;
+    private final UserTeamRoleRepository userTeamRoleRepository;
     private final MenuService menuService;
     private final AclRepository aclRepository;
 
     public RoleServiceImpl(RoleRepository roleRepository,
-                           UserGroupRoleRepository userGroupRoleRepository,
+                           UserTeamRoleRepository userTeamRoleRepository,
                            MenuService menuService,
                            AclRepository aclRepository) {
         this.roleRepository = roleRepository;
-        this.userGroupRoleRepository = userGroupRoleRepository;
+        this.userTeamRoleRepository = userTeamRoleRepository;
         this.menuService = menuService;
         this.aclRepository = aclRepository;
     }
@@ -57,13 +57,13 @@ public class RoleServiceImpl extends SimpleBasicServiceImpl<Role, Integer, RoleR
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addUsers(RoleAddUsersDTO roleAddUsersDTO) {
-        userGroupRoleRepository.deleteByRoleId(roleAddUsersDTO.getRoleId());
+        userTeamRoleRepository.deleteByRoleId(roleAddUsersDTO.getRoleId());
         roleAddUsersDTO.getUserIds()
                 .forEach(userId -> {
-                    UserGroupRole ur = new UserGroupRole();
+                    UserTeamRole ur = new UserTeamRole();
                     ur.setRoleId(roleAddUsersDTO.getRoleId());
                     ur.setUserId(userId);
-                    userGroupRoleRepository.save(ur);
+                    userTeamRoleRepository.save(ur);
                 });
     }
 

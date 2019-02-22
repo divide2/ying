@@ -1,6 +1,5 @@
 package com.ying.core.basic.service.impl;
 
-import com.ying.auth.vo.GroupApplicationVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

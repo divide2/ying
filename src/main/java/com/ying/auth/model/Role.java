@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "sys_role")
+@Table(name = "t_role")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

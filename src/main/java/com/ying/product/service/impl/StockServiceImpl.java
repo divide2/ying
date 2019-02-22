@@ -20,13 +20,11 @@ import com.ying.product.vo.StockVO;
 import com.ying.product.vo.WarehouseProductSpecVO;
 import lombok.val;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -130,8 +128,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Page<StockVO> findByGroup(String groupId, StockQuery stockQuery, Pageable pageable) {
-        val voPage = warehouseProductRepository.findByGroup(groupId, stockQuery, pageable);
+    public Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable) {
+        val voPage = warehouseProductRepository.findByTeam(teamId, stockQuery, pageable);
         val productIds = voPage.getContent().stream().map(StockVO::getProductId).collect(Collectors.toList());
         val voMap = productRepository.findByIds(productIds);
         return voPage.map(vo -> {

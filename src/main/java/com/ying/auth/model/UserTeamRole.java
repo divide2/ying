@@ -10,9 +10,9 @@ import javax.persistence.*;
  * 用户在组里面的角色
  */
 @Entity
-@Table(name = "sys_user_group_role")
+@Table(name = "t_user_team_role")
 @Data
-public class UserGroupRole {
+public class UserTeamRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,7 +28,7 @@ public class UserGroupRole {
     /**
      * 团队的id
      */
-    private String groupId;
+    private String teamId;
 
     /**
      * 团队里备注

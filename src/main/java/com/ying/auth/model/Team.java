@@ -10,9 +10,9 @@ import javax.persistence.*;
  * @date 2018/12/4
  */
 @Entity
-@Table(name = "sys_group")
+@Table(name = "t_team")
 @Data
-public class Group {
+public class Team {
 
     @Id
     @GeneratedValue(generator = "uuid")

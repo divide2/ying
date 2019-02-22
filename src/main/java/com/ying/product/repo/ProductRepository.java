@@ -19,10 +19,10 @@ public interface ProductRepository  extends JpaRepository<Product,Integer> {
     /**
      * 获取公司的商品
      *
-     * @param groupId groupId
+     * @param teamId teamId
      * @return product
      */
-    Page<Product> findByGroupId(String groupId, Pageable pageable);
+    Page<Product> findByTeamId(String teamId, Pageable pageable);
 
 
     /**

@@ -1,6 +1,5 @@
 package com.ying.core.er;
 
-import com.ying.auth.model.Group;
 import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.exception.NotFoundException;
 

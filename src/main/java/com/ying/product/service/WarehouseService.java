@@ -13,5 +13,5 @@ import java.util.List;
 public interface WarehouseService extends BasicService<Warehouse, Integer> {
 
 
-    List<Warehouse> listByGroup(String groupId);
+    List<Warehouse> listByTeam(String teamId);
 }

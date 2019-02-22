@@ -4,8 +4,7 @@ package com.ying.auth.service;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.User;
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
@@ -64,7 +63,7 @@ public interface UserService extends BasicService<User,Integer> {
 
     UserVO getByAccount(String account);
 
-    List<GroupVO> listUserGroup(Integer userId);
+    List<TeamVO> listUserTeam(Integer userId);
 
     UserVO search(UserSearchDTO search);
 }

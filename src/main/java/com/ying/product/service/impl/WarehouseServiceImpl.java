@@ -22,8 +22,8 @@ public class WarehouseServiceImpl extends SimpleBasicServiceImpl<Warehouse,Integ
     }
 
     @Override
-    public List<Warehouse> listByGroup(String groupId) {
-        return warehouseRepository.findByGroupId(groupId);
+    public List<Warehouse> listByTeam(String teamId) {
+        return warehouseRepository.findByTeamId(teamId);
     }
 
 

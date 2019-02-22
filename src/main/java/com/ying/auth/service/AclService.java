@@ -21,8 +21,8 @@ public interface AclService {
     /**
      * 获取这个人在团队下可以访问的功能
      * @param userId userid
-     * @param groupId groupid
+     * @param teamId teamId
      * @return 功能码
      */
-    List<String> listAuthorities(Integer userId, String groupId);
+    List<String> listAuthorities(Integer userId, String teamId);
 }

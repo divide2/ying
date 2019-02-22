@@ -31,7 +31,7 @@ public class Product {
      */
     private Integer fromId;
 
-    private String groupId;
+    private String teamId;
 
 
     /**

@@ -28,17 +28,17 @@
 创建团队 加入团队
 
 . 创建团队
-.. 填写表单 确认添加 post /v1/group
+.. 填写表单 确认添加 post /v1/team
 . 加入团队
-.. 输入搜索团队 get /v1/group/search
-.. 点击申请加入 填写申请表单  确认申请 post /v1/group/apply
+.. 输入搜索团队 get /v1/team/search
+.. 点击申请加入 填写申请表单  确认申请 post /v1/team/apply
 
 
 
 === 我的团队
 
 . 我的团队 /v1/mine/groups
-. 点击团队查看详情  /v1/group/{id}
+. 点击团队查看详情  /v1/team/{id}
 . 详情里面有基本信息 邀请加入团队按钮 查看团队成员 发送消息
 
 === 我的好友
@@ -57,25 +57,25 @@ TIP: todo
 
 === 合作团队
 
-. 申请合作 -> 输入名称搜索 -> 申请合作 post  /v1/group/cooperation/apply
-. 确认合作 -> 合作申请列表 -> get  /v1/group/cooperation/applications
-. 确认合作 ->post  /v1/group/cooperation/confirm
-, 合作伙伴 -> get  /v1/group/cooperations
-. 删除合作 delete  /v1/group/cooperation
-. 修改 put  /v1/group/cooperation
-. 删除合作申请  delete /v1/group/cooperation/application
+. 申请合作 -> 输入名称搜索 -> 申请合作 post  /v1/team/cooperation/apply
+. 确认合作 -> 合作申请列表 -> get  /v1/team/cooperation/applications
+. 确认合作 ->post  /v1/team/cooperation/confirm
+, 合作伙伴 -> get  /v1/team/cooperations
+. 删除合作 delete  /v1/team/cooperation
+. 修改 put  /v1/team/cooperation
+. 删除合作申请  delete /v1/team/cooperation/application
 
 === 团队申请信息
 
-. 获取到申请列表 /v1/group/applications
-. 接受申请  -> 填写表单 -> 确认 /v1/group/confirm
+. 获取到申请列表 /v1/team/applications
+. 接受申请  -> 填写表单 -> 确认 /v1/team/confirm
 
 
 
 === 商品
 
 |===
-| 商品列表 |get  | /v1/group/{groupId}/products
+| 商品列表 |get  | /v1/team/{teamId}/products
 | 添加商品 |post | /v1/product
 | 修改 | put | /v1/product
 | 删除  | delete | /v1/product
@@ -101,7 +101,7 @@ TIP: todo
 |===
 | 聊天对象类型   | 未读数量 | 最后一次消息内容 | 最后消息时间 | 名字| 头像
 
-| 例: user,group,remind | | ||||
+| 例: user,team,remind | | ||||
 |===
 
 我提交了加入团队的申请,需要对方团队管理员的同意加入,

@@ -20,7 +20,7 @@ import java.util.List;
  * @author bvvy
  * @date 2019/2/17
  */
-public interface GroupInnerConnectService extends ConnectService {
+public interface TeamInnerConnectService extends ConnectService {
     UserVO getUser(Integer userId);
 
     RoleVO getRole(Integer roleId);
@@ -30,7 +30,7 @@ public interface GroupInnerConnectService extends ConnectService {
      *
      * @return vo
      */
-    List<WarehouseVO> listWarehouse(String groupId);
+    List<WarehouseVO> listWarehouse(String teamId);
 
     /**
      * 库存
@@ -39,7 +39,7 @@ public interface GroupInnerConnectService extends ConnectService {
      * @param pageable   p
      * @return x
      */
-    Page<StockVO> findStock(String groupId, StockQuery stockQuery, Pageable pageable);
+    Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable);
 
     /**
      * 获取团队产品
@@ -47,7 +47,7 @@ public interface GroupInnerConnectService extends ConnectService {
      * @param pageable p
      * @return x
      */
-    Page<ProductVO> findProduct(String groupId, Pageable pageable);
+    Page<ProductVO> findProduct(String teamId, Pageable pageable);
 
 
     /**
@@ -57,7 +57,7 @@ public interface GroupInnerConnectService extends ConnectService {
      * @param pageable   pageable
      * @return x
      */
-    Page<OrderVO> findReceiveOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
+    Page<OrderVO> findReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
 
 
     /**
@@ -67,12 +67,12 @@ public interface GroupInnerConnectService extends ConnectService {
      * @param pageable   page
      * @return vo
      */
-    Page<OrderVO> findSendOrder(String groupId, OrderQueryParam queryParam, Pageable pageable);
+    Page<OrderVO> findSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
 
     void addChat(ChatDTO chat);
 
 
     MenuVO getMenu(String menuCode);
 
-    List<UserVO> listGroupOwnMenuUsers(String groupId, Integer menuId);
+    List<UserVO> listGroupOwnMenuUsers(String teamId, Integer menuId);
 }

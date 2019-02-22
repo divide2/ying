@@ -5,8 +5,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.auth.model.*;
 import com.ying.auth.repo.cutom.UserRepositoryCustom;
-import com.ying.auth.vo.GroupVO;
-import com.ying.auth.vo.UserGroupVO;
+import com.ying.auth.vo.TeamVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -22,9 +21,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private EntityManager entityManager;
     private QUser user = QUser.user;
     private QRole role = QRole.role;
-    private QGroup g = QGroup.group;
-    private QUserGroupRole ur = QUserGroupRole.userGroupRole;
-    private QUserGroupRole ugr = QUserGroupRole.userGroupRole;
+    private QTeam team = QTeam.team;
+    private QUserTeamRole ur = QUserTeamRole.userTeamRole;
+    private QUserTeamRole utr = QUserTeamRole.userTeamRole;
 
 
     @Override
@@ -56,11 +55,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     }
 
     @Override
-    public List<GroupVO> listUserGroup(Integer userId) {
+    public List<TeamVO> listUserTeam(Integer userId) {
         JPAQuery<?> query = new JPAQuery<>(entityManager);
-        return query.select(Projections.bean(GroupVO.class, g.id, g.name,g.image))
-                .from(ugr).innerJoin(g).on(ugr.groupId.eq(g.id))
-                .where(ugr.userId.eq(userId)).fetch();
+        return query.select(Projections.bean(TeamVO.class, team.id, team.name,team.image))
+                .from(utr).innerJoin(team).on(utr.teamId.eq(team.id))
+                .where(utr.userId.eq(userId)).fetch();
     }
 
 }

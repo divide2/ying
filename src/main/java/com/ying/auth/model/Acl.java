@@ -12,7 +12,7 @@ import javax.persistence.*;
  * @author bvvy
  */
 @Entity
-@Table(name = "sys_acl")
+@Table(name = "t_acl")
 @Data
 @Builder
 @NoArgsConstructor

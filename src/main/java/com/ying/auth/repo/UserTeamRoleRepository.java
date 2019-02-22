@@ -1,6 +1,6 @@
 package com.ying.auth.repo;
 
-import com.ying.auth.model.UserGroupRole;
+import com.ying.auth.model.UserTeamRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author bvvy
  */
-public interface UserGroupRoleRepository extends JpaRepository<UserGroupRole, Integer> {
+public interface UserTeamRoleRepository extends JpaRepository<UserTeamRole, Integer> {
 
     /**
      * 通过角色id来删除
@@ -23,17 +23,17 @@ public interface UserGroupRoleRepository extends JpaRepository<UserGroupRole, In
      * 用户在团队下的角色
      *
      * @param userId  userid
-     * @param groupId groupid
+     * @param teamId teamid
      */
-    UserGroupRole getByUserIdAndGroupId(Integer userId, String groupId);
+    UserTeamRole getByUserIdAndTeamId(Integer userId, String teamId);
 
 
     /**
      * 团队下的人员
      *
-     * @param groupId 团队
+     * @param teamId 团队
      * @return info
      */
-    List<UserGroupRole> findByGroupId(String groupId);
+    List<UserTeamRole> findByTeamId(String teamId);
 
 }

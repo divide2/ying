@@ -20,10 +20,10 @@ public interface ProductService extends BasicService<Product,Integer> {
 
     /**
      * 获取公司下的商品
-     * @param groupId groupId
+     * @param teamId teamId
      * @return x
      */
-    Page<ProductVO> findByGroup(String groupId, Pageable pageable);
+    Page<ProductVO> findByTeam(String teamId, Pageable pageable);
 
     /**
      * 添加

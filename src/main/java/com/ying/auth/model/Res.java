@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Data
 @Entity
-@Table(name = "sys_res")
+@Table(name = "t_res")
 public class Res {
 
     @Id

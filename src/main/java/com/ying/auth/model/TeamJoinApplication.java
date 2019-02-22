@@ -10,27 +10,31 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * 合作申请
  * @author bvvy
- * @date 2019/2/20
+ * @date 2019/2/17
  */
 @Data
 @Entity
-@Table(name = "g_group_cooperation_application")
-public class GroupCooperationApplication {
+@Table(name = "t_team_application")
+public class TeamJoinApplication {
+
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
-    private String fromGroupId;
+    private String toTeamId;
 
-    private String toGroupId;
+    private String memoName;
 
-    private String remarks;
+    private Integer fromId;
 
     private String status;
 
+
     private LocalDateTime createTime;
+
+    private LocalDateTime updateTime;
+
 }

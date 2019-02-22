@@ -11,13 +11,11 @@ import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,8 +46,8 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
 
 
     @Override
-    public Page<ProductVO> findByGroup(String  groupId, Pageable pageable) {
-        Page<Product> products = productRepository.findByGroupId(groupId, pageable);
+    public Page<ProductVO> findByTeam(String  teamId, Pageable pageable) {
+        Page<Product> products = productRepository.findByTeamId(teamId, pageable);
         return products.map(this::mergeProductSpecs);
     }
 
@@ -60,7 +58,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     public void add(ProductDTO dto) {
         Product product = new Product();
         // fixme
-        product.setGroupId(dto.getGroupId());
+        product.setTeamId(dto.getTeamId());
         product.setFromId(Loginer.userId());
         product.setFromName(Loginer.username());
         product.setCreateTime(LocalDateTime.now());

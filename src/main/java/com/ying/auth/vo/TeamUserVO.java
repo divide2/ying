@@ -1,4 +1,4 @@
-package com.ying.auth.dto;
+package com.ying.auth.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author bvvy
- * @date 2019/2/20
+ * @date 2019/2/17
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GroupCooperationConfirmDTO {
+public class TeamUserVO {
 
-    private String id;
+    private RoleVO role;
+    private UserVO user;
 }

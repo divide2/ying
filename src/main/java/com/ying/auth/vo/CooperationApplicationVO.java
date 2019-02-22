@@ -13,6 +13,6 @@ public class CooperationApplicationVO {
     private String remarks;
     private String status;
     private boolean selfApply;
-    private GroupVO group;
+    private TeamVO team;
 
 }

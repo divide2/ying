@@ -33,7 +33,7 @@ public class Order  {
 
     private String fromName;
 
-    private String groupId;
+    private String teamId;
 
     private String orderNo;
     /**

@@ -449,11 +449,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#true--16">3.5. 采购</a></li>
 </ul>
 </li>
-<li><a href="#true--17">4. 聊天</a>
-<ul class="sectlevel2">
-<li><a href="#true--18">4.1. 聊天记录</a></li>
-</ul>
-</li>
+<li><a href="#true--17">4. 聊天</a></li>
 </ul>
 </div>
 </div>
@@ -519,7 +515,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>填写表单 确认添加 post /v1/group</p>
+<p>填写表单 确认添加 post /v1/team</p>
 </li>
 </ol>
 </div>
@@ -529,10 +525,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>输入搜索团队 get /v1/group/search</p>
+<p>输入搜索团队 get /v1/team/search</p>
 </li>
 <li>
-<p>点击申请加入 填写申请表单  确认申请 post /v1/group/apply</p>
+<p><strong><em>点击申请加入 填写申请表单  确认申请 post /v1/team/apply</em></strong></p>
 </li>
 </ol>
 </div>
@@ -548,10 +544,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>我的团队 /v1/mine/groups</p>
 </li>
 <li>
-<p>点击团队查看详情  /v1/group/{id}</p>
+<p>点击团队查看详情  /v1/team/{id}</p>
 </li>
 <li>
-<p>详情里面有基本信息 邀请加入团队按钮 查看团队成员 发送消息</p>
+<p>详情里面有基本信息 邀请加入团队按钮  发送消息</p>
+</li>
+<li>
+<p><strong><em>查看团队成员 /team/{teamId}/users</em></strong></p>
 </li>
 </ol>
 </div>
@@ -594,23 +593,23 @@ todo
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>申请合作 &#8594; 输入名称搜索 &#8594; 申请合作 post  /v1/group/cooperation/apply</p>
+<p>申请合作 &#8594; 输入名称搜索 &#8594; 申请合作 post  /v1/team/cooperation/apply</p>
 </li>
 <li>
-<p>确认合作 &#8594; 合作申请列表 &#8594; get  /v1/group/cooperation/applications</p>
+<p>确认合作 &#8594; 合作申请列表 &#8594; get  /v1/team/cooperation/applications</p>
 </li>
 <li>
-<p>确认合作 &#8594;post  /v1/group/cooperation/confirm
-, 合作伙伴 &#8594; get  /v1/group/cooperations</p>
+<p>确认合作 &#8594;post  /v1/team/cooperation/confirm
+, 合作伙伴 &#8594; get  /v1/team/cooperations</p>
 </li>
 <li>
-<p>删除合作 delete  /v1/group/cooperation</p>
+<p>删除合作 delete  /v1/team/cooperation</p>
 </li>
 <li>
-<p>修改 put  /v1/group/cooperation</p>
+<p>修改 put  /v1/team/cooperation</p>
 </li>
 <li>
-<p>删除合作申请  delete /v1/group/cooperation/application</p>
+<p>删除合作申请  delete /v1/team/cooperation/application</p>
 </li>
 </ol>
 </div>
@@ -620,10 +619,10 @@ todo
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>获取到申请列表 /v1/group/applications</p>
+<p>获取到申请列表 /v1/team/applications</p>
 </li>
 <li>
-<p>接受申请  &#8594; 填写表单 &#8594; 确认 /v1/group/confirm</p>
+<p>接受申请  &#8594; 填写表单 &#8594; 确认 /v1/team/confirm</p>
 </li>
 </ol>
 </div>
@@ -640,7 +639,7 @@ todo
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">商品列表</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">get</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">/v1/group/{groupId}/products</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/v1/team/{teamId}/products</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">添加商品</p></td>
@@ -691,52 +690,13 @@ todo
 <div class="sect1">
 <h2 id="true--17"><a class="anchor" href="#true--17"></a>4. 聊天</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="true--18"><a class="anchor" href="#true--18"></a>4.1. 聊天记录</h3>
-<div class="paragraph">
-<p>不仅查用户的聊天,还包括有工作通知 .
-这是一张正在聊天记录表,每次有信息就加载一遍.</p>
-</div>
-<div class="paragraph">
-<p>表字段包括</p>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 16.667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">聊天对象类型</th>
-<th class="tableblock halign-left valign-top">未读数量</th>
-<th class="tableblock halign-left valign-top">最后一次消息内容</th>
-<th class="tableblock halign-left valign-top">最后消息时间</th>
-<th class="tableblock halign-left valign-top">名字</th>
-<th class="tableblock halign-left valign-top">头像</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">例: user,group,remind</p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
-</div>
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-02-21 11:04:47
+Last updated 2019-02-24 10:01:17
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.9.1/styles/github.min.css">

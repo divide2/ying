@@ -1,12 +1,13 @@
 package com.ying.team.service.impl;
 
-import com.ying.auth.dto.*;
-import com.ying.auth.vo.*;
+import com.ying.auth.dto.UserSearchDTO;
+import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ChatDTO;
+import com.ying.friend.dto.MenuChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -107,7 +108,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         List<Member> teamUsers = memberRepository.findByTeamId(teamId);
         Map<String, List<Member>> squadMembers = teamUsers.stream().collect(Collectors.groupingBy(Member::getSquadId));
         List<MemberVO> vos = new ArrayList<>();
-        squadMembers.forEach((squadId,members)-> {
+        squadMembers.forEach((squadId, members) -> {
             SquadVO squad = teamInnerConnectService.getSquad(squadId);
             List<UserVO> users = Converter.of(teamUsers).convert(member -> teamInnerConnectService.getUser(member.getUserId()));
             MemberVO vo = new MemberVO(squad, users);
@@ -136,20 +137,10 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
             teamJoinApplication.setUpdateTime(LocalDateTime.now());
         }
         teamApplicationRepository.save(teamJoinApplication);
-        // 获取功能菜单 team_join_apply
-        MenuVO menu = teamInnerConnectService.getMenu("team_join_apply");
 
-        // 获取该团队下管理这个功能的人
-        List<UserVO> users = teamInnerConnectService.listGroupOwnMenuUsers(dto.getToTeamId(), menu.getId());
+        teamInnerConnectService.addChat(new MenuChatDTO(dto.getToTeamId(),"team_join_apply"));
 
-        users.forEach(user -> teamInnerConnectService.addChat(new ChatDTO(
-                user.getUserId(),
-                menu.getId().toString(),
-                "menu",
-                menu.getName(),
-                menu.getPath(),
-                "你有新的团队申请"
-        )));
+
 
     }
 
@@ -233,6 +224,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         teamCooperationApplication.setRemarks(dto.getRemarks());
         teamCooperationApplication.setStatus("waiting_confirm");
         teamCooperationApplicationRepository.save(teamCooperationApplication);
+        teamInnerConnectService.addChat(new MenuChatDTO(dto.getToTeamId(),"team_cooperate_apply"));
     }
 
     @Override

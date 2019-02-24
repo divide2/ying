@@ -20,7 +20,8 @@ public class ClientServiceImpl implements ClientService {
     private final FriendService friendService;
     private final UserService userService;
 
-    public ClientServiceImpl(FriendService friendService, UserService userService) {
+    public ClientServiceImpl(FriendService friendService,
+                             UserService userService) {
         this.friendService = friendService;
         this.userService = userService;
     }

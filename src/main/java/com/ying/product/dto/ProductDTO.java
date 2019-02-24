@@ -23,7 +23,7 @@ public class ProductDTO {
     private String name;
 
     @ApiModelProperty("图")
-    private String image;
+    private String [] image;
 
     private String remarks;
 

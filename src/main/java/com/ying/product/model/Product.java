@@ -1,13 +1,20 @@
 package com.ying.product.model;
 
+import com.vladmihalcea.hibernate.type.array.StringArrayType;
+import com.ying.core.model.BaseEntity;
+import com.ying.core.types.CommaDelimitedStringsJavaTypeDescriptor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.type.AbstractSingleColumnStandardBasicType;
+import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -20,7 +27,11 @@ import java.util.function.Function;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+@TypeDef(
+        name = "string-array",
+        typeClass = StringArrayType.class
+)
+public class Product  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +53,13 @@ public class Product {
     /**
      * 图片
      */
-    private String image;
+
+    @Type( type = "string-array" )
+    @Column(
+            name = "image",
+            columnDefinition = "text[]"
+    )
+    private String [] image;
 
     /**
      * 单位

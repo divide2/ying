@@ -15,7 +15,7 @@ public class StockVO {
     private String warehouseType;
     private Integer productId;
     private String productName;
-    private String productImage;
+    private String[] productImage;
     private Integer productAmount;
     List<WarehouseProductSpecVO> specs;
 

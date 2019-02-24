@@ -2,6 +2,7 @@ package com.ying.product.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
+import com.ying.core.val.Punctuation;
 import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
@@ -10,6 +11,7 @@ import com.ying.product.repo.ProductRepository;
 import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -64,6 +66,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         product.setCreateTime(LocalDateTime.now());
         product.setEnabled(true);
         product.setImage(dto.getImage());
+
         product.setName(dto.getName());
         product.setUnit(dto.getUnit());
         product.setRemarks(dto.getRemarks());

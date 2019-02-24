@@ -26,7 +26,7 @@ public class ProductUpdateDTO {
     private Integer initAmount;
 
     @ApiModelProperty("图")
-    private String image;
+    private String [] image;
 
     private String remarks;
 

@@ -1,7 +1,11 @@
 package com.ying.friend.service;
 
+import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
 import com.ying.friend.vo.FriendVO;
+import com.ying.team.vo.MenuVO;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -11,4 +15,7 @@ public interface ChatInnerConnectService extends ConnectService {
 
     FriendVO getFriend(Integer fromId, Integer toId);
 
+    MenuVO getMenu(String menuCode);
+
+    List<UserVO> listTeamOwnMenuUsers(String teamId, Integer id);
 }

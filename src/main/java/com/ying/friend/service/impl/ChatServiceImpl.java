@@ -3,7 +3,8 @@ package com.ying.friend.service.impl;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ChatDTO;
-import com.ying.friend.dto.MenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
+import com.ying.friend.dto.SimpleMenuChatDTO;
 import com.ying.friend.model.Chat;
 import com.ying.friend.repo.ChatRepository;
 import com.ying.friend.service.ChatInnerConnectService;
@@ -59,7 +60,7 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public void addMenuChat(MenuChatDTO chat) {
+    public void addMenuChat(TeamMenuChatDTO chat) {
 
         // 获取功能菜单
         MenuVO menu = chatInnerConnectService.getMenu(chat.getMenuCode());
@@ -71,19 +72,23 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
+    public void addMenuChat(SimpleMenuChatDTO dto) {
+        // 获取功能菜单
+        MenuVO menu = chatInnerConnectService.getMenu(dto.getMenuCode());
+        this.save(new ChatDTO(dto.getUserId(), menu.getId().toString(), "menu", menu.getName(), menu.getPath(), "你有新的申请"));
+    }
+
+    @Override
     public List<ChatVO> listByUser(Integer userId) {
         List<Chat> chats = chatRepository.findByUserId(userId);
-        return Converter.of(chats).convert(chat -> {
-            FriendVO friend = chatInnerConnectService.getFriend(userId, chat.getUserId());
-            return ChatVO.builder()
-                    .id(chat.getId())
-                    .content(chat.getContent())
-                    .updateTime(chat.getUpdateTime())
-                    .avatar(friend.getAvatar())
-                    .name(friend.getMemoName())
-                    .toId(chat.getUserId())
-                    .unreadCount(chat.getUnreadCount())
-                    .build();
-        });
+        return Converter.of(chats).convert(chat -> ChatVO.builder()
+                .id(chat.getId())
+                .content(chat.getContent())
+                .updateTime(chat.getUpdateTime())
+                .avatar(chat.getAvatar())
+                .name(chat.getName())
+                .toId(chat.getUserId())
+                .unreadCount(chat.getUnreadCount())
+                .build());
     }
 }

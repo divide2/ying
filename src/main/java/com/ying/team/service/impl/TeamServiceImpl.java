@@ -6,8 +6,7 @@ import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Asserter;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
-import com.ying.friend.dto.ChatDTO;
-import com.ying.friend.dto.MenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -79,11 +78,15 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         Team team = new Team();
         team.setName(dto.getName());
         this.add(team);
+        Squad squad = new Squad();
+        squad.setName("默认小队");
+        squad.setTeamId(team.getId());
         Member member = new Member();
         member.setUserId(Loginer.userId());
         member.setTeamId(team.getId());
         // todo 初始化权限
         member.setPosition("管理员");
+        member.setSquadId(squad.getId());
         memberRepository.save(member);
     }
 
@@ -138,7 +141,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         }
         teamApplicationRepository.save(teamJoinApplication);
 
-        teamInnerConnectService.addChat(new MenuChatDTO(dto.getToTeamId(),"team_join_apply"));
+        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(),"team_join_apply"));
 
 
 
@@ -224,7 +227,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         teamCooperationApplication.setRemarks(dto.getRemarks());
         teamCooperationApplication.setStatus("waiting_confirm");
         teamCooperationApplicationRepository.save(teamCooperationApplication);
-        teamInnerConnectService.addChat(new MenuChatDTO(dto.getToTeamId(),"team_cooperate_apply"));
+        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(),"team_cooperate_apply"));
     }
 
     @Override

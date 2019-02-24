@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
  * @date 2019/2/24
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class MenuChatDTO {
-
-    private String teamId;
+@AllArgsConstructor
+public class SimpleMenuChatDTO {
 
     private String menuCode;
+    private Integer userId;
 }

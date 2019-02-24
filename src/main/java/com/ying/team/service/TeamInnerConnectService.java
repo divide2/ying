@@ -1,11 +1,10 @@
 package com.ying.team.service;
 
-import com.ying.friend.dto.MenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.team.vo.MenuVO;
 import com.ying.team.vo.SquadVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
-import com.ying.friend.dto.ChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
@@ -71,7 +70,7 @@ public interface TeamInnerConnectService extends ConnectService {
     Page<OrderVO> findSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
 
 
-    void addChat(MenuChatDTO chat);
+    void addChat(TeamMenuChatDTO chat);
 
     MenuVO getMenu(String menuCode);
 

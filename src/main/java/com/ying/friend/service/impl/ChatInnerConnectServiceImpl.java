@@ -16,22 +16,15 @@ import java.util.List;
  */
 @Service
 public class ChatInnerConnectServiceImpl implements ChatInnerConnectService {
-    private final FriendService friendService;
     private final MenuService menuService;
 
-    public ChatInnerConnectServiceImpl(FriendService friendService, MenuService menuService) {
-        this.friendService = friendService;
+    public ChatInnerConnectServiceImpl(MenuService menuService) {
         this.menuService = menuService;
     }
 
     @Override
     public MenuVO getMenu(String menuCode) {
         return menuService.getByCode(menuCode);
-    }
-
-    @Override
-    public FriendVO getFriend(Integer fromId, Integer toId) {
-        return friendService.getVO(fromId, toId);
     }
 
     @Override

@@ -1,7 +1,8 @@
 package com.ying.friend.service;
 
 import com.ying.friend.dto.ChatDTO;
-import com.ying.friend.dto.MenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
+import com.ying.friend.dto.SimpleMenuChatDTO;
 import com.ying.friend.vo.ChatVO;
 
 import java.util.List;
@@ -16,5 +17,7 @@ public interface ChatService{
 
     List<ChatVO> listByUser(Integer userId);
 
-    void addMenuChat(MenuChatDTO chat);
+    void addMenuChat(TeamMenuChatDTO chat);
+
+    void addMenuChat(SimpleMenuChatDTO dto);
 }

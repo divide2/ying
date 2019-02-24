@@ -13,7 +13,6 @@ import java.util.List;
  */
 public interface ChatInnerConnectService extends ConnectService {
 
-    FriendVO getFriend(Integer fromId, Integer toId);
 
     MenuVO getMenu(String menuCode);
 

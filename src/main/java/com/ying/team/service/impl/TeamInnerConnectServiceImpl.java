@@ -3,8 +3,7 @@ package com.ying.team.service.impl;
 
 import com.ying.auth.service.UserService;
 import com.ying.auth.vo.UserVO;
-import com.ying.friend.dto.ChatDTO;
-import com.ying.friend.dto.MenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.friend.service.ChatService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
@@ -111,7 +110,7 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     }
 
     @Override
-    public void addChat(MenuChatDTO chat) {
+    public void addChat(TeamMenuChatDTO chat) {
         chatService.addMenuChat(chat);
     }
 

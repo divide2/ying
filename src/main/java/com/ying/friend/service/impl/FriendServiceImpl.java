@@ -80,6 +80,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
     }
 
     @Override
+    @Transactional
     public void apply(ApplyDTO dto) {
         Application application = applicationRepository.getByFromIdAndToId(Loginer.userId(), dto.getToId());
         UserVO user = friendConnectService.getUser(dto.getToId());

@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author bvvy
  */
 public interface AclRepository extends JpaRepository<Acl, Integer>, AclRepositoryCustom {
-    /**
-     * 删除角色的菜单权限
-     *
-     * @param roleId role
-     */
-    @Transactional(rollbackFor = Exception.class)
-    void deleteByRoleId(Integer roleId);
+
+
+    void findByTeamIdAndMenuIdAndPrincipleType(String teamId, Integer menuId, String squad);
+
 }

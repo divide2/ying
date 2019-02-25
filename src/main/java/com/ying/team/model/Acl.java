@@ -21,10 +21,24 @@ public class Acl {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
-    private Integer roleId;
+    private String teamId;
 
-    private String resCode;
+    /**
+     * squad id or user id
+     */
+    private String principleId;
+
+    /**
+     * squad or user
+     */
+    private String principleType;
+
+    /**
+     * menuCode
+     */
+    private String menuCode;
+
 
 }

@@ -2,9 +2,12 @@ package com.ying.team.service.impl;
 
 import com.ying.auth.repo.AclRepository;
 
+import com.ying.auth.vo.UserVO;
 import com.ying.team.repo.MemberRepository;
 import com.ying.team.service.AclService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author bvvy
@@ -20,6 +23,9 @@ public class AclServiceImpl implements AclService {
         this.memberRepository = memberRepository;
     }
 
-
-
+    @Override
+    public List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId) {
+        aclRepository.findByTeamIdAndMenuIdAndPricipleType(teamId, menuId, "squad");
+        return null;
+    }
 }

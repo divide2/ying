@@ -43,21 +43,12 @@ public class Menu {
     private Boolean enabled;
 
     /**
-     * 菜单类型
-     * 字典中选取 NAV,OPER
-     */
-    private String type;
-    /**
      * 排序号
      */
     @Column(name = "order_num")
     private Integer orderNum;
 
-    /**
-     * 菜单的唯一编码
-     */
     private String code;
-
 
     /**
      * tubiao

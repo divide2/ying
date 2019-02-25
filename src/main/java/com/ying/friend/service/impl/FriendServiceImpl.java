@@ -7,6 +7,7 @@ import com.ying.core.er.Loginer;
 import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ApplyDTO;
 import com.ying.friend.dto.ConfirmDTO;
+import com.ying.friend.dto.SimpleMenuChatDTO;
 import com.ying.friend.model.Application;
 import com.ying.friend.model.Friend;
 import com.ying.friend.repo.ApplicationRepository;
@@ -98,6 +99,7 @@ public class FriendServiceImpl extends SimpleBasicServiceImpl<Friend, Integer, F
         }
         application.setUpdateTime(LocalDateTime.now());
         applicationRepository.save(application);
+        friendConnectService.addChat(new SimpleMenuChatDTO("friend_apply", dto.getToId()));
     }
 
     @Override

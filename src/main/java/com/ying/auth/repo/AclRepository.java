@@ -11,6 +11,5 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AclRepository extends JpaRepository<Acl, Integer>, AclRepositoryCustom {
 
 
-    void findByTeamIdAndMenuIdAndPrincipleType(String teamId, Integer menuId, String squad);
 
 }

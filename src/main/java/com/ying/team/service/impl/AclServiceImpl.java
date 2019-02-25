@@ -25,7 +25,6 @@ public class AclServiceImpl implements AclService {
 
     @Override
     public List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId) {
-        aclRepository.findByTeamIdAndMenuIdAndPricipleType(teamId, menuId, "squad");
         return null;
     }
 }

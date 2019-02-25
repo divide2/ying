@@ -49,7 +49,6 @@ public class MenuController {
         menu.setPath(menuUpdateDTO.getPath());
         menu.setOrderNum(menuUpdateDTO.getOrderNum());
         menu.setPid(menuUpdateDTO.getPid());
-        menu.setType(menuUpdateDTO.getType());
         menu.setCode(menuUpdateDTO.getCode());
         menuService.update(menu);
         return Responser.updated();

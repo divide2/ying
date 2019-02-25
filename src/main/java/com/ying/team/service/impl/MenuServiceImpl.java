@@ -32,7 +32,6 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
                 .orderNum(menuAddDTO.getOrderNum())
                 .path(menuAddDTO.getPath())
                 .pid(menuAddDTO.getPid())
-                .type(MenuType.NAV)
                 .code(menuAddDTO.getCode())
                 .icon(menuAddDTO.getIcon())
                 .build();
@@ -60,7 +59,6 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
                 .orderNum(menu.getOrderNum())
                 .path(menu.getPath())
                 .pid(menu.getPid())
-                .type(menu.getType())
                 .code(menu.getCode())
                 .build();
     }

@@ -16,5 +16,5 @@ public interface ChatInnerConnectService extends ConnectService {
 
     MenuVO getMenu(String menuCode);
 
-    List<UserVO> listTeamOwnMenuUsers(String teamId, Integer id);
+    List<UserVO> listTeamOwnMenuUsers(String teamId, String id);
 }

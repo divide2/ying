@@ -10,7 +10,6 @@ import com.ying.friend.repo.ChatRepository;
 import com.ying.friend.service.ChatInnerConnectService;
 import com.ying.friend.service.ChatService;
 import com.ying.friend.vo.ChatVO;
-import com.ying.friend.vo.FriendVO;
 import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
 
@@ -65,17 +64,17 @@ public class ChatServiceImpl implements ChatService {
         // 获取功能菜单
         MenuVO menu = chatInnerConnectService.getMenu(chat.getMenuCode());
         // 获取该团队下管理这个功能的人
-        List<UserVO> users = chatInnerConnectService.listTeamOwnMenuUsers(chat.getTeamId(), menu.getId());
+        List<UserVO> users = chatInnerConnectService.listTeamOwnMenuUsers(chat.getTeamId(), menu.getMenuCode());
 
         users.forEach(user ->
-                this.save(new ChatDTO(user.getUserId(), menu.getId().toString(), "menu", menu.getName(), menu.getPath(), "你有新的申请")));
+                this.save(new ChatDTO(user.getUserId(), menu.getId(), "menu", menu.getName(), menu.getIcon(), "你有新的申请")));
     }
 
     @Override
     public void addMenuChat(SimpleMenuChatDTO dto) {
         // 获取功能菜单
         MenuVO menu = chatInnerConnectService.getMenu(dto.getMenuCode());
-        this.save(new ChatDTO(dto.getUserId(), menu.getId().toString(), "menu", menu.getName(), menu.getPath(), "你有新的申请"));
+        this.save(new ChatDTO(dto.getUserId(), menu.getId(), "menu", menu.getName(), menu.getIcon(), "你有新的申请"));
     }
 
     @Override

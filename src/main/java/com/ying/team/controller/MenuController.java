@@ -1,5 +1,6 @@
 package com.ying.team.controller;
 
+import com.ying.core.data.del.SingleStringId;
 import com.ying.team.dto.MenuAddDTO;
 import com.ying.team.dto.MenuUpdateDTO;
 import com.ying.team.model.Menu;
@@ -49,14 +50,13 @@ public class MenuController {
         menu.setPath(menuUpdateDTO.getPath());
         menu.setOrderNum(menuUpdateDTO.getOrderNum());
         menu.setPid(menuUpdateDTO.getPid());
-        menu.setCode(menuUpdateDTO.getCode());
         menuService.update(menu);
         return Responser.updated();
     }
 
     @GetMapping("/{id}")
     @ApiOperation("获取单个")
-    public ResponseEntity<MenuVO> get(@PathVariable Integer id) {
+    public ResponseEntity<MenuVO> get(@PathVariable String id) {
         MenuVO menu = menuService.getVO(id);
         return Responser.ok(menu);
 
@@ -64,7 +64,7 @@ public class MenuController {
 
     @DeleteMapping
     @ApiOperation("删除")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId del, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleStringId del, BindingResult br) {
         menuService.delete(del.getId());
         return Responser.deleted();
     }

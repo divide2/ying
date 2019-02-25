@@ -115,8 +115,8 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     }
 
     @Override
-    public MenuVO getMenu(String menuCode) {
-        return menuService.getByCode(menuCode);
+    public MenuVO getMenu(String menuId) {
+        return menuService.getVO(menuId);
     }
 
     @Override

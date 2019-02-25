@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
@@ -19,8 +20,10 @@ import javax.persistence.*;
 public class Acl {
 
 
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
     private String id;
 
     private String teamId;
@@ -38,7 +41,7 @@ public class Acl {
     /**
      * menuCode
      */
-    private String menuCode;
+    private String menuId;
 
 
 }

@@ -8,7 +8,7 @@ import com.ying.team.vo.MenuVO;
 /**
  * @author bvvy
  */
-public interface MenuService extends BasicService<Menu, Integer> {
+public interface MenuService extends BasicService<Menu, String> {
 
     /**
      * 通过menuAddDTO新增
@@ -17,7 +17,7 @@ public interface MenuService extends BasicService<Menu, Integer> {
      */
     void add(MenuAddDTO menuAddDTO);
 
-    MenuVO getVO(Integer menuId);
+    MenuVO getVO(String menuId);
 
     MenuVO getByCode(String menuCode);
 }

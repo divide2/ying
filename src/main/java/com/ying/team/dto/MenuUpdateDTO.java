@@ -23,7 +23,7 @@ public class MenuUpdateDTO {
 
     @ApiModelProperty("id")
     @NotNull
-    private Integer id;
+    private String id;
     /**
      * 名称
      */
@@ -58,12 +58,5 @@ public class MenuUpdateDTO {
     @ApiModelProperty("排序")
     @NotNull
     private Integer orderNum;
-
-    @ApiModelProperty("类型")
-    private String type;
-
-    @ApiModelProperty("编码")
-    @NotEmpty
-    private String code;
 
 }

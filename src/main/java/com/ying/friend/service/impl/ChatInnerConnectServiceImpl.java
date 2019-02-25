@@ -30,7 +30,7 @@ public class ChatInnerConnectServiceImpl implements ChatInnerConnectService {
     }
 
     @Override
-    public List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId) {
+    public List<UserVO> listTeamOwnMenuUsers(String teamId, String menuId) {
         return aclService.listTeamOwnMenuUsers(teamId, menuId);
     }
 }

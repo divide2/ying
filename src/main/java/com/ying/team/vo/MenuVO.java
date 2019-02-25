@@ -14,7 +14,7 @@ import lombok.Data;
 public class MenuVO {
 
     @ApiModelProperty("id")
-    private Integer id;
+    private String id;
 
     /**
      * 名称
@@ -46,10 +46,9 @@ public class MenuVO {
     @ApiModelProperty("排序号")
     private Integer orderNum;
 
-    @ApiModelProperty("类型")
-    private String type;
+    private String icon;
+
+    private String menuCode;
 
 
-    @ApiModelProperty("编码")
-    private String code;
 }

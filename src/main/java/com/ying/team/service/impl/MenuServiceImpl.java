@@ -3,7 +3,6 @@ package com.ying.team.service.impl;
 import com.ying.team.dto.MenuAddDTO;
 import com.ying.team.model.Menu;
 import com.ying.team.repo.MenuRepository;
-import com.ying.auth.val.MenuType;
 import com.ying.team.vo.MenuVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.team.service.MenuService;
@@ -13,15 +12,12 @@ import org.springframework.stereotype.Service;
  * @author bvvy
  */
 @Service
-public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuRepository> implements MenuService {
-
+public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRepository> implements MenuService {
     private final MenuRepository menuRepository;
 
-    public MenuServiceImpl(MenuRepository menuRepository
-    ) {
+    public MenuServiceImpl(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
-
 
     @Override
     public void add(MenuAddDTO menuAddDTO) {
@@ -32,7 +28,6 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
                 .orderNum(menuAddDTO.getOrderNum())
                 .path(menuAddDTO.getPath())
                 .pid(menuAddDTO.getPid())
-                .code(menuAddDTO.getCode())
                 .icon(menuAddDTO.getIcon())
                 .build();
         this.add(menu);
@@ -40,7 +35,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
     }
 
     @Override
-    public MenuVO getVO(Integer menuId) {
+    public MenuVO getVO(String menuId) {
         Menu menu = this.get(menuId);
         return toVO(menu);
     }
@@ -59,7 +54,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, Integer, MenuR
                 .orderNum(menu.getOrderNum())
                 .path(menu.getPath())
                 .pid(menu.getPid())
-                .code(menu.getCode())
+                .menuCode(menu.getMenuCode())
+                .icon(menu.getIcon())
                 .build();
     }
 

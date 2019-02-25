@@ -72,7 +72,7 @@ public interface TeamInnerConnectService extends ConnectService {
 
     void addChat(TeamMenuChatDTO chat);
 
-    MenuVO getMenu(String menuCode);
+    MenuVO getMenu(String menuId);
 
     List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId);
 }

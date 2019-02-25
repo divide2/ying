@@ -1,5 +1,6 @@
 package com.ying.friend.controller;
 
+import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.friend.service.MessageService;
@@ -39,8 +40,5 @@ public class MessageController {
         return Responser.deleted();
     }
 
-    @Data
-    private class SingleStringId {
-        private String id;
-    }
+
 }

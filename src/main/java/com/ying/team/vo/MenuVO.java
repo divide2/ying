@@ -2,15 +2,17 @@ package com.ying.team.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author bvvy
  */
 @Data
-@Builder
 @ApiModel("菜单")
+@AllArgsConstructor
+@NoArgsConstructor
 public class MenuVO {
 
     @ApiModelProperty("id")
@@ -48,7 +50,7 @@ public class MenuVO {
 
     private String icon;
 
-    private String menuCode;
+    private String code;
 
 
 }

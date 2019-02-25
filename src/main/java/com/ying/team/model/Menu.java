@@ -51,7 +51,7 @@ public class Menu {
     private Integer orderNum;
 
 
-    private String menuCode;
+    private String code;
 
     /**
      * tubiao

@@ -11,4 +11,5 @@ public interface SquadService extends BasicService<Squad, String> {
 
 
     SquadVO getVO(String squadId);
+
 }

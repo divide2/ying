@@ -19,7 +19,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Acl {
 
-
+    public static final String USER_TYPE = "user";
+    public static final String SQUAD_TYPE = "squad";
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -39,9 +40,16 @@ public class Acl {
     private String principleType;
 
     /**
-     * menuCode
+     * code
      */
     private String menuId;
 
+    public boolean isSquadType() {
+        return principleType.equals(SQUAD_TYPE);
+    }
+
+    public boolean isUserType() {
+        return principleType.equals(USER_TYPE);
+    }
 
 }

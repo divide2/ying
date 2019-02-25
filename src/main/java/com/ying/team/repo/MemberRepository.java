@@ -15,6 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
      *
      * @param userId  userid
      * @param teamId teamid
+     * @return member
      */
     Member getByTeamIdAndUserId(String teamId, Integer userId);
 
@@ -34,4 +35,11 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
      */
     List<Member> findByUserId(Integer userId);
 
+    /**
+     * 获取团队下的小组下的成员
+     * @param teamId team
+     * @param squadId 小组
+     * @return member
+     */
+    List<Member> findByTeamIdAndSquadId(String teamId, String squadId);
 }

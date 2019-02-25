@@ -8,4 +8,5 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
  * @author bvvy
  */
 public interface SquadRepository extends JpaRepository<Squad, String>, QuerydslPredicateExecutor<Squad> {
+
 }

@@ -1,13 +1,12 @@
 package com.ying.friend.service.impl;
 
-import com.ying.auth.vo.UserVO;
 import com.ying.friend.service.ChatInnerConnectService;
 import com.ying.team.service.AclService;
 import com.ying.team.service.MenuService;
 import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -30,7 +29,7 @@ public class ChatInnerConnectServiceImpl implements ChatInnerConnectService {
     }
 
     @Override
-    public List<UserVO> listTeamOwnMenuUsers(String teamId, String menuId) {
-        return aclService.listTeamOwnMenuUsers(teamId, menuId);
+    public Set<Integer> listTeamOwnMenuUserIds(String teamId, String menuId) {
+        return aclService.listTeamOwnMenuUserIds(teamId, menuId);
     }
 }

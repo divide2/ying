@@ -1,10 +1,9 @@
 package com.ying.friend.service.impl;
 
-import com.ying.auth.vo.UserVO;
 import com.ying.core.root.converter.Converter;
 import com.ying.friend.dto.ChatDTO;
-import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.friend.dto.SimpleMenuChatDTO;
+import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.friend.model.Chat;
 import com.ying.friend.repo.ChatRepository;
 import com.ying.friend.service.ChatInnerConnectService;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -64,10 +64,10 @@ public class ChatServiceImpl implements ChatService {
         // 获取功能菜单
         MenuVO menu = chatInnerConnectService.getMenu(chat.getMenuCode());
         // 获取该团队下管理这个功能的人
-        List<UserVO> users = chatInnerConnectService.listTeamOwnMenuUsers(chat.getTeamId(), menu.getMenuCode());
+        Set<Integer> userIds = chatInnerConnectService.listTeamOwnMenuUserIds(chat.getTeamId(), menu.getCode());
 
-        users.forEach(user ->
-                this.save(new ChatDTO(user.getUserId(), menu.getId(), "menu", menu.getName(), menu.getIcon(), "你有新的申请")));
+        userIds.forEach(userId ->
+                this.save(new ChatDTO(userId, menu.getId(), "menu", menu.getName(), menu.getIcon(), "你有新的申请")));
     }
 
     @Override

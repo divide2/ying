@@ -1,5 +1,6 @@
 package com.ying.team.service.impl;
 
+import com.ying.team.model.Member;
 import com.ying.team.repo.MemberRepository;
 import com.ying.team.service.MemberService;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
     }
 
+    @Override
+    public String getTeamUserSquadId(String teamId, Integer userId) {
+        Member member = memberRepository.getByTeamIdAndUserId(teamId, userId);
+        return member.getSquadId();
+    }
 
 }

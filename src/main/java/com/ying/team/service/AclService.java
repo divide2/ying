@@ -1,10 +1,9 @@
 package com.ying.team.service;
 
-import com.ying.auth.vo.UserVO;
-import com.ying.team.dto.RolePerAddDTO;
 import com.ying.team.vo.MenuVO;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -12,7 +11,13 @@ import java.util.List;
 public interface AclService {
 
 
-    List<UserVO> listTeamOwnMenuUsers(String teamId, String menuId);
+    /**
+     * 获取拥有菜单权限的用户id
+     * @param teamId 团队
+     * @param menuId 菜单
+     * @return userIDs
+     */
+    Set<Integer> listTeamOwnMenuUserIds(String teamId, String menuId);
 
     List<MenuVO> listTeamUserMenus(String teamId, Integer userId);
 }

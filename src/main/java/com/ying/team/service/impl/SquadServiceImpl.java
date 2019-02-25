@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SquadServiceImpl extends SimpleBasicServiceImpl<Squad, String, SquadRepository> implements SquadService {
+    private final SquadRepository squadRepository;
+
+    public SquadServiceImpl(SquadRepository squadRepository) {
+        this.squadRepository = squadRepository;
+    }
 
     @Override
     public SquadVO getVO(String id) {

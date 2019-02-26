@@ -25,7 +25,7 @@ public interface MenuService extends BasicService<Menu, String> {
 
     List<MenuVO> findByIds(Collection<String> ids);
 
-    Map<String, List<MenuVO>> groupByIds(Collection<String> ids);
+    Map<String, MenuVO> findMapByIds(Collection<String> ids);
 
     MenuVO getByCode(String menuCode);
 }

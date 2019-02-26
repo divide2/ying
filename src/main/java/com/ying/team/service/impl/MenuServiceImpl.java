@@ -55,8 +55,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     }
 
     @Override
-    public Map<String, List<MenuVO>> groupByIds(Collection<String> ids) {
-        return findByIds(ids).stream().collect(groupingBy(MenuVO::getId));
+    public Map<String, MenuVO> findMapByIds(Collection<String> ids) {
+        return findByIds(ids).stream().collect(toMap(MenuVO::getId, vo -> vo));
     }
 
     @Override

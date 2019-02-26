@@ -17,5 +17,5 @@ public interface WorkbenchInnerConnectService extends ConnectService {
 
     Set<String> listTeamUserMenuIds(String teamId, Integer userId);
 
-    Map<String, List<MenuVO>> groupByMenuIds(Collection<String> menuIds);
+    Map<String, MenuVO> findMapByMenuIds(Collection<String> menuIds);
 }

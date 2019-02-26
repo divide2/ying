@@ -54,7 +54,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
                 .orderNum(menu.getOrderNum())
                 .path(menu.getPath())
                 .pid(menu.getPid())
-                .menuCode(menu.getMenuCode())
+                .code(menu.getCode())
                 .icon(menu.getIcon())
                 .build();
     }

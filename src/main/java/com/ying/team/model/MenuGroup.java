@@ -9,13 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * 菜单分组
  * @author bvvy
  * @date 2019/2/26
  */
 @Data
 @Entity
-@Table(name = "t_workbench")
-public class Workbench {
+@Table(name = "t_menu_group")
+public class MenuGroup {
 
     @Id
     @GeneratedValue(generator = "uuid")
@@ -24,9 +25,7 @@ public class Workbench {
 
     private String teamId;
 
-    private String menuGroupId;
-
-    private String menuId;
+    private String name;
 
     private Integer orderNum;
 

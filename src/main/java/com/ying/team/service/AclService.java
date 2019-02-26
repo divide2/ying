@@ -1,5 +1,6 @@
 package com.ying.team.service;
 
+import com.ying.team.dto.AclDTO;
 import com.ying.team.vo.MenuVO;
 
 import java.util.List;
@@ -19,5 +20,17 @@ public interface AclService {
      */
     Set<Integer> listTeamOwnMenuUserIds(String teamId, String menuId);
 
+    /**
+     * 获取用户能访问的菜单
+     * @param teamId teanUd
+     * @param userId userId
+     * @return menu
+     */
     List<MenuVO> listTeamUserMenus(String teamId, Integer userId);
+
+    /**
+     * 添加权限
+     * @param dto dto
+     */
+    void add(AclDTO dto);
 }

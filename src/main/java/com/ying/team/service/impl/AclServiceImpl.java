@@ -2,6 +2,7 @@ package com.ying.team.service.impl;
 
 import com.ying.auth.repo.AclRepository;
 import com.ying.core.root.converter.Converter;
+import com.ying.team.dto.AclDTO;
 import com.ying.team.model.Acl;
 import com.ying.team.model.Member;
 import com.ying.team.model.Menu;
@@ -32,6 +33,22 @@ public class AclServiceImpl implements AclService {
         this.aclRepository = aclRepository;
         this.memberRepository = memberRepository;
         this.menuRepository = menuRepository;
+    }
+
+    @Override
+    public void add(AclDTO dto) {
+        // 先删除之前的
+        aclRepository.deleteExists(dto.getTeamId(), dto.getPrincipleId(), dto.getPrincipleType());
+        //再添加
+        dto.getMenuIds()
+                .forEach(menuId -> {
+                    Acl acl = new Acl();
+                    acl.setMenuId(menuId);
+                    acl.setPrincipleId(dto.getPrincipleId());
+                    acl.setPrincipleType(dto.getPrincipleType());
+                    acl.setTeamId(dto.getTeamId());
+                    aclRepository.save(acl);
+                });
     }
 
     @Override
@@ -74,5 +91,4 @@ public class AclServiceImpl implements AclService {
                 menu.getCode()
         ));
     }
-
 }

@@ -26,7 +26,7 @@ public interface AclService {
      * @param userId userId
      * @return menu
      */
-    List<MenuVO> listTeamUserMenus(String teamId, Integer userId);
+    Set<String> listTeamUserMenuIds(String teamId, Integer userId);
 
     /**
      * 添加权限

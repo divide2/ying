@@ -4,6 +4,7 @@ import com.ying.team.model.Workbench;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -18,4 +19,9 @@ public interface WorkbenchRepository extends JpaRepository<Workbench, String> {
         return findByTeamIdOrderByOrderNumAsc(teamId);
     }
 
+    default List<Workbench> findByTeamIdAndMenuIds(String teamId, Set<String> menuIds) {
+        return this.findByTeamIdAndMenuIdInOrderByOrderNumAsc(teamId, menuIds);
+    }
+
+    List<Workbench> findByTeamIdAndMenuIdInOrderByOrderNumAsc(String teamId, Set<String> menuIds);
 }

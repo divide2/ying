@@ -71,7 +71,7 @@ public class AclServiceImpl implements AclService {
     }
 
     @Override
-    public List<MenuVO> listTeamUserMenus(String teamId, Integer userId) {
+    public Set<String> listTeamUserMenuIds(String teamId, Integer userId) {
         // 获取菜单
         List<Acl> userAcls = aclRepository.findByTeamUser(teamId, userId);
         Member member = memberRepository.getByTeamIdAndUserId(teamId, userId);
@@ -79,16 +79,6 @@ public class AclServiceImpl implements AclService {
         Set<String> userMenus = userAcls.stream().map(Acl::getMenuId).collect(Collectors.toSet());
         Set<String> squadMenus = squadAcls.stream().map(Acl::getMenuId).collect(Collectors.toSet());
         userMenus.addAll(squadMenus);
-        List<Menu> menus = menuRepository.findByIdIn(userMenus);
-        return Converter.of(menus).convert(menu -> new MenuVO(
-                menu.getId(),
-                menu.getName(),
-                menu.getPid(),
-                menu.getPath(),
-                menu.getEnabled(),
-                menu.getOrderNum(),
-                menu.getIcon(),
-                menu.getCode()
-        ));
+        return userMenus;
     }
 }

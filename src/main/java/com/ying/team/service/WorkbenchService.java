@@ -11,4 +11,6 @@ import java.util.List;
 public interface WorkbenchService {
 
     List<WorkbenchVO> getTeamWorkbench(String teamId);
+
+    List<WorkbenchVO> getTeamUserWorkbench(String teamId,Integer userId);
 }

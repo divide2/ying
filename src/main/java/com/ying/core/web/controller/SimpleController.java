@@ -34,7 +34,7 @@ public class SimpleController {
     @ApiOperation("图片上传")
     @PostMapping("/v1/upload/image")
     public ResponseEntity<FileVO> upload(@RequestPart MultipartFile file) {
-        return ResponseEntity.ok(FileVO.of(aliOssUploader.imageUpload(file)));
+        return ResponseEntity.ok(FileVO.of(qiniuUploader.imageUpload(file)));
     }
 
     @ApiOperation("获取验证码")

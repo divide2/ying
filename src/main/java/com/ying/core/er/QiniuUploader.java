@@ -1,6 +1,20 @@
 package com.ying.core.er;
 
+import com.google.gson.Gson;
+import com.qiniu.common.QiniuException;
+import com.qiniu.common.Zone;
+import com.qiniu.http.Response;
+import com.qiniu.storage.Configuration;
+import com.qiniu.storage.UploadManager;
+import com.qiniu.storage.model.DefaultPutRet;
+import com.qiniu.util.Auth;
+import com.ying.core.data.properties.QiniuOssProperties;
+import com.ying.core.exception.SysException;
+import com.ying.core.exception.ValidationException;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * @author bvvy
@@ -8,7 +22,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class QiniuUploader {
-    /*private Configuration cfg = new Configuration(Zone.zone2());
+    private Configuration cfg = new Configuration(Zone.zone2());
     private UploadManager uploadManager = new UploadManager(cfg);
 
     private final QiniuOssProperties properties;
@@ -17,11 +31,11 @@ public class QiniuUploader {
         this.properties = properties;
     }
 
-    *//**
+   /*
      *
      * @param file 文件
      * @return 图片地址
-     *//*
+     */
     public String imageUpload(MultipartFile file) {
         if (file.isEmpty()) {
             throw new ValidationException("file is empty");
@@ -38,5 +52,5 @@ public class QiniuUploader {
         } catch (IOException ex) {
             throw new SysException("wrong io");
         }
-    }*/
+    }
 }

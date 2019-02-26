@@ -14,7 +14,7 @@ import javax.persistence.*;
  * 菜单
  */
 @Entity
-@Table(name = "t_menu")
+@Table(name = "sys_menu")
 @Data
 @Builder
 @NoArgsConstructor

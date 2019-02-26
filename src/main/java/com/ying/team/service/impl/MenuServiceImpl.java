@@ -1,12 +1,21 @@
 package com.ying.team.service.impl;
 
+import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.root.converter.Converter;
 import com.ying.team.dto.MenuAddDTO;
 import com.ying.team.model.Menu;
 import com.ying.team.repo.MenuRepository;
-import com.ying.team.vo.MenuVO;
-import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.team.service.MenuService;
+import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toMap;
+
 
 /**
  * @author bvvy
@@ -38,6 +47,16 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     public MenuVO getVO(String menuId) {
         Menu menu = this.get(menuId);
         return toVO(menu);
+    }
+
+    @Override
+    public List<MenuVO> findByIds(Collection<String> ids) {
+        return Converter.of(menuRepository.findByIdIn(ids)).convert(this::toVO);
+    }
+
+    @Override
+    public Map<String, List<MenuVO>> groupByIds(Collection<String> ids) {
+        return findByIds(ids).stream().collect(groupingBy(MenuVO::getId));
     }
 
     @Override

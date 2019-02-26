@@ -12,10 +12,7 @@ import com.ying.team.vo.MenuVO;
 import com.ying.team.vo.WorkbenchVO;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 工作台
@@ -59,6 +56,7 @@ public class WorkbenchServiceImpl implements WorkbenchService {
         //先查全部的分组
         List<MenuGroup> teamMenuGroup = menuGroupRepository.findByTeamId(teamId);
         List<WorkbenchVO> vos = new ArrayList<>();
+        Map<String, List<MenuVO>> menuMap = workbenchInnerConnectService.groupByMenuIds(menuIds);
         //这一堆是把可以访问的菜单添加到workbench vo 中
         for (MenuGroup mg : teamMenuGroup) {
             WorkbenchVO vo = new WorkbenchVO();
@@ -66,8 +64,7 @@ public class WorkbenchServiceImpl implements WorkbenchService {
             MenuGroupVO menuGroup = new MenuGroupVO(mg.getId(), mg.getName());
             for (Workbench workbench : workbenches) {
                 if (menuGroup.getId().equals(workbench.getMenuGroupId()) && menuIds.contains(workbench.getMenuId())) {
-                    MenuVO menu = new MenuVO(); // todo add menu vo;
-                    menus.add(menu);
+//                    menus.add(menuMap.get(workbench.getMenuId()));
                 }
             }
             vo.setMenuGroup(menuGroup);

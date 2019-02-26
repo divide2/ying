@@ -1,15 +1,11 @@
 package com.ying.team.service.impl;
 
 import com.ying.auth.repo.AclRepository;
-import com.ying.core.root.converter.Converter;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.model.Acl;
 import com.ying.team.model.Member;
-import com.ying.team.model.Menu;
 import com.ying.team.repo.MemberRepository;
-import com.ying.team.repo.MenuRepository;
 import com.ying.team.service.AclService;
-import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -24,15 +20,12 @@ import java.util.stream.Collectors;
 public class AclServiceImpl implements AclService {
     private final AclRepository aclRepository;
     private final MemberRepository memberRepository;
-    private final MenuRepository menuRepository;
 
     public AclServiceImpl(AclRepository aclRepository,
-                          MemberRepository memberRepository,
-                          MenuRepository menuRepository
+                          MemberRepository memberRepository
     ) {
         this.aclRepository = aclRepository;
         this.memberRepository = memberRepository;
-        this.menuRepository = menuRepository;
     }
 
     @Override

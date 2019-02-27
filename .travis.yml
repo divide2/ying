@@ -1,0 +1,2 @@
+language: java
+script: java -jar divide2-ying-0.0.1-SNAPSHOT.jar

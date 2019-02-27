@@ -1,6 +1,7 @@
 package com.ying.team.service.impl;
 
 import com.ying.core.root.converter.Converter;
+import com.ying.team.dto.GroupMenuDTO;
 import com.ying.team.model.MenuGroup;
 import com.ying.team.model.Workbench;
 import com.ying.team.repo.MenuGroupRepository;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 /**
- * 工作台
+ * 工作台A
  *
  * @author bvvy
  * @date 2019/2/26
@@ -32,6 +33,21 @@ public class WorkbenchServiceImpl implements WorkbenchService {
         this.workbenchRepository = workbenchRepository;
         this.menuGroupRepository = menuGroupRepository;
         this.workbenchInnerConnectService = workbenchInnerConnectService;
+    }
+
+    @Override
+    public void addGroupMenu(GroupMenuDTO dto) {
+        Workbench workbench = new Workbench();
+        workbench.setTeamId(dto.getTeamId());
+        workbench.setMenuGroupId(dto.getMenuGroupId());
+        workbench.setMenuGroupId(dto.getMenuId());
+        workbench.setOrderNum(1); // todo add menu num
+        workbenchRepository.save(workbench);
+    }
+
+    @Override
+    public void deleteGroupMenu(GroupMenuDTO dto) {
+        workbenchRepository.deleteByTeamIdAndMenuGroupIdAndMenuId(dto.getTeamId(), dto.getMenuGroupId(), dto.getMenuId());
     }
 
     @Override

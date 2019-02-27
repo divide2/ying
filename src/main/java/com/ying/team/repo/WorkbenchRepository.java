@@ -2,6 +2,7 @@ package com.ying.team.repo;
 
 import com.ying.team.model.Workbench;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 import java.util.Set;
@@ -24,4 +25,10 @@ public interface WorkbenchRepository extends JpaRepository<Workbench, String> {
     }
 
     List<Workbench> findByTeamIdAndMenuIdInOrderByOrderNumAsc(String teamId, Set<String> menuIds);
+
+    @Modifying
+    void deleteByTeamIdAndMenuGroupIdAndMenuId(String teamId, String menuGroupId, String menuId);
+
+    @Modifying
+    void deleteByTeamIdAndMenuGroupId(String teamId, String menuGroupId);
 }

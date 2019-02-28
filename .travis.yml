@@ -1,5 +1,4 @@
 language: java
-script: java -jar divide2-ying-0.0.1-SNAPSHOT.jar
 before_install:
 - openssl aes-256-cbc -K $encrypted_88315a9c010a_key -iv $encrypted_88315a9c010a_iv
-  -in id_rsa.enc -out ~\/.ssh/id_rsa -d
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d

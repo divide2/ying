@@ -1,4 +1,7 @@
 language: java
 before_install:
+- chmod +x mvnw
 - openssl aes-256-cbc -K $encrypted_88315a9c010a_key -iv $encrypted_88315a9c010a_iv
   -in id_rsa.enc -out ~/.ssh/id_rsa -d
+- chmod 600 ~/.ssh/id_rsa
+- echo -e "Host 123.123.123.123\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config

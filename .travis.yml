@@ -6,4 +6,4 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 120.77.153.225\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 after_success:
-- ssh root@120.77.153.225 'cd /home/denominator/ying && git pull && ./mvnw install && ./lancher start'
+- ssh root@120.77.153.225 'cd /home/denominator/ying && git pull && chmod +x mvnw && chmod +x lancher.bash &&./mvnw install && ./lancher start'

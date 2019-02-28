@@ -15,8 +15,8 @@ spring:
   datasource:
     driver-class-name: org.postgresql.Driver
     username: postgres
-    password: bvvy288
-    url: jdbc:postgresql://localhost:5432/denominator
+    password: bvvyeh288
+    url: jdbc:postgresql://120.77.153.225:5432/denominator
   profiles:
     active: default
   application:
@@ -75,4 +75,4 @@ divide:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8081/v1/user
+      user-info-uri: http://localhost:8080/v1/user

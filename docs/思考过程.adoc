@@ -58,11 +58,20 @@
 
 往工作台放菜单的时候是
 
-
-
 还是决定放到一个menu里面
 
-    id  name   path    icon    type    pid
-    1    商品  /p        p      root   0
-    2    查看  /p/v             read
+    id   name  path    icon shortcut   pid  code
+    1    商品  /p        p   true       0   p:v
+    2    查看  /p/v          false      1   p:v
+    3    编辑  /p/e          false      1   p:e
+    4    删除  /p/d          false      1   p:d
+    5    新增  /p/c      pc  true       1   p:c
+    6    成员  /m        m   true       0   m:
+    7    统计  /a        a   true       0   a:
+    8    库存统计 /a/s   s   true       0   a:s
+    workbench中只能shortcut
+    acl中关联code
+    team     squad/user   menucode
+    1         1            p:v
+    1         2            p:e
 

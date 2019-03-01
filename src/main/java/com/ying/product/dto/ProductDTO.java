@@ -16,6 +16,7 @@ import java.util.List;
 @ApiModel("产品添加数据")
 public class ProductDTO {
 
+    @NotEmpty
     private String teamId;
 
     @ApiModelProperty("名字")

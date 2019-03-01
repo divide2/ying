@@ -1,4 +1,4 @@
-package com.ying.core.runner;
+package com.ying.basis.runner;
 
 import com.ying.basis.model.Dictionary;
 import com.ying.basis.repo.DictionaryRepository;

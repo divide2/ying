@@ -1,6 +1,5 @@
-package com.ying.auth.repo;
+package com.ying.team.repo;
 
-import com.ying.auth.repo.custom.AclRepositoryCustom;
 import com.ying.team.model.Acl;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -9,7 +8,7 @@ import java.util.List;
 /**
  * @author bvvy
  */
-public interface AclRepository extends JpaRepository<Acl, Integer>, AclRepositoryCustom {
+public interface AclRepository extends JpaRepository<Acl, Integer> {
     /**
      * 获取principle的acls
      *

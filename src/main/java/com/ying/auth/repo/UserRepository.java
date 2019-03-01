@@ -2,7 +2,7 @@ package com.ying.auth.repo;
 
 
 import com.ying.auth.model.User;
-import com.ying.auth.repo.cutom.UserRepositoryCustom;
+import com.ying.auth.repo.custom.UserRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

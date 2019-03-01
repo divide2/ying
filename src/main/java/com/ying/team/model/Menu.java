@@ -58,4 +58,9 @@ public class Menu {
      */
     private String icon;
 
+    /**
+     * read write
+     */
+    private String type;
+
 }

@@ -1,6 +1,7 @@
-package com.ying.attention.model;
+package com.ying.team.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,10 +14,11 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 public class Attention {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    private String id;
+    private String teamId;
     private LocalDateTime createTime;
     private String title;
     private String content;

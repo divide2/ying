@@ -1,6 +1,6 @@
-package com.ying.auth.service;
+package com.ying.basis.service;
 
-import com.ying.auth.model.Api;
+import com.ying.basis.model.Api;
 import com.ying.core.basic.service.BasicService;
 
 /**

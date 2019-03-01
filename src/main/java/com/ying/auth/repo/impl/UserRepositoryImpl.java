@@ -4,7 +4,7 @@ package com.ying.auth.repo.impl;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
-import com.ying.auth.repo.cutom.UserRepositoryCustom;
+import com.ying.auth.repo.custom.UserRepositoryCustom;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;

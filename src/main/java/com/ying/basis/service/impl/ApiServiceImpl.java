@@ -1,8 +1,8 @@
-package com.ying.auth.service.impl;
+package com.ying.basis.service.impl;
 
-import com.ying.auth.model.Api;
-import com.ying.auth.repo.ApiRepository;
-import com.ying.auth.service.ApiService;
+import com.ying.basis.model.Api;
+import com.ying.basis.repo.ApiRepository;
+import com.ying.basis.service.ApiService;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ying.auth.repo.cutom;
+package com.ying.auth.repo.custom;
 
 import com.ying.auth.model.User;
 import com.ying.team.vo.TeamVO;

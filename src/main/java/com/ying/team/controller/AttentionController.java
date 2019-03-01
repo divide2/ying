@@ -1,7 +1,8 @@
-package com.ying.attention.controller;
+package com.ying.team.controller;
 
-import com.ying.attention.model.Attention;
-import com.ying.attention.service.AttentionService;
+import com.ying.core.data.del.SingleStringId;
+import com.ying.team.model.Attention;
+import com.ying.team.service.AttentionService;
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
@@ -45,7 +46,7 @@ public class AttentionController {
 
     @DeleteMapping
     @ApiOperation("删除")
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId id, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleStringId id, BindingResult br) {
         attentionService.delete(id.getId());
         return Responser.deleted();
     }

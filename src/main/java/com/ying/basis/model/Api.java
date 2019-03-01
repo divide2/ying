@@ -1,4 +1,4 @@
-package com.ying.auth.model;
+package com.ying.basis.model;
 
 import lombok.Data;
 

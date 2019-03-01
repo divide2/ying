@@ -1,4 +1,4 @@
-package com.ying.auth.vo;
+package com.ying.basis.vo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Builder;

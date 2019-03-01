@@ -6,6 +6,6 @@ before_install:
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host 120.77.153.225\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 install:
-- ssh root@120.77.153.225 'cd /home/denominator/ying && git pull && chmod +x mvnw && ./mvnw install'
+- ssh root@120.77.153.225 'cd /home/denominator/ying && git pull && chmod +x mvnw && ./mvnw clean install'
 script:
 - ssh root@120.77.153.225 'cd /home/denominator/ying && chmod +x launcher.bash && ./launcher.bash restart'

@@ -65,7 +65,7 @@ public class Swagger2Config {
                 .title("小影圈接口文档")
                 .license("Apache License Version 2.0")
                 .version("0.0.1")
-                .termsOfServiceUrl("http://bvvy.ngrok.xiaoyingquan.cn")
+                .termsOfServiceUrl("/")
                 .build();
     }
 
@@ -95,7 +95,7 @@ public class Swagger2Config {
     }
 
     private  List<GrantType> grantTypes() {
-        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("http://localhost:8080/oauth/token");
+        GrantType grantType = new ResourceOwnerPasswordCredentialsGrant("/oauth/token");
         return singletonList(grantType);
     }
 

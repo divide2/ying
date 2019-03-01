@@ -1,7 +1,7 @@
-package com.ying.auth.controller;
+package com.ying.basis.controller;
 
-import com.ying.auth.service.ApiService;
-import com.ying.auth.vo.ApiVO;
+import com.ying.basis.service.ApiService;
+import com.ying.basis.vo.ApiVO;
 import com.ying.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

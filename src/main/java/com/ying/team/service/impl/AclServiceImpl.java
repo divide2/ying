@@ -1,6 +1,6 @@
 package com.ying.team.service.impl;
 
-import com.ying.auth.repo.AclRepository;
+import com.ying.team.repo.AclRepository;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.model.Acl;
 import com.ying.team.model.Member;

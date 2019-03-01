@@ -1,6 +1,6 @@
-package com.ying.auth.repo;
+package com.ying.basis.repo;
 
-import com.ying.auth.model.Api;
+import com.ying.basis.model.Api;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

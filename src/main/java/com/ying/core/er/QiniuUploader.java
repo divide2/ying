@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 @Component
 public class QiniuUploader {
-    private Configuration cfg = new Configuration(Zone.zone2());
+    private Configuration cfg = new Configuration(Zone.zone0());
     private UploadManager uploadManager = new UploadManager(cfg);
 
     private final QiniuOssProperties properties;

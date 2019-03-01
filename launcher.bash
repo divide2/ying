@@ -27,8 +27,6 @@ start() {
 
          JAVA_CMD="java -jar  ./target/${app_jar}"
 
-         nohup ${JAVA_CMD} &
-
          checkpid
          if [ $psid -ne 0 ]; then
             echo "Server started successfully!"

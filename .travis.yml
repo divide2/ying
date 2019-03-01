@@ -8,4 +8,4 @@ before_install:
 install:
 - ssh root@120.77.153.225 'cd /home/denominator/ying && git pull && chmod +x mvnw && ./mvnw install'
 script:
-- ssh root@120.77.153.225  'chmod +x lancher.bash&& ./lancher start'
+- ssh root@120.77.153.225  'chmod +x lancher.bash&& ./lancher restart'

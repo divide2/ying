@@ -25,7 +25,7 @@ start() {
       else
          echo "=========== Start ============"
 
-         JAVA_CMD="java -jar  ./target/${app_jar} &"
+         JAVA_CMD="java -jar  ./target/${app_jar}"
 
          nohup ${JAVA_CMD} &
 

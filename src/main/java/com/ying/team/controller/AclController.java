@@ -5,6 +5,7 @@ import com.ying.core.er.Responser;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.service.AclService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ public class AclController {
     }
 
     @PostMapping
+    @ApiOperation("设置权限")
     public ResponseEntity<Messager> add(@RequestBody @Valid AclDTO dto, Errors errors) {
         aclService.add(dto);
         return Responser.created();

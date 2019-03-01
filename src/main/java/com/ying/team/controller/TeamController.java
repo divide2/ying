@@ -2,6 +2,7 @@ package com.ying.team.controller;
 
 import com.ying.auth.dto.*;
 import com.ying.core.data.resp.Messager;
+import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
@@ -12,10 +13,8 @@ import com.ying.product.vo.StockVO;
 import com.ying.team.dto.*;
 import com.ying.team.model.Team;
 import com.ying.team.service.TeamService;
-import com.ying.team.vo.CooperationApplicationVO;
-import com.ying.team.vo.TeamApplicationVO;
-import com.ying.team.vo.MemberVO;
-import com.ying.team.vo.TeamVO;
+import com.ying.team.service.WorkbenchService;
+import com.ying.team.vo.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -38,9 +37,11 @@ public class TeamController {
 
 
     private final TeamService teamService;
+    private final WorkbenchService workbenchService;
 
-    public TeamController(TeamService teamService) {
+    public TeamController(TeamService teamService, WorkbenchService workbenchService) {
         this.teamService = teamService;
+        this.workbenchService = workbenchService;
     }
 
     @PostMapping
@@ -66,6 +67,7 @@ public class TeamController {
     }
 
     @GetMapping("/search")
+    @ApiOperation("搜索团队")
     public ResponseEntity<TeamVO> search(UserSearchDTO search) {
         TeamVO vo = teamService.search(search);
         return Responser.ok(vo);
@@ -79,6 +81,7 @@ public class TeamController {
     }
 
     @GetMapping("/{teamId}/applications")
+    @ApiOperation("团队申请")
     public ResponseEntity<List<TeamApplicationVO>> listGroupApplications(@PathVariable String teamId) {
         List<TeamApplicationVO> teamApplications = teamService.listTeamApplications(teamId);
         return Responser.ok(teamApplications);
@@ -133,38 +136,51 @@ public class TeamController {
 
 
 
-    @GetMapping("{teamId}/order/receive")
+    @GetMapping("/{teamId}/order/receive")
     @ApiOperation("获取团队收到的订单")
     public ResponseEntity<Page<OrderVO>> findReceiveOrder(@PathVariable String teamId, OrderQueryParam queryParam, Pageable pageable) {
         return Responser.ok(teamService.findReceiveOrder(teamId,queryParam, pageable));
     }
 
 
-    @GetMapping("{teamId}/order/send")
+    @GetMapping("/{teamId}/order/send")
     @ApiOperation("获取团对发送的订单，就是采购单")
     public ResponseEntity<Page<OrderVO>> findSendOrder(@PathVariable String teamId,OrderQueryParam queryParam, Pageable pageable) {
         return Responser.ok(teamService.findSendOrder(teamId,queryParam, pageable));
     }
 
-    @GetMapping("{teamId}/stocks")
+    @GetMapping("/{teamId}/stocks")
     @ApiOperation("团队库存")
     public ResponseEntity<Page<StockVO>> findStock(@PathVariable String teamId,Pageable pageable,  StockQuery stockQuery) {
         Page<StockVO> vo = teamService.findStock(teamId,stockQuery, pageable);
         return Responser.ok(vo);
     }
 
-    @GetMapping("{teamId}/warehouses")
+    @GetMapping("/{teamId}/warehouses")
     @ApiOperation("团队仓库")
     public ResponseEntity<List<WarehouseVO>> listWarehouse(@PathVariable String teamId) {
         List<WarehouseVO> warehouses = teamService.listWarehouse(teamId);
         return Responser.ok(warehouses);
     }
 
-    @GetMapping("{teamId}/products")
+    @GetMapping("/{teamId}/products")
     @ApiOperation("团队产品")
     public ResponseEntity<Page<ProductVO>> product(@PathVariable String teamId,Pageable pageable) {
         Page<ProductVO> products = teamService.findProduct(teamId,pageable);
         return Responser.ok(products);
+    }
+
+    @GetMapping("/{teamId}/user/workbench")
+    @ApiOperation("每个人的工作台")
+    public ResponseEntity<List<WorkbenchVO>> getTeamUserWorkbench(@PathVariable String teamId) {
+        List<WorkbenchVO> teamUserWorkbench = workbenchService.getTeamUserWorkbench(teamId, Loginer.userId());
+        return Responser.ok(teamUserWorkbench);
+    }
+    @GetMapping("/{teamId}/workbench")
+    @ApiOperation("整个团队的工作台")
+    public ResponseEntity<List<WorkbenchVO>> getTeamWorkbench(@PathVariable String teamId) {
+        List<WorkbenchVO> teamWorkbench = workbenchService.getTeamWorkbench(teamId);
+        return Responser.ok(teamWorkbench);
     }
 
 }

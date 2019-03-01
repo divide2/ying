@@ -6,6 +6,7 @@ import com.ying.team.dto.GroupMenuDTO;
 import com.ying.team.dto.MenuGroupDTO;
 import com.ying.team.service.MenuGroupService;
 import com.ying.team.service.WorkbenchService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/v1/workbench")
+@Api(tags = "工作台")
 public class WorkbenchController {
 
     private final WorkbenchService workbenchService;

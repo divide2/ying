@@ -85,6 +85,7 @@ public class WorkbenchServiceImpl implements WorkbenchService {
             }
             vo.setMenuGroup(menuGroup);
             vo.setMenus(menus);
+            vos.add(vo);
         }
         return vos;
 

@@ -50,11 +50,19 @@
 ** 设置权限
 ** 编辑成员信息
 ** 移除成员
+* 库存
+** xx
+* 统计
+** 库存统计 read
+** xx统计 read
+
+往工作台放菜单的时候是
 
 
 
 还是决定放到一个menu里面
 
     id  name   path    icon    type    pid
-    1    商品  /p        p
+    1    商品  /p        p      root   0
+    2    查看  /p/v             read
 

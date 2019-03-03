@@ -24,7 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/warehouse")
-@Api(tags = "产品")
+@Api(tags = "仓库")
 public class WarehouseController {
 
     private final WarehouseService warehouseService;

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -33,7 +34,7 @@ public class MenuAddDTO {
 
     @NotNull
     @ApiModelProperty("父级id")
-    private Integer pid;
+    private String pid;
 
     /**
      * 地址
@@ -55,15 +56,16 @@ public class MenuAddDTO {
     @NotNull
     private Integer orderNum;
 
-    @ApiModelProperty("类型")
-    @NotEmpty
-    private String type;
-
-
-    @ApiModelProperty("编码")
-    @NotEmpty
-    private String code;
-
     @ApiModelProperty("图标")
     private String icon;
+    /**
+     * 授权码
+     */
+    @ApiModelProperty("授权码")
+    private String authority;
+
+
+    @Type(type = "yes_no")
+    @ApiModelProperty("是否有快捷方式")
+    private Boolean shortcut;
 }

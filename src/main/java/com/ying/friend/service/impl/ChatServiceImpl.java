@@ -64,7 +64,7 @@ public class ChatServiceImpl implements ChatService {
         // 获取功能菜单
         MenuVO menu = chatInnerConnectService.getMenu(chat.getMenuCode());
         // 获取该团队下管理这个功能的人
-        Set<Integer> userIds = chatInnerConnectService.listTeamOwnMenuUserIds(chat.getTeamId(), menu.getCode());
+        Set<Integer> userIds = chatInnerConnectService.listTeamOwnMenuUserIds(chat.getTeamId(), menu.getAuthority());
 
         userIds.forEach(userId ->
                 this.save(new ChatDTO(userId, menu.getId(), "menu", menu.getName(), menu.getIcon(), "你有新的申请")));

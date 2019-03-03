@@ -20,39 +20,29 @@ public class MenuVO {
     @ApiModelProperty("id")
     private String id;
 
-    /**
-     * 名称
-     */
     @ApiModelProperty("名称")
     private String name;
 
-    /**
-     * 父级菜单
-     */
     @ApiModelProperty("父级菜单")
-    private Integer pid;
+    private String pid;
 
-    /**
-     * 地址
-     */
     @ApiModelProperty("地址")
     private String path;
 
-    /**
-     * 是否启用
-     */
     @ApiModelProperty("是否启用")
     private Boolean enabled;
 
-    /**
-     * 排序号
-     */
     @ApiModelProperty("排序号")
     private Integer orderNum;
 
     private String icon;
 
-    private String code;
+
+    @ApiModelProperty("授权码")
+    private String authority;
+
+    @ApiModelProperty("快捷方式")
+    private Boolean shortcut;
 
 
 }

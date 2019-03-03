@@ -24,8 +24,8 @@ public class ChatInnerConnectServiceImpl implements ChatInnerConnectService {
     }
 
     @Override
-    public MenuVO getMenu(String menuCode) {
-        return menuService.getByCode(menuCode);
+    public MenuVO getMenu(String authority) {
+        return menuService.getByAuthority(authority);
     }
 
     @Override

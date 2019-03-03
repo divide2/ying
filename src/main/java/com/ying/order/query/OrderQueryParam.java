@@ -4,7 +4,6 @@ import com.ying.core.root.query.QueryField;
 import com.ying.core.root.query.QueryParam;
 import com.ying.order.model.Order;
 import com.ying.order.model.PurchaseOrder;
-import com.ying.order.model.QOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

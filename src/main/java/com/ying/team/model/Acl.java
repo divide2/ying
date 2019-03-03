@@ -43,9 +43,9 @@ public class Acl {
     private String principleType;
 
     /**
-     * todo change to code[] !
+     * 权限码
      */
-    private String menuId;
+    private String authority;
 
     public boolean isSquadType() {
         return principleType.equals(SQUAD_TYPE);

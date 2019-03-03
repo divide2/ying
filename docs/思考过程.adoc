@@ -60,7 +60,7 @@
 
 还是决定放到一个menu里面
 
-    id   name  path    icon shortcut   pid  code
+    id   name  path    icon shortcut   pid  authority
     1    商品  /p        p   true       0   p:v
     2    查看  /p/v          false      1   p:v
     3    编辑  /p/e          false      1   p:e
@@ -69,9 +69,10 @@
     6    成员  /m        m   true       0   m:
     7    统计  /a        a   true       0   a:
     8    库存统计 /a/s   s   true       0   a:s
-    workbench中只能shortcut
-    acl中关联code
-    team     squad/user   menucode
+    workbench中 关联id
+    这样查 workbench时查只是shortcut的
+    acl中关联authority 这样判断权限是只用判断 authority
+    team     squad/user   authority
     1         1            p:v
     1         2            p:e
 

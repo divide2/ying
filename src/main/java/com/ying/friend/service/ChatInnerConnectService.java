@@ -12,7 +12,12 @@ import java.util.Set;
 public interface ChatInnerConnectService extends ConnectService {
 
 
-    MenuVO getMenu(String menuCode);
+    /**
+     * 通过权限码 获取菜单
+     * @param authority 授权码
+     * @return 菜单
+     */
+    MenuVO getMenu(String authority);
 
     /**
      * 获取拥有菜单权限的用户ids

@@ -25,6 +25,7 @@ public class UserDetailsImpl implements UserDetails {
     private String gender;
     private String avatar;
     private boolean enabled;
+    @Builder.Default
     private Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
     private boolean accountNonExpired;
     private boolean accountNonLocked;

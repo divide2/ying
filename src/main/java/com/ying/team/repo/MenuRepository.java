@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -13,12 +14,12 @@ import java.util.List;
 public interface MenuRepository extends JpaRepository<Menu, String> {
 
     /**
-     * code
+     * authority
      *
-     * @param menuCode code
+     * @param authority authority
      * @return menu
      */
-    Menu getByCode(String menuCode);
+    Menu getByAuthority(String authority);
 
     /**
      * in id
@@ -27,4 +28,31 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
      * @return menu
      */
     List<Menu> findByIdIn(Collection<String> ids);
+
+    /**
+     * 通过r
+     *
+     * @param authorities authority
+     * @return Menu
+     */
+    List<Menu> findByAuthorityIn(Set<String> authorities);
+
+    /**
+     * 通过父级菜单获取子菜单
+     *
+     * @param pid pid
+     * @return menu
+     */
+    default List<Menu> findByPid(String pid) {
+        return findByPidOrderByOrderNumAsc(pid);
+    }
+
+    /**
+     * 通过父级菜单获取子菜单 排个序
+     *
+     * @param pid pid
+     * @return menu
+     */
+    List<Menu> findByPidOrderByOrderNumAsc(String pid);
+
 }

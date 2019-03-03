@@ -22,6 +22,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Menu {
 
+    public static final String DEFAULT_PID = "0";
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid")
@@ -34,7 +36,7 @@ public class Menu {
     /**
      * 父级菜单
      */
-    private Integer pid;
+    private String pid;
     /**
      * 地址
      */
@@ -51,18 +53,16 @@ public class Menu {
     @Column(name = "order_num")
     private Integer orderNum;
 
-
-    private String code;
-
     /**
-     * tubiao
+     * 图标
      */
     private String icon;
 
     /**
-     * read write
+     * 授权码
      */
-    private String type;
+    private String authority;
+
 
     @Type(type = "yes_no")
     private Boolean shortcut;

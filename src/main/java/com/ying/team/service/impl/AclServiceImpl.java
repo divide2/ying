@@ -33,10 +33,10 @@ public class AclServiceImpl implements AclService {
         // 先删除之前的
         aclRepository.deleteExists(dto.getTeamId(), dto.getPrincipleId(), dto.getPrincipleType());
         //再添加
-        dto.getMenuIds()
-                .forEach(menuId -> {
+        dto.getAuthorities()
+                .forEach(authority -> {
                     Acl acl = new Acl();
-                    acl.setMenuId(menuId);
+                    acl.setAuthority(authority);
                     acl.setPrincipleId(dto.getPrincipleId());
                     acl.setPrincipleType(dto.getPrincipleType());
                     acl.setTeamId(dto.getTeamId());
@@ -45,9 +45,9 @@ public class AclServiceImpl implements AclService {
     }
 
     @Override
-    public Set<Integer> listTeamOwnMenuUserIds(String teamId, String menuId) {
+    public Set<Integer> listTeamOwnMenuUserIds(String teamId, String authority) {
         // 先获取principle
-        List<Acl> pAcls = aclRepository.findByTeamIdAndMenuId(teamId, menuId);
+        List<Acl> pAcls = aclRepository.findByTeamIdAndAuthority(teamId, authority);
         Set<Integer> userIds = new HashSet<>();
         pAcls.forEach(acl -> {
                     if (acl.isSquadType()) {
@@ -64,13 +64,13 @@ public class AclServiceImpl implements AclService {
     }
 
     @Override
-    public Set<String> listTeamUserMenuIds(String teamId, Integer userId) {
+    public Set<String> listTeamUserAuthorities(String teamId, Integer userId) {
         // 获取菜单
         List<Acl> userAcls = aclRepository.findByTeamUser(teamId, userId);
         Member member = memberRepository.getByTeamIdAndUserId(teamId, userId);
         List<Acl> squadAcls = aclRepository.findByTeamSquad(member.getTeamId(), member.getSquadId());
-        Set<String> userMenus = userAcls.stream().map(Acl::getMenuId).collect(Collectors.toSet());
-        Set<String> squadMenus = squadAcls.stream().map(Acl::getMenuId).collect(Collectors.toSet());
+        Set<String> userMenus = userAcls.stream().map(Acl::getAuthority).collect(Collectors.toSet());
+        Set<String> squadMenus = squadAcls.stream().map(Acl::getAuthority).collect(Collectors.toSet());
         userMenus.addAll(squadMenus);
         return userMenus;
     }

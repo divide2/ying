@@ -7,6 +7,7 @@ import com.ying.team.dto.MenuAddDTO;
 import com.ying.team.dto.MenuUpdateDTO;
 import com.ying.team.model.Menu;
 import com.ying.team.service.MenuService;
+import com.ying.team.vo.MenuTreeVO;
 import com.ying.team.vo.MenuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -68,5 +70,10 @@ public class MenuController {
         return Responser.deleted();
     }
 
+    @GetMapping("/tree")
+    @ApiOperation("获取菜单树")
+    public ResponseEntity<List<MenuTreeVO>> findTree() {
+        return Responser.ok(menuService.findTree());
+    }
 
 }

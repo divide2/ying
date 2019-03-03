@@ -6,14 +6,17 @@ import com.ying.team.dto.MenuAddDTO;
 import com.ying.team.model.Menu;
 import com.ying.team.repo.MenuRepository;
 import com.ying.team.service.MenuService;
+import com.ying.team.vo.MenuTreeVO;
 import com.ying.team.vo.MenuVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toMap;
 
 
@@ -31,6 +34,9 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     @Override
     public void add(MenuAddDTO menuAddDTO) {
 
+        if (StringUtils.isBlank(menuAddDTO.getPid())) {
+            menuAddDTO.setPid(Menu.DEFAULT_PID);
+        }
         Menu menu = Menu.builder()
                 .enabled(menuAddDTO.getEnabled())
                 .name(menuAddDTO.getName())
@@ -38,6 +44,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
                 .path(menuAddDTO.getPath())
                 .pid(menuAddDTO.getPid())
                 .icon(menuAddDTO.getIcon())
+                .authority(menuAddDTO.getAuthority())
+                .shortcut(menuAddDTO.getShortcut())
                 .build();
         this.add(menu);
 
@@ -48,6 +56,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
         Menu menu = this.get(menuId);
         return toVO(menu);
     }
+
 
     @Override
     public List<MenuVO> findByIds(Collection<String> ids) {
@@ -60,9 +69,15 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     }
 
     @Override
-    public MenuVO getByCode(String menuCode) {
-        Menu menu =  menuRepository.getByCode(menuCode);
+    public MenuVO getByAuthority(String menuCode) {
+        Menu menu =  menuRepository.getByAuthority(menuCode);
         return toVO(menu);
+    }
+
+    @Override
+    public Set<String> findByMenuIdsByAuthorities(Set<String> authorities) {
+        List<Menu> menus =  menuRepository.findByAuthorityIn(authorities);
+        return menus.stream().map(Menu::getId).collect(Collectors.toSet());
     }
 
     private MenuVO toVO(Menu menu) {
@@ -73,9 +88,21 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
                 .orderNum(menu.getOrderNum())
                 .path(menu.getPath())
                 .pid(menu.getPid())
-                .code(menu.getCode())
+                .authority(menu.getAuthority())
                 .icon(menu.getIcon())
+                .shortcut(menu.getShortcut())
                 .build();
+    }
+
+    @Override
+    public List<MenuTreeVO> findTree() {
+        List<Menu> pmenus = menuRepository.findByPid(Menu.DEFAULT_PID);
+        return Converter.of(pmenus).convert(menu -> {
+            List<Menu> cMenus = menuRepository.findByPid(menu.getPid());
+            List<MenuTreeVO> children = cMenus.stream().map(
+                    cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName())).collect(Collectors.toList());
+            return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(), children);
+        });
     }
 
 }

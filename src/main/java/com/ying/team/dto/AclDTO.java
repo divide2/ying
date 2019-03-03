@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class AclDTO {
 
-    private List<String> menuIds;
+    private List<String> authorities;
 
     private String teamId;
 

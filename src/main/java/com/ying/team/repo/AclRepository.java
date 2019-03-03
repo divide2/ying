@@ -46,10 +46,10 @@ public interface AclRepository extends JpaRepository<Acl, Integer> {
      * 获取拥有菜单权限的 principle
      *
      * @param teamId team
-     * @param menuId menu
+     * @param authority authority
      * @return acl
      */
-    List<Acl> findByTeamIdAndMenuId(String teamId, String menuId);
+    List<Acl> findByTeamIdAndAuthority(String teamId, String authority);
 
     /**
      * 删除已有的

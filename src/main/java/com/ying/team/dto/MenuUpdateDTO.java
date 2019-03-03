@@ -37,7 +37,7 @@ public class MenuUpdateDTO {
      */
     @ApiModelProperty("父级id")
     @NotNull
-    private Integer pid;
+    private String pid;
 
     /**
      * 地址
@@ -58,5 +58,11 @@ public class MenuUpdateDTO {
     @ApiModelProperty("排序")
     @NotNull
     private Integer orderNum;
+
+    @ApiModelProperty("授权码")
+    private String authority;
+
+    @ApiModelProperty("快捷方式")
+    private Boolean shortcut;
 
 }

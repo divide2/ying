@@ -98,7 +98,7 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     public List<MenuTreeVO> findTree() {
         List<Menu> pmenus = menuRepository.findByPid(Menu.DEFAULT_PID);
         return Converter.of(pmenus).convert(menu -> {
-            List<Menu> cMenus = menuRepository.findByPid(menu.getPid());
+            List<Menu> cMenus = menuRepository.findByPid(menu.getId());
             List<MenuTreeVO> children = cMenus.stream().map(
                     cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName())).collect(Collectors.toList());
             return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(), children);

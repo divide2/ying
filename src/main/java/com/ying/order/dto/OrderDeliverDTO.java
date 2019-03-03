@@ -15,5 +15,5 @@ public class OrderDeliverDTO {
     @NotNull
     private Integer orderId;
     @NotNull
-    private Integer warehouseId;
+    private String warehouseId;
 }

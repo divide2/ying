@@ -16,5 +16,5 @@ public class OrderReceiveDTO implements DTO {
     @NotNull
     private Integer orderId;
     @NotNull
-    private Integer warehouseId;
+    private String warehouseId;
 }

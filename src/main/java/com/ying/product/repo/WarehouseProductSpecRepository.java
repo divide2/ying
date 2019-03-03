@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * @date 2018/12/9
  */
 public interface WarehouseProductSpecRepository extends JpaRepository<WarehouseProductSpec,Integer>{
-    default WarehouseProductSpec getByAllId(Integer warehouseId, Integer productId, Integer productSpecId){
+    default WarehouseProductSpec getByAllId(String warehouseId, Integer productId, Integer productSpecId){
         WarehouseProductSpec wps = new WarehouseProductSpec();
         wps.setWarehouseId(warehouseId);
         wps.setProductId(productId);
@@ -30,5 +30,5 @@ public interface WarehouseProductSpecRepository extends JpaRepository<WarehouseP
         return this.findByWarehouseId(warehouseId).stream().collect(Collectors.groupingBy(WarehouseProductSpec::getProductId));
     }
 
-    List<WarehouseProductSpec> findByWarehouseIdAndProductId(Integer warehouseId, Integer productId);
+    List<WarehouseProductSpec> findByWarehouseIdAndProductId(String warehouseId, Integer productId);
 }

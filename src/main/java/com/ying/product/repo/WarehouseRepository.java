@@ -9,7 +9,7 @@ import java.util.List;
  * @author bvvy
  * @date 2018/12/9
  */
-public interface WarehouseRepository extends JpaRepository<Warehouse,Integer> {
-    List<Warehouse> findByTeamId(String teamId);
+public interface WarehouseRepository extends JpaRepository<Warehouse,String> {
+    List<Warehouse> findByTeamIdAndEnabled(String teamId,Boolean enabled);
 
 }

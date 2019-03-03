@@ -119,7 +119,7 @@ public class StockServiceImpl implements StockService {
     }
 
 
-    public StockVO getVO(Integer warehouseId, Integer productId) {
+    public StockVO getVO(String warehouseId, Integer productId) {
 
         StockVO stockVO = warehouseProductRepository.getStock(warehouseId, productId);
         List<WarehouseProductSpec> specs = warehouseProductSpecRepository.findByWarehouseIdAndProductId(warehouseId, productId);

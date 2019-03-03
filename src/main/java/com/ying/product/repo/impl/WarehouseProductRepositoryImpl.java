@@ -35,7 +35,7 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
 
     private QBean<StockVO> qBean = Projections.bean(StockVO.class,
             w.id.as("warehouseId"), w.name.as("warehouseName"),
-            w.type.as("warehouseType"), wp.productId, wp.amount.as("productAmount"),
+            wp.productId, wp.amount.as("productAmount"),
             p.name.as("productName"),p.image.as("productImage"));
 
 
@@ -51,7 +51,7 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
     }
 
     @Override
-    public StockVO getStock(Integer warehouseId, Integer productId) {
+    public StockVO getStock(String warehouseId, Integer productId) {
         return createQuery().select(qBean)
                 .from(w).innerJoin(wp).on(w.id.eq(wp.warehouseId))
                 .innerJoin(p).on(p.id.eq(wp.productId))

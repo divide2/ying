@@ -9,7 +9,6 @@ import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.service.OrderService;
 import com.ying.order.vo.OrderVO;
-import com.ying.product.model.Warehouse;
 import com.ying.product.query.StockQuery;
 import com.ying.product.service.ProductService;
 import com.ying.product.service.StockService;
@@ -26,7 +25,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -88,14 +86,7 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
 
     @Override
     public List<WarehouseVO> listWarehouse(String teamId) {
-        List<Warehouse> warehouses = warehouseService.listByTeam(teamId);
-        return warehouses.stream().map(warehouse -> {
-            WarehouseVO vo = new WarehouseVO();
-            vo.setId(warehouse.getId());
-            vo.setName(warehouse.getName());
-            vo.setType(warehouse.getType());
-            return vo;
-        }).collect(Collectors.toList());
+        return warehouseService.listByTeam(teamId);
     }
 
     @Override

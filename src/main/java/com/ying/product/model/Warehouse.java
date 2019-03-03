@@ -1,8 +1,13 @@
 package com.ying.product.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author bvvy
@@ -14,16 +19,25 @@ import javax.persistence.*;
 public class Warehouse {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(
+            name = "custom-uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
+    private String id;
     private String teamId;
 
-    private Integer userId;
-
-    /**
-     * parts P end product E
-     */
-    private String type;
     private String name;
+
+    private String remarks;
+
+    @Type(type = "yes_no")
+    private Boolean enabled;
 
 }

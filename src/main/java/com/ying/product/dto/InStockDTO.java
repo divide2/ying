@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class InStockDTO {
     @NotNull
-    private Integer warehouseId;
+    private String warehouseId;
     @NotNull
     private Integer productId;
     @ApiModelProperty("产品规格的数量 amount是正数 是增加的")

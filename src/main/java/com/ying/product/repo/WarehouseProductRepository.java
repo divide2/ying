@@ -11,7 +11,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface WarehouseProductRepository extends JpaRepository<WarehouseProduct, Integer>, StockRepository {
 
 
-    WarehouseProduct getByWarehouseIdAndProductId(Integer warehouseId, Integer productId);
+    WarehouseProduct getByWarehouseIdAndProductId(String warehouseId, Integer productId);
+
 
     WarehouseProduct getByWarehouseId(Integer warehouseId);
 }

@@ -18,7 +18,7 @@ public class WarehouseProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer warehouseId;
+    private String warehouseId;
     private Integer productId;
     private Integer amount;
     /**

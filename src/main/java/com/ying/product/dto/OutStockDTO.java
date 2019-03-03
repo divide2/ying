@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 public class OutStockDTO {
     @NotNull
-    private Integer warehouseId;
+    private String warehouseId;
 
     @NotNull
     private Integer productId;

@@ -1,8 +1,10 @@
 package com.ying.product.service;
 
 import com.ying.core.basic.service.BasicService;
+import com.ying.mine.vo.WarehouseVO;
+import com.ying.product.dto.WarehouseDTO;
+import com.ying.product.dto.WarehouseUpdateDTO;
 import com.ying.product.model.Warehouse;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -10,8 +12,14 @@ import java.util.List;
  * @author bvvy
  * @date 2018/12/9
  */
-public interface WarehouseService extends BasicService<Warehouse, Integer> {
+public interface WarehouseService extends BasicService<Warehouse, String> {
 
 
-    List<Warehouse> listByTeam(String teamId);
+    List<WarehouseVO> listByTeam(String teamId);
+
+    void add(WarehouseDTO dto);
+
+    void update(WarehouseUpdateDTO dto);
+
+    WarehouseVO getVO(String id);
 }

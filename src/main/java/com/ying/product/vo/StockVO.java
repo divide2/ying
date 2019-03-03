@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 public class StockVO {
-    private Integer warehouseId;
+    private String warehouseId;
     private String warehouseName;
     private String warehouseType;
     private Integer productId;

@@ -46,15 +46,6 @@ dic:
   status:
     enable: Y
     disable: N
-  cost-type:  # 报价类型
-    general: general # 常规
-    special: special # 特殊
-  publish-status: # 文章的发布状态
-    publish: publish
-    draft: draft
-  container-type:
-    general: G
-    special: S
 divide:
   dic:
     status:

@@ -1,22 +1,38 @@
 package com.ying.team.model;
 
+import com.ying.core.model.BaseEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
  * @author bvvy
  * @date 2019/1/4
  */
+@EqualsAndHashCode(callSuper = false)
 @Table(name = "a_attention")
 @Entity
 @Data
-public class Attention {
+public class Attention extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(
+            name = "custom-uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
     private String id;
     private String teamId;
     private LocalDateTime createTime;

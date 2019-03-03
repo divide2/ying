@@ -227,7 +227,8 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         teamCooperationApplication.setRemarks(dto.getRemarks());
         teamCooperationApplication.setStatus("waiting_confirm");
         teamCooperationApplicationRepository.save(teamCooperationApplication);
-        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(),"team_cooperate_apply"));
+        //todo add chat after init menus when create Team
+//        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(),"team_cooperate_apply"));
     }
 
     @Override

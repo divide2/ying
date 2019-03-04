@@ -168,7 +168,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     public Page<OrderVO> findTeamReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
-        predicate = predicate.and(order.teamId.eq(teamId));
+        predicate = predicate.and(order.toTeamId.eq(teamId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
     }
@@ -177,7 +177,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     public Page<OrderVO> findTeamSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
-        predicate = predicate.and(order.teamId.eq(teamId));
+        predicate = predicate.and(order.fromTeamId.eq(teamId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
         return page.map(OrderVO::from);
     }

@@ -42,7 +42,9 @@ public class Order  {
 
     private String fromName;
 
-    private String teamId;
+    private String fromTeamId;
+
+    private String toTeamId;
 
     private String orderNo;
     /**

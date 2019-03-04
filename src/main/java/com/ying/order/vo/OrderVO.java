@@ -21,9 +21,6 @@ public class OrderVO {
     @ApiModelProperty("这不是order的id")
     private String id;
     private String orderId;
-    private Integer toId;
-
-    private String toName;
 
     private Integer fromId;
 
@@ -57,8 +54,6 @@ public class OrderVO {
         return new OrderVO(
                 order.getId(),
                 order.getId(),
-                order.getToId(),
-                order.getToName(),
                 order.getFromId(),
                 order.getFromName(),
                 order.getOrderNo(),

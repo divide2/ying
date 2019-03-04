@@ -130,14 +130,14 @@ public class StockServiceImpl implements StockService {
     @Override
     public Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable) {
         val voPage = warehouseProductRepository.findByTeam(teamId, stockQuery, pageable);
-        val productIds = voPage.getContent().stream().map(StockVO::getProductId).collect(Collectors.toList());
+        val productIds = voPage.getContent().stream().map(StockVO::getId).collect(Collectors.toList());
         val voMap = productRepository.findByIds(productIds);
         return voPage.map(vo -> {
             // todo cache
-            val specs = warehouseProductSpecRepository.findByWarehouseIdAndProductId(vo.getWarehouseId(), vo.getProductId());
-            val product = voMap.get(vo.getProductId());
-            vo.setProductName(product.getName());
-            vo.setProductImage(product.getImage());
+            val specs = warehouseProductSpecRepository.findByProductId(vo.getId());
+            val product = voMap.get(vo.getId());
+            vo.setName(product.getName());
+            vo.setImage(product.getImage());
             vo.setSpecs(Converter.of(specs).convert(WarehouseProductSpecVO::from));
             return vo;
         });

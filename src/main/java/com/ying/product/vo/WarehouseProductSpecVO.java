@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WarehouseProductSpecVO {
-    private String productSpecId;
-    private String productSpecName;
+    private String id;
+    private String name;
     private Integer amount;
 
     public static WarehouseProductSpecVO from(WarehouseProductSpec source) {

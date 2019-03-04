@@ -10,12 +10,10 @@ import java.util.List;
  */
 @Data
 public class StockVO {
-    private String warehouseId;
-    private String warehouseName;
-    private String productId;
-    private String productName;
-    private String[] productImage;
-    private Integer productAmount;
+    private String id;
+    private String name;
+    private String[] image;
+    private Integer amount;
     List<WarehouseProductSpecVO> specs;
 
 }

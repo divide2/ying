@@ -31,4 +31,6 @@ public interface WarehouseProductSpecRepository extends JpaRepository<WarehouseP
     }
 
     List<WarehouseProductSpec> findByWarehouseIdAndProductId(String warehouseId, String productId);
+
+    List<WarehouseProductSpec>  findByProductId(String id);
 }

@@ -31,7 +31,7 @@ public class ProductSpecController {
         this.productSpecService = productSpecService;
     }
 
-    @ApiOperation("添加仓库")
+    @ApiOperation("添加一个规格")
     @PostMapping
     public ResponseEntity<Messager> add(@Valid @RequestBody ProductSpec dto, BindingResult br) {
         productSpecService.add(dto);

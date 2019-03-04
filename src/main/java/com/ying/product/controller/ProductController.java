@@ -75,7 +75,7 @@ public class ProductController {
     }
 
     @GetMapping("/{productId}/specs")
-    @ApiOperation("获取分页的产品")
+    @ApiOperation("获取产品的规格")
     public ResponseEntity<List<ProductSpec>> listProductSpecs(@PathVariable String productId) {
         List<ProductSpec> info = productSpecService.listByProduct(productId);
         return Responser.ok(info);

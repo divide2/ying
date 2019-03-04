@@ -33,13 +33,11 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
         super(entityManager);
     }
 
-    private QBean<StockVO> qBean = Projections.bean(StockVO.class,
-            w.id.as("warehouseId"), w.name.as("warehouseName"),
-            wp.productId, wp.amount.as("productAmount"),
-            p.name.as("productName"),p.image.as("productImage"));
+    private QBean<StockVO> qBean = Projections.bean(StockVO.class, p.id, p.name, p.image, wp.amount);
 
 
     @Override
+    // todo not neessag
     public Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(stockQuery);
         JPAQuery<StockVO> query = createQuery().select(qBean)

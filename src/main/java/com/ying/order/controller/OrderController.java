@@ -1,7 +1,7 @@
 package com.ying.order.controller;
 
 
-import com.ying.core.data.del.SingleId;
+import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.order.dto.OrderDTO;
@@ -48,7 +48,7 @@ public class OrderController {
 
     @ApiOperation("确认订单")
     @PutMapping("/confirm")
-    public ResponseEntity<Messager> confirm(@Valid @RequestBody SingleId confirm, BindingResult bindingResult) {
+    public ResponseEntity<Messager> confirm(@Valid @RequestBody SingleStringId confirm, BindingResult bindingResult) {
         orderService.confirm(confirm);
         return Responser.updated();
     }
@@ -68,7 +68,7 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}/spec")
-    public ResponseEntity<List<OrderProductSpec>> listOrderProductSpecByOrder(@PathVariable Integer orderId) {
+    public ResponseEntity<List<OrderProductSpec>> listOrderProductSpecByOrder(@PathVariable String orderId) {
         List<OrderProductSpec> orderProductSpecs = orderProductSpecService.listByOrder(orderId);
         return Responser.ok(orderProductSpecs);
     }

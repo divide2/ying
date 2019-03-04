@@ -23,11 +23,11 @@ public class ProductInnerCollectServiceImpl implements ProductInnerCollectServic
     }
 
     @Override
-    public List<ProductVO> listProductByIds(List<Integer> ids) {
+    public List<ProductVO> listProductByIds(List<String> ids) {
         return productService.findByIds(ids);
     }
     @Override
-    public Map<Integer, ProductVO> mapProductByIds(List<Integer> ids) {
+    public Map<String, ProductVO> mapProductByIds(List<String> ids) {
         return productService.findByIds(ids).stream().collect(Collectors.toMap(ProductVO::getId, product -> product));
     }
 

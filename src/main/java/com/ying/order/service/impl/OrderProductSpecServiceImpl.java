@@ -19,7 +19,7 @@ public class OrderProductSpecServiceImpl implements OrderProductSpecService {
     }
 
     @Override
-    public List<OrderProductSpec> listByOrder(Integer orderId) {
+    public List<OrderProductSpec> listByOrder(String orderId) {
         return orderProductSpecRepository.findByOrderId(orderId);
     }
 

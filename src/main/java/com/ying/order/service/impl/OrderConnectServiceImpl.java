@@ -51,7 +51,7 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     }
 
     @Override
-    public ProductVO getProductById(Integer productId) {
+    public ProductVO getProductById(String productId) {
         return productService.getVO(productId);
     }
 
@@ -61,7 +61,7 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     }
 
     @Override
-    public ProductSpec getProductSpec(Integer productSpecId) {
+    public ProductSpec getProductSpec(String productSpecId) {
         return productSpecService.get(productSpecId);
     }
 

@@ -1,6 +1,6 @@
 package com.ying.product.controller;
 
-import com.ying.core.data.del.SingleId;
+import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.model.ProductSpec;
@@ -47,14 +47,14 @@ public class ProductSpecController {
 
     @ApiOperation("删除")
     @DeleteMapping
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId id, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleStringId id, BindingResult br) {
         productSpecService.delete(id.getId());
         return Responser.deleted();
     }
 
     @ApiOperation("查一条详情")
     @GetMapping("/{id}")
-    public ResponseEntity<ProductSpec> get(@PathVariable Integer id) {
+    public ResponseEntity<ProductSpec> get(@PathVariable String id) {
         ProductSpec warehouse = productSpecService.get(id);
         return Responser.ok(warehouse);
     }

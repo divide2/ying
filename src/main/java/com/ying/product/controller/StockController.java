@@ -53,7 +53,7 @@ public class StockController {
 
     @GetMapping("/warehouse/{warehouseId}")
     @ApiModelProperty("获取某个仓库的库存")
-    public ResponseEntity<List<WarehouseProductSpec>> getByWarehouseId(@PathVariable Integer warehouseId) {
+    public ResponseEntity<List<WarehouseProductSpec>> getByWarehouseId(@PathVariable String warehouseId) {
         return Responser.ok(stockService.getByWarehouseId(warehouseId));
     }
 

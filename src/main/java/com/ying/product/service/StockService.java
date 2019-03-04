@@ -38,7 +38,7 @@ public interface StockService {
 
     Page<StockBO> find(StockQuery stockQuery);
 
-    List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId);
+    List<WarehouseProductSpec> getByWarehouseId(String warehouseId);
 
     Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 

@@ -1,8 +1,12 @@
 package com.ying.product.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * 仓库和 产品的规格 关联表 算是库存的详细表
@@ -16,12 +20,22 @@ import javax.persistence.*;
 public class WarehouseProductSpec {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(
+            name = "custom-uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
+    private String id;
 
     private String warehouseId;
-    private Integer productId;
-    private Integer productSpecId;
+    private String productId;
+    private String productSpecId;
     private String productSpecName;
 
     private Integer amount;

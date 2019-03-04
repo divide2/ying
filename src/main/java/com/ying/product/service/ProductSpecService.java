@@ -9,8 +9,8 @@ import java.util.List;
  * @author bvvy
  * @date 2018/12/10
  */
-public interface ProductSpecService extends BasicService<ProductSpec, Integer> {
+public interface ProductSpecService extends BasicService<ProductSpec, String> {
 
 
-    List<ProductSpec> listByProduct(Integer productId);
+    List<ProductSpec> listByProduct(String productId);
 }

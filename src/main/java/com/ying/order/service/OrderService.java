@@ -1,23 +1,21 @@
  package com.ying.order.service;
 
-import com.ying.core.basic.service.BasicService;
-import com.ying.core.data.del.SingleId;
-import com.ying.order.dto.OrderDTO;
-import com.ying.order.dto.OrderDeliverDTO;
-import com.ying.order.dto.OrderReceiveDTO;
-import com.ying.order.model.Order;
-import com.ying.order.query.OrderQueryParam;
-import com.ying.order.vo.OrderVO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+ import com.ying.core.basic.service.BasicService;
+ import com.ying.core.data.del.SingleStringId;
+ import com.ying.order.dto.OrderDTO;
+ import com.ying.order.dto.OrderDeliverDTO;
+ import com.ying.order.dto.OrderReceiveDTO;
+ import com.ying.order.model.Order;
+ import com.ying.order.query.OrderQueryParam;
+ import com.ying.order.vo.OrderVO;
+ import org.springframework.data.domain.Page;
+ import org.springframework.data.domain.Pageable;
 
 /**
  * @author bvvy
  * @date 2018/12/17
  */
-public interface OrderService extends BasicService<Order, Integer> {
+public interface OrderService extends BasicService<Order, String> {
 
     /**
      * 1 添加 订单
@@ -33,7 +31,7 @@ public interface OrderService extends BasicService<Order, Integer> {
      *
      * @param confirm confirm
      */
-    void confirm(SingleId confirm);
+    void confirm(SingleStringId confirm);
 
     /**
      * 确认发货

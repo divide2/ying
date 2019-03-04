@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bvvy
  * @date 2018/12/9
  */
-public interface WarehouseProductRepository extends JpaRepository<WarehouseProduct, Integer>, StockRepository {
+public interface WarehouseProductRepository extends JpaRepository<WarehouseProduct, String>, StockRepository {
 
 
-    WarehouseProduct getByWarehouseIdAndProductId(String warehouseId, Integer productId);
+    WarehouseProduct getByWarehouseIdAndProductId(String warehouseId, String productId);
 
 
-    WarehouseProduct getByWarehouseId(Integer warehouseId);
+    WarehouseProduct getByWarehouseId(String warehouseId);
 }

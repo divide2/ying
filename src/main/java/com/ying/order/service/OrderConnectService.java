@@ -7,7 +7,6 @@ import com.ying.order.model.Order;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.ProductSpec;
-import com.ying.product.model.WarehouseProductSpec;
 import com.ying.product.vo.ProductVO;
 
 /**
@@ -24,11 +23,11 @@ public interface OrderConnectService extends ConnectService {
      */
     UserVO getUser(Integer userId);
 
-    ProductVO getProductById(Integer productId);
+    ProductVO getProductById(String productId);
 
     void sendMessage(Order order);
 
-    ProductSpec getProductSpec(Integer productSpecId);
+    ProductSpec getProductSpec(String productSpecId);
 
 
     void outStock(OutStockDTO outStock);

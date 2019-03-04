@@ -51,7 +51,7 @@ public class WarehouseProductRepositoryImpl extends SimpleBasicCustomRepositoryI
     }
 
     @Override
-    public StockVO getStock(String warehouseId, Integer productId) {
+    public StockVO getStock(String warehouseId, String productId) {
         return createQuery().select(qBean)
                 .from(w).innerJoin(wp).on(w.id.eq(wp.warehouseId))
                 .innerJoin(p).on(p.id.eq(wp.productId))

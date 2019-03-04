@@ -1,8 +1,12 @@
 package com.ying.order.model;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author bvvy
@@ -12,12 +16,21 @@ import javax.persistence.*;
 @Entity
 @Table(name = "o_sell_order")
 public class SellOrder {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "custom-uuid")
+    @GenericGenerator(
+            name = "custom-uuid",
+            strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(
+                            name = "uuid_gen_strategy_class",
+                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
+                    )
+            }
+    )
+    private String id;
 
-    private Integer orderId;
+    private String orderId;
 
     private Integer toId;
 

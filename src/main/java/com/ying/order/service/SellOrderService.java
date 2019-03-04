@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
  * @author bvvy
  * @date 2018/12/18
  */
-public interface SellOrderService  extends BasicService<SellOrder,Integer> {
+public interface SellOrderService  extends BasicService<SellOrder,String> {
 
     void add(PurchaseOrderDTO dto);
 

@@ -10,6 +10,6 @@ import java.util.List;
  */
 public interface OrderProductSpecService {
 
-    List<OrderProductSpec> listByOrder(Integer orderId);
+    List<OrderProductSpec> listByOrder(String orderId);
 
 }

@@ -1,13 +1,11 @@
 package com.ying.order.vo;
 
 import com.ying.order.model.Order;
-import com.ying.order.model.PurchaseOrder;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,8 +19,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderVO {
     @ApiModelProperty("这不是order的id")
-    private Integer id;
-    private Integer orderId;
+    private String id;
+    private String orderId;
     private Integer toId;
 
     private String toName;

@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ import java.util.List;
 @ApiModel("产品修改数据")
 public class ProductUpdateDTO {
 
-    private Integer id;
+    private String id;
 
     @ApiModelProperty("名字")
     @NotEmpty

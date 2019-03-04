@@ -13,5 +13,5 @@ public interface StockRepository {
 
     Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 
-    StockVO getStock(String warehouseId, Integer productId);
+    StockVO getStock(String warehouseId, String productId);
 }

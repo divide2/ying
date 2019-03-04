@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/12/2
  */
 @Service
-public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrder, Integer, PurchaseOrderRepository> implements PurchaseOrderService {
+public class PurchaseOrderServiceImpl extends SimpleBasicServiceImpl<PurchaseOrder, String, PurchaseOrderRepository> implements PurchaseOrderService {
     private final PurchaseOrderRepository purchaseOrderRepository;
     private final OrderRepository orderRepository;
     private final OrderConnectService orderConnectService;

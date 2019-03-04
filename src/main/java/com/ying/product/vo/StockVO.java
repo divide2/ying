@@ -12,8 +12,7 @@ import java.util.List;
 public class StockVO {
     private String warehouseId;
     private String warehouseName;
-    private String warehouseType;
-    private Integer productId;
+    private String productId;
     private String productName;
     private String[] productImage;
     private Integer productAmount;

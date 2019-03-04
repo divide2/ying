@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author bvvy
  * @date 2018/12/2
  */
-public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Integer> {
+public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, String> {
 
     Page<PurchaseOrder> findByFromId(Integer userId, Pageable pageable);
 }

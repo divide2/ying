@@ -15,12 +15,12 @@ public class ProductSpecPrice {
 
     @JsonIgnore
     @ApiModelProperty(hidden = true)
-    private Integer orderId;
+    private String orderId;
 
-    private Integer productId;
+    private String productId;
 
     @ApiModelProperty(value = "产品属性关联表id")
-    private Integer productSpecId;
+    private String productSpecId;
 
     @ApiModelProperty("数量")
     private Integer amount;

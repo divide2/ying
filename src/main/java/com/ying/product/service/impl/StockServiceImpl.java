@@ -119,7 +119,7 @@ public class StockServiceImpl implements StockService {
     }
 
 
-    public StockVO getVO(String warehouseId, Integer productId) {
+    public StockVO getVO(String warehouseId, String productId) {
 
         StockVO stockVO = warehouseProductRepository.getStock(warehouseId, productId);
         List<WarehouseProductSpec> specs = warehouseProductSpecRepository.findByWarehouseIdAndProductId(warehouseId, productId);
@@ -144,7 +144,7 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public List<WarehouseProductSpec> getByWarehouseId(Integer warehouseId) {
+    public List<WarehouseProductSpec> getByWarehouseId(String warehouseId) {
         return warehouseProductSpecRepository.findByWarehouseId(warehouseId);
     }
 

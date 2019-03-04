@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WarehouseProductSpecVO {
-    private Integer productSpecId;
+    private String productSpecId;
     private String productSpecName;
     private Integer amount;
 

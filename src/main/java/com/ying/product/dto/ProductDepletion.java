@@ -13,7 +13,7 @@ import lombok.Data;
 public class ProductDepletion {
 
     @ApiModelProperty("消耗的产品id")
-    private Integer productId;
+    private String productId;
 
     @ApiModelProperty("消耗的数量")
     private Integer amount;

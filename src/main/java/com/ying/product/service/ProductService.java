@@ -7,7 +7,6 @@ import com.ying.product.model.Product;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
  * @author bvvy
  * @date 2018/8/16
  */
-public interface ProductService extends BasicService<Product,Integer> {
+public interface ProductService extends BasicService<Product,String> {
 
 
     /**
@@ -45,12 +44,12 @@ public interface ProductService extends BasicService<Product,Integer> {
      */
     Page<ProductDTO> findInfo(Pageable pageable);
 
-    ProductVO getVO(Integer productId);
+    ProductVO getVO(String productId);
 
     /**
      * 通过集获取
      *
      * @param ids ids
      */
-    List<ProductVO> findByIds(List<Integer> ids);
+    List<ProductVO> findByIds(List<String> ids);
 }

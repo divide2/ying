@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class OrderDeliverDTO {
 
     @NotNull
-    private Integer orderId;
+    private String orderId;
     @NotNull
     private String warehouseId;
 }

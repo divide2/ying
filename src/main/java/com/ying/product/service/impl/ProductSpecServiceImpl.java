@@ -13,7 +13,7 @@ import java.util.List;
  * @date 2018/12/10
  */
 @Service
-public class ProductSpecServiceImpl extends SimpleBasicServiceImpl<ProductSpec,Integer, ProductSpecRepository> implements ProductSpecService {
+public class ProductSpecServiceImpl extends SimpleBasicServiceImpl<ProductSpec,String, ProductSpecRepository> implements ProductSpecService {
     private final ProductSpecRepository productSpecRepository;
 
     public ProductSpecServiceImpl(ProductSpecRepository productSpecRepository) {
@@ -21,7 +21,7 @@ public class ProductSpecServiceImpl extends SimpleBasicServiceImpl<ProductSpec,I
     }
 
     @Override
-    public List<ProductSpec> listByProduct(Integer productId) {
+    public List<ProductSpec> listByProduct(String productId) {
         return productSpecRepository.findByProductId(productId);
 
     }

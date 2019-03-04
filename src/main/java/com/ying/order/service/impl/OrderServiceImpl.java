@@ -1,10 +1,8 @@
 package com.ying.order.service.impl;
 
-import com.querydsl.core.Query;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
-import com.ying.core.data.del.SingleId;
+import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.properties.OrderStatusProperties;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.query.QueryManager;
@@ -21,7 +19,6 @@ import com.ying.order.repo.OrderProductRepository;
 import com.ying.order.repo.OrderProductSpecRepository;
 import com.ying.order.repo.OrderRepository;
 import com.ying.order.service.OrderConnectService;
-import com.ying.order.service.OrderInnerConnectService;
 import com.ying.order.service.OrderService;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.dto.InStockDTO;
@@ -46,12 +43,11 @@ import static java.util.stream.Collectors.toList;
  * @date 2018/12/17
  */
 @Service
-public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, OrderRepository> implements OrderService {
+public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, OrderRepository> implements OrderService {
     private final OrderConnectService orderConnectService;
     private final OrderStatusProperties orderStatus;
     private final OrderProductRepository orderProductRepository;
     private final OrderProductSpecRepository orderProductSpecRepository;
-    private final OrderInnerConnectService orderInnerConnectService;
     private final OrderRepository orderRepository;
 
 
@@ -59,13 +55,12 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
                             OrderStatusProperties orderStatus,
                             OrderProductRepository orderProductRepository,
                             OrderProductSpecRepository orderProductSpecRepository,
-                            OrderInnerConnectService orderInnerConnectService, OrderRepository orderRepository) {
+                            OrderRepository orderRepository) {
         this.orderConnectService = orderConnectService;
 
         this.orderStatus = orderStatus;
         this.orderProductRepository = orderProductRepository;
         this.orderProductSpecRepository = orderProductSpecRepository;
-        this.orderInnerConnectService = orderInnerConnectService;
         this.orderRepository = orderRepository;
     }
 
@@ -73,7 +68,6 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(OrderDTO dto) {
-        UserVO user = orderConnectService.getUser(dto.getToId());
         Order order = new Order();
         order.setAttachment(dto.getAttachment());
         order.setBalancePayment(dto.getBalancePayment());
@@ -81,14 +75,12 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         order.setDeliveryDate(dto.getDeliveryDate());
         order.setEarnestMoney(dto.getEarnestMoney());
         order.setRemarks(dto.getRemarks());
-        // fixme 这估计是要分离的 个人的操作都应该到mine 中去  这个参数该是传递进来的 暂时先这样 目前有点不清晰
         order.setFromId(Loginer.userId());
         order.setFromName(Loginer.username());
-        order.setToId(dto.getToId());
-        order.setToName(user.getUsername());
+
         order.setStatus(orderStatus.getWaitingConfirm());
         List<ProductSpecPrice> productSpecPrices = dto.getProductSpecPrices();
-        Map<Integer, List<ProductSpecPrice>> productSpecMap = productSpecPrices.stream().collect(
+        Map<String, List<ProductSpecPrice>> productSpecMap = productSpecPrices.stream().collect(
                 Collectors.groupingBy(ProductSpecPrice::getProductId)
         );
         this.add(order);
@@ -115,8 +107,6 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
                 orderProductSpecRepository.save(orderProductSpec);
             });
         });
-        // todo 是不是真的需要 这样做? 先这样多张表 相当于采购和销售记录
-        orderInnerConnectService.addPurchaseOrder(order);
         orderConnectService.sendMessage(order);
     }
 
@@ -126,10 +116,9 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
      * @param confirm confirm id
      */
     @Override
-    public void confirm(SingleId confirm) {
+    public void confirm(SingleStringId confirm) {
         Order order = this.get(confirm.getId());
         order.setStatus(orderStatus.getWaitingDeliver());
-        orderInnerConnectService.addSellOrder(order);
         this.update(order);
     }
 
@@ -139,7 +128,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
         Order order = this.get(deliver.getOrderId());
         //获取的是订单的商品规格数量
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(deliver.getOrderId());
-        Map<Integer, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
+        Map<String, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
         // 调用出库 nice job
         collect.forEach((productId, specs) -> {
             OutStockDTO outStock = new OutStockDTO();
@@ -159,7 +148,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, Integer, Ord
     public void confirmReceive(OrderReceiveDTO receive) {
         Order order = this.get(receive.getOrderId());
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(receive.getOrderId());
-        Map<Integer, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
+        Map<String, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
         // 调用入库 nice job
         collect.forEach((productId, specs) -> {
             InStockDTO inStock = new InStockDTO();

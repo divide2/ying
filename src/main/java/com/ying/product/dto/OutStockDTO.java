@@ -17,7 +17,7 @@ public class OutStockDTO {
     private String warehouseId;
 
     @NotNull
-    private Integer productId;
+    private String productId;
 
     @ApiModelProperty("产品规格的数量 amount 是正数但是是减少的")
     @NotEmpty

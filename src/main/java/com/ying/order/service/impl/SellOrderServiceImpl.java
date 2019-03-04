@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/12/18
  */
 @Service
-public class SellOrderServiceImpl extends SimpleBasicServiceImpl<SellOrder, Integer, SellOrderRepository> implements SellOrderService {
+public class SellOrderServiceImpl extends SimpleBasicServiceImpl<SellOrder, String, SellOrderRepository> implements SellOrderService {
 
     private final OrderConnectService orderConnectService;
     private final SellOrderRepository sellOrderRepository;

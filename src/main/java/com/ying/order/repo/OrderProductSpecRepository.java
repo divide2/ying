@@ -9,7 +9,7 @@ import java.util.List;
  * @author bvvy
  * @date 2018/12/18
  */
-public interface OrderProductSpecRepository extends JpaRepository<OrderProductSpec, Integer> {
+public interface OrderProductSpecRepository extends JpaRepository<OrderProductSpec, String> {
 
     /**
      * by ordreId
@@ -17,6 +17,6 @@ public interface OrderProductSpecRepository extends JpaRepository<OrderProductSp
      * @param orderId order id
      * @return list
      */
-    List<OrderProductSpec> findByOrderId(Integer orderId);
+    List<OrderProductSpec> findByOrderId(String orderId);
 
 }

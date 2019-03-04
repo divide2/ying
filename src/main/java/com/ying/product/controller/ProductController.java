@@ -1,11 +1,10 @@
 package com.ying.product.controller;
 
-import com.ying.core.data.del.SingleId;
+import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
-import com.ying.product.model.Product;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.service.ProductService;
 import com.ying.product.service.ProductSpecService;
@@ -55,14 +54,14 @@ public class ProductController {
 
     @ApiOperation("删除")
     @DeleteMapping
-    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleId id, BindingResult br) {
+    public ResponseEntity<Messager> delete(@Valid @RequestBody SingleStringId id, BindingResult br) {
         productService.delete(id.getId());
         return Responser.deleted();
     }
 
     @ApiOperation("查一条详情")
     @GetMapping("/{id}")
-    public ResponseEntity<ProductVO> add(@PathVariable Integer id) {
+    public ResponseEntity<ProductVO> add(@PathVariable String id) {
         ProductVO vo = productService.getVO(id);
         return Responser.ok(vo);
     }
@@ -77,7 +76,7 @@ public class ProductController {
 
     @GetMapping("/{productId}/specs")
     @ApiOperation("获取分页的产品")
-    public ResponseEntity<List<ProductSpec>> listProductSpecs(@PathVariable Integer productId) {
+    public ResponseEntity<List<ProductSpec>> listProductSpecs(@PathVariable String productId) {
         List<ProductSpec> info = productSpecService.listByProduct(productId);
         return Responser.ok(info);
     }

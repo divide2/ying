@@ -2,7 +2,6 @@ package com.ying.product.service.impl;
 
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.er.Loginer;
-import com.ying.core.val.Punctuation;
 import com.ying.product.dto.ProductDTO;
 import com.ying.product.dto.ProductUpdateDTO;
 import com.ying.product.model.Product;
@@ -11,7 +10,6 @@ import com.ying.product.repo.ProductRepository;
 import com.ying.product.repo.ProductSpecRepository;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,7 @@ import java.util.stream.Collectors;
  * @date 2018/8/16
  */
 @Service
-public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer, ProductRepository> implements ProductService {
+public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, ProductRepository> implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductSpecRepository productSpecRepository;
@@ -88,7 +86,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
         this.saveSpec(product.getId(), dto.getSpecs());
     }
 
-    private void saveSpec(Integer productId, List<ProductSpec> specs) {
+    private void saveSpec(String productId, List<ProductSpec> specs) {
         specs.forEach(spec -> {
             ProductSpec productSpec = new ProductSpec();
             productSpec.setProductId(productId);
@@ -105,13 +103,13 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, Integer,
     }
 
     @Override
-    public ProductVO getVO(Integer productId) {
+    public ProductVO getVO(String productId) {
         Product product = this.get(productId);
         return this.mergeProductSpecs(product);
     }
 
     @Override
-    public List<ProductVO> findByIds(List<Integer> ids) {
+    public List<ProductVO> findByIds(List<String> ids) {
 
         List<Product> products = productRepository.findByIdIn(ids);
         return products.stream().map(this::mergeProductSpecs).collect(Collectors.toList());

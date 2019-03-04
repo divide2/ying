@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
  * @author bvvy
  * @date 2018/12/2
  */
-public interface PurchaseOrderService extends BasicService<PurchaseOrder,Integer> {
+public interface PurchaseOrderService extends BasicService<PurchaseOrder,String> {
     /**
      * 通过order来添加
      * @param dto purchase

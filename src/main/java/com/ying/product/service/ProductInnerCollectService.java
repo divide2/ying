@@ -10,7 +10,7 @@ import java.util.Map;
  * @date 2018/12/28
  */
 public interface ProductInnerCollectService {
-    List<ProductVO> listProductByIds(List<Integer> ids);
+    List<ProductVO> listProductByIds(List<String> ids);
 
-    Map<Integer, ProductVO> mapProductByIds(List<Integer> ids);
+    Map<String, ProductVO> mapProductByIds(List<String> ids);
 }

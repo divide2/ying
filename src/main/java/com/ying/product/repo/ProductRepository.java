@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * @author bvvy
  * @date 2018/8/16
  */
-public interface ProductRepository  extends JpaRepository<Product,Integer> {
+public interface ProductRepository  extends JpaRepository<Product,String> {
 
 
     /**
@@ -30,9 +30,9 @@ public interface ProductRepository  extends JpaRepository<Product,Integer> {
      * @param productIds ids
      * @return products
      */
-    List<Product> findByIdIn(List<Integer> productIds);
+    List<Product> findByIdIn(List<String> productIds);
 
-    default Map<Integer, Product> findByIds(List<Integer> productIds) {
+    default Map<String, Product> findByIds(List<String> productIds) {
         return this.findByIdIn(productIds).stream().collect(Collectors.toMap(Product::getId, product -> product));
     }
 }

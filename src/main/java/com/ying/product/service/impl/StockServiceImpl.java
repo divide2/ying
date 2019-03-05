@@ -61,6 +61,8 @@ public class StockServiceImpl implements StockService {
             if (specStock == null) {
                 specStock = new SpecStock();
                 specStock.setAmount(tSpecStock.getAmount());
+            } else {
+                specStock.setAmount(specStock.getAmount() + tSpecStock.getAmount());
             }
             ProductSpec productSpec = productSpecRepository.getOne(tSpecStock.getProductSpecId());
             specStock.setWarehouseId(dto.getWarehouseId());

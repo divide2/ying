@@ -2,7 +2,7 @@ package com.ying.product.query;
 
 import com.ying.core.root.query.QueryField;
 import com.ying.core.root.query.QueryParam;
-import com.ying.product.model.WarehouseProduct;
+import com.ying.product.model.Stock;
 import lombok.Data;
 
 /**
@@ -12,6 +12,6 @@ import lombok.Data;
 @Data
 public class StockQuery implements QueryParam {
 
-    @QueryField(entity = WarehouseProduct.class)
+    @QueryField(entity = Stock.class)
     private String warehouseId;
 }

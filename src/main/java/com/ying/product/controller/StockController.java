@@ -4,7 +4,7 @@ import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
-import com.ying.product.model.WarehouseProductSpec;
+import com.ying.product.model.SpecStock;
 import com.ying.product.service.StockService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,7 +53,7 @@ public class StockController {
 
     @GetMapping("/warehouse/{warehouseId}")
     @ApiModelProperty("获取某个仓库的库存")
-    public ResponseEntity<List<WarehouseProductSpec>> getByWarehouseId(@PathVariable String warehouseId) {
+    public ResponseEntity<List<SpecStock>> getByWarehouseId(@PathVariable String warehouseId) {
         return Responser.ok(stockService.getByWarehouseId(warehouseId));
     }
 

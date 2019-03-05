@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
-@Table(name = "p_warehouse_product_spec")
-public class WarehouseProductSpec {
+@Table(name = "p_spec_stock")
+public class SpecStock {
 
     @Id
     @GeneratedValue(generator = "custom-uuid")

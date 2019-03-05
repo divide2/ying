@@ -1,6 +1,6 @@
 package com.ying.product.vo;
 
-import com.ying.product.model.WarehouseProductSpec;
+import com.ying.product.model.SpecStock;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public class WarehouseProductSpecVO {
     private String name;
     private Integer amount;
 
-    public static WarehouseProductSpecVO from(WarehouseProductSpec source) {
+    public static WarehouseProductSpecVO from(SpecStock source) {
 
         return new WarehouseProductSpecVO(source.getProductSpecId(),
                 source.getProductSpecName(),

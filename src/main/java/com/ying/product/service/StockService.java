@@ -3,7 +3,7 @@ package com.ying.product.service;
 import com.ying.product.bo.StockBO;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
-import com.ying.product.model.WarehouseProductSpec;
+import com.ying.product.model.SpecStock;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
@@ -38,7 +38,7 @@ public interface StockService {
 
     Page<StockBO> find(StockQuery stockQuery);
 
-    List<WarehouseProductSpec> getByWarehouseId(String warehouseId);
+    List<SpecStock> getByWarehouseId(String warehouseId);
 
     Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 

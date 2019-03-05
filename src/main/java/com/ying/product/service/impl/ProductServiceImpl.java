@@ -47,7 +47,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
 
     @Override
     public Page<ProductVO> findByTeam(String  teamId, Pageable pageable) {
-        Page<Product> products = productRepository.findByTeamId(teamId, pageable);
+        Page<Product> products = productRepository.findByTeam(teamId,pageable);
         return products.map(this::mergeProductSpecs);
     }
 
@@ -95,6 +95,14 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
             productSpec.setImage(spec.getImage());
             productSpecRepository.save(productSpec);
         });
+    }
+
+    @Override
+    public void delete(String id) {
+        Product product = get(id);
+        product.setEnabled(false);
+        product.setUpdateTime(LocalDateTime.now());
+        this.update(product);
     }
 
     @Override

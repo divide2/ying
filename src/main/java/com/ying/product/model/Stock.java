@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
  * @date 2018/12/9
  */
 @Data
-@Table(name = "p_warehouse_product")
+@Table(name = "p_stock")
 @Entity
-public class WarehouseProduct {
+public class Stock {
     @Id
     @GeneratedValue(generator = "custom-uuid")
     @GenericGenerator(
@@ -32,6 +32,7 @@ public class WarehouseProduct {
     )
     private String id;
 
+    //todo teamId?
     private String warehouseId;
     private String productId;
     private Integer amount;

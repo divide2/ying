@@ -22,7 +22,11 @@ public interface ProductRepository  extends JpaRepository<Product,String> {
      * @param teamId teamId
      * @return product
      */
-    Page<Product> findByTeamId(String teamId, Pageable pageable);
+    Page<Product> findByTeamIdAndEnabled(String teamId,Boolean enabled, Pageable pageable);
+
+    default Page<Product> findByTeam(String teamId, Pageable pageable) {
+        return findByTeamIdAndEnabled(teamId, true, pageable);
+    }
 
 
     /**

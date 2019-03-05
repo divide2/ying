@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
  * @author bvvy
  * @date 2018/12/10
  */
-public interface StockRepository {
+public interface StockRepositoryCustom {
 
     Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable);
 

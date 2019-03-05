@@ -1,11 +1,13 @@
 package com.ying.team.service.impl;
 
-import com.ying.team.repo.AclRepository;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.model.Acl;
 import com.ying.team.model.Member;
+import com.ying.team.repo.AclRepository;
 import com.ying.team.repo.MemberRepository;
 import com.ying.team.service.AclService;
+import com.ying.team.service.MenuService;
+import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -20,12 +22,14 @@ import java.util.stream.Collectors;
 public class AclServiceImpl implements AclService {
     private final AclRepository aclRepository;
     private final MemberRepository memberRepository;
+    private final MenuService menuService;
 
     public AclServiceImpl(AclRepository aclRepository,
-                          MemberRepository memberRepository
-    ) {
+                          MemberRepository memberRepository,
+                          MenuService menuService) {
         this.aclRepository = aclRepository;
         this.memberRepository = memberRepository;
+        this.menuService = menuService;
     }
 
     @Override
@@ -33,15 +37,15 @@ public class AclServiceImpl implements AclService {
         // 先删除之前的
         aclRepository.deleteExists(dto.getTeamId(), dto.getPrincipleId(), dto.getPrincipleType());
         //再添加
-        dto.getAuthorities()
-                .forEach(authority -> {
-                    Acl acl = new Acl();
-                    acl.setAuthority(authority);
-                    acl.setPrincipleId(dto.getPrincipleId());
-                    acl.setPrincipleType(dto.getPrincipleType());
-                    acl.setTeamId(dto.getTeamId());
-                    aclRepository.save(acl);
-                });
+        List<MenuVO> menus = menuService.findByIds(dto.getMenuIds());
+        menus.forEach(menu -> {
+            Acl acl = new Acl();
+            acl.setAuthority(menu.getAuthority());
+            acl.setPrincipleId(dto.getPrincipleId());
+            acl.setPrincipleType(dto.getPrincipleType());
+            acl.setTeamId(dto.getTeamId());
+            aclRepository.save(acl);
+        });
     }
 
     @Override

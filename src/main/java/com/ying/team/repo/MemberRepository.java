@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author bvvy
  */
-public interface MemberRepository extends JpaRepository<Member, Integer> {
+public interface MemberRepository extends JpaRepository<Member, String> {
 
     /**
      * 用户在团队下

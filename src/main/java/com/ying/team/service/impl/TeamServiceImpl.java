@@ -14,6 +14,7 @@ import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.dto.*;
+import com.ying.team.listener.TeamListener;
 import com.ying.team.model.*;
 import com.ying.team.repo.*;
 import com.ying.team.service.TeamInnerConnectService;
@@ -42,19 +43,22 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     private final TeamApplicationRepository teamApplicationRepository;
     private final TeamCooperationApplicationRepository teamCooperationApplicationRepository;
     private final TeamCooperationRepository teamCooperationRepository;
+    private final TeamListener teamListener;
 
     public TeamServiceImpl(MemberRepository memberRepository,
                            TeamRepository teamRepository,
                            TeamInnerConnectService teamInnerConnectService,
                            TeamApplicationRepository teamApplicationRepository,
                            TeamCooperationApplicationRepository teamCooperationApplicationRepository,
-                           TeamCooperationRepository teamCooperationRepository) {
+                           TeamCooperationRepository teamCooperationRepository,
+                           TeamListener teamListener) {
         this.memberRepository = memberRepository;
         this.teamRepository = teamRepository;
         this.teamInnerConnectService = teamInnerConnectService;
         this.teamApplicationRepository = teamApplicationRepository;
         this.teamCooperationApplicationRepository = teamCooperationApplicationRepository;
         this.teamCooperationRepository = teamCooperationRepository;
+        this.teamListener = teamListener;
     }
 
     @Override
@@ -78,16 +82,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         Team team = new Team();
         team.setName(dto.getName());
         this.add(team);
-        Squad squad = new Squad();
-        squad.setName("默认小队");
-        squad.setTeamId(team.getId());
-        Member member = new Member();
-        member.setUserId(Loginer.userId());
-        member.setTeamId(team.getId());
-        // todo 初始化权限
-        member.setPosition("管理员");
-        member.setSquadId(squad.getId());
-        memberRepository.save(member);
+        teamListener.onCreate(team);
     }
 
     private void checkGroupExists(String name) {
@@ -120,6 +115,10 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         return vos;
     }
 
+    @Override
+    public void delete(String id) {
+        teamListener.onDelete(this.get(id));
+    }
 
     @Override
     public void apply(TeamApplyDTO dto) {

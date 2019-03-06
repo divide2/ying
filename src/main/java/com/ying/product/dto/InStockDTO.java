@@ -13,13 +13,17 @@ import java.util.List;
  */
 @Data
 public class InStockDTO {
-    @NotNull
+
+    @NotEmpty
     private String warehouseId;
-    @NotNull
+    @NotEmpty
     private String productId;
     @ApiModelProperty("产品规格的数量 amount是正数 是增加的")
     @NotEmpty
     private List<ProductSpecStock> specStocks;
+
+    @ApiModelProperty(value = "出入库方式,系统生成",hidden = true)
+    private String type;
 
     @ApiModelProperty("消耗的配件,也就是采购的商品,不输入代表没有消耗")
     private List<ProductDepletion> depletions;

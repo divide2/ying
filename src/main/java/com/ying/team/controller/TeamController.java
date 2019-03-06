@@ -76,7 +76,7 @@ public class TeamController {
     @GetMapping("/{teamId}/users")
     @ApiOperation("获取成员")
     public ResponseEntity<List<MemberVO>> listGroupUsers(@PathVariable String teamId) {
-        List<MemberVO> teamUsers = teamService.listGroupUsers(teamId);
+        List<MemberVO> teamUsers = teamService.listMembers(teamId);
         return Responser.ok(teamUsers);
     }
 

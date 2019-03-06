@@ -33,7 +33,7 @@ public interface TeamService extends BasicService<Team, String> {
      * @param teamId 团队
      * @return 团队成员
      */
-    List<MemberVO> listGroupUsers(String teamId);
+    List<MemberVO> listMembers(String teamId);
 
     TeamVO getVO(String teamId);
 

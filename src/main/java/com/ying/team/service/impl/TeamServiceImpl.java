@@ -101,7 +101,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     }
 
     @Override
-    public List<MemberVO> listGroupUsers(String teamId) {
+    public List<MemberVO> listMembers(String teamId) {
         this.getVO(teamId);
         List<Member> teamUsers = memberRepository.findByTeamId(teamId);
         Map<String, List<Member>> squadMembers = teamUsers.stream().collect(Collectors.groupingBy(Member::getSquadId));

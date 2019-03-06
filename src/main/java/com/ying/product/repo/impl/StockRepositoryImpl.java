@@ -37,7 +37,7 @@ public class StockRepositoryImpl extends SimpleBasicCustomRepositoryImpl
 
 
     @Override
-    // todo not neessag
+    // todo not neessag 记录teamId
     public Page<StockVO> findByTeam(String teamId, StockQuery stockQuery, Pageable pageable) {
         BooleanExpression predicate = QueryManager.resolvePredicate(stockQuery);
         JPAQuery<StockVO> query = createQuery().select(qBean)

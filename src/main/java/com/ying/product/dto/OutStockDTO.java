@@ -13,11 +13,15 @@ import java.util.List;
  */
 @Data
 public class OutStockDTO {
-    @NotNull
+    @NotEmpty
     private String warehouseId;
 
-    @NotNull
+    @NotEmpty
     private String productId;
+
+
+    @ApiModelProperty(value = "出入库方式,系统生成",hidden = true)
+    private String type;
 
     @ApiModelProperty("产品规格的数量 amount 是正数但是是减少的")
     @NotEmpty

@@ -73,6 +73,8 @@ public class StockServiceImpl implements StockService {
             specStock.setTeamId(dto.getTeamId());
             specStockRepository.save(specStock);
 
+            //存入流水信息
+
             StockStream stream = new StockStream();
             stream.setWarehouseId(dto.getWarehouseId());
             stream.setProductId(dto.getProductId());
@@ -116,6 +118,15 @@ public class StockServiceImpl implements StockService {
             }
             specStock.setAmount(left);
             specStockRepository.save(specStock);
+            StockStream stream = new StockStream();
+            stream.setWarehouseId(out.getWarehouseId());
+            stream.setProductId(out.getProductId());
+            // 出库数量为负数
+            stream.setAmount(-tSpecStock.getAmount());
+            stream.setType(out.getType());
+            stream.setTeamId(out.getTeamId());
+            stream.setProductSpecId(tSpecStock.getProductSpecId());
+            stockStreamRepository.save(stream);
         });
         // 减少总数量
         Optional<Integer> totalAmount = out.getSpecStocks().stream().map(ProductSpecStock::getAmount).reduce((a, b) -> a + b);
@@ -123,7 +134,7 @@ public class StockServiceImpl implements StockService {
                 .getByWarehouseIdAndProductId(out.getWarehouseId(), out.getProductId());
         stock.setAmount(stock.getAmount() - totalAmount.orElse(0));
         stockRepository.save(stock);
-        // todo 异步记录过程
+
 
     }
 

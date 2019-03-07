@@ -32,7 +32,8 @@ public class Stock {
     )
     private String id;
 
-    //todo teamId?
+    private String teamId;
+
     private String warehouseId;
     private String productId;
     private Integer amount;

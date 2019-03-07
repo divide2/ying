@@ -1,10 +1,11 @@
 package com.ying.product.dto;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,8 +13,12 @@ import java.util.List;
  * @date 2018/12/9
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class InStockDTO {
 
+    @NotEmpty
+    private String teamId;
     @NotEmpty
     private String warehouseId;
     @NotEmpty

@@ -33,6 +33,7 @@ public class StockStream {
     private String teamId;
     private String warehouseId;
     private String productId;
+    private String productSpecId;
     /**
      * 出入库的方式
      */

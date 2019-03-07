@@ -9,11 +9,9 @@ import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.model.SpecStock;
 import com.ying.product.model.Stock;
+import com.ying.product.model.StockStream;
 import com.ying.product.query.StockQuery;
-import com.ying.product.repo.ProductRepository;
-import com.ying.product.repo.ProductSpecRepository;
-import com.ying.product.repo.StockRepository;
-import com.ying.product.repo.SpecStockRepository;
+import com.ying.product.repo.*;
 import com.ying.product.service.StockService;
 import com.ying.product.vo.StockVO;
 import com.ying.product.vo.WarehouseProductSpecVO;
@@ -39,16 +37,19 @@ public class StockServiceImpl implements StockService {
     private final SpecStockRepository specStockRepository;
     private final ProductSpecRepository productSpecRepository;
     private final ProductRepository productRepository;
+    private final StockStreamRepository stockStreamRepository;
 
     public StockServiceImpl(StockRepository stockRepository,
                             SpecStockRepository specStockRepository,
                             ProductSpecRepository productSpecRepository,
-                            ProductRepository productRepository) {
+                            ProductRepository productRepository,
+                            StockStreamRepository stockStreamRepository) {
         this.stockRepository = stockRepository;
         this.specStockRepository = specStockRepository;
         this.productSpecRepository = productSpecRepository;
 
         this.productRepository = productRepository;
+        this.stockStreamRepository = stockStreamRepository;
     }
 
     @Override
@@ -69,7 +70,18 @@ public class StockServiceImpl implements StockService {
             specStock.setProductId(dto.getProductId());
             specStock.setProductSpecId(tSpecStock.getProductSpecId());
             specStock.setProductSpecName(productSpec.getName());
+            specStock.setTeamId(dto.getTeamId());
             specStockRepository.save(specStock);
+
+            StockStream stream = new StockStream();
+            stream.setWarehouseId(dto.getWarehouseId());
+            stream.setProductId(dto.getProductId());
+            stream.setAmount(tSpecStock.getAmount());
+            stream.setType(dto.getType());
+            stream.setTeamId(dto.getTeamId());
+            stream.setProductSpecId(tSpecStock.getProductSpecId());
+            stockStreamRepository.save(stream);
+
         });
         // 再存入单个商品的库存
         Optional<Integer> totalAmount = dto.getSpecStocks().stream().map(ProductSpecStock::getAmount).reduce((a, b) -> a + b);
@@ -80,15 +92,14 @@ public class StockServiceImpl implements StockService {
             stock.setAmount(totalAmount.orElse(0));
         } else {
             stock.setAmount(stock.getAmount() + totalAmount.orElse(0));
-
         }
+        stock.setTeamId(dto.getTeamId());
         stock.setWarehouseId(dto.getWarehouseId());
         stock.setLastTime(LocalDateTime.now());
         stock.setProductId(dto.getProductId());
         stockRepository.save(stock);
         // todo 减去消耗
 
-        // todo 异步记录过程
     }
 
 

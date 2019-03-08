@@ -57,13 +57,13 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
     @Transactional(rollbackFor = Exception.class)
     public void add(ProductDTO dto) {
         Product product = new Product();
-        // fixme
         product.setTeamId(dto.getTeamId());
         product.setFromId(Loginer.userId());
         product.setFromName(Loginer.username());
         product.setCreateTime(LocalDateTime.now());
         product.setEnabled(true);
         product.setImage(dto.getImage());
+        product.setCategoryId(dto.getCategoryId());
 
         product.setName(dto.getName());
         product.setUnit(dto.getUnit());
@@ -81,6 +81,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
         product.setUpdateTime(LocalDateTime.now());
         product.setImage(dto.getImage());
         product.setName(dto.getName());
+        product.setCategoryId(dto.getCategoryId());
         product.setRemarks(dto.getRemarks());
         productSpecRepository.deleteByProductId(product.getId());
         this.saveSpec(product.getId(), dto.getSpecs());

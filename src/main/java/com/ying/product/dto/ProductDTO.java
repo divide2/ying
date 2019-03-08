@@ -23,6 +23,8 @@ public class ProductDTO {
     @NotEmpty
     private String name;
 
+    private String categoryId;
+
     @ApiModelProperty("图")
     private String [] image;
 

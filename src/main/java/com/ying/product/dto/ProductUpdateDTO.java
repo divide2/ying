@@ -22,7 +22,7 @@ public class ProductUpdateDTO {
     @NotEmpty
     private String name;
 
-    private Integer initAmount;
+    private String categoryId;
 
     @ApiModelProperty("图")
     private String [] image;

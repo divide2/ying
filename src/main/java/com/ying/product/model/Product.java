@@ -47,6 +47,9 @@ public class Product  {
      */
     private Integer fromId;
 
+
+    private String categoryId;
+
     private String teamId;
 
 

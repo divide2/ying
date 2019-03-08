@@ -18,3 +18,4 @@ public class ProductDepletion {
     @ApiModelProperty("消耗的数量")
     private Integer amount;
 }
+

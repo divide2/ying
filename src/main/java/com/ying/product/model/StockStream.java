@@ -41,6 +41,11 @@ public class StockStream {
     /**
      * 出入库数量  入库为正 出库为负
      */
+    private Integer stream;
+
+    /**
+     * 出入库后总数
+     */
     private Integer amount;
 
 }

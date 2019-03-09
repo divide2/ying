@@ -34,5 +34,7 @@ public interface MenuService extends BasicService<Menu, String> {
 
     Set<String> findByMenuIdsByAuthorities(Set<String> authorities);
 
+    Set<String> findShortcutByAuthorities(Set<String> authorities);
+
     List<MenuTreeVO> findTree();
 }

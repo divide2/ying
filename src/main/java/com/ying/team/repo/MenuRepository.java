@@ -37,6 +37,12 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
      */
     List<Menu> findByAuthorityIn(Set<String> authorities);
 
+    List<Menu> findByShortcutAndAuthorityIn(Boolean shortcut, Collection<String> authorities);
+
+    default List<Menu> findShortcutByAuthorities(Collection<String> authorities) {
+        return findByShortcutAndAuthorityIn(true, authorities);
+    }
+
     /**
      * 通过父级菜单获取子菜单
      *

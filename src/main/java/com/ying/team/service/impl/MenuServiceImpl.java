@@ -80,6 +80,15 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
         return menus.stream().map(Menu::getId).collect(Collectors.toSet());
     }
 
+
+    @Override
+    public Set<String> findShortcutByAuthorities(Set<String> authorities) {
+        List<Menu> menus =  menuRepository.findShortcutByAuthorities(authorities);
+        return menus.stream().map(Menu::getId).collect(Collectors.toSet());
+    }
+
+
+
     private MenuVO toVO(Menu menu) {
         return MenuVO.builder()
                 .enabled(menu.getEnabled())

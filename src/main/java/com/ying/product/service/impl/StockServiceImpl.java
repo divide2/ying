@@ -16,6 +16,7 @@ import com.ying.product.service.StockService;
 import com.ying.product.vo.StockVO;
 import com.ying.product.vo.WarehouseProductSpecVO;
 import lombok.val;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -72,13 +73,13 @@ public class StockServiceImpl implements StockService {
             specStock.setProductSpecName(productSpec.getName());
             specStock.setTeamId(dto.getTeamId());
             specStockRepository.save(specStock);
-
-            //存入流水信息
+            //存入出入库流水信息
 
             StockStream stream = new StockStream();
             stream.setWarehouseId(dto.getWarehouseId());
             stream.setProductId(dto.getProductId());
-            stream.setAmount(tSpecStock.getAmount());
+            stream.setAmount(specStock.getAmount());
+            stream.setStream(tSpecStock.getAmount());
             stream.setType(dto.getType());
             stream.setTeamId(dto.getTeamId());
             stream.setProductSpecId(tSpecStock.getProductSpecId());
@@ -118,14 +119,16 @@ public class StockServiceImpl implements StockService {
             }
             specStock.setAmount(left);
             specStockRepository.save(specStock);
+            //记录出入库流水
             StockStream stream = new StockStream();
             stream.setWarehouseId(out.getWarehouseId());
             stream.setProductId(out.getProductId());
             // 出库数量为负数
-            stream.setAmount(-tSpecStock.getAmount());
+            stream.setStream(-tSpecStock.getAmount());
             stream.setType(out.getType());
             stream.setTeamId(out.getTeamId());
             stream.setProductSpecId(tSpecStock.getProductSpecId());
+            stream.setAmount(left);
             stockStreamRepository.save(stream);
         });
         // 减少总数量

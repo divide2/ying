@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @date 2019/3/5
  */
 @Component
-public class TeamListener implements Listener<Team>{
+public class TeamListener implements Listener<Team> {
     private final SquadService squadService;
     private final MemberService memberService;
     private final MenuService menuService;
@@ -26,6 +26,11 @@ public class TeamListener implements Listener<Team>{
         this.menuService = menuService;
     }
 
+    /**
+     * 初始化菜单时需要
+     *
+     * @param team team创建时需要给它初始化的东西
+     */
     @Override
     public void onCreate(Team team) {
         Squad squad = new Squad();

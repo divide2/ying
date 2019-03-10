@@ -39,7 +39,7 @@ public class WorkbenchServiceImpl implements WorkbenchService {
         Workbench workbench = new Workbench();
         workbench.setTeamId(dto.getTeamId());
         workbench.setMenuGroupId(dto.getMenuGroupId());
-        workbench.setMenuGroupId(dto.getMenuId());
+        workbench.setMenuId(dto.getMenuId());
         // todo add menu num
         workbench.setOrderNum(1);
         workbenchRepository.save(workbench);

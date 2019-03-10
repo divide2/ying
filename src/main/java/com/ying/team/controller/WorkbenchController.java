@@ -4,6 +4,8 @@ import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.team.dto.GroupMenuDTO;
 import com.ying.team.dto.MenuGroupDTO;
+import com.ying.team.dto.MenuGroupDeleteDTO;
+import com.ying.team.dto.MenuGroupUpdateDTO;
 import com.ying.team.service.MenuGroupService;
 import com.ying.team.service.WorkbenchService;
 import com.ying.team.vo.WorkbenchMenuVO;
@@ -49,11 +51,18 @@ public class WorkbenchController {
         return Responser.created();
     }
 
+    @PutMapping("/group")
+    @ApiOperation("修改工作台的组")
+    public ResponseEntity<Messager> updateGroup(@RequestBody @Valid MenuGroupUpdateDTO dto, Errors errors) {
+        menuGroupService.update(dto);
+        return Responser.created();
+    }
+
     @DeleteMapping("/group")
     @ApiOperation("删除工作台的组")
-    public ResponseEntity<Messager> deleteGroup(@RequestBody @Valid MenuGroupDTO dto, Errors errors) {
-        menuGroupService.add(dto);
-        return Responser.created();
+    public ResponseEntity<Messager> deleteGroup(@RequestBody @Valid MenuGroupDeleteDTO dto, Errors errors) {
+        menuGroupService.delete(dto);
+        return Responser.deleted();
     }
 
     @PostMapping("/group/menu")

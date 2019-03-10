@@ -3,6 +3,7 @@ package com.ying.team.service.impl;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.team.dto.MenuGroupDTO;
 import com.ying.team.dto.MenuGroupDeleteDTO;
+import com.ying.team.dto.MenuGroupUpdateDTO;
 import com.ying.team.model.MenuGroup;
 import com.ying.team.repo.MenuGroupRepository;
 import com.ying.team.repo.WorkbenchRepository;
@@ -28,8 +29,8 @@ public class MenuGroupServiceImpl extends SimpleBasicServiceImpl<MenuGroup, Stri
     @Transactional
     public void delete(MenuGroupDeleteDTO dto) {
         // 删除menuGroup和下面的菜单
-        this.delete(dto.getMenuGroupId());
         workbenchRepository.deleteByTeamIdAndMenuGroupId(dto.getTeamId(), dto.getMenuGroupId());
+        this.delete(dto.getMenuGroupId());
     }
     @Override
     public void add(MenuGroupDTO dto) {
@@ -40,4 +41,10 @@ public class MenuGroupServiceImpl extends SimpleBasicServiceImpl<MenuGroup, Stri
         this.add(menuGroup);
     }
 
+    @Override
+    public void update(MenuGroupUpdateDTO dto) {
+        MenuGroup group = this.get(dto.getId());
+        group.setName(dto.getName());
+        this.update(group);
+    }
 }

@@ -3,6 +3,7 @@ package com.ying.team.service;
 import com.ying.core.basic.service.BasicService;
 import com.ying.team.dto.MenuGroupDTO;
 import com.ying.team.dto.MenuGroupDeleteDTO;
+import com.ying.team.dto.MenuGroupUpdateDTO;
 import com.ying.team.model.MenuGroup;
 
 /**
@@ -14,4 +15,5 @@ public interface MenuGroupService extends BasicService<MenuGroup,String> {
 
     void add(MenuGroupDTO dto);
 
+    void update(MenuGroupUpdateDTO dto);
 }

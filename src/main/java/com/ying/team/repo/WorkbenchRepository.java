@@ -31,4 +31,6 @@ public interface WorkbenchRepository extends JpaRepository<Workbench, String> {
 
     @Modifying
     void deleteByTeamIdAndMenuGroupId(String teamId, String menuGroupId);
+
+    List<Workbench> findByMenuGroupId(String menuGroupId);
 }

@@ -13,4 +13,5 @@ public interface MenuGroupService extends BasicService<MenuGroup,String> {
     void delete(MenuGroupDeleteDTO dto);
 
     void add(MenuGroupDTO dto);
+
 }

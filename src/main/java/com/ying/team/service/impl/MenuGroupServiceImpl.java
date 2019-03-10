@@ -37,5 +37,7 @@ public class MenuGroupServiceImpl extends SimpleBasicServiceImpl<MenuGroup, Stri
         menuGroup.setName(dto.getName());
         menuGroup.setTeamId(dto.getTeamId());
         menuGroup.setOrderNum(1); // todo add max num
+        this.add(menuGroup);
     }
+
 }

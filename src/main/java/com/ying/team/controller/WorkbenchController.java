@@ -6,6 +6,7 @@ import com.ying.team.dto.GroupMenuDTO;
 import com.ying.team.dto.MenuGroupDTO;
 import com.ying.team.service.MenuGroupService;
 import com.ying.team.service.WorkbenchService;
+import com.ying.team.vo.WorkbenchMenuVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 工作台
@@ -31,6 +33,13 @@ public class WorkbenchController {
                                MenuGroupService menuGroupService) {
         this.workbenchService = workbenchService;
         this.menuGroupService = menuGroupService;
+    }
+
+    @GetMapping("/{menuGroupId}/menus")
+    public ResponseEntity<List<WorkbenchMenuVO>> listWorkbenchMenu(@PathVariable String menuGroupId) {
+        List<WorkbenchMenuVO> shortcutTree = workbenchService.listWorkbenchMenu(menuGroupId);
+        return Responser.ok(shortcutTree);
+
     }
 
     @PostMapping("/group")

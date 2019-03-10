@@ -69,6 +69,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     @Transactional(rollbackFor = Exception.class)
     public void add(OrderDTO dto) {
         Order order = new Order();
+        order.setToTeamId(dto.getToTeamId());
         order.setAttachment(dto.getAttachment());
         order.setBalancePayment(dto.getBalancePayment());
         order.setCreateTime(LocalDateTime.now());

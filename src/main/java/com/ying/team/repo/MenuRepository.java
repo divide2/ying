@@ -49,8 +49,8 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
      * @param pid pid
      * @return menu
      */
-    default List<Menu> findByPid(String pid) {
-        return findByPidOrderByOrderNumAsc(pid);
+    default List<Menu> findByPidAndShortcut(String pid, Boolean shortcut) {
+        return findByPidAndShortcutOrderByOrderNumAsc(pid, shortcut);
     }
 
     /**
@@ -59,6 +59,6 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
      * @param pid pid
      * @return menu
      */
-    List<Menu> findByPidOrderByOrderNumAsc(String pid);
+    List<Menu> findByPidAndShortcutOrderByOrderNumAsc(String pid, Boolean shortcut);
 
 }

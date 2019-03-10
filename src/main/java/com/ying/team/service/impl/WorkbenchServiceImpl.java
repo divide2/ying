@@ -8,10 +8,9 @@ import com.ying.team.repo.MenuGroupRepository;
 import com.ying.team.repo.WorkbenchRepository;
 import com.ying.team.service.WorkbenchInnerConnectService;
 import com.ying.team.service.WorkbenchService;
-import com.ying.team.vo.MenuGroupVO;
-import com.ying.team.vo.MenuVO;
-import com.ying.team.vo.WorkbenchVO;
+import com.ying.team.vo.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -47,8 +46,40 @@ public class WorkbenchServiceImpl implements WorkbenchService {
     }
 
     @Override
+    @Transactional
     public void deleteGroupMenu(GroupMenuDTO dto) {
         workbenchRepository.deleteByTeamIdAndMenuGroupIdAndMenuId(dto.getTeamId(), dto.getMenuGroupId(), dto.getMenuId());
+    }
+
+
+    @Override
+    public List<WorkbenchMenuVO> listWorkbenchMenu(String menuGroupId) {
+
+        List<Workbench> workbenches = workbenchRepository.findByMenuGroupId(menuGroupId);
+        List<String> existMenuIds = Converter.of(workbenches).convert(Workbench::getMenuId);
+        List<MenuTreeVO> shortcutTree = workbenchInnerConnectService.findShortcutMenus();
+        return Converter.of(shortcutTree).convert(item -> {
+            WorkbenchMenuVO wm = new WorkbenchMenuVO(
+                    item.getId(),
+                    item.getIcon(),
+                    item.getName());
+            if (existMenuIds.contains(item.getId())) {
+                wm.setExist(true);
+            }
+            List<WorkbenchMenuVO> children = Converter.of(item.getChildren()).convert(jtem -> {
+                WorkbenchMenuVO vo = new WorkbenchMenuVO(
+                        jtem.getId(),
+                        jtem.getIcon(),
+                        jtem.getName()
+                );
+                if (existMenuIds.contains(jtem.getId())) {
+                    vo.setExist(true);
+                }
+                return vo;
+            });
+            wm.setChildren(children);
+            return wm;
+        });
     }
 
     @Override
@@ -91,4 +122,5 @@ public class WorkbenchServiceImpl implements WorkbenchService {
         return vos;
 
     }
+
 }

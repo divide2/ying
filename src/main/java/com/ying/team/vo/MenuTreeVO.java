@@ -16,10 +16,12 @@ public class MenuTreeVO {
     private String icon;
     private String name;
 
+    private List<MenuTreeVO> children;
     public MenuTreeVO() {
 
 
     }
+
     public MenuTreeVO(String id, String icon, String name, List<MenuTreeVO> children) {
         this.id = id;
         this.icon = icon;
@@ -34,7 +36,5 @@ public class MenuTreeVO {
         this.name = name;
         this.children = new ArrayList<>();
     }
-
-    private List<MenuTreeVO> children;
 
 }

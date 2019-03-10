@@ -1,7 +1,7 @@
 package com.ying.team.service;
 
 import com.ying.team.dto.GroupMenuDTO;
-import com.ying.team.dto.MenuGroupDTO;
+import com.ying.team.vo.WorkbenchMenuVO;
 import com.ying.team.vo.WorkbenchVO;
 
 import java.util.List;
@@ -20,4 +20,5 @@ public interface WorkbenchService {
 
     void addGroupMenu(GroupMenuDTO dto);
 
+    List<WorkbenchMenuVO> listWorkbenchMenu(String menuGroupId);
 }

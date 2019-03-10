@@ -18,7 +18,7 @@ public class OrderDTO {
 
     @ApiModelProperty("发给的人")
     @NotNull
-    private Integer toId;
+    private String toTeamId;
 
     @ApiModelProperty("定金")
     private BigDecimal earnestMoney;

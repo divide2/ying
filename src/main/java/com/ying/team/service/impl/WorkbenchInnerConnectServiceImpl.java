@@ -3,10 +3,12 @@ package com.ying.team.service.impl;
 import com.ying.team.service.AclService;
 import com.ying.team.service.MenuService;
 import com.ying.team.service.WorkbenchInnerConnectService;
+import com.ying.team.vo.MenuTreeVO;
 import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,4 +36,10 @@ public class WorkbenchInnerConnectServiceImpl implements WorkbenchInnerConnectSe
     public Map<String,MenuVO> findMapByMenuIds(Collection<String> menuIds) {
         return menuService.findMapByIds(menuIds);
     }
+
+    @Override
+    public List<MenuTreeVO> findShortcutMenus() {
+        return menuService.findShortcutTree();
+    }
+
 }

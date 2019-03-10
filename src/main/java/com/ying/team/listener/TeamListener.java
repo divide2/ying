@@ -1,6 +1,7 @@
 package com.ying.team.listener;
 
 import com.ying.core.er.Loginer;
+import com.ying.product.model.Warehouse;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.model.*;
 import com.ying.team.service.MemberService;
@@ -52,16 +53,18 @@ public class TeamListener implements Listener<Team> {
         // 初始化一部分的workbench
         Workbench workbench = new Workbench();
         MenuGroup menuGroup = new MenuGroup();
-        //初始化菜单组
         menuGroup.setName("团队");
         menuGroup.setOrderNum(1);
         menuGroup.setTeamId(team.getId());
         workbench.setMenuGroupId(menuGroup.getId());
 //        workbench.setMenuId();
         //初始化一个仓库
+        Warehouse warehouse = new Warehouse();
+        warehouse.setTeamId(team.getId());
+        warehouse.setName("默认仓库");
+        warehouse.setEnabled(true);
+        warehouse.setRemarks("默认的仓库");
         //初始化一个商品分类
-
-
     }
 
     @Override

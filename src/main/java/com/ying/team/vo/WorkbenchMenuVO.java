@@ -18,21 +18,24 @@ public class WorkbenchMenuVO {
     private String id;
     private String icon;
     private String name;
+    private String color;
     private boolean exist;
 
     private List<WorkbenchMenuVO> children;
 
-    public WorkbenchMenuVO(String id, String icon, String name) {
+    public WorkbenchMenuVO(String id, String icon, String name,String color) {
         this.id = id;
         this.icon = icon;
         this.name = name;
+        this.color = color;
         children = new ArrayList<>();
     }
 
-    public WorkbenchMenuVO(String id, String icon, String name, List<WorkbenchMenuVO> children) {
+    public WorkbenchMenuVO(String id, String icon, String name, String color,List<WorkbenchMenuVO> children) {
         this.id = id;
         this.icon = icon;
         this.name = name;
+        this.color = color;
         this.children = children;
     }
 }

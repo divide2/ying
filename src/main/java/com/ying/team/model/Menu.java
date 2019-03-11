@@ -67,4 +67,6 @@ public class Menu {
     @Type(type = "yes_no")
     private Boolean shortcut;
 
+    private String color;
+
 }

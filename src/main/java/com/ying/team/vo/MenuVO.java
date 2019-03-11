@@ -44,5 +44,7 @@ public class MenuVO {
     @ApiModelProperty("快捷方式")
     private Boolean shortcut;
 
+    private String color;
+
 
 }

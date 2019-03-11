@@ -62,7 +62,8 @@ public class WorkbenchServiceImpl implements WorkbenchService {
             WorkbenchMenuVO wm = new WorkbenchMenuVO(
                     item.getId(),
                     item.getIcon(),
-                    item.getName());
+                    item.getName(),
+                    item.getColor());
             if (existMenuIds.contains(item.getId())) {
                 wm.setExist(true);
             }
@@ -70,8 +71,10 @@ public class WorkbenchServiceImpl implements WorkbenchService {
                 WorkbenchMenuVO vo = new WorkbenchMenuVO(
                         jtem.getId(),
                         jtem.getIcon(),
-                        jtem.getName()
+                        jtem.getName(),
+                        jtem.getColor()
                 );
+
                 if (existMenuIds.contains(jtem.getId())) {
                     vo.setExist(true);
                 }

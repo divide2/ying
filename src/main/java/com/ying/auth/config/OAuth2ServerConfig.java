@@ -52,6 +52,7 @@ public class OAuth2ServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+
         endpoints
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);

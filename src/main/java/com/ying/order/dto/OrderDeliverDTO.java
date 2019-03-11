@@ -2,6 +2,7 @@ package com.ying.order.dto;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,8 +13,10 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderDeliverDTO {
 
-    @NotNull
+    @NotEmpty
     private String orderId;
-    @NotNull
+    @NotEmpty
     private String warehouseId;
+    @NotEmpty
+    private String teamId;
 }

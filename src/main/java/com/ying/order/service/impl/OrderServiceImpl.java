@@ -4,6 +4,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.data.del.SingleStringId;
 import com.ying.core.data.properties.OrderStatusProperties;
+import com.ying.core.data.properties.StockTypeProperties;
 import com.ying.core.er.Loginer;
 import com.ying.core.root.query.QueryManager;
 import com.ying.order.dto.OrderDTO;
@@ -46,6 +47,7 @@ import static java.util.stream.Collectors.toList;
 public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, OrderRepository> implements OrderService {
     private final OrderConnectService orderConnectService;
     private final OrderStatusProperties orderStatus;
+    private final StockTypeProperties stockType;
     private final OrderProductRepository orderProductRepository;
     private final OrderProductSpecRepository orderProductSpecRepository;
     private final OrderRepository orderRepository;
@@ -53,12 +55,13 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
 
     public OrderServiceImpl(OrderConnectService orderConnectService,
                             OrderStatusProperties orderStatus,
-                            OrderProductRepository orderProductRepository,
+                            StockTypeProperties stockType, OrderProductRepository orderProductRepository,
                             OrderProductSpecRepository orderProductSpecRepository,
                             OrderRepository orderRepository) {
         this.orderConnectService = orderConnectService;
 
         this.orderStatus = orderStatus;
+        this.stockType = stockType;
         this.orderProductRepository = orderProductRepository;
         this.orderProductSpecRepository = orderProductSpecRepository;
         this.orderRepository = orderRepository;
@@ -138,6 +141,8 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             List<ProductSpecStock> productSpecStocks = specs.stream()
                     .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
             outStock.setSpecStocks(productSpecStocks);
+            outStock.setTeamId(deliver.getTeamId());
+            outStock.setType(stockType.getDeliver());
             orderConnectService.outStock(outStock);
         });
         order.setStatus(orderStatus.getWaitingReceive());
@@ -158,6 +163,8 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             List<ProductSpecStock> productSpecStocks = specs.stream()
                     .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
             inStock.setSpecStocks(productSpecStocks);
+            inStock.setTeamId(receive.getTeamId());
+            inStock.setType(stockType.getReceive());
             orderConnectService.inStock(inStock);
         });
         order.setStatus(orderStatus.getFinish());

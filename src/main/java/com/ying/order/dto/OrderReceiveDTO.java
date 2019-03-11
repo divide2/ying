@@ -3,6 +3,7 @@ package com.ying.order.dto;
 import com.ying.core.root.dto.DTO;
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,8 +14,11 @@ import javax.validation.constraints.NotNull;
 @Data
 public class OrderReceiveDTO implements DTO {
 
-    @NotNull
+    @NotEmpty
     private String orderId;
-    @NotNull
+    @NotEmpty
     private String warehouseId;
+
+    @NotEmpty
+    private String teamId;
 }

@@ -61,6 +61,9 @@ divide:
       warehouse:
         pair: pair
         prod: prod
+      stock:
+        deliver: deliver
+        receive: receive
   defaults:
     avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4
 security:

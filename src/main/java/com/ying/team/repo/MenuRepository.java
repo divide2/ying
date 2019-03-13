@@ -53,6 +53,8 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
         return findByPidAndShortcutOrderByOrderNumAsc(pid, shortcut);
     }
 
+
+
     /**
      * 通过父级菜单获取子菜单 排个序
      *
@@ -61,4 +63,9 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
      */
     List<Menu> findByPidAndShortcutOrderByOrderNumAsc(String pid, Boolean shortcut);
 
+    List<Menu> findByPidOrderByOrderNumAsc(String pid);
+
+    default List<Menu> findByPid(String pid) {
+        return findByPidOrderByOrderNumAsc(pid);
+    }
 }

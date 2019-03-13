@@ -16,6 +16,7 @@ public class MenuTreeVO {
     private String icon;
     private String name;
     private String color;
+    private boolean leaf;
 
     private List<MenuTreeVO> children;
     public MenuTreeVO() {
@@ -23,16 +24,18 @@ public class MenuTreeVO {
 
     }
 
-    public MenuTreeVO(String id, String icon, String name,String color, List<MenuTreeVO> children) {
+    public MenuTreeVO(String id, String icon, String name,String color,boolean leaf, List<MenuTreeVO> children) {
         this.id = id;
         this.icon = icon;
         this.name = name;
         this.color = color;
+        this.leaf = leaf;
         this.children = children;
     }
 
 
-    public MenuTreeVO(String id, String icon, String name,String color) {
+    public MenuTreeVO(String id, String icon, String name,String color,boolean leaf) {
+        this.leaf = leaf;
         this.id = id;
         this.icon = icon;
         this.name = name;

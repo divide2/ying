@@ -110,8 +110,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
         return Converter.of(pmenus).convert(menu -> {
             List<Menu> cMenus = menuRepository.findByPid(menu.getId());
             List<MenuTreeVO> children = cMenus.stream().map(
-                    cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName(),cMenu.getColor())).collect(Collectors.toList());
-            return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(), menu.getColor(), children);
+                    cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName(),cMenu.getColor(),true)).collect(Collectors.toList());
+            return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(), menu.getColor(),false, children);
         });
     }
 
@@ -121,8 +121,8 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
         return Converter.of(pmenus).convert(menu -> {
             List<Menu> cMenus = menuRepository.findByPidAndShortcut(menu.getId(), true);
             List<MenuTreeVO> children = cMenus.stream().map(
-                    cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName(),cMenu.getColor())).collect(Collectors.toList());
-            return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(),menu.getColor(), children);
+                    cMenu -> new MenuTreeVO(cMenu.getId(), cMenu.getIcon(), cMenu.getName(),cMenu.getColor(),true)).collect(Collectors.toList());
+            return new MenuTreeVO(menu.getId(), menu.getIcon(), menu.getName(),menu.getColor(),false, children);
         });
     }
 }

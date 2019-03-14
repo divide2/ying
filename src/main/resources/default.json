@@ -12,6 +12,8 @@
     "children": [
       "team:product:view",
       "team:stock:view",
+      "team:stock:in",
+      "team:stock:out",
       "team:stream:view"
     ]
   },

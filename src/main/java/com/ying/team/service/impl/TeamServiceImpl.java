@@ -104,11 +104,14 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     public List<MemberVO> listMembers(String teamId) {
         this.getVO(teamId);
         List<Member> teamUsers = memberRepository.findByTeamId(teamId);
-        Map<String, List<Member>> squadMembers = teamUsers.stream().collect(Collectors.groupingBy(Member::getSquadId));
+        List<SquadVO> squads = teamInnerConnectService.listSquadByTeam(teamId);
         List<MemberVO> vos = new ArrayList<>();
-        squadMembers.forEach((squadId, members) -> {
-            SquadVO squad = teamInnerConnectService.getSquad(squadId);
-            List<UserVO> users = Converter.of(teamUsers).convert(member -> teamInnerConnectService.getUser(member.getUserId()));
+        squads.forEach(squad -> {
+            List<UserVO> users = teamUsers.stream()
+                    .filter(member -> member.getSquadId().equals(squad.getId()))
+                    .map(member -> teamInnerConnectService.getUser(member.getUserId()))
+                    .collect(Collectors.toList());
+
             MemberVO vo = new MemberVO(squad, users);
             vos.add(vo);
         });

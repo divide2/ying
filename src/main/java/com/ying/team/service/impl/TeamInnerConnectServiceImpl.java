@@ -15,6 +15,7 @@ import com.ying.product.service.StockService;
 import com.ying.product.service.WarehouseService;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import com.ying.team.service.AclService;
 import com.ying.team.service.MenuService;
 import com.ying.team.service.SquadService;
 import com.ying.team.service.TeamInnerConnectService;
@@ -25,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -41,6 +43,7 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     private final StockService stockService;
     private final ChatService chatService;
     private final MenuService menuService;
+    private final AclService aclService;
 
     public TeamInnerConnectServiceImpl(
             UserService userService,
@@ -50,7 +53,8 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
             ProductService productService,
             StockService stockService,
             ChatService chatService,
-            MenuService menuService) {
+            MenuService menuService,
+            AclService aclService) {
 
         this.userService = userService;
         this.squadService = squadService;
@@ -60,6 +64,7 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
         this.stockService = stockService;
         this.chatService = chatService;
         this.menuService = menuService;
+        this.aclService = aclService;
     }
 
     @Override
@@ -114,4 +119,16 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     public List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId) {
         return null;
     }
+
+    @Override
+    public Set<String> listTeamUserMenuIds(String teamId, Integer userId) {
+        Set<String> authorities = aclService.listTeamUserAuthorities(teamId, userId);
+        return menuService.findByMenuIdsByAuthorities(authorities);
+    }
+
+    @Override
+    public List<SquadVO> listSquadByTeam(String teamId) {
+        return squadService.listByTeam(teamId);
+    }
+
 }

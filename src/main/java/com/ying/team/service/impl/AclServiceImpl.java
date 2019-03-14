@@ -1,5 +1,6 @@
 package com.ying.team.service.impl;
 
+import com.ying.core.root.converter.Converter;
 import com.ying.team.dto.AclDTO;
 import com.ying.team.model.Acl;
 import com.ying.team.model.Member;
@@ -37,10 +38,10 @@ public class AclServiceImpl implements AclService {
         // 先删除之前的
         aclRepository.deleteExists(dto.getTeamId(), dto.getPrincipleId(), dto.getPrincipleType());
         //再添加
-        List<MenuVO> menus = menuService.findByIds(dto.getMenuIds());
-        menus.forEach(menu -> {
+        Set<String> authorities = Converter.of(menuService.findByIds(dto.getMenuIds())).toSet(MenuVO::getAuthority);
+        authorities.forEach(authority -> {
             Acl acl = new Acl();
-            acl.setAuthority(menu.getAuthority());
+            acl.setAuthority(authority);
             acl.setPrincipleId(dto.getPrincipleId());
             acl.setPrincipleType(dto.getPrincipleType());
             acl.setTeamId(dto.getTeamId());

@@ -3,6 +3,7 @@ package com.ying.core.root.converter;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,10 @@ public class Converter<T> {
 
     public <R> List<R> convert(Function<T, R> function) {
         return source.stream().map(function).collect(Collectors.toList());
+    }
+
+    public <R> Set<R> toSet(Function<T, R> function) {
+        return source.stream().map(function).collect(Collectors.toSet());
     }
 
 }

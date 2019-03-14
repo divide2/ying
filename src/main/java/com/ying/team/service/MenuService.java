@@ -32,12 +32,27 @@ public interface MenuService extends BasicService<Menu, String> {
 
     MenuVO getByAuthority(String menuCode);
 
+    /**
+     * workbench中使用
+     * @param authorities authority
+     * @return menuIds
+     */
     Set<String> findByMenuIdsByAuthorities(Set<String> authorities);
+
+
 
     Set<String> findShortcutByAuthorities(Set<String> authorities);
 
+    /**
+     * 全部节点的树 再授权时使用
+     * @return menutree
+     */
     List<MenuTreeVO> findTree();
 
+    /**
+     * 只有快捷方式的树 再添加workbench时使用
+     * @return menuTree
+     */
     List<MenuTreeVO> findShortcutTree();
 
 }

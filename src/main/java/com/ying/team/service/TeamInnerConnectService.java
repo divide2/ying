@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -75,4 +76,15 @@ public interface TeamInnerConnectService extends ConnectService {
     MenuVO getMenu(String menuId);
 
     List<UserVO> listTeamOwnMenuUsers(String teamId, Integer menuId);
+
+    /**
+     * 获取用户拥有的菜单id
+     * @param teamId teamId
+     * @param userId userId
+     * @return menuIds
+     */
+    Set<String> listTeamUserMenuIds(String teamId, Integer userId);
+
+    List<SquadVO> listSquadByTeam(String teamId);
+
 }

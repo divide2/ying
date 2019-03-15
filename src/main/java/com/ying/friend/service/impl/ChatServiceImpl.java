@@ -86,7 +86,8 @@ public class ChatServiceImpl implements ChatService {
                 .updateTime(chat.getUpdateTime())
                 .avatar(chat.getAvatar())
                 .name(chat.getName())
-                .toId(chat.getUserId())
+                .target(chat.getTarget())
+                .type(chat.getType())
                 .unreadCount(chat.getUnreadCount())
                 .build());
     }

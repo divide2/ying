@@ -20,10 +20,15 @@ public class ChatVO {
 
     private String id;
 
-    private Integer toId;
+    private String target;
 
-    @ApiModelProperty("备注名")
+    @ApiModelProperty("对象的名称")
     private String name;
+
+    /**
+     * 对象的类型
+     */
+    private String type;
 
     private String avatar;
 

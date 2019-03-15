@@ -26,7 +26,6 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/v1/article")
-@Api(tags = "文章")
 public class ArticleController {
 
     private final StatusProperties statusProperties;

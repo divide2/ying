@@ -1,12 +1,6 @@
 package com.ying.team.service;
 
-import com.ying.auth.dto.*;
-import com.ying.team.dto.*;
-import com.ying.team.model.Team;
-import com.ying.team.vo.CooperationApplicationVO;
-import com.ying.team.vo.TeamApplicationVO;
-import com.ying.team.vo.MemberVO;
-import com.ying.team.vo.TeamVO;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.core.basic.service.BasicService;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
@@ -14,10 +8,17 @@ import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import com.ying.team.dto.*;
+import com.ying.team.model.Team;
+import com.ying.team.vo.CooperationApplicationVO;
+import com.ying.team.vo.MemberVO;
+import com.ying.team.vo.TeamApplicationVO;
+import com.ying.team.vo.TeamVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -38,6 +39,17 @@ public interface TeamService extends BasicService<Team, String> {
     TeamVO getVO(String teamId);
 
     TeamVO search(UserSearchDTO search);
+
+    /**
+     * 获取用户能放问的菜单id
+     *
+     * @param teamId      team
+     * @param type        类型
+     * @param principleId user/squadid
+     * @return menuIds
+     */
+    Set<String> listTeamUserMenus(String teamId, String type, String principleId);
+
     /**
      * todo 通知
      *
@@ -53,18 +65,19 @@ public interface TeamService extends BasicService<Team, String> {
     void confirm(TeamConfirmDTO dto);
 
 
-
     List<TeamApplicationVO> listTeamApplications(String teamId);
 
 
     /**
      * 确认建立何总
+     *
      * @param dto dto
      */
     void confirmCooperation(TeamCooperationConfirmDTO dto);
 
     /**
      * 申请 合作
+     *
      * @param dto dto
      */
 
@@ -72,6 +85,7 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 团队合作申请
+     *
      * @param teamId teamId
      * @return teamId
      */
@@ -79,6 +93,7 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 获取合作伙伴
+     *
      * @param teamId team
      * @return team
      */
@@ -86,19 +101,23 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 获取团队的仓库
+     *
      * @return vo
      */
     List<WarehouseVO> listWarehouse(String teamId);
 
     /**
      * 库存
+     *
      * @param stockQuery q
-     * @param pageable p
+     * @param pageable   p
      * @return x
      */
     Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable);
+
     /**
      * 获取团队产品
+     *
      * @param pageable p
      * @return x
      */
@@ -107,8 +126,9 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 获取收到的订单
+     *
      * @param queryParam query
-     * @param pageable pageable
+     * @param pageable   pageable
      * @return x
      */
     Page<OrderVO> findReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
@@ -116,8 +136,9 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 获取发送的订单
+     *
      * @param queryParam query
-     * @param pageable page
+     * @param pageable   page
      * @return vo
      */
     Page<OrderVO> findSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable);
@@ -125,9 +146,17 @@ public interface TeamService extends BasicService<Team, String> {
 
     /**
      * 获取用户的Team
+     *
      * @param userId userId
      * @return teams
      */
     List<TeamVO> listUserTeams(Integer userId);
 
+    /**
+     * 获取用户的权限
+     *
+     * @param teamId teamId
+     * @return x
+     */
+    Set<String> listMemberAuthorities(String teamId);
 }

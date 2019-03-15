@@ -17,6 +17,7 @@ public class AclDTO {
 
     private Collection<String> menuIds;
 
+    @NotEmpty
     private String teamId;
 
     @NotEmpty

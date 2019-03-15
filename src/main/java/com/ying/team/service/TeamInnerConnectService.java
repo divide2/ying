@@ -83,8 +83,9 @@ public interface TeamInnerConnectService extends ConnectService {
      * @param userId userId
      * @return menuIds
      */
-    Set<String> listTeamUserMenuIds(String teamId, Integer userId);
+    Set<String> listTeamUserChildrenMenuIds(String teamId,String type, String userId);
 
     List<SquadVO> listSquadByTeam(String teamId);
 
+    Set<String> listMemberAuthorities(String teamId);
 }

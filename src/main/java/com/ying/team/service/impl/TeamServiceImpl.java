@@ -28,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -116,6 +116,17 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
             vos.add(vo);
         });
         return vos;
+    }
+
+    @Override
+    public Set<String> listTeamUserMenus(String teamId, String type, String principleId) {
+        return teamInnerConnectService.listTeamUserChildrenMenuIds(teamId, type, principleId);
+    }
+
+
+    @Override
+    public Set<String> listMemberAuthorities(String teamId) {
+        return teamInnerConnectService.listMemberAuthorities(teamId);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.ying.team.controller;
 
-import com.ying.auth.dto.*;
+import com.ying.auth.dto.UserSearchDTO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author bvvy
@@ -86,6 +87,7 @@ public class TeamController {
         List<TeamApplicationVO> teamApplications = teamService.listTeamApplications(teamId);
         return Responser.ok(teamApplications);
     }
+
     @PostMapping("/invite")
     @ApiOperation("邀请")
     public ResponseEntity<Messager> invite(InviteDTO dto) {
@@ -101,7 +103,7 @@ public class TeamController {
 
     @PostMapping("/confirm")
     @ApiOperation("确认加入团队")
-    public ResponseEntity<Messager> confirm(@Valid @RequestBody TeamConfirmDTO dto, Errors errors ){
+    public ResponseEntity<Messager> confirm(@Valid @RequestBody TeamConfirmDTO dto, Errors errors) {
         teamService.confirm(dto);
         return Responser.created();
     }
@@ -116,7 +118,7 @@ public class TeamController {
     @GetMapping("/{teamId}/cooperations")
     @ApiOperation("合作伙伴")
     public ResponseEntity<List<TeamVO>> listCooperations(@PathVariable String teamId) {
-        List<TeamVO> cooperations= teamService.listTeamCooperations(teamId);
+        List<TeamVO> cooperations = teamService.listTeamCooperations(teamId);
         return Responser.ok(cooperations);
     }
 
@@ -129,30 +131,29 @@ public class TeamController {
 
     @PostMapping("/cooperation/confirm")
     @ApiOperation("确认合作")
-    public ResponseEntity<Messager> confirmCooperation(@Valid @RequestBody TeamCooperationConfirmDTO dto, Errors errors ){
+    public ResponseEntity<Messager> confirmCooperation(@Valid @RequestBody TeamCooperationConfirmDTO dto, Errors errors) {
         teamService.confirmCooperation(dto);
         return Responser.created();
     }
 
 
-
     @GetMapping("/{teamId}/order/receive")
     @ApiOperation("获取团队收到的订单")
     public ResponseEntity<Page<OrderVO>> findReceiveOrder(@PathVariable String teamId, OrderQueryParam queryParam, Pageable pageable) {
-        return Responser.ok(teamService.findReceiveOrder(teamId,queryParam, pageable));
+        return Responser.ok(teamService.findReceiveOrder(teamId, queryParam, pageable));
     }
 
 
     @GetMapping("/{teamId}/order/send")
     @ApiOperation("获取团对发送的订单，就是采购单")
-    public ResponseEntity<Page<OrderVO>> findSendOrder(@PathVariable String teamId,OrderQueryParam queryParam, Pageable pageable) {
-        return Responser.ok(teamService.findSendOrder(teamId,queryParam, pageable));
+    public ResponseEntity<Page<OrderVO>> findSendOrder(@PathVariable String teamId, OrderQueryParam queryParam, Pageable pageable) {
+        return Responser.ok(teamService.findSendOrder(teamId, queryParam, pageable));
     }
 
     @GetMapping("/{teamId}/stocks")
     @ApiOperation("团队库存")
-    public ResponseEntity<Page<StockVO>> findStock(@PathVariable String teamId,Pageable pageable,  StockQuery stockQuery) {
-        Page<StockVO> vo = teamService.findStock(teamId,stockQuery, pageable);
+    public ResponseEntity<Page<StockVO>> findStock(@PathVariable String teamId, Pageable pageable, StockQuery stockQuery) {
+        Page<StockVO> vo = teamService.findStock(teamId, stockQuery, pageable);
         return Responser.ok(vo);
     }
 
@@ -165,8 +166,8 @@ public class TeamController {
 
     @GetMapping("/{teamId}/products")
     @ApiOperation("团队产品")
-    public ResponseEntity<Page<ProductVO>> product(@PathVariable String teamId,Pageable pageable) {
-        Page<ProductVO> products = teamService.findProduct(teamId,pageable);
+    public ResponseEntity<Page<ProductVO>> product(@PathVariable String teamId, Pageable pageable) {
+        Page<ProductVO> products = teamService.findProduct(teamId, pageable);
         return Responser.ok(products);
     }
 
@@ -176,6 +177,7 @@ public class TeamController {
         List<WorkbenchVO> teamUserWorkbench = workbenchService.getTeamUserWorkbench(teamId, Loginer.userId());
         return Responser.ok(teamUserWorkbench);
     }
+
     @GetMapping("/{teamId}/workbench")
     @ApiOperation("整个团队的工作台")
     public ResponseEntity<List<WorkbenchVO>> getTeamWorkbench(@PathVariable String teamId) {
@@ -183,4 +185,17 @@ public class TeamController {
         return Responser.ok(teamWorkbench);
     }
 
+    @GetMapping("/{teamId}/type/{type}/principal/{principalId}/menus")
+    @ApiOperation("整个团队的工作台")
+    public ResponseEntity<Set<String>> listTeamUserMenus(@PathVariable String teamId, @PathVariable String type, @PathVariable String principalId) {
+        Set<String> menuIds = teamService.listTeamUserMenus(teamId, type, principalId);
+        return Responser.ok(menuIds);
+    }
+
+    @GetMapping("/{teamId}/user/authorities")
+    @ApiOperation("整个团队的工作台")
+    public ResponseEntity<Set<String>> listTeamUserAuthorities(@PathVariable String teamId) {
+        Set<String> authorities = teamService.listMemberAuthorities(teamId);
+        return Responser.ok(authorities);
+    }
 }

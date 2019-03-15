@@ -29,7 +29,7 @@ public class WorkbenchInnerConnectServiceImpl implements WorkbenchInnerConnectSe
     @Override
     public Set<String> listTeamUserMenuIds(String teamId, Integer userId) {
         Set<String> authorities = aclService.listTeamUserAuthorities(teamId, userId);
-        return menuService.findByMenuIdsByAuthorities(authorities);
+        return menuService.findMenuIdsByAuthorities(authorities);
     }
 
     @Override

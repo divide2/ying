@@ -10,6 +10,7 @@ import com.ying.team.service.AclService;
 import com.ying.team.service.MenuService;
 import com.ying.team.vo.MenuVO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +35,7 @@ public class AclServiceImpl implements AclService {
     }
 
     @Override
+    @Transactional
     public void add(AclDTO dto) {
         // 先删除之前的
         aclRepository.deleteExists(dto.getTeamId(), dto.getPrincipleId(), dto.getPrincipleType());
@@ -68,7 +70,7 @@ public class AclServiceImpl implements AclService {
         return userIds;
     }
 
-    @Override
+   @Override
     public Set<String> listTeamUserAuthorities(String teamId, Integer userId) {
         // 获取菜单
         List<Acl> userAcls = aclRepository.findByTeamUser(teamId, userId);
@@ -78,5 +80,18 @@ public class AclServiceImpl implements AclService {
         Set<String> squadMenus = squadAcls.stream().map(Acl::getAuthority).collect(Collectors.toSet());
         userMenus.addAll(squadMenus);
         return userMenus;
+    }
+
+    @Override
+    public Set<String> listOnlyTeamUserAuthorities(String teamId, Integer userId) {
+        // 获取菜单
+        List<Acl> userAcls = aclRepository.findByTeamUser(teamId, userId);
+        return userAcls.stream().map(Acl::getAuthority).collect(Collectors.toSet());
+    }
+    @Override
+    public Set<String> listOnlyTeamSquadAuthorities(String teamId, String squadId) {
+        // 获取菜单
+        List<Acl> squadAcls = aclRepository.findByTeamSquad(teamId, squadId);
+        return squadAcls.stream().map(Acl::getAuthority).collect(Collectors.toSet());
     }
 }

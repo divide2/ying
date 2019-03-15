@@ -2,6 +2,7 @@ package com.ying.team.repo;
 
 import com.ying.team.model.Acl;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public interface AclRepository extends JpaRepository<Acl, Integer> {
      * @param principleId   pid
      * @param principleType ptype
      */
+    @Modifying
     void deleteByTeamIdAndPrincipleIdAndPrincipleType(String teamId, String principleId, String principleType);
 
     /**

@@ -19,7 +19,7 @@ public interface AclService {
     Set<Integer> listTeamOwnMenuUserIds(String teamId, String authority);
 
     /**
-     * 获取用户能访问的菜单的权限码
+     * 获取用户能访问的菜单的权限码包括所在的squad下的菜单
      * @param teamId teanUd
      * @param userId userId
      * @return menu
@@ -31,4 +31,8 @@ public interface AclService {
      * @param dto dto
      */
     void add(AclDTO dto);
+
+    Set<String> listOnlyTeamUserAuthorities(String teamId, Integer userId);
+
+    Set<String> listOnlyTeamSquadAuthorities(String teamId, String squadId);
 }

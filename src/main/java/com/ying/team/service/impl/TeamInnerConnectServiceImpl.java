@@ -3,6 +3,7 @@ package com.ying.team.service.impl;
 
 import com.ying.auth.service.UserService;
 import com.ying.auth.vo.UserVO;
+import com.ying.core.er.Loginer;
 import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.friend.service.ChatService;
 import com.ying.mine.vo.WarehouseVO;
@@ -15,6 +16,7 @@ import com.ying.product.service.StockService;
 import com.ying.product.service.WarehouseService;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import com.ying.team.model.Acl;
 import com.ying.team.service.AclService;
 import com.ying.team.service.MenuService;
 import com.ying.team.service.SquadService;
@@ -25,6 +27,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -121,14 +124,25 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
     }
 
     @Override
-    public Set<String> listTeamUserMenuIds(String teamId, Integer userId) {
-        Set<String> authorities = aclService.listTeamUserAuthorities(teamId, userId);
-        return menuService.findByMenuIdsByAuthorities(authorities);
+    public Set<String> listTeamUserChildrenMenuIds(String teamId, String type, String principleId) {
+        Set<String> authorities = new HashSet<>();
+        if (Acl.USER_TYPE.equals(type)) {
+            authorities = aclService.listOnlyTeamUserAuthorities(teamId, Integer.parseInt(principleId));
+
+        } else if (Acl.SQUAD_TYPE.equals(type)) {
+            authorities = aclService.listOnlyTeamSquadAuthorities(teamId, principleId);
+        }
+        return menuService.findChildrenMenuIdsByAuthorities(authorities);
     }
 
     @Override
     public List<SquadVO> listSquadByTeam(String teamId) {
         return squadService.listByTeam(teamId);
+    }
+
+    @Override
+    public Set<String> listMemberAuthorities(String teamId) {
+        return aclService.listTeamUserAuthorities(teamId, Loginer.userId());
     }
 
 }

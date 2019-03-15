@@ -75,11 +75,17 @@ public class MenuServiceImpl extends SimpleBasicServiceImpl<Menu, String, MenuRe
     }
 
     @Override
-    public Set<String> findByMenuIdsByAuthorities(Set<String> authorities) {
+    public Set<String> findMenuIdsByAuthorities(Set<String> authorities) {
         List<Menu> menus =  menuRepository.findByAuthorityIn(authorities);
         return menus.stream().map(Menu::getId).collect(Collectors.toSet());
     }
 
+
+    @Override
+    public Set<String> findChildrenMenuIdsByAuthorities(Set<String> authorities) {
+        List<Menu> menus =  menuRepository.findChildrenMenuByAuthorityIn(authorities);
+        return menus.stream().map(Menu::getId).collect(Collectors.toSet());
+    }
 
     @Override
     public Set<String> findShortcutByAuthorities(Set<String> authorities) {

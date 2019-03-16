@@ -2,9 +2,7 @@ package com.ying.order.vo;
 
 import com.ying.team.vo.TeamVO;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -16,11 +14,14 @@ import java.time.LocalDateTime;
  */
 @Data
 public class OrderVO {
-    public OrderVO(String id, String orderId, Integer fromId, String fromName, String orderNo, BigDecimal earnestMoney, BigDecimal balancePayment, LocalDateTime createTime, LocalDate deliveryDate, String remarks, String attachment, String status) {
+
+    public OrderVO(String id, String orderId, Integer fromId, String fromName, String fromTeamId, String toTeamId, String orderNo, BigDecimal earnestMoney, BigDecimal balancePayment, LocalDateTime createTime, LocalDate deliveryDate, String remarks, String attachment, String status) {
         this.id = id;
         this.orderId = orderId;
         this.fromId = fromId;
         this.fromName = fromName;
+        this.fromTeamId = fromTeamId;
+        this.toTeamId = toTeamId;
         this.orderNo = orderNo;
         this.earnestMoney = earnestMoney;
         this.balancePayment = balancePayment;
@@ -41,6 +42,10 @@ public class OrderVO {
     private Integer fromId;
 
     private String fromName;
+
+    private String fromTeamId;
+
+    private String toTeamId;
 
     private TeamVO team;
 

@@ -8,7 +8,6 @@ import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
-import com.ying.team.vo.TeamVO;
 
 /**
  * @author bvvy
@@ -19,7 +18,8 @@ public interface OrderConnectService extends ConnectService {
 
     /**
      * 获取用户
-     * @param userId useri d
+     *
+     * @param userId user id
      * @return user
      */
     UserVO getUser(Integer userId);
@@ -30,10 +30,18 @@ public interface OrderConnectService extends ConnectService {
 
     ProductSpec getProductSpec(String productSpecId);
 
-    TeamVO getTeam(String teamId);
-
-
+    /**
+     * 出库
+     *
+     * @param outStock stock
+     */
     void outStock(OutStockDTO outStock);
 
+    /**
+     * 入库
+     *
+     * @param inStockDTO stock
+     */
     void inStock(InStockDTO inStockDTO);
+
 }

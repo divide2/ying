@@ -154,8 +154,7 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
         }
         teamApplicationRepository.save(teamJoinApplication);
 
-        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(),"team_join_apply"));
-
+        teamInnerConnectService.addChat(new TeamMenuChatDTO(dto.getToTeamId(), "team_join_apply"));
 
 
     }
@@ -294,11 +293,19 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
 
     @Override
     public Page<OrderVO> findReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
-        return teamInnerConnectService.findReceiveOrder(teamId, queryParam, pageable);
+        Page<OrderVO> receiveOrder = teamInnerConnectService.findReceiveOrder(teamId, queryParam, pageable);
+        return receiveOrder.map(order -> {
+            order.setTeam(this.getVO(order.getFromTeamId()));
+            return order;
+        });
     }
 
     @Override
     public Page<OrderVO> findSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
-        return teamInnerConnectService.findSendOrder(teamId, queryParam, pageable);
+        Page<OrderVO> sendOrder = teamInnerConnectService.findSendOrder(teamId, queryParam, pageable);
+        return sendOrder.map(order -> {
+            order.setTeam(this.getVO(order.getToTeamId()));
+            return order;
+        });
     }
 }

@@ -13,8 +13,6 @@ import com.ying.product.service.ProductService;
 import com.ying.product.service.ProductSpecService;
 import com.ying.product.service.StockService;
 import com.ying.product.vo.ProductVO;
-import com.ying.team.service.TeamService;
-import com.ying.team.vo.TeamVO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,20 +26,18 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     private final UserService userService;
     private final ProductSpecService productSpecService;
     private final StockService stockService;
-    private final TeamService teamService;
 
 
     public OrderConnectServiceImpl(FriendService friendService,
                                    ProductService productService,
                                    UserService userService, ProductSpecService productSpecService,
-                                   StockService stockService, TeamService teamService) {
+                                   StockService stockService) {
         this.friendService = friendService;
         this.productService = productService;
 
         this.userService = userService;
         this.productSpecService = productSpecService;
         this.stockService = stockService;
-        this.teamService = teamService;
     }
 
     @Override
@@ -77,11 +73,6 @@ public class OrderConnectServiceImpl implements OrderConnectService {
     @Override
     public void inStock(InStockDTO inStockDTO) {
         stockService.in(inStockDTO);
-    }
-
-    @Override
-    public TeamVO getTeam(String teamId) {
-        return teamService.getVO(teamId);
     }
 
 }

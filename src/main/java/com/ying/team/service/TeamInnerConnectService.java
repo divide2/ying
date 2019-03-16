@@ -1,16 +1,16 @@
 package com.ying.team.service;
 
-import com.ying.friend.dto.TeamMenuChatDTO;
-import com.ying.team.vo.MenuVO;
-import com.ying.team.vo.SquadVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.ConnectService;
+import com.ying.friend.dto.TeamMenuChatDTO;
 import com.ying.mine.vo.WarehouseVO;
 import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
 import com.ying.product.vo.StockVO;
+import com.ying.team.vo.MenuVO;
+import com.ying.team.vo.SquadVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -29,6 +29,7 @@ public interface TeamInnerConnectService extends ConnectService {
     /**
      * 获取团队的仓库
      *
+     * @param teamId team
      * @return vo
      */
     List<WarehouseVO> listWarehouse(String teamId);
@@ -36,6 +37,7 @@ public interface TeamInnerConnectService extends ConnectService {
     /**
      * 库存
      *
+     * @param teamId     team
      * @param stockQuery q
      * @param pageable   p
      * @return x
@@ -45,6 +47,7 @@ public interface TeamInnerConnectService extends ConnectService {
     /**
      * 获取团队产品
      *
+     * @param teamId   team
      * @param pageable p
      * @return x
      */
@@ -54,6 +57,7 @@ public interface TeamInnerConnectService extends ConnectService {
     /**
      * 获取收到的订单
      *
+     * @param teamId     team
      * @param queryParam query
      * @param pageable   pageable
      * @return x
@@ -64,6 +68,7 @@ public interface TeamInnerConnectService extends ConnectService {
     /**
      * 获取发送的订单
      *
+     * @param teamId     team
      * @param queryParam query
      * @param pageable   page
      * @return vo
@@ -79,11 +84,12 @@ public interface TeamInnerConnectService extends ConnectService {
 
     /**
      * 获取用户拥有的菜单id
+     *
      * @param teamId teamId
      * @param userId userId
      * @return menuIds
      */
-    Set<String> listTeamUserChildrenMenuIds(String teamId,String type, String userId);
+    Set<String> listTeamUserChildrenMenuIds(String teamId, String type, String userId);
 
     List<SquadVO> listSquadByTeam(String teamId);
 

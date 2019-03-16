@@ -1,6 +1,6 @@
 package com.ying.order.vo;
 
-import com.ying.order.model.Order;
+import com.ying.team.vo.TeamVO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,9 +15,25 @@ import java.time.LocalDateTime;
  * @date 2018/12/2
  */
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class OrderVO {
+    public OrderVO(String id, String orderId, Integer fromId, String fromName, String orderNo, BigDecimal earnestMoney, BigDecimal balancePayment, LocalDateTime createTime, LocalDate deliveryDate, String remarks, String attachment, String status) {
+        this.id = id;
+        this.orderId = orderId;
+        this.fromId = fromId;
+        this.fromName = fromName;
+        this.orderNo = orderNo;
+        this.earnestMoney = earnestMoney;
+        this.balancePayment = balancePayment;
+        this.createTime = createTime;
+        this.deliveryDate = deliveryDate;
+        this.remarks = remarks;
+        this.attachment = attachment;
+        this.status = status;
+    }
+
+    public OrderVO() {
+    }
+
     @ApiModelProperty("这不是order的id")
     private String id;
     private String orderId;
@@ -26,7 +42,11 @@ public class OrderVO {
 
     private String fromName;
 
+    private TeamVO team;
+
     private String orderNo;
+
+
     /**
      * 定金
      */
@@ -49,21 +69,4 @@ public class OrderVO {
     private String attachment;
 
     private String status;
-
-    public static OrderVO from(Order order) {
-        return new OrderVO(
-                order.getId(),
-                order.getId(),
-                order.getFromId(),
-                order.getFromName(),
-                order.getOrderNo(),
-                order.getEarnestMoney(),
-                order.getBalancePayment(),
-                order.getCreateTime(),
-                order.getDeliveryDate(),
-                order.getRemarks(),
-                order.getAttachment(),
-                order.getStatus()
-        );
-    }
 }

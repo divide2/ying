@@ -8,6 +8,7 @@ import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
+import com.ying.team.vo.TeamVO;
 
 /**
  * @author bvvy
@@ -28,6 +29,8 @@ public interface OrderConnectService extends ConnectService {
     void sendMessage(Order order);
 
     ProductSpec getProductSpec(String productSpecId);
+
+    TeamVO getTeam(String teamId);
 
 
     void outStock(OutStockDTO outStock);

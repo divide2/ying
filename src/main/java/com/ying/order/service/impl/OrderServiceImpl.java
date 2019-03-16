@@ -27,6 +27,7 @@ import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
+import com.ying.team.vo.TeamVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -174,20 +175,48 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     // todo
     @Override
     public Page<OrderVO> findTeamReceiveOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
+        TeamVO team = orderConnectService.getTeam(teamId);
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
         predicate = predicate.and(order.toTeamId.eq(teamId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
-        return page.map(OrderVO::from);
+        return page.map(o -> {
+            OrderVO vo = this.toVO(o);
+            vo.setTeam(team);
+            return vo;
+        });
     }
 
+    public OrderVO toVO(Order order) {
+        return new OrderVO(
+                order.getId(),
+                order.getId(),
+                order.getFromId(),
+                order.getFromName(),
+                order.getOrderNo(),
+                order.getEarnestMoney(),
+                order.getBalancePayment(),
+                order.getCreateTime(),
+                order.getDeliveryDate(),
+                order.getRemarks(),
+                order.getAttachment(),
+                order.getStatus()
+        );
+
+
+    }
     @Override
     public Page<OrderVO> findTeamSendOrder(String teamId, OrderQueryParam queryParam, Pageable pageable) {
+        TeamVO team = orderConnectService.getTeam(teamId);
         BooleanExpression predicate = QueryManager.resolvePredicate(queryParam);
         QOrder order = QOrder.order;
         predicate = predicate.and(order.fromTeamId.eq(teamId));
         Page<Order> page = orderRepository.findAll(predicate, pageable);
-        return page.map(OrderVO::from);
+        return page.map(o -> {
+            OrderVO vo = this.toVO(o);
+            vo.setTeam(team);
+            return vo;
+        });
     }
 
 }

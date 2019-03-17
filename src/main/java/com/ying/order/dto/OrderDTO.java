@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,8 +16,12 @@ import java.util.List;
 public class OrderDTO {
 
     @ApiModelProperty("发给的人")
-    @NotNull
+    @NotEmpty
     private String toTeamId;
+
+    @ApiModelProperty("发起的团队Id")
+    @NotEmpty
+    private String fromTeamId;
 
     @ApiModelProperty("定金")
     private BigDecimal earnestMoney;

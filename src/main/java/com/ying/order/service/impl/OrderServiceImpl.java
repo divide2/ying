@@ -73,6 +73,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     public void add(OrderDTO dto) {
         Order order = new Order();
         order.setToTeamId(dto.getToTeamId());
+        order.setFromTeamId(dto.getFromTeamId());
         order.setAttachment(dto.getAttachment());
         order.setBalancePayment(dto.getBalancePayment());
         order.setCreateTime(LocalDateTime.now());

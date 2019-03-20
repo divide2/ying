@@ -13,8 +13,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
- *
  * 订单 用于过度的
+ *
  * @author bvvy
  * @date 2018/12/2
  */
@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity(name = "o_order")
 @Table(name = "o_order")
-public class Order  {
+public class Order {
 
     @Id
     @GeneratedValue(generator = "custom-uuid")
@@ -69,4 +69,9 @@ public class Order  {
     private String attachment;
 
     private String status;
+
+    /**
+     * 总价
+     */
+    private BigDecimal totalPrice;
 }

@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 public class OrderVO {
 
-    public OrderVO(String id, String orderId, Integer fromId, String fromName, String fromTeamId, String toTeamId, String orderNo, BigDecimal earnestMoney, BigDecimal balancePayment, LocalDateTime createTime, LocalDate deliveryDate, String remarks, String attachment, String status) {
+    public OrderVO(String id, String orderId, Integer fromId, String fromName, String fromTeamId, String toTeamId, String orderNo, BigDecimal earnestMoney, BigDecimal balancePayment, LocalDateTime createTime, LocalDate deliveryDate, String remarks, String attachment, String status,BigDecimal totalPrice) {
         this.id = id;
         this.orderId = orderId;
         this.fromId = fromId;
@@ -30,6 +30,7 @@ public class OrderVO {
         this.remarks = remarks;
         this.attachment = attachment;
         this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public OrderVO() {
@@ -74,4 +75,6 @@ public class OrderVO {
     private String attachment;
 
     private String status;
+
+    private BigDecimal totalPrice;
 }

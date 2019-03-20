@@ -32,6 +32,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -90,14 +91,17 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
         );
         this.add(order);
         // todo 分开？
-        productSpecMap.forEach((productId, productSpecPriceList) -> {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+        for (Map.Entry<String, List<ProductSpecPrice>> entry : productSpecMap.entrySet()) {
+            String productId = entry.getKey();
+            List<ProductSpecPrice> productSpecPriceList = entry.getValue();
             ProductVO product = orderConnectService.getProductById(productId);
             OrderProduct orderProduct = new OrderProduct();
             orderProduct.setOrderId(order.getId());
             orderProduct.setProductId(productId);
             orderProduct.setProductName(product.getName());
             orderProductRepository.save(orderProduct);
-            productSpecPriceList.forEach(spec -> {
+            for (ProductSpecPrice spec : productSpecPriceList) {
                 ProductSpec productSpec = orderConnectService.getProductSpec(spec.getProductSpecId());
                 OrderProductSpec orderProductSpec = new OrderProductSpec();
                 orderProductSpec.setOrderProductId(orderProduct.getId());
@@ -109,9 +113,12 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
                 orderProductSpec.setProductName(product.getName());
                 orderProductSpec.setPrice(productSpec.getPrice());
                 orderProductSpec.setProductId(productId);
+                totalPrice = totalPrice.add(productSpec.getPrice());
                 orderProductSpecRepository.save(orderProductSpec);
-            });
-        });
+            }
+        }
+        order.setTotalPrice(totalPrice);
+        this.update(order);
         orderConnectService.sendMessage(order);
     }
 
@@ -196,9 +203,9 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
                 order.getDeliveryDate(),
                 order.getRemarks(),
                 order.getAttachment(),
-                order.getStatus()
+                order.getStatus(),
+                order.getTotalPrice()
         );
-
 
     }
     @Override

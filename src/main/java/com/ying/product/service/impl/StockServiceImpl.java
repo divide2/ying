@@ -136,6 +136,9 @@ public class StockServiceImpl implements StockService {
         out.getSpecStocks().forEach(tSpecStock -> {
             SpecStock specStock =
                     specStockRepository.getByAllId(out.getWarehouseId(), out.getProductId(), tSpecStock.getProductSpecId());
+            if (specStock == null) {
+                throw new ValidationException("no_stock");
+            }
             Integer left = specStock.getAmount() - tSpecStock.getAmount();
             if (left < 0) {
                 throw new ValidationException("outofstock");

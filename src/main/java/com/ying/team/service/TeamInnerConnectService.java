@@ -8,6 +8,7 @@ import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.vo.MenuVO;
 import com.ying.team.vo.SquadVO;
@@ -43,6 +44,8 @@ public interface TeamInnerConnectService extends ConnectService {
      * @return x
      */
     Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable);
+
+    Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable);
 
     /**
      * 获取团队产品

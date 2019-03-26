@@ -7,6 +7,7 @@ import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.dto.*;
 import com.ying.team.model.Team;
@@ -106,14 +107,6 @@ public interface TeamService extends BasicService<Team, String> {
      */
     List<WarehouseVO> listWarehouse(String teamId);
 
-    /**
-     * 库存
-     *
-     * @param stockQuery q
-     * @param pageable   p
-     * @return x
-     */
-    Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable);
 
     /**
      * 获取团队产品
@@ -160,4 +153,24 @@ public interface TeamService extends BasicService<Team, String> {
      * @return x
      */
     Set<String> listMemberAuthorities(String teamId);
+
+    /**
+     * 库存
+     *
+     * @param stockQuery q
+     * @param pageable   p
+     * @return x
+     */
+    Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable);
+
+    /**
+     * 团队库存流水
+     * @param teamId t
+     * @param stockQuery sq
+     * @param pageable p
+     * @return x
+     */
+    Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable);
+
+
 }

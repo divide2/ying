@@ -1,5 +1,6 @@
 package com.ying.product.service.impl;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.ying.core.exception.ValidationException;
 import com.ying.core.root.converter.Converter;
 import com.ying.product.bo.StockBO;
@@ -15,6 +16,7 @@ import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.product.vo.WarehouseProductSpecVO;
 import lombok.val;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -55,9 +57,14 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public Page<StockStreamVO> findStockStream(Pageable pageable) {
+    public Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable) {
 
-        return stockStreamRepository.findAll(pageable).map(item -> {
+        QStockStream stockStream = QStockStream.stockStream;
+        BooleanExpression predicate = stockStream.teamId.eq(teamId);
+        if (StringUtils.isNotBlank(stockQuery.getWarehouseId())) {
+            predicate.and(stockStream.warehouseId.eq(stockQuery.getWarehouseId()));
+        }
+        return stockStreamRepository.findAll(predicate, pageable).map(item -> {
             Product product = productConnectService.getProduct(item.getProductId());
             ProductSpec spec = productConnectService.getProductSpec(item.getProductSpecId());
             return new StockStreamVO(

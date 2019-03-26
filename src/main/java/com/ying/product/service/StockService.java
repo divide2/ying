@@ -23,10 +23,13 @@ import java.util.List;
 public interface StockService {
     /**
      * 获取库存流水
+     *
+     * @param teamId
+     * @param stockQuery
      * @param pageable pageable
      * @return x
      */
-    Page<StockStreamVO> findStockStream(Pageable pageable);
+    Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable);
 
     /**
      * 入库

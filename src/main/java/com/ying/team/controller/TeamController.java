@@ -9,6 +9,7 @@ import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.dto.*;
 import com.ying.team.model.Team;
@@ -156,6 +157,16 @@ public class TeamController {
         Page<StockVO> vo = teamService.findStock(teamId, stockQuery, pageable);
         return Responser.ok(vo);
     }
+
+    @GetMapping("/{teamId}/stream")
+    @ApiOperation("库存流水")
+    public ResponseEntity<Page<StockStreamVO>> findStream(@PathVariable String teamId, StockQuery stockQuery, Pageable pageable) {
+        Page<StockStreamVO> stockStream = teamService.findStockStream(teamId, stockQuery, pageable);
+        return Responser.ok(stockStream);
+    }
+
+
+
 
     @GetMapping("/{teamId}/warehouses")
     @ApiOperation("团队仓库")

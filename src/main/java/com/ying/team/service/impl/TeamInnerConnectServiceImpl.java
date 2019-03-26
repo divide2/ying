@@ -15,6 +15,7 @@ import com.ying.product.service.ProductService;
 import com.ying.product.service.StockService;
 import com.ying.product.service.WarehouseService;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.model.Acl;
 import com.ying.team.service.AclService;
@@ -102,6 +103,10 @@ public class TeamInnerConnectServiceImpl implements TeamInnerConnectService {
         return stockService.findByTeam(teamId, stockQuery, pageable);
     }
 
+    @Override
+    public Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable) {
+        return stockService.findStockStream(teamId, stockQuery, pageable);
+    }
 
     @Override
     public Page<ProductVO> findProduct(String teamId, Pageable pageable) {

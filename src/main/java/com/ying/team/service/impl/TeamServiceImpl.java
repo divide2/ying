@@ -12,6 +12,7 @@ import com.ying.order.query.OrderQueryParam;
 import com.ying.order.vo.OrderVO;
 import com.ying.product.query.StockQuery;
 import com.ying.product.vo.ProductVO;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.team.dto.*;
 import com.ying.team.listener.TeamListener;
@@ -284,6 +285,11 @@ public class TeamServiceImpl extends SimpleBasicServiceImpl<Team, String, TeamRe
     @Override
     public Page<StockVO> findStock(String teamId, StockQuery stockQuery, Pageable pageable) {
         return teamInnerConnectService.findStock(teamId, stockQuery, pageable);
+    }
+
+    @Override
+    public Page<StockStreamVO> findStockStream(String teamId, StockQuery stockQuery, Pageable pageable) {
+        return teamInnerConnectService.findStockStream(teamId, stockQuery, pageable);
     }
 
     @Override

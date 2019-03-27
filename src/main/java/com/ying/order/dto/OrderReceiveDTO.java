@@ -4,7 +4,6 @@ import com.ying.core.root.dto.DTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * 发货
@@ -19,6 +18,4 @@ public class OrderReceiveDTO implements DTO {
     @NotEmpty
     private String warehouseId;
 
-    @NotEmpty
-    private String teamId;
 }

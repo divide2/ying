@@ -3,7 +3,6 @@ package com.ying.order.dto;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 /**
  * 发货
@@ -17,6 +16,4 @@ public class OrderDeliverDTO {
     private String orderId;
     @NotEmpty
     private String warehouseId;
-    @NotEmpty
-    private String teamId;
 }

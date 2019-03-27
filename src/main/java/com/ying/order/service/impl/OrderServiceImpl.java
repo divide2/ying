@@ -149,7 +149,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             List<ProductSpecStock> productSpecStocks = specs.stream()
                     .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
             outStock.setSpecStocks(productSpecStocks);
-            outStock.setTeamId(deliver.getTeamId());
+            outStock.setTeamId(order.getToTeamId());
             outStock.setType(stockType.getDeliver());
             orderConnectService.outStock(outStock);
         });
@@ -171,7 +171,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             List<ProductSpecStock> productSpecStocks = specs.stream()
                     .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
             inStock.setSpecStocks(productSpecStocks);
-            inStock.setTeamId(receive.getTeamId());
+            inStock.setTeamId(order.getFromTeamId());
             inStock.setType(stockType.getReceive());
             orderConnectService.inStock(inStock);
         });

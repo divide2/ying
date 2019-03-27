@@ -37,7 +37,7 @@ public class StockController {
      * @param br
      * @return
      */
-    @PostMapping
+    @PostMapping("/in")
     @ApiOperation("入库")
     public ResponseEntity<Messager> in(@Valid @RequestBody InStockDTO dto, BindingResult br) {
         stockService.in(dto);

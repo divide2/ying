@@ -5,6 +5,7 @@ import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.SpecStock;
 import com.ying.product.query.StockQuery;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,13 @@ import java.util.List;
  * @date 2018/12/9
  */
 public interface StockService {
+    /**
+     * 获取库存流水
+     * @param pageable pageable
+     * @return x
+     */
+    Page<StockStreamVO> findStockStream(Pageable pageable);
+
     /**
      * 入库
      *

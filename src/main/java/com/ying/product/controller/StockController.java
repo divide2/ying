@@ -6,9 +6,12 @@ import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.model.SpecStock;
 import com.ying.product.service.StockService;
+import com.ying.product.vo.StockStreamVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +60,12 @@ public class StockController {
         return Responser.ok(stockService.getByWarehouseId(warehouseId));
     }
 
+    @GetMapping("/stream")
+    @ApiOperation("库存流水")
+    public ResponseEntity<Page<StockStreamVO>> findStream(Pageable pageable) {
+        Page<StockStreamVO> stockStream = stockService.findStockStream(pageable);
+        return Responser.ok(stockStream);
+    }
 
 
 }

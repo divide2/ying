@@ -8,6 +8,7 @@ import com.ying.product.model.Product;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.repo.ProductRepository;
 import com.ying.product.repo.ProductSpecRepository;
+import com.ying.product.service.ProductConnectService;
 import com.ying.product.service.ProductService;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
@@ -28,12 +29,15 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
 
     private final ProductRepository productRepository;
     private final ProductSpecRepository productSpecRepository;
+    private final ProductConnectService productConnectService;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ProductSpecRepository productSpecRepository) {
+                              ProductSpecRepository productSpecRepository,
+                              ProductConnectService productConnectService) {
         this.productRepository = productRepository;
         this.productSpecRepository = productSpecRepository;
 
+        this.productConnectService = productConnectService;
     }
 
     private ProductVO mergeProductSpecs(Product product) {
@@ -113,8 +117,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
 
     @Override
     public ProductVO getVO(String productId) {
-        Product product = this.get(productId);
-        return this.mergeProductSpecs(product);
+        return productConnectService.getProductVO(productId);
     }
 
     @Override

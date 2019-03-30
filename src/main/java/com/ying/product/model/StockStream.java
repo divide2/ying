@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /**
  * 库存流水
@@ -47,5 +48,7 @@ public class StockStream {
      * 出入库后总数
      */
     private Integer amount;
+
+    private LocalDateTime createTime;
 
 }

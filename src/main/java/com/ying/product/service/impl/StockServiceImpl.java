@@ -6,17 +6,15 @@ import com.ying.product.bo.StockBO;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
-import com.ying.product.model.ProductSpec;
-import com.ying.product.model.SpecStock;
-import com.ying.product.model.Stock;
-import com.ying.product.model.StockStream;
+import com.ying.product.model.*;
 import com.ying.product.query.StockQuery;
 import com.ying.product.repo.*;
+import com.ying.product.service.ProductConnectService;
 import com.ying.product.service.StockService;
+import com.ying.product.vo.StockStreamVO;
 import com.ying.product.vo.StockVO;
 import com.ying.product.vo.WarehouseProductSpecVO;
 import lombok.val;
-import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -39,18 +37,42 @@ public class StockServiceImpl implements StockService {
     private final ProductSpecRepository productSpecRepository;
     private final ProductRepository productRepository;
     private final StockStreamRepository stockStreamRepository;
+    private final ProductConnectService productConnectService;
 
     public StockServiceImpl(StockRepository stockRepository,
                             SpecStockRepository specStockRepository,
                             ProductSpecRepository productSpecRepository,
                             ProductRepository productRepository,
-                            StockStreamRepository stockStreamRepository) {
+                            StockStreamRepository stockStreamRepository,
+                            ProductConnectService productConnectService) {
         this.stockRepository = stockRepository;
         this.specStockRepository = specStockRepository;
         this.productSpecRepository = productSpecRepository;
 
         this.productRepository = productRepository;
         this.stockStreamRepository = stockStreamRepository;
+        this.productConnectService = productConnectService;
+    }
+
+    @Override
+    public Page<StockStreamVO> findStockStream(Pageable pageable) {
+
+        return stockStreamRepository.findAll(pageable).map(item -> {
+            Product product = productConnectService.getProduct(item.getProductId());
+            ProductSpec spec = productConnectService.getProductSpec(item.getProductSpecId());
+            return new StockStreamVO(
+                    item.getTeamId(),
+                    item.getWarehouseId(),
+                    item.getProductId(),
+                    item.getProductSpecId(),
+                    product.getName(),
+                    spec.getName(),
+                    item.getType(),
+                    item.getStream(),
+                    item.getAmount(),
+                    item.getCreateTime()
+            );
+        });
     }
 
     @Override
@@ -78,6 +100,7 @@ public class StockServiceImpl implements StockService {
             StockStream stream = new StockStream();
             stream.setWarehouseId(dto.getWarehouseId());
             stream.setProductId(dto.getProductId());
+            stream.setCreateTime(LocalDateTime.now());
             stream.setAmount(specStock.getAmount());
             stream.setStream(tSpecStock.getAmount());
             stream.setType(dto.getType());
@@ -129,6 +152,7 @@ public class StockServiceImpl implements StockService {
             stream.setTeamId(out.getTeamId());
             stream.setProductSpecId(tSpecStock.getProductSpecId());
             stream.setAmount(left);
+            stream.setCreateTime(LocalDateTime.now());
             stockStreamRepository.save(stream);
         });
         // 减少总数量

@@ -73,7 +73,6 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
         product.setUnit(dto.getUnit());
         product.setRemarks(dto.getRemarks());
         this.add(product);
-        // todo 消耗规则 暂时不用 下一版本再说
         this.saveSpec(product.getId(), dto.getSpecs());
     }
 

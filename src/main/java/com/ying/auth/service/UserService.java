@@ -1,16 +1,14 @@
 package com.ying.auth.service;
 
 
+import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.User;
-import com.ying.team.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.BasicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 /**
  * @author bvvy
@@ -57,4 +55,6 @@ public interface UserService extends BasicService<User,Integer> {
 
 
     UserVO search(UserSearchDTO search);
+
+    void findPwd(PwdFindDTO pwdFind);
 }

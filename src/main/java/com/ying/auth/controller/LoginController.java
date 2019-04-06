@@ -1,23 +1,28 @@
 package com.ying.auth.controller;
 
 import com.ying.auth.dto.JoinDTO;
+import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.model.User;
 import com.ying.auth.service.UserService;
+import com.ying.auth.vo.UserVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.core.er.VerificationCodeManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import javax.validation.constraints.NotEmpty;
 
 
 /**
@@ -56,6 +61,9 @@ public class LoginController {
         if (!verificationCodeManager.validate(join.getPhoneNumber(), join.getVerifyCode())) {
             throw new ValidationException("wrong_verify_code");
         }
+        if (!StringUtils.equals(join.getPassword(), join.getPassword())) {
+            throw new ValidationException("not_same_repassword");
+        }
         User user = new User();
         user.setPassword(join.getPassword());
         user.setAvatar(defaultAvatar);
@@ -74,15 +82,29 @@ public class LoginController {
         consumerTokenServices.revokeToken(tokenValue);
         return Responser.deleted();
     }
+
     @ApiOperation("获取验证码")
     @PostMapping("/v1/verify/code")
-    public ResponseEntity<Messager> sendVerifyCode(@RequestBody Phone phone) {
+    public ResponseEntity<Messager> sendVerifyCode(@RequestBody Phone phone, Errors errors) {
         verificationCodeManager.sendSms(phone.getPhoneNumber());
         return Responser.created();
     }
 
+    @ApiOperation("找回密码")
+    @PostMapping("/v1/pwd/find")
+    public ResponseEntity<Messager> findPassword(@RequestBody PwdFindDTO pwdFind, Errors errors) {
+        if (!StringUtils.equals(pwdFind.getPassword(), pwdFind.getRePassword())) {
+            throw new ValidationException("not_same_repassword");
+        }
+        userService.findPwd(pwdFind);
+        return Responser.created();
+    }
+
+
+
     @Data
     private static class Phone {
+        @NotEmpty
         private String phoneNumber;
     }
 

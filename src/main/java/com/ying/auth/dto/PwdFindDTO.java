@@ -1,19 +1,17 @@
 package com.ying.auth.dto;
 
-import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 
 /**
  * @author bvvy
+ * @date 2019/4/8
  */
 @Data
-@ApiModel("注册")
-public class JoinDTO {
+public class PwdFindDTO {
     @NotEmpty
     private String phoneNumber;
-
     @NotEmpty
     private String verifyCode;
 
@@ -22,8 +20,4 @@ public class JoinDTO {
 
     @NotEmpty
     private String rePassword;
-
-    @NotEmpty
-    private String nickname;
-
 }

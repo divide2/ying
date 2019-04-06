@@ -2,17 +2,17 @@ package com.ying.auth.service.impl;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
+import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
 import com.ying.auth.repo.UserRepository;
-import com.ying.auth.service.AuthConnectService;
 import com.ying.auth.service.UserService;
-import com.ying.team.vo.TeamVO;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.ying.core.exception.AlreadyExistsException;
+import com.ying.core.exception.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +20,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author bvvy
@@ -94,8 +92,19 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
     @Transactional
     public UserVO getByAccount(String account) {
         User user = userRepository.getByAccount(account);
+        if (user == null) {
+            throw new NotFoundException();
+        }
         return UserVO.fromUser(user);
     }
 
-
+    @Override
+    public void findPwd(PwdFindDTO pwdFind) {
+        User user = userRepository.getByPhone(pwdFind.getPhoneNumber());
+        if (user == null) {
+            throw new NotFoundException();
+        }
+        user.setPassword(pwdFind.getPassword());
+        this.update(user);
+    }
 }

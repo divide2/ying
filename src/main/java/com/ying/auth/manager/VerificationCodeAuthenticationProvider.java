@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class VerificationCodeAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    private VerificationCodeManager verificationCodeManager = new VerificationCodeManager(aliyunProperties);
+//    private VerificationCodeManager verificationCodeManager = new VerificationCodeManager(aliyunProperties);
 
     private UserDetailsService userDetailsService;
 
@@ -35,15 +35,15 @@ public class VerificationCodeAuthenticationProvider extends AbstractUserDetailsA
     @Override
     protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
 
-        try {
+//       try {
             UserDetails loadedUser = this.getUserDetailsService().loadUserByUsername(username);
-            if (verificationCodeManager.validate(username, (String) authentication.getCredentials())) {
+//            if (verificationCodeManager.validate(username, (String) authentication.getCredentials())) {
                 return loadedUser;
-            } else {
+       /*      } else {
                 throw new BadCredentialsException("验证码错误");
             }
         } catch (UsernameNotFoundException ex) {
             throw ex;
-        }
+        }*/
     }
 }

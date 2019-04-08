@@ -1,7 +1,6 @@
 package com.ying.auth.config;
 
 
-import com.ying.auth.manager.VerificationCodeAuthenticationProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,10 +49,10 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        VerificationCodeAuthenticationProvider verificationCodeAuthenticationProvider = new VerificationCodeAuthenticationProvider();
-        verificationCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
+//        VerificationCodeAuthenticationProvider verificationCodeAuthenticationProvider = new VerificationCodeAuthenticationProvider();
+//        verificationCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
         auth
-                .authenticationProvider(verificationCodeAuthenticationProvider)
+//                .authenticationProvider(verificationCodeAuthenticationProvider)
                 .userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 

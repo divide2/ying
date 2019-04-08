@@ -29,11 +29,11 @@ logging:
       springframework:
        web: debug
        security: debug
-alibaba:
+aliyun:
+  access-key-id: ${ALIYUN_ACCESS_KEY_ID}
+  secret-access-key: ${ALIYUN_ACCESS_KEY}
   oss:
     end-point: your
-    access-key-id: your
-    secret-access-key: your
     bucket-name: your
     file-host: your
 qiniu:

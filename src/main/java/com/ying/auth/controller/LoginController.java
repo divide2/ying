@@ -5,8 +5,10 @@ import com.ying.auth.model.User;
 import com.ying.auth.service.UserService;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
+import com.ying.core.er.VerificationCodeManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -15,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 
 /**
@@ -22,7 +25,7 @@ import javax.validation.Valid;
  * <p>
  * 用户controller
  */
-@Api(tags = "注册/获取用户信息")
+@Api(tags = "登录注册")
 @RestController
 public class LoginController {
 
@@ -30,11 +33,15 @@ public class LoginController {
     private final ConsumerTokenServices consumerTokenServices;
     @Value("${divide.defaults.avatar}")
     private String defaultAvatar;
+    private final VerificationCodeManager verificationCodeManager;
+
 
     public LoginController(UserService userService,
-                           ConsumerTokenServices consumerTokenServices) {
+                           ConsumerTokenServices consumerTokenServices,
+                           VerificationCodeManager verificationCodeManager) {
         this.userService = userService;
         this.consumerTokenServices = consumerTokenServices;
+        this.verificationCodeManager = verificationCodeManager;
     }
 
     @GetMapping("/v1/user")
@@ -45,15 +52,18 @@ public class LoginController {
 
     @PostMapping("/join")
     @ApiOperation("注册")
-    public ResponseEntity<Messager> join(@Valid @RequestBody JoinDTO joinTO, BindingResult br) {
+    public ResponseEntity<Messager> join(@Valid @RequestBody JoinDTO join, BindingResult br) {
+        if (!verificationCodeManager.validate(join.getPhoneNumber(), join.getVerifyCode())) {
+            throw new ValidationException("wrong_verify_code");
+        }
         User user = new User();
-        user.setUsername(joinTO.getAccount());
-        user.setPassword(joinTO.getPassword());
+        user.setPassword(join.getPassword());
         user.setAvatar(defaultAvatar);
-        user.setNickname(joinTO.getAccount());
-        user.setPhone(joinTO.getAccount());
+        user.setNickname(join.getNickname());
+        user.setPhone(join.getPhoneNumber());
         user.setEnabled(true);
         userService.add(user);
+        verificationCodeManager.remove(join.getPhoneNumber());
         return Responser.created();
     }
 
@@ -64,5 +74,17 @@ public class LoginController {
         consumerTokenServices.revokeToken(tokenValue);
         return Responser.deleted();
     }
+    @ApiOperation("获取验证码")
+    @PostMapping("/v1/verify/code")
+    public ResponseEntity<Messager> sendVerifyCode(@RequestBody Phone phone) {
+        verificationCodeManager.sendSms(phone.getPhoneNumber());
+        return Responser.created();
+    }
+
+    @Data
+    private static class Phone {
+        private String phoneNumber;
+    }
+
 }
 

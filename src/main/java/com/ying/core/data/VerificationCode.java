@@ -9,5 +9,5 @@ import lombok.Data;
 @Data
 public class VerificationCode {
 
-    private String value;
+    private String code;
 }

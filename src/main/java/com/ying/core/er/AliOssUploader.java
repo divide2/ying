@@ -5,7 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
-import com.ying.core.data.properties.AliOssProperties;
+import com.ying.core.data.properties.AliyunProperties;
 import com.ying.core.exception.SysException;
 import com.ying.core.exception.ValidationException;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -31,9 +31,9 @@ import static com.ying.core.val.Punctuation.SLASH;
 public class AliOssUploader {
 
     private static final String GIF = "gif";
-    private final AliOssProperties properties;
+    private final AliyunProperties properties;
 
-    public AliOssUploader(AliOssProperties properties) {
+    public AliOssUploader(AliyunProperties properties) {
         this.properties = properties;
     }
 
@@ -71,16 +71,16 @@ public class AliOssUploader {
      */
     private String upload(UploadKeeper keeper) {
 
-        OSSClient ossClient = new OSSClient(properties.getEndPoint(), properties.getAccessKeyId(), properties.getSecretAccessKey());
+        OSSClient ossClient = new OSSClient(properties.getOss().getEndPoint(), properties.getAccessKeyId(), properties.getSecretAccessKey());
         try {
             PutObjectResult result = ossClient.putObject(
-                    new PutObjectRequest(properties.getBucketName(),
+                    new PutObjectRequest(properties.getOss().getBucketName(),
                             keeper.getPath(),
                             new ByteArrayInputStream(keeper.getBytes())));
             if (result == null) {
                 throw new SysException("upload_fail");
             }
-            return properties.getFileHost() + keeper.path;
+            return properties.getOss().getFileHost() + keeper.path;
         } catch (OSSException | ClientException e) {
             throw new SysException(e.getMessage());
         } finally {

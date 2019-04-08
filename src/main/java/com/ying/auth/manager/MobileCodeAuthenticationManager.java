@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @date 2018/12/3
  */
 public class MobileCodeAuthenticationManager implements AuthenticationManager {
-    private final VerificationCodeManager verificationCodeManager = new VerificationCodeManager();
+    private final VerificationCodeManager verificationCodeManager = new VerificationCodeManager(aliyunProperties);
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String principal = (String) authentication.getPrincipal();

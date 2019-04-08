@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  */
 public class VerificationCodeAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-    private VerificationCodeManager verificationCodeManager = new VerificationCodeManager();
+    private VerificationCodeManager verificationCodeManager = new VerificationCodeManager(aliyunProperties);
 
     private UserDetailsService userDetailsService;
 

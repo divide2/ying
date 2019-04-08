@@ -11,15 +11,23 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "alibaba.oss")
 @Component
 @Data
-public class AliOssProperties {
-    private String endPoint;
+public class AliyunProperties {
+
 
     private String accessKeyId;
 
     private String secretAccessKey;
 
-    private String bucketName;
+    private Oss oss;
 
-    private String fileHost;
+    @Data
+    public static class Oss {
+        private String endPoint;
+
+        private String bucketName;
+
+        private String fileHost;
+    }
+
 
 }

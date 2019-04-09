@@ -71,7 +71,7 @@ public class AliOssUploader {
      */
     private String upload(UploadKeeper keeper) {
 
-        OSSClient ossClient = new OSSClient(properties.getOss().getEndPoint(), properties.getAccessKeyId(), properties.getSecretAccessKey());
+        OSSClient ossClient = new OSSClient(properties.getOss().getEndPoint(), properties.getAccessKeyId(), properties.getAccessKeySecret());
         try {
             PutObjectResult result = ossClient.putObject(
                     new PutObjectRequest(properties.getOss().getBucketName(),

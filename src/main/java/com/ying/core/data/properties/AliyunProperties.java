@@ -16,7 +16,7 @@ public class AliyunProperties {
 
     private String accessKeyId;
 
-    private String secretAccessKey;
+    private String accessKeySecret;
 
     private Oss oss;
 

@@ -31,7 +31,7 @@ logging:
        security: debug
 aliyun:
   access-key-id: ${ALIYUN_ACCESS_KEY_ID}
-  secret-access-key: ${ALIYUN_ACCESS_KEY}
+  access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET}
   oss:
     end-point: your
     bucket-name: your

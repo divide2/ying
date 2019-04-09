@@ -40,7 +40,7 @@ public class VerificationCodeManager {
     }
 
     public void sendSms(String phoneNumber) {
-        DefaultProfile profile = DefaultProfile.getProfile("default", aliyunProperties.getAccessKeyId(), aliyunProperties.getSecretAccessKey());
+        DefaultProfile profile = DefaultProfile.getProfile("default", aliyunProperties.getAccessKeyId(), aliyunProperties.getAccessKeySecret());
         IAcsClient client = new DefaultAcsClient(profile);
         VerificationCode verificationCode = generate();
         verifyCodeMap.put(phoneNumber, verificationCode);

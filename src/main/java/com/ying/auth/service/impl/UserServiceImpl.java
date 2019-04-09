@@ -5,12 +5,14 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
+import com.ying.auth.dto.UserUpdateDTO;
 import com.ying.auth.model.QUser;
 import com.ying.auth.model.User;
 import com.ying.auth.repo.UserRepository;
 import com.ying.auth.service.UserService;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.impl.SimpleBasicServiceImpl;
+import com.ying.core.er.Loginer;
 import com.ying.core.exception.AlreadyExistsException;
 import com.ying.core.exception.NotFoundException;
 import org.apache.commons.lang3.StringUtils;
@@ -105,6 +107,14 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
             throw new NotFoundException();
         }
         user.setPassword(pwdFind.getPassword());
+        this.update(user);
+    }
+
+    @Override
+    public void update(UserUpdateDTO dto) {
+        User user = this.get(Loginer.userId());
+        user.setNickname(dto.getNickname());
+        user.setAvatar(dto.getAvatar());
         this.update(user);
     }
 }

@@ -4,7 +4,6 @@ import com.ying.auth.dto.JoinDTO;
 import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.model.User;
 import com.ying.auth.service.UserService;
-import com.ying.auth.vo.UserVO;
 import com.ying.core.data.resp.Messager;
 import com.ying.core.er.Responser;
 import com.ying.core.er.VerificationCodeManager;
@@ -20,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.validation.ValidationException;
 import javax.validation.constraints.NotEmpty;
@@ -93,9 +93,13 @@ public class LoginController {
     @ApiOperation("找回密码")
     @PostMapping("/v1/pwd/find")
     public ResponseEntity<Messager> findPassword(@RequestBody PwdFindDTO pwdFind, Errors errors) {
+        if (!verificationCodeManager.validate(pwdFind.getPhoneNumber(), pwdFind.getVerifyCode())) {
+            throw new ValidationException("wrong_verify_code");
+        }
         if (!StringUtils.equals(pwdFind.getPassword(), pwdFind.getRePassword())) {
             throw new ValidationException("not_same_repassword");
         }
+        verificationCodeManager.remove(pwdFind.getPhoneNumber());
         userService.findPwd(pwdFind);
         return Responser.created();
     }

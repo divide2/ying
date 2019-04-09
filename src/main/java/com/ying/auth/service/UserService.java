@@ -4,6 +4,7 @@ package com.ying.auth.service;
 import com.ying.auth.dto.PwdFindDTO;
 import com.ying.auth.dto.UserQueryDTO;
 import com.ying.auth.dto.UserSearchDTO;
+import com.ying.auth.dto.UserUpdateDTO;
 import com.ying.auth.model.User;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.basic.service.BasicService;
@@ -57,4 +58,7 @@ public interface UserService extends BasicService<User,Integer> {
     UserVO search(UserSearchDTO search);
 
     void findPwd(PwdFindDTO pwdFind);
+
+    void update(UserUpdateDTO dto);
+
 }

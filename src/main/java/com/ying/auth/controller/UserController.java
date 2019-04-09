@@ -9,6 +9,7 @@ import com.ying.auth.service.UserService;
 import com.ying.auth.vo.UserVO;
 import com.ying.core.data.del.SingleId;
 import com.ying.core.data.resp.Messager;
+import com.ying.core.er.Loginer;
 import com.ying.core.er.Responser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,11 +48,10 @@ public class UserController {
         userService.add(user);
     }
 
-    @PatchMapping
-    @ApiOperation("修改")
-    public ResponseEntity<Messager> update(@Valid @RequestBody UserUpdateDTO userUpdateDTO, BindingResult br) {
-        User user = userService.get(userUpdateDTO.getId());
-        userService.update(user);
+    @PutMapping
+    @ApiOperation("/self")
+    public ResponseEntity<Messager> updateSelf(@Valid @RequestBody UserUpdateDTO dto, BindingResult br) {
+        userService.update(dto);
         return Responser.updated();
     }
 

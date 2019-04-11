@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * @author bvvy
@@ -49,7 +50,9 @@ public class UnitResolver {
      * @return ids
      */
     public String[] resolve() {
-        return (String[]) units.stream().map(UnitBO::getId).toArray();
+        String[] ids = new String[units.size()];
+        List<String> idList = units.stream().map(UnitBO::getId).collect(Collectors.toList());
+        return idList.toArray(ids);
     }
 
     public List<UnitBO> getUnits() {

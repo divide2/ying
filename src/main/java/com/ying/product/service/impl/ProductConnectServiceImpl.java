@@ -69,9 +69,6 @@ public class ProductConnectServiceImpl implements ProductConnectService {
     @Override
     public void saveOrUpdateUnit(String teamId, UnitBO bo) {
         Unit unit = new Unit();
-        if (StringUtils.isBlank(bo.getId())) {
-            unit.setCreateTime(LocalDateTime.now());
-        }
         unit.setId(bo.getId());
         unit.setRate(bo.getRate());
         unit.setName(bo.getName());

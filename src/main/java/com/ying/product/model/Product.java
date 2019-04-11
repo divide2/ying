@@ -72,7 +72,12 @@ public class Product  {
     /**
      * 单位
      */
-    private String unit;
+    @Type( type = "string-array" )
+    @Column(
+            name = "unit",
+            columnDefinition = "text[]"
+    )
+    private String[] unitIds;
 
     /**
      * 创建人

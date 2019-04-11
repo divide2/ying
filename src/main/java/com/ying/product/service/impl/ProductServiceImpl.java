@@ -42,6 +42,7 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
 
     private ProductVO mergeProductSpecs(Product product) {
         ProductVO vo = ProductVO.of(product);
+        vo.setUnits(productConnectService.getUnits(product.getUnitIds()));
         List<ProductSpec> productSpecs = productSpecRepository.findByProductId(product.getId());
         vo.setSpecs(productSpecs);
         return vo;
@@ -70,8 +71,10 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
         product.setCategoryId(dto.getCategoryId());
 
         product.setName(dto.getName());
-        product.setUnit(dto.getUnit());
+        UnitResolver unitResolver = new UnitResolver(dto.getUnits());
+        product.setUnitIds(unitResolver.resolve());
         product.setRemarks(dto.getRemarks());
+        productConnectService.saveOrUpdateUnits(product.getTeamId(), unitResolver.getUnits());
         this.add(product);
         this.saveSpec(product.getId(), dto.getSpecs());
     }
@@ -86,6 +89,9 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
         product.setName(dto.getName());
         product.setCategoryId(dto.getCategoryId());
         product.setRemarks(dto.getRemarks());
+        UnitResolver unitResolver = new UnitResolver(dto.getUnits());
+        product.setUnitIds(unitResolver.resolve());
+        productConnectService.saveOrUpdateUnits(product.getTeamId(), unitResolver.getUnits());
         productSpecRepository.deleteByProductId(product.getId());
         this.saveSpec(product.getId(), dto.getSpecs());
     }

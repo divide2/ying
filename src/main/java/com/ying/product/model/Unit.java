@@ -1,12 +1,15 @@
 package com.ying.product.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 /**Lo
  * @author bvvy
@@ -15,20 +18,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "p_unit")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Unit {
 
+
     @Id
-    @GeneratedValue(generator = "custom-uuid")
-    @GenericGenerator(
-            name = "custom-uuid",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(
-                            name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
-                    )
-            }
-    )
     private String id;
 
     private String name;
@@ -36,5 +31,9 @@ public class Unit {
     private Integer rate;
 
     private String child;
+
+    private LocalDateTime createTime;
+
+    private String teamId;
 
 }

@@ -31,7 +31,7 @@ public class ProductDTO {
     private String remarks;
 
     @ApiModelProperty("单位")
-    private String unit;
+    private List<UnitDTO> units;
 
     @ApiModelProperty("规格")
     @NotEmpty

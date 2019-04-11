@@ -1,5 +1,6 @@
 package com.ying.product.vo;
 
+import com.ying.product.dto.UnitDTO;
 import com.ying.product.model.Product;
 import com.ying.product.model.ProductSpec;
 import io.swagger.annotations.ApiModel;
@@ -36,6 +37,9 @@ public class ProductVO {
      */
     @ApiModelProperty("备注描述")
     private String remarks;
+
+    @ApiModelProperty("单位信息")
+    private List<UnitDTO> units;
 
     @ApiModelProperty("产品规格")
     private List<ProductSpec> specs;

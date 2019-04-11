@@ -29,6 +29,10 @@ public class ProductUpdateDTO {
 
     private String remarks;
 
+
+    @ApiModelProperty("单位")
+    private List<UnitDTO> units;
+
     @ApiModelProperty("规格")
     @NotEmpty
     private List<ProductSpec> specs;

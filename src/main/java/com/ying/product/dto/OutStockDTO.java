@@ -21,6 +21,8 @@ public class OutStockDTO {
     @NotEmpty
     private String productId;
 
+    @NotEmpty
+    private List<StockUnitDTO> unit;
 
     @ApiModelProperty(value = "出入库方式,系统生成",hidden = true)
     private String type;

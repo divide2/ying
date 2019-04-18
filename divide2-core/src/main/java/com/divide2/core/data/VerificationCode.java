@@ -1,0 +1,13 @@
+package com.divide2.core.data;
+
+import lombok.Data;
+
+/**
+ * @author bvvy
+ * @date 2018/12/3
+ */
+@Data
+public class VerificationCode {
+
+    private String code;
+}

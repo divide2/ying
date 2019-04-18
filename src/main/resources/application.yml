@@ -33,15 +33,15 @@ aliyun:
   access-key-id: ${ALIYUN_ACCESS_KEY_ID}
   access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET}
   oss:
-    end-point: your
-    bucket-name: your
-    file-host: your
+    end-point: http://oss-cn-shenzhen.aliyuncs.com
+    bucket-name: divide2
+    file-host: oss-cn-shenzhen.aliyuncs.com
 qiniu:
   oss:
     access-key: OobyLRT8f_jxHigOjujGaGtwvLHJo8LSwzTWUQbi
     secret-key: W1HuqgbOFQbWYkZYSyxrEqNb27ajrrRl39d-BQmq
-    bucket: divide2
-    bucket-domain: http://pnjiz1f7w.bkt.clouddn.com
+    bucket: bvvy
+    bucket-domain: http://ppzn0m3ql.bkt.clouddn.com
 dic:
   status:
     enable: Y

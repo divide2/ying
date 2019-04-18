@@ -25,6 +25,7 @@ import com.ying.order.vo.OrderVO;
 import com.ying.product.dto.InStockDTO;
 import com.ying.product.dto.OutStockDTO;
 import com.ying.product.dto.ProductSpecStock;
+import com.ying.product.dto.StockUnitDTO;
 import com.ying.product.model.ProductSpec;
 import com.ying.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
@@ -92,6 +93,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
         this.add(order);
         // todo 分开？
         BigDecimal totalPrice = BigDecimal.ZERO;
+        // 增加订单产品和订单产品规格
         for (Map.Entry<String, List<ProductSpecPrice>> entry : productSpecMap.entrySet()) {
             String productId = entry.getKey();
             List<ProductSpecPrice> productSpecPriceList = entry.getValue();
@@ -105,8 +107,9 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
                 ProductSpec productSpec = orderConnectService.getProductSpec(spec.getProductSpecId());
                 OrderProductSpec orderProductSpec = new OrderProductSpec();
                 orderProductSpec.setOrderProductId(orderProduct.getId());
-                orderProductSpec.setAmount(spec.getAmount());
-                orderProductSpec.setUnit(spec.getUnit());
+//                for (StockUnitDTO unit : spec.getUnits()) {
+//
+//                }
                 orderProductSpec.setSpecName(productSpec.getName());
                 orderProductSpec.setProductSpecId(productSpec.getId());
                 orderProductSpec.setOrderId(order.getId());
@@ -138,7 +141,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
     @Transactional(rollbackFor = Exception.class)
     public void confirmDeliver(OrderDeliverDTO deliver) {
         Order order = this.get(deliver.getOrderId());
-        //获取的是订单的商品规格数量
+        //获取的是订单的商Pro品规格数量
         List<OrderProductSpec> opses = orderProductSpecRepository.findByOrderId(deliver.getOrderId());
         Map<String, List<OrderProductSpec>> collect = opses.stream().collect(Collectors.groupingBy(OrderProductSpec::getProductId));
         // 调用出库 nice job

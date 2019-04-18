@@ -27,6 +27,8 @@ public class OutStockDTO {
     @ApiModelProperty(value = "出入库方式,系统生成",hidden = true)
     private String type;
 
+    private String remarks;
+
     @ApiModelProperty("产品规格的数量 amount 是正数但是是减少的")
     @NotEmpty
     private List<ProductSpecStock> specStocks;

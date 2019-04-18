@@ -3,6 +3,7 @@ package com.ying.order.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,14 @@ public class OrderProductSpec {
     private String productSpecId;
     private String specName;
     private BigDecimal price;
+
+    /**
+     * 总数
+     */
     private Integer amount;
+    /**
+     * 单位的字符串
+     */
     private String unit;
     private LocalDateTime createTime;
 }

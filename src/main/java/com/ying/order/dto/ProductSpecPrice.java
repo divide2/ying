@@ -1,10 +1,13 @@
 package com.ying.order.dto;
 
+import com.ying.product.dto.StockUnitDTO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author bvvy
@@ -22,12 +25,10 @@ public class ProductSpecPrice {
     @ApiModelProperty(value = "产品属性关联表id")
     private String productSpecId;
 
-    @ApiModelProperty("数量")
-    private Integer amount;
-
-    @ApiModelProperty("单位")
-    private String unit;
-
+    @ApiModelProperty("单位数量")
+    @NotEmpty
+    private List<StockUnitDTO> units;
 
     private BigDecimal price;
+
 }

@@ -6,7 +6,10 @@
     <groupId>com.divide2</groupId>
     <artifactId>divide2-ying</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <modules>
+        <module>divide2-model</module>
+    </modules>
+    <packaging>pom</packaging>
 
     <name>Ying</name>
     <description>divide2 ying project</description>

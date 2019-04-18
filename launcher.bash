@@ -1,6 +1,6 @@
 #!/bin/bash
 
-app_jar=divide2-ying-0.0.1-SNAPSHOT.jar
+app_jar=divide2-core-0.0.1-SNAPSHOT.jar
 
 psid=0
 
@@ -25,7 +25,7 @@ start() {
       else
          echo "=========== Start ============"
 
-         JAVA_CMD="java -jar  ./target/${app_jar}"
+         JAVA_CMD="java -jar  ./divide2-core/target/${app_jar}"
 
          nohup ${JAVA_CMD} >/dev/null 2>&1 &
 

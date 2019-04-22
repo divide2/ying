@@ -10,6 +10,7 @@ import com.divide2.product.repo.ProductRepository;
 import com.divide2.product.repo.ProductSpecRepository;
 import com.divide2.product.service.ProductConnectService;
 import com.divide2.product.service.ProductService;
+import com.divide2.product.spec.IProductSpec;
 import com.divide2.product.vo.ProductVO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,13 +50,11 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
     }
 
 
-
     @Override
-    public Page<ProductVO> findByTeam(String  teamId, Pageable pageable) {
-        Page<Product> products = productRepository.findByTeam(teamId,pageable);
+    public Page<ProductVO> findByTeam(String teamId, Pageable pageable) {
+        Page<Product> products = productRepository.findByTeam(teamId, pageable);
         return products.map(this::mergeProductSpecs);
     }
-
 
 
     @Override
@@ -92,13 +91,15 @@ public class ProductServiceImpl extends SimpleBasicServiceImpl<Product, String, 
         UnitResolver unitResolver = new UnitResolver(dto.getUnits());
         product.setUnitIds(unitResolver.resolve());
         productConnectService.saveOrUpdateUnits(product.getTeamId(), unitResolver.getUnits());
-        productSpecRepository.deleteByProductId(product.getId());
+        // fixme
+//        productSpecRepository.deleteByProductId(product.getId());
         this.saveSpec(product.getId(), dto.getSpecs());
     }
 
-    private void saveSpec(String productId, List<ProductSpec> specs) {
+    private void saveSpec(String productId, List<? extends IProductSpec> specs) {
         specs.forEach(spec -> {
             ProductSpec productSpec = new ProductSpec();
+            productSpec.setId(spec.getId());
             productSpec.setProductId(productId);
             productSpec.setPrice(spec.getPrice());
             productSpec.setName(spec.getName());

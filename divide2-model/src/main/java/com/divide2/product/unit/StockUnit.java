@@ -1,4 +1,4 @@
-package divide2.product.unit;
+package com.divide2.product.unit;
 
 import lombok.Data;
 
@@ -10,5 +10,5 @@ import lombok.Data;
 public class StockUnit {
 
     private String units;
-    private Integer amount;
+    private Integer totalAmount;
 }

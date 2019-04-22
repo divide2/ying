@@ -1,4 +1,4 @@
-package divide2.product.unit;
+package com.divide2.product.unit;
 
 import lombok.Data;
 
@@ -7,7 +7,7 @@ import lombok.Data;
  * @date 2019/4/18
  */
 @Data
-public class UnitAmount {
+public class OrderUnit {
 
     private String id;
     private Integer amount;

@@ -1,15 +1,16 @@
 package com.divide2.order.model;
 
+import com.divide2.core.model.BaseEntity;
+import com.divide2.product.unit.UnitAmount;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * 订单最后一层 是规格级别的
@@ -20,21 +21,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="o_order_product_spec")
-public class OrderProductSpec {
+public class OrderProductSpec extends BaseEntity {
 
-    @Id
-    @GeneratedValue(generator = "custom-uuid")
-    @GenericGenerator(
-            name = "custom-uuid",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(
-                            name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.CustomVersionOneStrategy"
-                    )
-            }
-    )
-    private String id;
     private String orderId;
     private String orderProductId;
     private String productName;
@@ -43,13 +31,8 @@ public class OrderProductSpec {
     private String specName;
     private BigDecimal price;
 
-    /**
-     * 总数
-     */
-    private Integer amount;
-    /**
-     * 单位的字符串
-     */
-    private String unit;
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
+    private List<UnitAmount> unitAmounts;
     private LocalDateTime createTime;
 }

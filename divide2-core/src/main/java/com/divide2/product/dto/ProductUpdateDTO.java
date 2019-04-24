@@ -51,11 +51,7 @@ public class ProductUpdateDTO {
         public String getName() {
             return null;
         }
-        @Override
-        @ApiModelProperty(hidden = true)
-        public Integer getAmount() {
-            return 0;
-        }
+
     }
     @Data
     public static class ProductSpecDTO implements IProductSpec {

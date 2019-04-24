@@ -7,8 +7,9 @@ import lombok.Data;
  * @date 2019/4/18
  */
 @Data
-public class OrderUnit {
+public class UnitAmount {
 
     private String id;
+    private String name;
     private Integer amount;
 }

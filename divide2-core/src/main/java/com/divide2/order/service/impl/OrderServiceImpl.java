@@ -1,5 +1,6 @@
 package com.divide2.order.service.impl;
 
+import com.divide2.product.unit.Uniter;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.divide2.core.basic.service.impl.SimpleBasicServiceImpl;
 import com.divide2.core.data.del.SingleStringId;
@@ -149,7 +150,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             outStock.setProductId(productId);
             outStock.setWarehouseId(deliver.getWarehouseId());
             List<ProductSpecStock> productSpecStocks = specs.stream()
-                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
+                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), Uniter.compose(spec.getUnitAmounts()).getTotalAmount())).collect(toList());
             outStock.setSpecStocks(productSpecStocks);
             outStock.setTeamId(order.getToTeamId());
             outStock.setType(stockType.getDeliver());
@@ -171,7 +172,7 @@ public class OrderServiceImpl extends SimpleBasicServiceImpl<Order, String, Orde
             inStock.setProductId(productId);
             inStock.setWarehouseId(receive.getWarehouseId());
             List<ProductSpecStock> productSpecStocks = specs.stream()
-                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), spec.getAmount())).collect(toList());
+                    .map(spec -> new ProductSpecStock(spec.getProductSpecId(), Uniter.compose(spec.getUnitAmounts()).getTotalAmount())).collect(toList());
             inStock.setSpecStocks(productSpecStocks);
             inStock.setTeamId(order.getFromTeamId());
             inStock.setType(stockType.getReceive());

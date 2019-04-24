@@ -2,6 +2,7 @@ package com.divide2.product.service.impl;
 
 import com.divide2.product.bo.UnitBO;
 import com.divide2.product.dto.UnitDTO;
+import com.divide2.product.unit.IProductUnit;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class UnitResolver {
 
     private final List<UnitBO> units;
 
-    public UnitResolver(List<UnitDTO> aunits) {
+    public UnitResolver(List<? extends IProductUnit> aunits) {
         units = new ArrayList<>();
         aunits.forEach(this::add);
     }
@@ -26,7 +27,7 @@ public class UnitResolver {
         this(new ArrayList<>());
     }
 
-    public void add(UnitDTO dto) {
+    public void add(IProductUnit dto) {
         String id;
         if (StringUtils.isBlank(dto.getId())) {
             id = UUID.randomUUID().toString();

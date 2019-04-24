@@ -1,6 +1,7 @@
 package com.divide2.order.dto;
 
 import com.divide2.product.dto.StockUnitDTO;
+import com.divide2.product.unit.UnitAmount;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -27,7 +28,7 @@ public class ProductSpecPrice {
 
     @ApiModelProperty("单位数量")
     @NotEmpty
-    private List<StockUnitDTO> units;
+    private List<UnitAmount> units;
 
     private BigDecimal price;
 

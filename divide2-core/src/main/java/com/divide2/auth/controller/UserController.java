@@ -7,9 +7,11 @@ import com.divide2.auth.dto.UserUpdateDTO;
 import com.divide2.auth.model.User;
 import com.divide2.auth.service.UserService;
 import com.divide2.auth.vo.UserVO;
+import com.divide2.core.Exist;
 import com.divide2.core.data.del.SingleId;
 import com.divide2.core.data.resp.Messager;
 import com.divide2.core.er.Responser;
+import com.divide2.user.UserExist;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.data.domain.Page;
@@ -77,10 +79,16 @@ public class UserController {
 
     @GetMapping("/find")
     @ApiOperation("获取分页")
-    public ResponseEntity<Page<UserVO>> find(UserQueryDTO query,Pageable pageable) {
+    public ResponseEntity<Page<UserVO>> find(UserQueryDTO query, Pageable pageable) {
         Page<User> users = userService.find(query, pageable);
         return Responser.ok(users.map(UserVO::fromUser));
     }
 
+    @GetMapping("/exist/{type}")
+    @ApiOperation("是否存在")
+    public ResponseEntity<Exist> exist(UserExist userExist) {
+        Exist exist = userService.checkExist(userExist);
+        return Responser.ok(exist);
+    }
 
 }

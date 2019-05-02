@@ -1,5 +1,7 @@
 package com.divide2.auth.service.impl;
 
+import com.divide2.core.Exist;
+import com.divide2.user.UserExist;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.divide2.auth.dto.PwdFindDTO;
@@ -116,5 +118,23 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
         user.setNickname(dto.getNickname());
         user.setAvatar(dto.getAvatar());
         this.update(user);
+    }
+
+    @Override
+    public Exist checkExist(UserExist userExist) {
+
+        if (StringUtils.isNotBlank(userExist.getPhone())) {
+            User byPhone = userRepository.getByPhone(userExist.getPhone());
+            if (byPhone == null) {
+                return new Exist(true);
+            }
+        }
+        if (StringUtils.isNotBlank(userExist.getUsername())) {
+            User byUsername = getByUsername(userExist.getUsername());
+            if (byUsername != null) {
+                return new Exist(true);
+            }
+        }
+        return new Exist(false);
     }
 }

@@ -7,7 +7,9 @@ import com.divide2.auth.dto.UserSearchDTO;
 import com.divide2.auth.dto.UserUpdateDTO;
 import com.divide2.auth.model.User;
 import com.divide2.auth.vo.UserVO;
+import com.divide2.core.Exist;
 import com.divide2.core.basic.service.BasicService;
+import com.divide2.user.UserExist;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -60,5 +62,7 @@ public interface UserService extends BasicService<User,Integer> {
     void findPwd(PwdFindDTO pwdFind);
 
     void update(UserUpdateDTO dto);
+
+    Exist checkExist(UserExist userExist);
 
 }

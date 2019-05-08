@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 
 /**
@@ -84,7 +85,7 @@ public class UserController {
         return Responser.ok(users.map(UserVO::fromUser));
     }
 
-    @GetMapping("/exist/{type}")
+    @GetMapping("/exist")
     @ApiOperation("是否存在")
     public ResponseEntity<Exist> exist(UserExist userExist) {
         Exist exist = userService.checkExist(userExist);

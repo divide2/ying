@@ -21,6 +21,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                         "/webjars/**",
                         "/join",
                         "/v1/verify/code",
+                        "/v1/user/exist",
                         "/v1/pwd/find").permitAll()
                 .anyRequest().authenticated();
     }

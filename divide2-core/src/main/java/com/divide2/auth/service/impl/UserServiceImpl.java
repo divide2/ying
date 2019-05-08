@@ -125,7 +125,7 @@ public class UserServiceImpl extends SimpleBasicServiceImpl<User, Integer, UserR
 
         if (StringUtils.isNotBlank(userExist.getPhone())) {
             User byPhone = userRepository.getByPhone(userExist.getPhone());
-            if (byPhone == null) {
+            if (byPhone != null) {
                 return new Exist(true);
             }
         }

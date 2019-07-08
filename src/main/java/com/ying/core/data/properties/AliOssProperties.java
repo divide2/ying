@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * @author bvvy
  * @date 2018/7/17
  */
-@ConfigurationProperties(prefix = "alibaba.oss")
+@ConfigurationProperties(prefix = "aliyun")
 @Component
 @Data
 public class AliOssProperties {

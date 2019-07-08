@@ -1,0 +1,28 @@
+[
+  {
+    "name": "团队",
+    "children": [
+      "team:member:view",
+      "team:workbench:view",
+      "team:cooperation:view"
+    ]
+  },
+  {
+    "name": "商品",
+    "children": [
+      "team:product:view",
+      "team:stock:view",
+      "team:stock:in",
+      "team:stock:out",
+      "team:stream:view"
+    ]
+  },
+  {
+    "name": "订单",
+    "children": [
+      "order:purchase:view",
+      "order:sell:view",
+      "order:cooperation:view"
+    ]
+  }
+]

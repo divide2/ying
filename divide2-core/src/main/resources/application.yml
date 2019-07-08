@@ -1,0 +1,72 @@
+server:
+  port: 8080
+spring:
+  jpa:
+    database: postgresql
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: bvvyeh288
+    url: jdbc:postgresql://120.77.153.225:5432/denominator
+  profiles:
+    active: default
+  application:
+    name: ying
+  jackson:
+    default-property-inclusion: non_null
+logging:
+  level:
+    org:
+      springframework:
+       web: debug
+       security: debug
+aliyun:
+  access-key-id: ${ALIYUN_ACCESS_KEY_ID}
+  access-key-secret: ${ALIYUN_ACCESS_KEY_SECRET}
+  oss:
+    end-point: http://oss-cn-shenzhen.aliyuncs.com
+    bucket-name: divide2
+    file-host: oss-cn-shenzhen.aliyuncs.com
+qiniu:
+  oss:
+    access-key: OobyLRT8f_jxHigOjujGaGtwvLHJo8LSwzTWUQbi
+    secret-key: W1HuqgbOFQbWYkZYSyxrEqNb27ajrrRl39d-BQmq
+    bucket: bvvy
+    bucket-domain: http://ppzn0m3ql.bkt.clouddn.com
+dic:
+  status:
+    enable: Y
+    disable: N
+divide:
+  dic:
+    status:
+      order:
+        waiting-confirm: waiting_confirm
+        waiting-deliver: waiting_deliver
+        waiting-receive: waiting_receive
+        finish: finish
+      application:
+        waiting-confirm: waiting_confirm
+        finish: finish
+    type:
+      warehouse:
+        pair: pair
+        prod: prod
+      stock:
+        deliver: deliver
+        receive: receive
+  defaults:
+    avatar: https://avatars2.githubusercontent.com/u/15703262?s=460&v=4
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://localhost:8080/v1/user

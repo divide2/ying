@@ -1,0 +1,97 @@
+= 思考过程
+
+== 团队权限这部分
+
+=== 2019-2-25 acl 关联
+用户和小组 共同关联 menu
+
+    teamId -> userId/squadId -> menuId
+    1     1    1
+    1     1    2
+    1     1    3
+    一个团队8个人 菜单算10个 每个 3 个功能  8x30  240条数据
+    一个用户近百条记录     修改的时候 先删除 再添加
+
+=== 2019-2-26 是否把acl关联的menuId设置为数组类型
+
+    teamId -> user/squad -> menuIds[]
+    1  1  [1,2,3]
+    一个用户一条数据  修改时直接设置值为新的数据
+
+=== 2019-2-26  团队菜单部分工作台部分是否也可以是一个数组
+
+    目前是两个表 workbench 和 menu_group
+     menu_group:  name order_num
+                  常用  1
+                  统计  2
+    workbench :  teamId -> menu_group_id -> menuId -> menu_order_num
+                 1  1  1  1
+                 1  1  2  2
+                 1  2  3  1
+                 1  2  4  2
+                 一个团队 5个分组 5个菜单
+                 1个团队近25条数据
+    一个表是否能够解决这个问题
+    teamId -> menuGroup -> groupName -> menuIds[] -> group_order_num
+            1   1  常用 [1,2] 2
+            1   2  统计 [3,4] 1
+    需要有排序和从中间删除,这部分比较麻烦,
+    排序可以用index做位置
+
+=== 2019-3-1  基础菜单部分使用 组  还是使用 父级菜单
+
+* 商品
+** 查看 list get/  read
+** 修改 edit       write
+** 删除 delete     write
+** 添加 add        write
+* 成员
+** 查看
+** 设置权限
+** 编辑成员信息
+** 移除成员
+* 库存
+** xx
+* 统计
+** 库存统计 read
+** xx统计 read
+
+往工作台放菜单的时候是
+
+还是决定放到一个menu里面
+
+    id   name  path    icon shortcut   pid  authority
+    1    商品  /p        p   true       0   p:v
+    2    查看  /p/v          false      1   p:v
+    3    编辑  /p/e          false      1   p:e
+    4    删除  /p/d          false      1   p:d
+    5    新增  /p/c      pc  true       1   p:c
+    6    成员  /m        m   true       0   m:
+    7    统计  /a        a   true       0   a:
+    8    库存统计 /a/s   s   true       0   a:s
+    workbench中 关联id
+    这样查 workbench时查只是shortcut的
+    acl中关联authority 这样判断权限是只用判断 authority
+    team     squad/user   authority
+    1         1            p:v
+    1         2            p:e
+
+== 库存商品
+
+=== 商品单位
+
+1箱  1件 购买
+
+=== 库存流水
+
+记录库存变化情况 入库为 正  出库为 负
+
+
+== 聊天模块
+
+=== 2019-3-4  chat(也可以换个名字)
+就是聊天的列表 -> 代表最近收到的通知或发出的信息
+不仅仅有用户聊天的信息列表 还有 系统推送的信息
+几乎所有的模块都会用到这个
+所以这一块应该单独拿出去作为一个新的模块
+而不是在friend里面
